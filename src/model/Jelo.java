@@ -30,9 +30,6 @@ public class Jelo {
 		cena = cena;
 	}
 	public Jelo(String naziv, String tekst, float cena) {
-
-
-
 		naziv = naziv;
 		tekst = tekst;
 		cena = cena;
