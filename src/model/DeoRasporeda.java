@@ -3,8 +3,8 @@ package model;
 import java.util.Date;
 
 public class DeoRasporeda {
-	private Date Pocetak;
-	private Date Kraj;
-	private Radnik Radnik;
+	private Date pocetak;
+	private Date kraj;
+	private Radnik radnik;
 	//TODO radno mesto
 }

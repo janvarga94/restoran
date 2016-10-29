@@ -1,5 +1,5 @@
 package model;
 
 public class Konobar extends Radnik {
-	private Reon Reon;
+	private Reon reon;
 }

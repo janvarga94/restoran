@@ -1,5 +1,5 @@
 package model;
 
 public class Namirnica {
-	public String Naziv;
+	private String naziv;
 }

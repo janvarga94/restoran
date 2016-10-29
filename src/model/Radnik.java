@@ -3,10 +3,10 @@ package model;
 import java.util.Date;
 
 public abstract class Radnik {
-	private String Ime;
-	private String Prezime;
-	private Date Rodjen;
-	private int KonfekcijskiBroj;
-	private int VelicinaObuce;
+	private String ime;
+	private String prezime;
+	private Date rodjen;
+	private int konfekcijskiBroj;
+	private int velicinaObuce;
 	//TODO smena nesto
 }

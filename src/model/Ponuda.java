@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Ponuda {
-	private ArrayList<Namirnica> Namirnice;
-	private ArrayList<Pice> Pica;
-	private Date PocetakPonude;
-	private Date KrajPonude;
-	private boolean Prihvacena;
+	private ArrayList<Namirnica> namirnice;
+	private ArrayList<Pice> pica;
+	private Date pocetakPonude;
+	private Date krajPonude;
+	private boolean prihvacena;
 }

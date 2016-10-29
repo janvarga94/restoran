@@ -4,47 +4,47 @@ import java.util.ArrayList;
 
 
 public class Restoran {
-	private String Naziv;
-	private String Vrsta;
-	private ArrayList<Jelo> Jelovnik;
-	private Konfiguracija Konfiguracija;
+	private String naziv;
+	private String vrsta;
+	private ArrayList<Jelo> jelovnik;
+	private Konfiguracija konfiguracija;
 	private float Ocena;	
 //	private HashMap<Jelo,float> OceneJela;
 
 	public Restoran(String naziv, String vrsta, ArrayList<Jelo> jelovnik, model.Konfiguracija konfiguracija) {
 		super();
-		Naziv = naziv;
-		Vrsta = vrsta;
-		Jelovnik = jelovnik;
-		Konfiguracija = konfiguracija;
+		naziv = naziv;
+		vrsta = vrsta;
+		jelovnik = jelovnik;
+		konfiguracija = konfiguracija;
 	}
 	public Restoran() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public String getNaziv() {
-		return Naziv;
+		return naziv;
 	}
 	public void setNaziv(String naziv) {
-		Naziv = naziv;
+		naziv = naziv;
 	}
 	public String getVrsta() {
-		return Vrsta;
+		return vrsta;
 	}
 	public void setVrsta(String vrsta) {
-		Vrsta = vrsta;
+		vrsta = vrsta;
 	}
 	public ArrayList<Jelo> getJelovnik() {
-		return Jelovnik;
+		return jelovnik;
 	}
 	public void setJelovnik(ArrayList<Jelo> jelovnik) {
-		Jelovnik = jelovnik;
+		jelovnik = jelovnik;
 	}
 	public Konfiguracija getKonfiguracija() {
-		return Konfiguracija;
+		return konfiguracija;
 	}
 	public void setKonfiguracija(Konfiguracija konfiguracija) {
-		Konfiguracija = konfiguracija;
+		konfiguracija = konfiguracija;
 	}
 	
 	

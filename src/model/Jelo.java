@@ -2,38 +2,38 @@ package model;
 
 public class Jelo {
 	
-	public String Naziv;
-	public String Tekst;
-	public float Cena;
+	private String naziv;
+	private String tekst;
+	private float cena;
 	
 	
 	public String getNaziv() {
-		return Naziv;
+		return naziv;
 	}
 	public void setNaziv(String naziv) {
-		Naziv = naziv;
+		naziv = naziv;
 	}
 	public String getTekst() {
-		return Tekst;
+		return tekst;
 	}
 	public Jelo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public void setTekst(String tekst) {
-		Tekst = tekst;
+		tekst = tekst;
 	}
 	public float getCena() {
-		return Cena;
+		return cena;
 	}
 	public void setCena(float cena) {
-		Cena = cena;
+		cena = cena;
 	}
 	public Jelo(String naziv, String tekst, float cena) {
 		super();
-		Naziv = naziv;
-		Tekst = tekst;
-		Cena = cena;
+		naziv = naziv;
+		tekst = tekst;
+		cena = cena;
 	}
 
 }
