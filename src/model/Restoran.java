@@ -9,7 +9,7 @@ public class Restoran {
 	private ArrayList<Jelo> Jelovnik;
 	private Konfiguracija Konfiguracija;
 	private float Ocena;	
-//	private HashMap<Jelo,float> OceneJela;
+//	private HashMap<Jelo,float> OceneJela;jj
 
 	public Restoran(String naziv, String vrsta, ArrayList<Jelo> jelovnik, model.Konfiguracija konfiguracija) {
 		super();
