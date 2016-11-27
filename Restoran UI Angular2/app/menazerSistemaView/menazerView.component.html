@@ -1,0 +1,35 @@
+<h2 style="margin-top:20px;">Dodavanje restorana</h2>
+<form style="margin-top:20px;">
+    
+    <div class="form-group form-inline">   
+        <label> Naziv </label>
+        <input type="text" class="form-control" placeholder="*">  
+   
+        <label> Vrsta </label>
+        <input type="text" class="form-control" placeholder="*">  
+   
+        <label> Vlasnik </label>
+        <input type="text" class="form-control" placeholder="*">  
+
+        <button class="btn btn-success" (click)="dodaj()">Dodaj</button>
+    </div>
+
+
+</form>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Vrsta</th>
+      <th>Ocena</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let restoran of restorani">
+      <td>{{restoran.naziv}}</td>
+      <td>{{restoran.vrsta}}</td>
+      <td>{{restoran.ocena}}</td>
+    </tr>
+  </tbody>
+</table>

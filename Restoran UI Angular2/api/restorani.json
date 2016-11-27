@@ -1,0 +1,20 @@
+[
+    {
+        "naziv" : "gsdlkjdlkaj",
+        "vrsta" : "asdfasdfasdfsdafs",
+        "jelovnik" : [
+            {
+                "naziv" : "hsdfa",
+                "text" : " hddafsdfsd",
+                "cena" : 523
+            },
+             {
+                "naziv" : "ghfdgd",
+                "text" : " hddafsdfsd",
+                "cena" : 523
+            }
+        ],
+        "konfiguracija" : "fdsfsd",
+        "ocena" : 3
+    }
+]
