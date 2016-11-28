@@ -1,21 +1,21 @@
 <h2 style="margin-top:20px;">Dodavanje restorana</h2>
-<form style="margin-top:20px;">
+<div class="row" style="margin-top:20px;">
     
     <div class="form-group form-inline">   
         <label> Naziv </label>
-        <input type="text" class="form-control" placeholder="*">  
+        <input type="text" class="form-control" [(ngModel)]="noviNaziv" placeholder="*">  
    
         <label> Vrsta </label>
-        <input type="text" class="form-control" placeholder="*">  
+        <input type="text" class="form-control"  [(ngModel)]="novaVrsta" placeholder="*">  
    
         <label> Vlasnik </label>
-        <input type="text" class="form-control" placeholder="*">  
+        <input type="text" class="form-control"  [(ngModel)]="noviVlasnik" placeholder="*">  
 
         <button class="btn btn-success" (click)="dodaj()">Dodaj</button>
     </div>
 
 
-</form>
+</div>
 
 <table class="table">
   <thead>
@@ -23,6 +23,7 @@
       <th>Naziv</th>
       <th>Vrsta</th>
       <th>Ocena</th>
+      <th>#</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +31,7 @@
       <td>{{restoran.naziv}}</td>
       <td>{{restoran.vrsta}}</td>
       <td>{{restoran.ocena}}</td>
+      <td><button (click)="obrisiRestoran(restoran)" class="btn btn-primary btn-sm">✕</button></td>
     </tr>
   </tbody>
 </table>

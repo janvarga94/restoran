@@ -14,9 +14,11 @@ var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/do');
 require('rxjs/add/operator/catch');
 require('rxjs/add/operator/map');
+var notification_service_1 = require('./notification.service');
 var RestoranService = (function () {
-    function RestoranService(_http) {
+    function RestoranService(_http, _notificator) {
         this._http = _http;
+        this._notificator = _notificator;
         this._restoraniUrl = 'api/restorani.json';
     }
     RestoranService.prototype.getRestorani = function () {
@@ -31,7 +33,13 @@ var RestoranService = (function () {
     };
     RestoranService.prototype.getRestoran = function (id) {
         return this.getRestorani()
-            .map(function (restorani) { return restorani.find(function (r) { return r.naziv === id; }); });
+            .map(function (restorani) { return restorani.find(function (r) { return r.naziv === id; }); })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.addRestoran = function (restoran) {
+        return this._http.get("api/successResponse.json")
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
     };
     RestoranService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
@@ -41,7 +49,7 @@ var RestoranService = (function () {
     };
     RestoranService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
     ], RestoranService);
     return RestoranService;
 }());

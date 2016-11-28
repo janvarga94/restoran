@@ -4,8 +4,8 @@ import {IJelo} from './jelo';
 export interface IRestoran {
     naziv : string,
     vrsta : string,
-    jelovnik : IJelo[],
+    jelovnik? : IJelo[],
     konfiguracija : string,
-    ocena : number
+    ocena? : number
 }
 

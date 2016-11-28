@@ -7,12 +7,15 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { IRestoran } from '../models/restoran';
+import { ISuccess} from '../models/ISuccess';
+
+import { Notificator } from './notification.service';
 
 @Injectable()
 export class RestoranService {
     private _restoraniUrl = 'api/restorani.json';
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private _notificator: Notificator) { }
 
     getRestorani(): Observable<IRestoran[]> {
         return this._http.get(this._restoraniUrl)
@@ -27,8 +30,18 @@ export class RestoranService {
 
     getRestoran(id: string): Observable<IRestoran> {
         return this.getRestorani()
-            .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id));
+            .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+            .catch(this.handleError);
     }
+
+
+    addRestoran(restoran : IRestoran): Observable<ISuccess>{
+          return this._http.get("api/successResponse.json")
+            .map((response: Response) => {   return <ISuccess> response.json(); })
+            .catch(this.handleError);        
+    }
+
+
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

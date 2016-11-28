@@ -10,6 +10,10 @@ import {RestoranService} from '../services/restorani.service';
 })
 export class MenazerSistemaViewComponent implements OnInit {
     
+    noviNaziv : string;
+    novaVrsta : string;
+    noviVlasnik : string;
+
     restorani : IRestoran[]
 
     constructor(private _notificator: Notificator,private _restoraniService: RestoranService) {
@@ -24,7 +28,29 @@ export class MenazerSistemaViewComponent implements OnInit {
 
 
     dodaj(){
-        this._notificator.notifySuccess("Kao dodat");
+        if(this.noviNaziv && this.novaVrsta && this.noviVlasnik){
+            var noviRestoran : IRestoran = {
+                naziv : this.noviNaziv,
+                vrsta : this.novaVrsta,
+                konfiguracija : ""
+            };
+            this._restoraniService
+            .addRestoran(noviRestoran)
+            .subscribe( response => {
+                if(response.success){
+                    this._notificator.notifySuccess('Uspesno dodat restoran');
+                    this.restorani.push(noviRestoran);
+                }
+            });
+        } 
+    }
+
+    obrisiRestoran(restoran : IRestoran){
+        var index = this.restorani.indexOf(restoran);
+        if(index > -1){
+            this.restorani.splice(index,1);
+            this._notificator.notifySuccess("Restoran obrisan");    
+        }
     }
 
  }

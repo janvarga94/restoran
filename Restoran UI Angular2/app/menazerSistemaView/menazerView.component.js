@@ -23,7 +23,29 @@ var MenazerSistemaViewComponent = (function () {
         });
     };
     MenazerSistemaViewComponent.prototype.dodaj = function () {
-        this._notificator.notifySuccess("Kao dodat");
+        var _this = this;
+        if (this.noviNaziv && this.novaVrsta && this.noviVlasnik) {
+            var noviRestoran = {
+                naziv: this.noviNaziv,
+                vrsta: this.novaVrsta,
+                konfiguracija: ""
+            };
+            this._restoraniService
+                .addRestoran(noviRestoran)
+                .subscribe(function (response) {
+                if (response.success) {
+                    _this._notificator.notifySuccess('Uspesno dodat restoran');
+                    _this.restorani.push(noviRestoran);
+                }
+            });
+        }
+    };
+    MenazerSistemaViewComponent.prototype.obrisiRestoran = function (restoran) {
+        var index = this.restorani.indexOf(restoran);
+        if (index > -1) {
+            this.restorani.splice(index, 1);
+            this._notificator.notifySuccess("Restoran obrisan");
+        }
     };
     MenazerSistemaViewComponent = __decorate([
         core_1.Component({
