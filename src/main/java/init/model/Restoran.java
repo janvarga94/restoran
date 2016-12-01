@@ -2,7 +2,9 @@ package init.model;
 
 import java.util.ArrayList;
 
-
+/**
+ * This class is created by Jan Varga leta gospodnjeg 2016
+ */
 public class Restoran {
 	private String naziv;
 	private String vrsta;
