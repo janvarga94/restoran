@@ -5,5 +5,5 @@ package init.model;
  * Something something birthday to you
  */
 public class Konfiguracija {
-
+    private int broj;
 }
