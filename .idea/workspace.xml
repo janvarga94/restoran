@@ -681,7 +681,7 @@
       <workItem from="1480691226766" duration="717000" />
       <workItem from="1481047966759" duration="162000" />
       <workItem from="1481293515377" duration="1325000" />
-      <workItem from="1481729953184" duration="2080000" />
+      <workItem from="1481729953184" duration="2094000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit  vcs added">
       <created>1480628841848</created>
@@ -718,11 +718,18 @@
       <option name="project" value="LOCAL" />
       <updated>1481734707733</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="something">
+      <created>1481735851974</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1481735851974</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16872000" />
+    <option name="totallyTimeSpent" value="16886000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -792,7 +799,8 @@
     <MESSAGE value="added .gitignore" />
     <MESSAGE value="Restoran javadoc" />
     <MESSAGE value="gitignore test" />
-    <option name="LAST_COMMIT_MESSAGE" value="gitignore test" />
+    <MESSAGE value="something" />
+    <option name="LAST_COMMIT_MESSAGE" value="something" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
