@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="63dd1f38-700a-4d33-b248-a32c2eee4978" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -601,7 +600,7 @@
       <workItem from="1480631203871" duration="49000" />
       <workItem from="1481734530036" duration="691000" />
       <workItem from="1481735359120" duration="1210000" />
-      <workItem from="1481736614783" duration="139000" />
+      <workItem from="1481736614783" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit  vcs added">
       <created>1480628841848</created>
@@ -645,11 +644,18 @@
       <option name="project" value="LOCAL" />
       <updated>1481736701689</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Merge branch 'master' of https://github.com/janvarga94/restoran&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;">
+      <created>1481736758620</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1481736758620</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14433000" />
+    <option name="totallyTimeSpent" value="14607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
