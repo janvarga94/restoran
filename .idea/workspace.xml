@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="63dd1f38-700a-4d33-b248-a32c2eee4978" name="Default" comment="Merge branch 'master' of https://github.com/janvarga94/restoran&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/init/Main.class" afterPath="$PROJECT_DIR$/target/classes/init/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/init/model/Restoran.class" afterPath="$PROJECT_DIR$/target/classes/init/model/Restoran.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/init/restServices/AccessRestorani.class" afterPath="$PROJECT_DIR$/target/classes/init/restServices/AccessRestorani.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/init/services/ServiceRestorani.class" afterPath="$PROJECT_DIR$/target/classes/init/services/ServiceRestorani.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+    <list default="true" id="63dd1f38-700a-4d33-b248-a32c2eee4978" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/init/model/Konfiguracija.java" afterPath="$PROJECT_DIR$/src/main/java/init/model/Konfiguracija.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/init/model/Restoran.java" afterPath="$PROJECT_DIR$/src/main/java/init/model/Restoran.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/init/restServices/AccessRestorani.java" afterPath="$PROJECT_DIR$/src/main/java/init/restServices/AccessRestorani.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/init/services/ServiceRestorani.java" afterPath="$PROJECT_DIR$/src/main/java/init/services/ServiceRestorani.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -60,7 +53,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Konfiguracija.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Konfiguracija.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/init/model/Konfiguracija.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
@@ -80,7 +73,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AccessRestorani.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AccessRestorani.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/init/restServices/AccessRestorani.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="202">
@@ -673,7 +666,7 @@
       <workItem from="1480630902338" duration="292000" />
       <workItem from="1480631203871" duration="49000" />
       <workItem from="1481734530036" duration="691000" />
-      <workItem from="1481735359120" duration="251000" />
+      <workItem from="1481735359120" duration="758000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit  vcs added">
       <created>1480628841848</created>
@@ -696,11 +689,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480630962087</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Merge branch 'master' of https://github.com/janvarga94/restoran&#10;&#10;# Conflicts:&#10;#&#9;.gitignore&#10;#&#9;.idea/workspace.xml&#10;">
+      <created>1481735625916</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1481735625916</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13335000" />
+    <option name="totallyTimeSpent" value="13842000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1118,14 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/init/model/Konfiguracija.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/init/services/ServiceRestorani.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -1138,6 +1130,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="30" column="10" lean-forward="false" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/init/model/Konfiguracija.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
