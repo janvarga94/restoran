@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * This class was created by Jan Varga leta gospodnjeg 2016
+ * something something
  */
 public class Restoran {
 	private String naziv;
