@@ -27,7 +27,8 @@ public class AccessRestorani {
     }
 
     @RequestMapping(path = "/add",method = RequestMethod.POST)
-    public void addRestoran(){
-        restorani.addRestoran("pentagram", "vruce i ugljevito");
+    public void addRestoran(Restoran r){
+        r.getNaziv();
+        restorani.addRestoran(r);
     }
 }
