@@ -20,8 +20,8 @@ public class ServiceRestorani {
         return restorani.getRestorani();
     }
 
-    public void addRestoran(String naziv, String vrsta){
+    public void addRestoran(Restoran r){
         //verifikacija i validacija
-        restorani.addRestoran(naziv, vrsta);
+        restorani.addRestoran(r.getNaziv(), r.getVrsta());
     }
 }
