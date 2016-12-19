@@ -8,12 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
 var LoginService = (function () {
     function LoginService(_http) {
         this._http = _http;
@@ -44,11 +44,11 @@ var LoginService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
-    LoginService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
-    ], LoginService);
     return LoginService;
 }());
+LoginService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

@@ -16,6 +16,7 @@ import { MenazerSistemaViewComponent} from './menazerSistemaView/menazerView.com
 import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
+import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 
 
 @NgModule({
@@ -25,19 +26,21 @@ import {Notificator} from './services/notification.service';
      HttpModule,
      ToastModule,
      RouterModule.forRoot([
-       { path: 'restorani', component : RestoraniComponent},
-       { path: 'restoran/:id', component : RestoranDetailComponent},
-       { path: 'welcome', component : WelcomeComponent},
-       { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
-       { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-       { path: '**', component : PageNotFoundComponent},
-   
+        { path: 'restorani', component : RestoraniComponent},
+        { path: 'restoran/:id', component : RestoranDetailComponent},
+         { path: 'zaposleni', component : ZaposleniComponent},
+        { path: 'welcome', component : WelcomeComponent},
+        { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
+        { path: '', redirectTo: 'welcome', pathMatch: 'full'},
+        { path: '**', component : PageNotFoundComponent},
+
      ]), 
   ],
   declarations: [
     AppComponent,
     WelcomeComponent,
     RestoraniComponent,
+      ZaposleniComponent,
     RestoranDetailComponent,
     HeaderComponent,
     PageNotFoundComponent,

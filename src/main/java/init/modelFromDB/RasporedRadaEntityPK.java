@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/18/2016.
+ * Created by Svetozar Stojkovic on 12/19/2016.
  */
 public class RasporedRadaEntityPK implements Serializable {
     private int idSmene;

@@ -1,3 +1,6 @@
+/**
+ * Created by Svetozar Stojkovic on 12/19/2016.
+ */
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
@@ -6,43 +9,40 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { IRestoran } from '../models/restoran';
+import { IZaposleni } from '../models/zaposleni';
 import { ISuccess} from '../models/ISuccess';
 
 import { Notificator } from './notification.service';
 
 @Injectable()
-export class RestoranService {
-    private _restoraniUrl = 'http://localhost:8080/resursi/restorani';
+export class ZaposleniService {
+    private _zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
-    getRestorani(): Observable<IRestoran[]> {
-        return this._http.get(this._restoraniUrl)
+    getZaposleni(): Observable<IZaposleni[]> {
+        return this._http.get(this._zaposleniUrl)
             .map((response: Response) => {
-                var restorani = <IRestoran[]> response.json();
+                var zaposleni = <IZaposleni[]> response.json();
                 // for(var i = 0; i < 10; i++)
                 //     restorani.push(restorani[0]);
-                console.log(restorani.length);
-                return restorani;
+                return zaposleni;
             })
             .catch(this.handleError);
     }
 
-    getRestoran(id: string): Observable<IRestoran> {
-        return this.getRestorani()
-            .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+    getZaposlen(id: number): Observable<IZaposleni> {
+        return this.getZaposleni()
+            .map((zaposleni: IZaposleni[]) => zaposleni.find(z => z.mbr === id))
             .catch(this.handleError);
     }
 
 
-    addRestoran(restoran : IRestoran): Observable<ISuccess>{
-          return this._http.get("api/successResponse.json")
+    addZaposleni(zaposleni : IZaposleni): Observable<ISuccess>{
+        return this._http.get("api/successResponse.json")
             .map((response: Response) => {   return <ISuccess> response.json(); })
-            .catch(this.handleError);        
+            .catch(this.handleError);
     }
-
-
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

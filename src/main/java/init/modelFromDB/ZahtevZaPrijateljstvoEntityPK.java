@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 12/18/2016.
+ * Created by Svetozar Stojkovic on 12/19/2016.
  */
 public class ZahtevZaPrijateljstvoEntityPK implements Serializable {
     private int idPosiljaoca;

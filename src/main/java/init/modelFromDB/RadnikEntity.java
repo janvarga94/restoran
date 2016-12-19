@@ -4,28 +4,18 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/18/2016.
+ * Created by Svetozar Stojkovic on 12/19/2016.
  */
 @Entity
 @Table(name = "radnik", schema = "restorani", catalog = "")
 public class RadnikEntity {
-    private String column1;
     private String prezime;
     private Date rodjen;
     private Integer konfekcijskiBroj;
     private Integer velicinaObuce;
     private int mbr;
     private Integer idRestorana;
-
-    @Basic
-    @Column(name = "COLUMN_1")
-    public String getColumn1() {
-        return column1;
-    }
-
-    public void setColumn1(String column1) {
-        this.column1 = column1;
-    }
+    private String ime;
 
     @Basic
     @Column(name = "PREZIME")
@@ -87,6 +77,16 @@ public class RadnikEntity {
         this.idRestorana = idRestorana;
     }
 
+    @Basic
+    @Column(name = "IME")
+    public String getIme() {
+        return ime;
+    }
+
+    public void setIme(String ime) {
+        this.ime = ime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -95,7 +95,6 @@ public class RadnikEntity {
         RadnikEntity that = (RadnikEntity) o;
 
         if (mbr != that.mbr) return false;
-        if (column1 != null ? !column1.equals(that.column1) : that.column1 != null) return false;
         if (prezime != null ? !prezime.equals(that.prezime) : that.prezime != null) return false;
         if (rodjen != null ? !rodjen.equals(that.rodjen) : that.rodjen != null) return false;
         if (konfekcijskiBroj != null ? !konfekcijskiBroj.equals(that.konfekcijskiBroj) : that.konfekcijskiBroj != null)
@@ -103,19 +102,20 @@ public class RadnikEntity {
         if (velicinaObuce != null ? !velicinaObuce.equals(that.velicinaObuce) : that.velicinaObuce != null)
             return false;
         if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
+        if (ime != null ? !ime.equals(that.ime) : that.ime != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = column1 != null ? column1.hashCode() : 0;
-        result = 31 * result + (prezime != null ? prezime.hashCode() : 0);
+        int result = prezime != null ? prezime.hashCode() : 0;
         result = 31 * result + (rodjen != null ? rodjen.hashCode() : 0);
         result = 31 * result + (konfekcijskiBroj != null ? konfekcijskiBroj.hashCode() : 0);
         result = 31 * result + (velicinaObuce != null ? velicinaObuce.hashCode() : 0);
         result = 31 * result + mbr;
         result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
+        result = 31 * result + (ime != null ? ime.hashCode() : 0);
         return result;
     }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>mbr</th>
+        <th>Ime</th>
+        <th>Prezime</th>
+        <th>Id Restorana</th>
+        <th>Konf. Broj</th>
+        <th>#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let zaposlen of zaposleni">
+        <td>{{zaposlen.mbr}}</td>
+        <td>{{zaposlen.ime}}</td>
+        <td>{{zaposlen.prezime}}</td>
+        <td>{{zaposlen.idRestorana}}</td>
+        <td>{{zaposlen.konferencijskiBroj}}</td>
+        <td><button (click)="obrisiZaposlenog(zaposleni)" class="btn btn-primary btn-sm">✕</button></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

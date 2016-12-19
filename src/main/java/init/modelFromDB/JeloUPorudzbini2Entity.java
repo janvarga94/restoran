@@ -3,7 +3,7 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/18/2016.
+ * Created by Svetozar Stojkovic on 12/19/2016.
  */
 @Entity
 @Table(name = "jelo_u_porudzbini2", schema = "restorani", catalog = "")
