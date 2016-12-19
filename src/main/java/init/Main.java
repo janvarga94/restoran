@@ -28,20 +28,7 @@ public class Main {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        for (int i=1; i<10; i++){
-            RadnikEntity zaposleniEntity = new RadnikEntity();
-            zaposleniEntity.setIdRestorana(i);
-            zaposleniEntity.setMbr(i);
-            zaposleniEntity.setIme("Ime"+i);
-            zaposleniEntity.setPrezime("Prezime"+i);
-            session.save(zaposleniEntity);
-        }
-
-        session.getTransaction().commit();
-
         SpringApplication.run(Main.class, args);
-
-//        session.close();
 
     }
 
