@@ -1,0 +1,1261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="hibernate.cfg.xml/Hibernate">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="restorani">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <table id="7" parent="2" name="gost"/>
+    <table id="8" parent="2" name="jelo"/>
+    <table id="9" parent="2" name="jelo_u_porudzbini"/>
+    <table id="10" parent="2" name="jelo_u_porudzbini2"/>
+    <table id="11" parent="2" name="konfiguracija"/>
+    <table id="12" parent="2" name="konobar"/>
+    <table id="13" parent="2" name="kuvar"/>
+    <table id="14" parent="2" name="menadzer_sistema"/>
+    <table id="15" parent="2" name="menazer_restorana"/>
+    <table id="16" parent="2" name="namirnica"/>
+    <table id="17" parent="2" name="ocena_jela"/>
+    <table id="18" parent="2" name="ocena_konobara"/>
+    <table id="19" parent="2" name="ocena_restorana"/>
+    <table id="20" parent="2" name="pice"/>
+    <table id="21" parent="2" name="pice_u_porudzbini"/>
+    <table id="22" parent="2" name="pice_u_porudzbini2"/>
+    <table id="23" parent="2" name="ponuda"/>
+    <table id="24" parent="2" name="ponudjac"/>
+    <table id="25" parent="2" name="porudzbina"/>
+    <table id="26" parent="2" name="potraznja_namirnaca"/>
+    <table id="27" parent="2" name="potraznja_pica"/>
+    <table id="28" parent="2" name="potraznja_restorana"/>
+    <table id="29" parent="2" name="pozicija_stola"/>
+    <table id="30" parent="2" name="poziv_prijatelja"/>
+    <table id="31" parent="2" name="prijateljstvo"/>
+    <table id="32" parent="2" name="racun"/>
+    <table id="33" parent="2" name="radnik"/>
+    <table id="34" parent="2" name="raspored_rada"/>
+    <table id="35" parent="2" name="reon"/>
+    <table id="36" parent="2" name="reon_u_smeni"/>
+    <table id="37" parent="2" name="restoran"/>
+    <table id="38" parent="2" name="rezervacija"/>
+    <table id="39" parent="2" name="sanker"/>
+    <table id="40" parent="2" name="smena"/>
+    <table id="41" parent="2" name="sto"/>
+    <table id="42" parent="2" name="tip_jela"/>
+    <table id="43" parent="2" name="token"/>
+    <table id="44" parent="2" name="zahtev_za_prijateljstvo"/>
+    <column id="45" parent="7" name="EMAIL">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="46" parent="7" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="47" parent="7" name="IME">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="48" parent="7" name="PREZIME">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="49" parent="7" name="LOZINKA">
+      <Position>5</Position>
+      <DataType>varchar(200)|0</DataType>
+    </column>
+    <column id="50" parent="7" name="AKTIVIRAN">
+      <Position>6</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="51" parent="7" name="ID_GOSTA">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="52" parent="7" name="FK_REFERENCE_8">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="53" parent="7" name="PRIMARY">
+      <ColNames>ID_GOSTA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="54" parent="7" name="FK_REFERENCE_8">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="55" parent="8" name="NAZIV_JELA">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="56" parent="8" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="57" parent="8" name="ID_TIPA_JELA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="58" parent="8" name="OPIS">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="59" parent="8" name="CENA">
+      <Position>5</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <index id="60" parent="8" name="FK_REFERENCE_36">
+      <ColNames>ID_TIPA_JELA</ColNames>
+    </index>
+    <index id="61" parent="8" name="FK_REFERENCE_6">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="62" parent="8" name="PRIMARY">
+      <ColNames>NAZIV_JELA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="63" parent="8" name="FK_REFERENCE_6">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <foreign-key id="64" parent="8" name="FK_REFERENCE_36">
+      <ColNames>ID_TIPA_JELA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>tip_jela</RefTableName>
+      <RefColNames>ID_TIPA_JELA</RefColNames>
+    </foreign-key>
+    <column id="65" parent="9" name="NAZIV_JELA">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="66" parent="9" name="ID">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="67" parent="9" name="MBR_KUVARA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="68" parent="9" name="FK_REFERENCE_35">
+      <ColNames>NAZIV_JELA</ColNames>
+    </index>
+    <index id="69" parent="9" name="FK_REFERENCE_38">
+      <ColNames>MBR_KUVARA</ColNames>
+    </index>
+    <key id="70" parent="9" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="71" parent="9" name="FK_REFERENCE_35">
+      <ColNames>NAZIV_JELA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>jelo</RefTableName>
+      <RefColNames>NAZIV_JELA</RefColNames>
+    </foreign-key>
+    <foreign-key id="72" parent="9" name="FK_REFERENCE_38">
+      <ColNames>MBR_KUVARA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>kuvar</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="73" parent="10" name="ID_PORUDZBINE_JELA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="10" name="MBR_KUVARA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="75" parent="10" name="NAZIV_JELA">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="76" parent="10" name="ID_PORUDZBINE">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="77" parent="10" name="FK_REFERENCE_34">
+      <ColNames>MBR_KUVARA</ColNames>
+    </index>
+    <index id="78" parent="10" name="FK_REFERENCE_41">
+      <ColNames>NAZIV_JELA</ColNames>
+    </index>
+    <index id="79" parent="10" name="FK_REFERENCE_60">
+      <ColNames>ID_PORUDZBINE</ColNames>
+    </index>
+    <key id="80" parent="10" name="PRIMARY">
+      <ColNames>ID_PORUDZBINE_JELA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="81" parent="10" name="FK_REFERENCE_34">
+      <ColNames>MBR_KUVARA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>kuvar</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <foreign-key id="82" parent="10" name="FK_REFERENCE_41">
+      <ColNames>NAZIV_JELA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>jelo</RefTableName>
+      <RefColNames>NAZIV_JELA</RefColNames>
+    </foreign-key>
+    <foreign-key id="83" parent="10" name="FK_REFERENCE_60">
+      <ColNames>ID_PORUDZBINE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>porudzbina</RefTableName>
+      <RefColNames>ID_PORUDZBINE</RefColNames>
+    </foreign-key>
+    <column id="84" parent="11" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="85" parent="11" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="86" parent="11" name="OPIS">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <index id="87" parent="11" name="FK_REFERENCE_9">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="88" parent="11" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="89" parent="11" name="FK_REFERENCE_9">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="90" parent="12" name="MBR">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="91" parent="12" name="PRIMARY">
+      <ColNames>MBR</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="92" parent="12" name="FK_REFERENCE_4">
+      <ColNames>MBR</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>radnik</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="93" parent="13" name="MBR">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="13" name="ID_TIPA_JELA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="95" parent="13" name="FK_REFERENCE_37">
+      <ColNames>ID_TIPA_JELA</ColNames>
+    </index>
+    <key id="96" parent="13" name="PRIMARY">
+      <ColNames>MBR</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="97" parent="13" name="FK_REFERENCE_18">
+      <ColNames>MBR</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>radnik</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <foreign-key id="98" parent="13" name="FK_REFERENCE_37">
+      <ColNames>ID_TIPA_JELA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>tip_jela</RefTableName>
+      <RefColNames>ID_TIPA_JELA</RefColNames>
+    </foreign-key>
+    <column id="99" parent="14" name="NAZIV">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="100" parent="14" name="LOZINKA">
+      <Position>2</Position>
+      <DataType>varchar(200)|0</DataType>
+    </column>
+    <column id="101" parent="14" name="EMAIL">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <key id="102" parent="14" name="PRIMARY">
+      <ColNames>NAZIV</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="103" parent="15" name="ID_RESTORANA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="104" parent="15" name="ID">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="105" parent="15" name="NAZIV">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <index id="106" parent="15" name="FK_REFERENCE_19">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="107" parent="15" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="108" parent="15" name="FK_REFERENCE_19">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="109" parent="16" name="NAZIV">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="110" parent="16" name="TEKST">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="111" parent="16" name="ID_NAMIRNICE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="112" parent="16" name="PRIMARY">
+      <ColNames>ID_NAMIRNICE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="113" parent="17" name="OCENA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="114" parent="17" name="ID">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="115" parent="17" name="JEL_NAZIV">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="116" parent="17" name="NAZIV">
+      <Position>4</Position>
+      <DataType>varchar(0)|0</DataType>
+    </column>
+    <column id="117" parent="17" name="JELO_NAZIV">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <index id="118" parent="17" name="FK_REFERENCE_25">
+      <ColNames>JEL_NAZIV</ColNames>
+    </index>
+    <key id="119" parent="17" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="120" parent="17" name="FK_REFERENCE_12">
+      <ColNames>ID</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="121" parent="17" name="FK_REFERENCE_25">
+      <ColNames>JEL_NAZIV</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>jelo</RefTableName>
+      <RefColNames>NAZIV_JELA</RefColNames>
+    </foreign-key>
+    <column id="122" parent="18" name="ID_GOSTA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="123" parent="18" name="MBR_KONOBARA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="124" parent="18" name="OCENA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="125" parent="18" name="FK_REFERENCE_15">
+      <ColNames>MBR_KONOBARA</ColNames>
+    </index>
+    <key id="126" parent="18" name="PRIMARY">
+      <ColNames>ID_GOSTA
+MBR_KONOBARA
+OCENA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="127" parent="18" name="FK_REFERENCE_11">
+      <ColNames>ID_GOSTA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="128" parent="18" name="FK_REFERENCE_15">
+      <ColNames>MBR_KONOBARA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>konobar</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="129" parent="19" name="NAZIV_RESTORANA">
+      <Position>1</Position>
+      <DataType>varchar(50)|0</DataType>
+    </column>
+    <column id="130" parent="19" name="OCENA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="131" parent="19" name="ID">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="132" parent="19" name="ID_RESTORANA">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="133" parent="19" name="FK_REFERENCE_14">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="134" parent="19" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="135" parent="19" name="FK_REFERENCE_10">
+      <ColNames>ID</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="136" parent="19" name="FK_REFERENCE_14">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="137" parent="20" name="NAZIV_PICA">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="138" parent="20" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="139" parent="20" name="TEKST">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="140" parent="20" name="CENA">
+      <Position>4</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <index id="141" parent="20" name="FK_REFERENCE_45">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="142" parent="20" name="PRIMARY">
+      <ColNames>NAZIV_PICA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="143" parent="20" name="FK_REFERENCE_45">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="144" parent="21" name="ID">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="145" parent="21" name="MBR_SANKERA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="146" parent="21" name="FK_REFERENCE_39">
+      <ColNames>MBR_SANKERA</ColNames>
+    </index>
+    <key id="147" parent="21" name="PRIMARY">
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="148" parent="21" name="FK_REFERENCE_39">
+      <ColNames>MBR_SANKERA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>sanker</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="149" parent="22" name="ID_PORUDZBINE_PICA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="150" parent="22" name="MBR_SANKERA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="151" parent="22" name="NAZIV_PICA">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="152" parent="22" name="ID_PORUDZBINE">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="153" parent="22" name="FK_REFERENCE_16">
+      <ColNames>ID_PORUDZBINE</ColNames>
+    </index>
+    <index id="154" parent="22" name="FK_REFERENCE_28">
+      <ColNames>MBR_SANKERA</ColNames>
+    </index>
+    <index id="155" parent="22" name="FK_REFERENCE_61">
+      <ColNames>NAZIV_PICA</ColNames>
+    </index>
+    <key id="156" parent="22" name="PRIMARY">
+      <ColNames>ID_PORUDZBINE_PICA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="157" parent="22" name="FK_REFERENCE_28">
+      <ColNames>MBR_SANKERA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>sanker</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <foreign-key id="158" parent="22" name="FK_REFERENCE_61">
+      <ColNames>NAZIV_PICA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>pice</RefTableName>
+      <RefColNames>NAZIV_PICA</RefColNames>
+    </foreign-key>
+    <foreign-key id="159" parent="22" name="FK_REFERENCE_16">
+      <ColNames>ID_PORUDZBINE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>porudzbina</RefTableName>
+      <RefColNames>ID_PORUDZBINE</RefColNames>
+    </foreign-key>
+    <column id="160" parent="23" name="EMAIL_PONUDJACA">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="161" parent="23" name="CENA">
+      <Position>2</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="162" parent="23" name="ID_POTRAZNJE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="163" parent="23" name="ROK_ISPORUKE">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="164" parent="23" name="GARANCIJA">
+      <Position>5</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="165" parent="23" name="PRIHVATECA_OD_MENADZERA">
+      <Position>6</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="166" parent="23" name="PONUDJAC_VIDEO_DAL_JE_PONUDA_PRIHVACENA_ILI_ODBIJENA">
+      <Position>7</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <index id="167" parent="23" name="FK_REFERENCE_43">
+      <ColNames>EMAIL_PONUDJACA</ColNames>
+    </index>
+    <key id="168" parent="23" name="PRIMARY">
+      <ColNames>ID_POTRAZNJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="169" parent="23" name="FK_REFERENCE_43">
+      <ColNames>EMAIL_PONUDJACA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>ponudjac</RefTableName>
+      <RefColNames>EMAIL</RefColNames>
+    </foreign-key>
+    <foreign-key id="170" parent="23" name="FK_REFERENCE_44">
+      <ColNames>ID_POTRAZNJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>potraznja_restorana</RefTableName>
+      <RefColNames>ID_POTRAZNJE</RefColNames>
+    </foreign-key>
+    <column id="171" parent="24" name="EMAIL">
+      <Position>1</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="172" parent="24" name="NAZIV">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <key id="173" parent="24" name="PRIMARY">
+      <ColNames>EMAIL</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="174" parent="25" name="SPREMNO_U">
+      <Position>1</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="175" parent="25" name="MBR_RADNIKA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="176" parent="25" name="ID_GOSTA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="177" parent="25" name="ID_REZERVACIJE">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="178" parent="25" name="OTKAZANA_OD_STRANE_GOSTA">
+      <Position>5</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="179" parent="25" name="KREIRANA">
+      <Position>6</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="180" parent="25" name="ID_PORUDZBINE">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="181" parent="25" name="PRIVACENA_OD_KUVARA_U">
+      <Position>8</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="182" parent="25" name="GOST_ZELI_SPREMNO_U">
+      <Position>9</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <index id="183" parent="25" name="FK_REFERENCE_27">
+      <ColNames>MBR_RADNIKA</ColNames>
+    </index>
+    <index id="184" parent="25" name="FK_REFERENCE_42">
+      <ColNames>ID_GOSTA</ColNames>
+    </index>
+    <index id="185" parent="25" name="FK_REFERENCE_59">
+      <ColNames>ID_REZERVACIJE</ColNames>
+    </index>
+    <key id="186" parent="25" name="PRIMARY">
+      <ColNames>ID_PORUDZBINE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="187" parent="25" name="FK_REFERENCE_27">
+      <ColNames>MBR_RADNIKA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>konobar</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <foreign-key id="188" parent="25" name="FK_REFERENCE_42">
+      <ColNames>ID_GOSTA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="189" parent="25" name="FK_REFERENCE_59">
+      <ColNames>ID_REZERVACIJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>rezervacija</RefTableName>
+      <RefColNames>ID_REZERVACIJE</RefColNames>
+    </foreign-key>
+    <column id="190" parent="26" name="ID_NAMIRNICE">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="191" parent="26" name="ID_POTRAZNJE">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="192" parent="26" name="FK_REFERENCE_5">
+      <ColNames>ID_POTRAZNJE</ColNames>
+    </index>
+    <key id="193" parent="26" name="PRIMARY">
+      <ColNames>ID_NAMIRNICE
+ID_POTRAZNJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="194" parent="26" name="FK_REFERENCE_46">
+      <ColNames>ID_NAMIRNICE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>namirnica</RefTableName>
+      <RefColNames>ID_NAMIRNICE</RefColNames>
+    </foreign-key>
+    <foreign-key id="195" parent="26" name="FK_REFERENCE_5">
+      <ColNames>ID_POTRAZNJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>potraznja_restorana</RefTableName>
+      <RefColNames>ID_POTRAZNJE</RefColNames>
+    </foreign-key>
+    <column id="196" parent="27" name="NAZIV">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="197" parent="27" name="ID_POTRAZNJE">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="198" parent="27" name="FK_REFERENCE_47">
+      <ColNames>ID_POTRAZNJE</ColNames>
+    </index>
+    <key id="199" parent="27" name="PRIMARY">
+      <ColNames>NAZIV
+ID_POTRAZNJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="200" parent="27" name="FK_REFERENCE_26">
+      <ColNames>NAZIV</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>pice</RefTableName>
+      <RefColNames>NAZIV_PICA</RefColNames>
+    </foreign-key>
+    <foreign-key id="201" parent="27" name="FK_REFERENCE_47">
+      <ColNames>ID_POTRAZNJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>potraznja_restorana</RefTableName>
+      <RefColNames>ID_POTRAZNJE</RefColNames>
+    </foreign-key>
+    <column id="202" parent="28" name="POCETAK_PONUDE">
+      <Position>1</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="203" parent="28" name="KRAJ_PONUDE">
+      <Position>2</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="204" parent="28" name="ID_POTRAZNJE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="205" parent="28" name="PRIMARY">
+      <ColNames>ID_POTRAZNJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="206" parent="29" name="X">
+      <Position>1</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="207" parent="29" name="Y">
+      <Position>2</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="208" parent="29" name="ID_POZICIJE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="209" parent="29" name="PRIMARY">
+      <ColNames>ID_POZICIJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="210" parent="30" name="ID_POZIVAOCA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="211" parent="30" name="ID_POZVANOG">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="212" parent="30" name="ID_REZERVACIJE">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="213" parent="30" name="PRIHVACEN_POZIV">
+      <Position>4</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="214" parent="30" name="TOKEN">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="215" parent="30" name="FK_REFERENCE_57">
+      <ColNames>ID_POZIVAOCA</ColNames>
+    </index>
+    <index id="216" parent="30" name="FK_REFERENCE_58">
+      <ColNames>ID_POZVANOG</ColNames>
+    </index>
+    <index id="217" parent="30" name="FK_REFERENCE_62">
+      <ColNames>ID_REZERVACIJE</ColNames>
+    </index>
+    <key id="218" parent="30" name="PRIMARY">
+      <ColNames>TOKEN</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="219" parent="30" name="FK_REFERENCE_57">
+      <ColNames>ID_POZIVAOCA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="220" parent="30" name="FK_REFERENCE_58">
+      <ColNames>ID_POZVANOG</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="221" parent="30" name="FK_REFERENCE_62">
+      <ColNames>ID_REZERVACIJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>rezervacija</RefTableName>
+      <RefColNames>ID_REZERVACIJE</RefColNames>
+    </foreign-key>
+    <column id="222" parent="31" name="ID_PRVOG">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="223" parent="31" name="ID_DRUGOG">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="224" parent="31" name="FK_REFERENCE_21">
+      <ColNames>ID_DRUGOG</ColNames>
+    </index>
+    <key id="225" parent="31" name="PRIMARY">
+      <ColNames>ID_PRVOG
+ID_DRUGOG</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="226" parent="31" name="FK_REFERENCE_20">
+      <ColNames>ID_PRVOG</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="227" parent="31" name="FK_REFERENCE_21">
+      <ColNames>ID_DRUGOG</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <column id="228" parent="32" name="ID_PORUDZBINE">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="229" parent="32" name="PRIMARY">
+      <ColNames>ID_PORUDZBINE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="230" parent="32" name="FK_REFERENCE_53">
+      <ColNames>ID_PORUDZBINE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>porudzbina</RefTableName>
+      <RefColNames>ID_PORUDZBINE</RefColNames>
+    </foreign-key>
+    <column id="231" parent="33" name="PREZIME">
+      <Position>2</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="232" parent="33" name="RODJEN">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="233" parent="33" name="KONFEKCIJSKI_BROJ">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="234" parent="33" name="VELICINA_OBUCE">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="235" parent="33" name="MBR">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="236" parent="33" name="ID_RESTORANA">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="237" parent="33" name="IME">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <index id="238" parent="33" name="FK_REFERENCE_13">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="239" parent="33" name="PRIMARY">
+      <ColNames>MBR</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="240" parent="33" name="FK_REFERENCE_13">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="241" parent="34" name="ID_SMENE">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="242" parent="34" name="MBR">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="243" parent="34" name="DATUM_POCETKA">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="244" parent="34" name="DATUM_KRAJA">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <index id="245" parent="34" name="FK_REFERENCE_49">
+      <ColNames>MBR</ColNames>
+    </index>
+    <key id="246" parent="34" name="PRIMARY">
+      <ColNames>ID_SMENE
+MBR
+DATUM_POCETKA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="247" parent="34" name="FK_REFERENCE_31">
+      <ColNames>ID_SMENE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>smena</RefTableName>
+      <RefColNames>ID_SMENE</RefColNames>
+    </foreign-key>
+    <foreign-key id="248" parent="34" name="FK_REFERENCE_49">
+      <ColNames>MBR</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>radnik</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="249" parent="35" name="ID_REONA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="250" parent="35" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="251" parent="35" name="OPIS">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <index id="252" parent="35" name="FK_REFERENCE_29">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="253" parent="35" name="PRIMARY">
+      <ColNames>ID_REONA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="254" parent="35" name="FK_REFERENCE_29">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="255" parent="36" name="MBR">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="256" parent="36" name="ID_SMENE">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="257" parent="36" name="ID_REONA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="258" parent="36" name="FK_REFERENCE_51">
+      <ColNames>ID_SMENE</ColNames>
+    </index>
+    <index id="259" parent="36" name="FK_REFERENCE_52">
+      <ColNames>ID_REONA</ColNames>
+    </index>
+    <key id="260" parent="36" name="PRIMARY">
+      <ColNames>MBR
+ID_SMENE
+ID_REONA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="261" parent="36" name="FK_REFERENCE_50">
+      <ColNames>MBR</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>konobar</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <foreign-key id="262" parent="36" name="FK_REFERENCE_51">
+      <ColNames>ID_SMENE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>smena</RefTableName>
+      <RefColNames>ID_SMENE</RefColNames>
+    </foreign-key>
+    <foreign-key id="263" parent="36" name="FK_REFERENCE_52">
+      <ColNames>ID_REONA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>reon</RefTableName>
+      <RefColNames>ID_REONA</RefColNames>
+    </foreign-key>
+    <column id="264" parent="37" name="VRSTA">
+      <Position>1</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="265" parent="37" name="NAZIV">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="266" parent="37" name="ID_RESTORANA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="267" parent="37" name="OPIS">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <key id="268" parent="37" name="PRIMARY">
+      <ColNames>ID_RESTORANA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="269" parent="38" name="ID_STOLA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="270" parent="38" name="ID_GOSTA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="271" parent="38" name="POCETAK">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="272" parent="38" name="KRAJ">
+      <Position>4</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="273" parent="38" name="OTKAZANA">
+      <Position>5</Position>
+      <DataType>tinyint(1)|0</DataType>
+    </column>
+    <column id="274" parent="38" name="ID_REZERVACIJE">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="275" parent="38" name="FK_REFERENCE_22">
+      <ColNames>ID_STOLA</ColNames>
+    </index>
+    <index id="276" parent="38" name="FK_REFERENCE_48">
+      <ColNames>ID_GOSTA</ColNames>
+    </index>
+    <key id="277" parent="38" name="PRIMARY">
+      <ColNames>ID_REZERVACIJE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="278" parent="38" name="FK_REFERENCE_22">
+      <ColNames>ID_STOLA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>sto</RefTableName>
+      <RefColNames>ID_STOLA</RefColNames>
+    </foreign-key>
+    <foreign-key id="279" parent="38" name="FK_REFERENCE_48">
+      <ColNames>ID_GOSTA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <column id="280" parent="39" name="MBR">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="281" parent="39" name="PRIMARY">
+      <ColNames>MBR</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="282" parent="39" name="FK_REFERENCE_17">
+      <ColNames>MBR</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>radnik</RefTableName>
+      <RefColNames>MBR</RefColNames>
+    </foreign-key>
+    <column id="283" parent="40" name="ID_RESTORANA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="284" parent="40" name="PECETAK">
+      <Position>2</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="285" parent="40" name="KRAJ">
+      <Position>3</Position>
+      <DataType>date|0</DataType>
+    </column>
+    <column id="286" parent="40" name="ID_SMENE">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="287" parent="40" name="FK_REFERENCE_30">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <key id="288" parent="40" name="PRIMARY">
+      <ColNames>ID_SMENE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="289" parent="40" name="FK_REFERENCE_30">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <column id="290" parent="41" name="ID_STOLA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="291" parent="41" name="ID_RESTORANA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="292" parent="41" name="ID_REONA">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="293" parent="41" name="ID_POZICIJE">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="294" parent="41" name="FK_REFERENCE_23">
+      <ColNames>ID_RESTORANA</ColNames>
+    </index>
+    <index id="295" parent="41" name="FK_REFERENCE_24">
+      <ColNames>ID_REONA</ColNames>
+    </index>
+    <index id="296" parent="41" name="FK_REFERENCE_56">
+      <ColNames>ID_POZICIJE</ColNames>
+    </index>
+    <key id="297" parent="41" name="PRIMARY">
+      <ColNames>ID_STOLA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="298" parent="41" name="FK_REFERENCE_23">
+      <ColNames>ID_RESTORANA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>restoran</RefTableName>
+      <RefColNames>ID_RESTORANA</RefColNames>
+    </foreign-key>
+    <foreign-key id="299" parent="41" name="FK_REFERENCE_24">
+      <ColNames>ID_REONA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>reon</RefTableName>
+      <RefColNames>ID_REONA</RefColNames>
+    </foreign-key>
+    <foreign-key id="300" parent="41" name="FK_REFERENCE_56">
+      <ColNames>ID_POZICIJE</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>pozicija_stola</RefTableName>
+      <RefColNames>ID_POZICIJE</RefColNames>
+    </foreign-key>
+    <column id="301" parent="42" name="OPIS">
+      <Position>1</Position>
+      <DataType>char(10)|0</DataType>
+    </column>
+    <column id="302" parent="42" name="ID_TIPA_JELA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="303" parent="42" name="PRIMARY">
+      <ColNames>ID_TIPA_JELA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="304" parent="43" name="TOKEN_STRING">
+      <Position>1</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="305" parent="43" name="ID_GOSTA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="306" parent="43" name="FK_REFERENCE_40">
+      <ColNames>ID_GOSTA</ColNames>
+    </index>
+    <key id="307" parent="43" name="PRIMARY">
+      <ColNames>TOKEN_STRING</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="308" parent="43" name="FK_REFERENCE_40">
+      <ColNames>ID_GOSTA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <column id="309" parent="44" name="ID_POSILJAOCA">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="310" parent="44" name="ID_PRIMAOCA">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="311" parent="44" name="FK_REFERENCE_33">
+      <ColNames>ID_PRIMAOCA</ColNames>
+    </index>
+    <key id="312" parent="44" name="PRIMARY">
+      <ColNames>ID_POSILJAOCA
+ID_PRIMAOCA</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="313" parent="44" name="FK_REFERENCE_32">
+      <ColNames>ID_POSILJAOCA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+    <foreign-key id="314" parent="44" name="FK_REFERENCE_33">
+      <ColNames>ID_PRIMAOCA</ColNames>
+      <RefSchemaName>restorani</RefSchemaName>
+      <RefTableName>gost</RefTableName>
+      <RefColNames>ID_GOSTA</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
