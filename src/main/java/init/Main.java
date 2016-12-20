@@ -32,8 +32,6 @@ public class Main {
 
         SpringApplication.run(Main.class, args);
 
-//        session.close();
-
     }
 
     @Bean
