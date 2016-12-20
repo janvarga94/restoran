@@ -17,6 +17,7 @@ import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
+import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
         { path: 'restorani', component : RestoraniComponent},
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
-        { path: 'welcome', component : WelcomeComponent},
+         { path: 'zaposleni/:mbr', component : ZaposleniDetailComponent},
+         { path: 'welcome', component : WelcomeComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
         { path: '**', component : PageNotFoundComponent},
@@ -41,6 +43,7 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
     WelcomeComponent,
     RestoraniComponent,
       ZaposleniComponent,
+      ZaposleniDetailComponent,
     RestoranDetailComponent,
     HeaderComponent,
     PageNotFoundComponent,

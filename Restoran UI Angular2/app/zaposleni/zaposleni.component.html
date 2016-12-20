@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+
+<style>
+    .dimOnHover:hover {
+        background: #000 !important;
+        cursor: pointer;
+    }
+
+    .dimOnHover:hover td {
+        background: #c7d4dd !important;
+    }
+</style>
 
 <table class="table">
     <thead>
@@ -14,20 +18,20 @@
         <th>Prezime</th>
         <th>Id Restorana</th>
         <th>Konf. Broj</th>
+        <th>Detalji</th>
         <th>#</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let zaposlen of zaposleni">
+    <tr class="dimOnHover" *ngFor="let zaposlen of zaposleni">
         <td>{{zaposlen.mbr}}</td>
         <td>{{zaposlen.ime}}</td>
         <td>{{zaposlen.prezime}}</td>
         <td>{{zaposlen.idRestorana}}</td>
         <td>{{zaposlen.konferencijskiBroj}}</td>
-        <td><button (click)="obrisiZaposlenog(zaposleni)" class="btn btn-primary btn-sm">✕</button></td>
+        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + zaposlen.mbr" class="btn btn-primary btn-sm">Detalji</button></td>
+        <td><button (click)="obrisiZaposlenog(zaposlen)" class="btn btn-primary btn-sm">✕</button></td>
+
     </tr>
     </tbody>
 </table>
-
-</body>
-</html>

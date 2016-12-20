@@ -1,3 +1,3 @@
 export class Config{
-    BackendUrl : "localhost:4354" //TODO change this
+    BackendUrl : "localhost:8080" //TODO change this
 }

@@ -44,5 +44,12 @@ public class RestServices {
         return (List<RadnikEntity>) session.createQuery("from RadnikEntity").list();
     }
 
+    @RequestMapping(path = "/get_zaposlen", method=RequestMethod.GET)
+    public RadnikEntity getRadnik(int mbr){
+        Query query = session.createQuery("select p from RadnikEntity as p where p.mbr=:mbr")
+                .setParameter("mbr",mbr);
+        return (RadnikEntity) query.uniqueResult();
+    }
+
 
 }

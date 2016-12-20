@@ -36,4 +36,8 @@ export class ZaposleniComponent implements OnInit{
             this._notificator.notifySuccess("Zaposleni obrisan");
         }
     }
+
+    detaljiZaposlenog(zaposleni : IZaposleni){
+        console.log(zaposleni.mbr);
+    }
 }
