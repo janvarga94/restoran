@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
+        <property name="connection.url">jdbc:mysql://localhost:3306/restorani</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">root</property>
+
+
+        <mapping class="init.modelFromDB.GostEntity"/>
+        <mapping class="init.modelFromDB.JeloEntity"/>
+        <mapping class="init.modelFromDB.JeloUPorudzbiniEntity"/>
+        <mapping class="init.modelFromDB.JeloUPorudzbini2Entity"/>
+        <mapping class="init.modelFromDB.KonfiguracijaEntity"/>
+        <mapping class="init.modelFromDB.KonobarEntity"/>
+        <mapping class="init.modelFromDB.KuvarEntity"/>
+        <mapping class="init.modelFromDB.MenadzerSistemaEntity"/>
+        <mapping class="init.modelFromDB.MenazerRestoranaEntity"/>
+        <mapping class="init.modelFromDB.NamirnicaEntity"/>
+        <mapping class="init.modelFromDB.OcenaJelaEntity"/>
+        <mapping class="init.modelFromDB.OcenaKonobaraEntity"/>
+        <mapping class="init.modelFromDB.OcenaRestoranaEntity"/>
+        <mapping class="init.modelFromDB.PiceEntity"/>
+        <mapping class="init.modelFromDB.PiceUPorudzbiniEntity"/>
+        <mapping class="init.modelFromDB.PiceUPorudzbini2Entity"/>
+        <mapping class="init.modelFromDB.PonudaEntity"/>
+        <mapping class="init.modelFromDB.PonudjacEntity"/>
+        <mapping class="init.modelFromDB.PorudzbinaEntity"/>
+        <mapping class="init.modelFromDB.PotraznjaNamirnacaEntity"/>
+        <mapping class="init.modelFromDB.PotraznjaPicaEntity"/>
+        <mapping class="init.modelFromDB.PotraznjaRestoranaEntity"/>
+        <mapping class="init.modelFromDB.PozicijaStolaEntity"/>
+        <mapping class="init.modelFromDB.PozivPrijateljaEntity"/>
+        <mapping class="init.modelFromDB.PrijateljstvoEntity"/>
+        <mapping class="init.modelFromDB.RacunEntity"/>
+        <mapping class="init.modelFromDB.RadnikEntity"/>
+        <mapping class="init.modelFromDB.RasporedRadaEntity"/>
+        <mapping class="init.modelFromDB.ReonEntity"/>
+        <mapping class="init.modelFromDB.ReonUSmeniEntity"/>
+        <mapping class="init.modelFromDB.RestoranEntity"/>
+        <mapping class="init.modelFromDB.RezervacijaEntity"/>
+        <mapping class="init.modelFromDB.SankerEntity"/>
+        <mapping class="init.modelFromDB.SmenaEntity"/>
+        <mapping class="init.modelFromDB.StoEntity"/>
+        <mapping class="init.modelFromDB.TipJelaEntity"/>
+        <mapping class="init.modelFromDB.TokenEntity"/>
+        <mapping class="init.modelFromDB.ZahtevZaPrijateljstvoEntity"/>
+
+
+    </session-factory>
+
+</hibernate-configuration>
