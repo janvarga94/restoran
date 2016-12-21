@@ -19,7 +19,7 @@ var header_component_1 = require("./header/header.component");
 var welcome_component_1 = require("./home/welcome.component");
 var restorani_component_1 = require("./restorani/restorani.component");
 var restoranDetail_component_1 = require("./restoran detail/restoranDetail.component");
-var pageNotFound_component_1 = require("./page not found/pageNotFound.component");
+//import { PageNotFoundComponent} from './page not found/pageNotFound.component';
 var menazerView_component_1 = require("./menazerSistemaView/menazerView.component");
 //import { LimitDuzineStringa} from './pipes/LimitDuzineStringa';
 var restorani_service_1 = require("./services/restorani.service");
@@ -48,7 +48,6 @@ AppModule = __decorate([
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
-                { path: '**', component: pageNotFound_component_1.PageNotFoundComponent },
             ]),
         ],
         declarations: [
@@ -59,7 +58,7 @@ AppModule = __decorate([
             zaposleniDetail_component_1.ZaposleniDetailComponent,
             restoranDetail_component_1.RestoranDetailComponent,
             header_component_1.HeaderComponent,
-            pageNotFound_component_1.PageNotFoundComponent,
+            //   PageNotFoundComponent,
             menazerView_component_1.MenazerSistemaViewComponent,
         ],
         providers: [
