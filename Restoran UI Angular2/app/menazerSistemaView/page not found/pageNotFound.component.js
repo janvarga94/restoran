@@ -9,26 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-/*
- * Raise the value exponentially
- * Takes an exponent argument that defaults to 1.
- * Usage:
- *   value | exponentialStrength:exponent
- * Example:
- *   {{ 2 |  exponentialStrength:10}}
- *   formats to: 1024
-*/
-var LimitDuzineStringa = (function () {
-    function LimitDuzineStringa() {
+var PageNotFoundComponent = (function () {
+    function PageNotFoundComponent() {
     }
-    LimitDuzineStringa.prototype.transform = function (value, duzina) {
-        return value.substr(0, duzina);
-    };
-    return LimitDuzineStringa;
+    return PageNotFoundComponent;
 }());
-LimitDuzineStringa = __decorate([
-    core_1.Pipe({ name: 'limitDuzineStringa' }),
+PageNotFoundComponent = __decorate([
+    core_1.Component({
+        selector: 'restoran-detail',
+        templateUrl: 'app/page not found/pageNotFound.component.html'
+    }),
     __metadata("design:paramtypes", [])
-], LimitDuzineStringa);
-exports.LimitDuzineStringa = LimitDuzineStringa;
-//# sourceMappingURL=LimitDuzineStringa.js.map
+], PageNotFoundComponent);
+exports.PageNotFoundComponent = PageNotFoundComponent;
+//# sourceMappingURL=pageNotFound.component.js.map

@@ -26,8 +26,7 @@ var WelcomeComponent = (function () {
     };
     WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
         console.log(idRestorana, " , " + gostEmail + " , " + ocena);
-        _welcomeService.
-        ;
+        //_welcomeService.
     };
     return WelcomeComponent;
 }());

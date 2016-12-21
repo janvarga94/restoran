@@ -30,6 +30,6 @@ export class WelcomeComponent {
     rate(idRestorana : number, gostEmail : string, ocena : number){
         console.log(idRestorana, " , " + gostEmail + " , "+ocena);
 
-        _welcomeService.
+        //_welcomeService.
     }
 }
