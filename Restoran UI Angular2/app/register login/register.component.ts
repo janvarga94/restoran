@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
     passwordiRazlicitiText : string;
     passwordMinLength : number = 4;
 
+    ime : string = "";
+    prezime : string = "";
     email : string = "";
     password : string = "";
     password2 : string = "";
