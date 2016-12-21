@@ -10,17 +10,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var welcome_service_1 = require("../services/welcome.service");
+var login_service_1 = require("../services/login.service");
 var WelcomeComponent = (function () {
-    function WelcomeComponent(_welcomeService) {
+    function WelcomeComponent(_welcomeService, _loginService) {
         this._welcomeService = _welcomeService;
+        this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
     }
     WelcomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._welcomeService.getRestoraniForUser("email0").subscribe(function (restorani) {
+        this._welcomeService.getRestoraniForUser(this._loginService.emailUlogovanog).subscribe(function (restorani) {
             //   this.restorani = restorani;
             _this.restorani = restorani;
         });
+    };
+    WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
+        console.log(idRestorana, " , " + gostEmail + " , " + ocena);
+        _welcomeService.
+        ;
     };
     return WelcomeComponent;
 }());
@@ -28,7 +35,7 @@ WelcomeComponent = __decorate([
     core_1.Component({
         templateUrl: 'app/home/welcome.component.html'
     }),
-    __metadata("design:paramtypes", [welcome_service_1.WelcomeService])
+    __metadata("design:paramtypes", [welcome_service_1.WelcomeService, login_service_1.LoginService])
 ], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

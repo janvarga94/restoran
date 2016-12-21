@@ -34,6 +34,15 @@ var WelcomeService = (function () {
         })
             .catch(this.handleError);
     };
+    WelcomeService.prototype.postOcenaForRestoran = function (ocena) {
+        var ocenaUrl = 'http://localhost:8080/resursi/add_ocena';
+        var bodyString = JSON.stringify(ocena); // Stringify payload
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this._http.post(this.commentsUrl, ocena, options) // ...using post request
+            .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
+    };
     WelcomeService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

@@ -119,7 +119,7 @@ public class Main {
                 registry.addMapping("/resursi/zaposleni").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/get_zaposlen").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/restorani_for_user").allowedOrigins("http://localhost:3000");
-
+                registry.addMapping("/resursi/add_ocena").allowedOrigins("http://localhost:3000");
             }
         };
     }

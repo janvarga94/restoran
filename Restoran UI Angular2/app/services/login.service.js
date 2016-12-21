@@ -17,6 +17,7 @@ require("rxjs/add/operator/map");
 var LoginService = (function () {
     function LoginService(_http) {
         this._http = _http;
+        this.emailUlogovanog = "email0";
         this._restoraniUrl = 'api/loginResponse.json';
         this.bSubject = new Rx_1.BehaviorSubject(null);
         this.ulogovan = this.bSubject.asObservable();

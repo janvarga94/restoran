@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Notificator} from "./notification.service";
-import {Http, Response} from "@angular/http";
+import {Http, Response, Headers, RequestOptions} from "@angular/http";
 import {IRestoran} from "../models/restoran";
 import {IKorisnik} from "../models/korisnik";
 /**
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import {IOcenaRestorana} from "../models/ocenaRestorana";
 
 
 @Injectable()
@@ -29,6 +30,19 @@ export class WelcomeService {
                 return restorani;
             })
             .catch(this.handleError);
+    }
+
+    postOcenaForRestoran(ocena : IOcenaRestorana){
+
+        let ocenaUrl : string = 'http://localhost:8080/resursi/add_ocena';
+
+        let bodyString = JSON.stringify(ocena); // Stringify payload
+        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        let options       = new RequestOptions({ headers: headers }); // Create a request option
+
+        return this._http.post(this.commentsUrl, ocena, options) // ...using post request
+            .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
+            .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }
 
     private handleError(error: Response) {

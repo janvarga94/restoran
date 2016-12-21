@@ -1,16 +1,14 @@
 package init.restServices;
 
 import init.model.Restoran;
+import init.modelFromDB.OcenaRestoranaEntity;
 import init.modelFromDB.PorudzbinaEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
 import init.podaci.Restorani;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import init.services.ServiceRestorani;
 
 import java.util.Collection;
@@ -58,5 +56,13 @@ public class RestServices {
 
     }
 
+    @RequestMapping(path = "/add_ocena", method=RequestMethod.POST)
+    public void addOcena(OcenaRestoranaEntity ocenaRestoranaEntity){
 
+        OcenaRestoranaEntity ocena = (OcenaRestoranaEntity) session.createQuery("from OcenaRestoranaEntity as or where or.gostEmail="+ocenaRestoranaEntity.getGostEmail()+" and or.idRestorana="+ocenaRestoranaEntity.getIdRestorana());
+        if (ocena != null) {
+            session.delete(ocena);
+        }
+        session.save(ocenaRestoranaEntity);
+    }
 }

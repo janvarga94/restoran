@@ -13,6 +13,8 @@ import { LoginResponse } from '../models/loginResponse';
 @Injectable()
 export class LoginService implements OnInit {
 
+    public emailUlogovanog : string = "email0";
+
     private _restoraniUrl = 'api/loginResponse.json';
     private bSubject: BehaviorSubject<IKorisnik> = new BehaviorSubject<IKorisnik>(null);
 

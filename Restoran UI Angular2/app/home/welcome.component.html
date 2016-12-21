@@ -6,10 +6,16 @@
     .rating > span {
         display: inline-block;
         position: relative;
-        width: 1.5em;
+        width: 1.2em;
     }
     .rating > span:hover:before,
     .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+    .rating > span:active:before,
+    .rating > span:active ~ span:before{
         content: "\2605";
         position: absolute;
     }
@@ -44,7 +50,7 @@
             <td>{{restoran.vrsta}}</td>
             <td >
                 <div class="rating">
-                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    <span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 5)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 4)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 3)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 2)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 1)">☆</span>
                 </div>
             </td>
         </tr>
