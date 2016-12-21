@@ -3,11 +3,8 @@
  */
 export interface IZaposleni {
 
-    prezime : string,
-    rodjen : Date,
     konfekcijskiBroj : number,
     velicinaObuce : number,
-    mbr : number
     idRestorana : number,
-    ime : string
+    radnikEmail : string
 }

@@ -27,6 +27,7 @@ var login_service_1 = require("./services/login.service");
 var notification_service_1 = require("./services/notification.service");
 var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
+var welcome_service_1 = require("./services/welcome.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -43,7 +44,7 @@ AppModule = __decorate([
                 { path: 'restorani', component: restorani_component_1.RestoraniComponent },
                 { path: 'restoran/:id', component: restoranDetail_component_1.RestoranDetailComponent },
                 { path: 'zaposleni', component: zaposleni_component_1.ZaposleniComponent },
-                { path: 'zaposleni/:mbr', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
+                { path: 'zaposleni/:email', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -64,6 +65,7 @@ AppModule = __decorate([
         providers: [
             restorani_service_1.RestoranService,
             login_service_1.LoginService,
+            welcome_service_1.WelcomeService,
             notification_service_1.Notificator
         ],
         bootstrap: [app_component_1.AppComponent]

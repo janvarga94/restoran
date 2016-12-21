@@ -12,17 +12,15 @@ export class WelcomeComponent {
 
     restorani : IRestoran[];
 
-    mbr : number = 0;
 
     constructor(private _welcomeService : WelcomeService) {
 
     }
 
     ngOnInit() : void{
-        // this._welcomeService.getRestoraniForUser().subscribe( restorani =>{
-        //     //   this.restorani = restorani;
-        //     this.restorani = restorani;
-        // });
-        //   console.log(this.restorani.length);
+        this._welcomeService.getRestoraniForUser("email0").subscribe( restorani =>{
+            //   this.restorani = restorani;
+            this.restorani = restorani;
+        });
     }
 }

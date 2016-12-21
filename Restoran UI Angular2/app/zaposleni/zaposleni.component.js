@@ -35,7 +35,7 @@ var ZaposleniComponent = (function () {
         }
     };
     ZaposleniComponent.prototype.detaljiZaposlenog = function (zaposleni) {
-        console.log(zaposleni.mbr);
+        console.log(zaposleni.radnikEmail);
     };
     return ZaposleniComponent;
 }());

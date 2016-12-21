@@ -27,8 +27,8 @@ export class ZaposleniDetailService {
 
     }
 
-    getZaposlen(mbr: number): Observable<IZaposleni> {
-        return this._http.get(this._zaposleniUrl+"?mbr="+mbr)
+    getZaposlen(email: string): Observable<IZaposleni> {
+        return this._http.get(this._zaposleniUrl+"?radnikEmail="+email)
             .map((response: Response) => {
                 var zaposleni = <IZaposleni> response.json();
                 // for(var i = 0; i < 10; i++)
@@ -40,7 +40,7 @@ export class ZaposleniDetailService {
 
     getParam(){
         let params = new URLSearchParams(window.location.search);
-        let someParam = params.get('mbr');
+        let someParam = params.get('re');
         return someParam;
     }
 

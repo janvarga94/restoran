@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
 import {Notificator} from "./notification.service";
 import {Http, Response} from "@angular/http";
 import {IRestoran} from "../models/restoran";
@@ -8,6 +7,12 @@ import {IKorisnik} from "../models/korisnik";
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
 
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+
+
 @Injectable()
 export class WelcomeService {
 
@@ -15,10 +20,10 @@ export class WelcomeService {
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
-    getRestoraniForUser(email : string): Observable<IKorisnik> {
+    getRestoraniForUser(email : string): Observable<IRestoran[]> {
         return this._http.get(this._restorani_for_user_url+"?email="+email)
             .map((response: Response) => {
-                var restorani = <IKorisnik> response.json();
+                var restorani = <IRestoran> response.json();
                 // for(var i = 0; i < 10; i++)
                 //     restorani.push(restorani[0]);
                 return restorani;

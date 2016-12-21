@@ -20,6 +20,7 @@ import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
+import {WelcomeService} from "./services/welcome.service";
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.compon
         { path: 'restorani', component : RestoraniComponent},
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
-         { path: 'zaposleni/:mbr', component : ZaposleniDetailComponent},
+         { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
          { path: 'welcome', component : WelcomeComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
@@ -55,6 +56,7 @@ import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.compon
    providers: [
      RestoranService,
      LoginService,
+       WelcomeService,
      Notificator
    ],
     bootstrap: [ AppComponent ]

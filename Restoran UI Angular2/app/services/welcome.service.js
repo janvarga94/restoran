@@ -9,12 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var rxjs_1 = require("rxjs");
 var notification_service_1 = require("./notification.service");
 var http_1 = require("@angular/http");
 /**
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
 var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
         this._http = _http;
@@ -35,7 +38,7 @@ var WelcomeService = (function () {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
-        return rxjs_1.Observable.throw(error.json().error || 'Server error');
+        return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
     return WelcomeService;
 }());

@@ -13,21 +13,21 @@ var login_service_1 = require("../services/login.service");
 var HeaderComponent = (function () {
     function HeaderComponent(_loginService) {
         this._loginService = _loginService;
+        this.username = "";
         this.password = "";
         this.ulogovan = null;
         this.asdf = "asfd";
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._loginService.ulogovan.subscribe(function (ulogovan) {
-            _this.ulogovan = ulogovan;
-        });
+        // this._loginService.ulogovan.subscribe(ulogovan =>{
+        //     this.ulogovan = ulogovan;
+        // });
     };
     HeaderComponent.prototype.doLogin = function () {
-        this._loginService.loginKorisnika("", this.password);
+        //this._loginService.loginKorisnika(this.username,this.password);
     };
     HeaderComponent.prototype.doLogout = function () {
-        this._loginService.logoutKorisnika();
+        //this._loginService.logoutKorisnika();
     };
     return HeaderComponent;
 }());
