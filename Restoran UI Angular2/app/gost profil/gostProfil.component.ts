@@ -18,16 +18,18 @@ export class GostProfilComponent {
         email : "as;ldkjfsadl;kfjsda@gmail.com",
     }
 
-    prijatelji : any[] = [
+    sviGosti : any[] = [
         {
             ime : "Jan",
             prezime : "Ga",
             email : "as;ldkjfsadl;kfjsda@gmail.com",
+            uPrijateljstvu : false
         },
          {
             ime : "Svet",
             prezime : "Ar",
             email : "as;ldkjfsadl;kfjsda@gmail.com",
+            uPrijateljstvu : true
         }
     ];
 

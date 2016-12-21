@@ -17,16 +17,18 @@ var GostProfilComponent = (function () {
             prezime: "Boskovic",
             email: "as;ldkjfsadl;kfjsda@gmail.com",
         };
-        this.prijatelji = [
+        this.sviGosti = [
             {
                 ime: "Jan",
                 prezime: "Ga",
                 email: "as;ldkjfsadl;kfjsda@gmail.com",
+                uPrijateljstvu: false
             },
             {
                 ime: "Svet",
                 prezime: "Ar",
                 email: "as;ldkjfsadl;kfjsda@gmail.com",
+                uPrijateljstvu: true
             }
         ];
     }

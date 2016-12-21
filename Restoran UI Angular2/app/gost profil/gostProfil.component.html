@@ -35,7 +35,7 @@
 
           
             <div class="card-footer">
-                Prijatelji
+                Konekcije
             </div>
           
             
@@ -45,12 +45,15 @@
                         Search <input type="text" class="form-control" [(ngModel)]="search">
                     </li>
                  
-                    <span *ngFor="let prijatelj of prijatelji" >
-                        <li class="list-group-item" *ngIf="(prijatelj.ime + prijatelj.prezime + prijatelj.email).toLowerCase().indexOf(search.toLowerCase()) > -1" >
+                    <span *ngFor="let gost of sviGosti" >
+                        <li class="list-group-item" *ngIf="(gost.ime + gost.prezime + gost.email).toLowerCase().indexOf(search.toLowerCase()) > -1" >
                             
-                                    • {{prijatelj.ime}} {{prijatelj.prezime}} 
+                                    • {{gost.ime}} {{gost.prezime}} 
                                     <span style="float: right">
-                                        <button class="btn btn-info btn-sm">Obrisi</button>
+                                        <button class="btn btn-info btn-sm" *ngIf="gost.uPrijateljstvu">Prekini prijateljstvo</button>
+                                    </span>  
+                                     <span style="float: right">
+                                        <button class="btn btn-primary btn-sm" *ngIf="!gost.uPrijateljstvu">Posalji zahtev</button>
                                     </span>                               
                         </li>       
                    </span>    
