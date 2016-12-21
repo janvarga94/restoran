@@ -1,6 +1,7 @@
 package init.restServices;
 
 import init.model.Restoran;
+import init.modelFromDB.PorudzbinaEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
 import init.podaci.Restorani;
@@ -49,6 +50,13 @@ public class RestServices {
         Query query = session.createQuery("select p from RadnikEntity as p where p.mbr=:mbr")
                 .setParameter("mbr",mbr);
         return (RadnikEntity) query.uniqueResult();
+    }
+
+    @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
+    public RestoranEntity getRestoraniForGost(String email){
+        Query query = session.createQuery("select * from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.email=:email)")
+                .setParameter("email",email);
+        return (RestoranEntity) query.uniqueResult();
     }
 
 

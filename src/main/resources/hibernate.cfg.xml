@@ -8,14 +8,14 @@
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 
         <property name="connection.url">jdbc:mysql://localhost:3306/restorani</property>
+
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.password">root123</property>
 
 
         <mapping class="init.modelFromDB.GostEntity"/>
         <mapping class="init.modelFromDB.JeloEntity"/>
         <mapping class="init.modelFromDB.JeloUPorudzbiniEntity"/>
-        <mapping class="init.modelFromDB.JeloUPorudzbini2Entity"/>
         <mapping class="init.modelFromDB.KonfiguracijaEntity"/>
         <mapping class="init.modelFromDB.KonobarEntity"/>
         <mapping class="init.modelFromDB.KuvarEntity"/>
@@ -27,14 +27,12 @@
         <mapping class="init.modelFromDB.OcenaRestoranaEntity"/>
         <mapping class="init.modelFromDB.PiceEntity"/>
         <mapping class="init.modelFromDB.PiceUPorudzbiniEntity"/>
-        <mapping class="init.modelFromDB.PiceUPorudzbini2Entity"/>
         <mapping class="init.modelFromDB.PonudaEntity"/>
         <mapping class="init.modelFromDB.PonudjacEntity"/>
         <mapping class="init.modelFromDB.PorudzbinaEntity"/>
         <mapping class="init.modelFromDB.PotraznjaNamirnacaEntity"/>
         <mapping class="init.modelFromDB.PotraznjaPicaEntity"/>
         <mapping class="init.modelFromDB.PotraznjaRestoranaEntity"/>
-        <mapping class="init.modelFromDB.PozicijaStolaEntity"/>
         <mapping class="init.modelFromDB.PozivPrijateljaEntity"/>
         <mapping class="init.modelFromDB.PrijateljstvoEntity"/>
         <mapping class="init.modelFromDB.RacunEntity"/>
@@ -50,6 +48,8 @@
         <mapping class="init.modelFromDB.TipJelaEntity"/>
         <mapping class="init.modelFromDB.TokenEntity"/>
         <mapping class="init.modelFromDB.ZahtevZaPrijateljstvoEntity"/>
+        <mapping class="init.modelFromDB.JeloOdNamirnicaEntity"/>
+        <mapping class="init.modelFromDB.KorisnikEntity"/>
 
 
     </session-factory>

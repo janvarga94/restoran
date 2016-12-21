@@ -6,21 +6,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "konobar", schema = "restorani", catalog = "")
 public class KonobarEntity {
-    private int mbr;
+    private String konobarEmail;
 
     @Id
-    @Column(name = "MBR")
-    public int getMbr() {
-        return mbr;
+    @Column(name = "KONOBAR_EMAIL")
+    public String getKonobarEmail() {
+        return konobarEmail;
     }
 
-    public void setMbr(int mbr) {
-        this.mbr = mbr;
+    public void setKonobarEmail(String konobarEmail) {
+        this.konobarEmail = konobarEmail;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class KonobarEntity {
 
         KonobarEntity that = (KonobarEntity) o;
 
-        if (mbr != that.mbr) return false;
+        if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return mbr;
+        return konobarEmail != null ? konobarEmail.hashCode() : 0;
     }
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "ponuda", schema = "restorani", catalog = "")
@@ -14,8 +14,8 @@ public class PonudaEntity {
     private int idPotraznje;
     private Date rokIsporuke;
     private String garancija;
-    private Byte prihvatecaOdMenadzera;
     private Byte ponudjacVideoDalJePonudaPrihvacenaIliOdbijena;
+    private Byte prihvacenoOdMenadzera;
 
     @Basic
     @Column(name = "EMAIL_PONUDJACA")
@@ -68,16 +68,6 @@ public class PonudaEntity {
     }
 
     @Basic
-    @Column(name = "PRIHVATECA_OD_MENADZERA")
-    public Byte getPrihvatecaOdMenadzera() {
-        return prihvatecaOdMenadzera;
-    }
-
-    public void setPrihvatecaOdMenadzera(Byte prihvatecaOdMenadzera) {
-        this.prihvatecaOdMenadzera = prihvatecaOdMenadzera;
-    }
-
-    @Basic
     @Column(name = "PONUDJAC_VIDEO_DAL_JE_PONUDA_PRIHVACENA_ILI_ODBIJENA")
     public Byte getPonudjacVideoDalJePonudaPrihvacenaIliOdbijena() {
         return ponudjacVideoDalJePonudaPrihvacenaIliOdbijena;
@@ -85,6 +75,16 @@ public class PonudaEntity {
 
     public void setPonudjacVideoDalJePonudaPrihvacenaIliOdbijena(Byte ponudjacVideoDalJePonudaPrihvacenaIliOdbijena) {
         this.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena = ponudjacVideoDalJePonudaPrihvacenaIliOdbijena;
+    }
+
+    @Basic
+    @Column(name = "PRIHVACENO_OD_MENADZERA")
+    public Byte getPrihvacenoOdMenadzera() {
+        return prihvacenoOdMenadzera;
+    }
+
+    public void setPrihvacenoOdMenadzera(Byte prihvacenoOdMenadzera) {
+        this.prihvacenoOdMenadzera = prihvacenoOdMenadzera;
     }
 
     @Override
@@ -100,9 +100,9 @@ public class PonudaEntity {
         if (cena != null ? !cena.equals(that.cena) : that.cena != null) return false;
         if (rokIsporuke != null ? !rokIsporuke.equals(that.rokIsporuke) : that.rokIsporuke != null) return false;
         if (garancija != null ? !garancija.equals(that.garancija) : that.garancija != null) return false;
-        if (prihvatecaOdMenadzera != null ? !prihvatecaOdMenadzera.equals(that.prihvatecaOdMenadzera) : that.prihvatecaOdMenadzera != null)
-            return false;
         if (ponudjacVideoDalJePonudaPrihvacenaIliOdbijena != null ? !ponudjacVideoDalJePonudaPrihvacenaIliOdbijena.equals(that.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena) : that.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena != null)
+            return false;
+        if (prihvacenoOdMenadzera != null ? !prihvacenoOdMenadzera.equals(that.prihvacenoOdMenadzera) : that.prihvacenoOdMenadzera != null)
             return false;
 
         return true;
@@ -115,8 +115,8 @@ public class PonudaEntity {
         result = 31 * result + idPotraznje;
         result = 31 * result + (rokIsporuke != null ? rokIsporuke.hashCode() : 0);
         result = 31 * result + (garancija != null ? garancija.hashCode() : 0);
-        result = 31 * result + (prihvatecaOdMenadzera != null ? prihvatecaOdMenadzera.hashCode() : 0);
         result = 31 * result + (ponudjacVideoDalJePonudaPrihvacenaIliOdbijena != null ? ponudjacVideoDalJePonudaPrihvacenaIliOdbijena.hashCode() : 0);
+        result = 31 * result + (prihvacenoOdMenadzera != null ? prihvacenoOdMenadzera.hashCode() : 0);
         return result;
     }
 }

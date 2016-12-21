@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "potraznja_restorana", schema = "restorani", catalog = "")
@@ -12,6 +12,7 @@ public class PotraznjaRestoranaEntity {
     private Date pocetakPonude;
     private Date krajPonude;
     private int idPotraznje;
+    private Integer idRestorana;
 
     @Basic
     @Column(name = "POCETAK_PONUDE")
@@ -43,6 +44,16 @@ public class PotraznjaRestoranaEntity {
         this.idPotraznje = idPotraznje;
     }
 
+    @Basic
+    @Column(name = "ID_RESTORANA")
+    public Integer getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(Integer idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -54,6 +65,7 @@ public class PotraznjaRestoranaEntity {
         if (pocetakPonude != null ? !pocetakPonude.equals(that.pocetakPonude) : that.pocetakPonude != null)
             return false;
         if (krajPonude != null ? !krajPonude.equals(that.krajPonude) : that.krajPonude != null) return false;
+        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
 
         return true;
     }
@@ -63,6 +75,7 @@ public class PotraznjaRestoranaEntity {
         int result = pocetakPonude != null ? pocetakPonude.hashCode() : 0;
         result = 31 * result + (krajPonude != null ? krajPonude.hashCode() : 0);
         result = 31 * result + idPotraznje;
+        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
         return result;
     }
 }

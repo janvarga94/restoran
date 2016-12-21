@@ -3,22 +3,34 @@ package init.modelFromDB;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-public class OcenaKonobaraEntityPK implements Serializable {
-    private String konobarEmail;
+public class PorudzbinaEntityPK implements Serializable {
+    private Date kreirana;
+    private int idRestorana;
     private String gostEmail;
 
-    @Column(name = "KONOBAR_EMAIL")
+    @Column(name = "KREIRANA")
     @Id
-    public String getKonobarEmail() {
-        return konobarEmail;
+    public Date getKreirana() {
+        return kreirana;
     }
 
-    public void setKonobarEmail(String konobarEmail) {
-        this.konobarEmail = konobarEmail;
+    public void setKreirana(Date kreirana) {
+        this.kreirana = kreirana;
+    }
+
+    @Column(name = "ID_RESTORANA")
+    @Id
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
     }
 
     @Column(name = "GOST_EMAIL")
@@ -36,9 +48,10 @@ public class OcenaKonobaraEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OcenaKonobaraEntityPK that = (OcenaKonobaraEntityPK) o;
+        PorudzbinaEntityPK that = (PorudzbinaEntityPK) o;
 
-        if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
+        if (idRestorana != that.idRestorana) return false;
+        if (kreirana != null ? !kreirana.equals(that.kreirana) : that.kreirana != null) return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
 
         return true;
@@ -46,7 +59,8 @@ public class OcenaKonobaraEntityPK implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = konobarEmail != null ? konobarEmail.hashCode() : 0;
+        int result = kreirana != null ? kreirana.hashCode() : 0;
+        result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
     }

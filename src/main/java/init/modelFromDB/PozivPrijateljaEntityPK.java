@@ -1,42 +1,29 @@
 package init.modelFromDB;
 
-import javax.persistence.*;
-import java.sql.Date;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-@Entity
-@Table(name = "racun", schema = "restorani", catalog = "")
-@IdClass(RacunEntityPK.class)
-public class RacunEntity {
-    private int idPorudzbine;
-    private Date kreirana;
+public class PozivPrijateljaEntityPK implements Serializable {
+    private String prijateljEmail;
     private int idRestorana;
     private String gostEmail;
 
+    @Column(name = "PRIJATELJ_EMAIL")
     @Id
-    @Column(name = "ID_PORUDZBINE")
-    public int getIdPorudzbine() {
-        return idPorudzbine;
+    public String getPrijateljEmail() {
+        return prijateljEmail;
     }
 
-    public void setIdPorudzbine(int idPorudzbine) {
-        this.idPorudzbine = idPorudzbine;
+    public void setPrijateljEmail(String prijateljEmail) {
+        this.prijateljEmail = prijateljEmail;
     }
 
-    @Id
-    @Column(name = "KREIRANA")
-    public Date getKreirana() {
-        return kreirana;
-    }
-
-    public void setKreirana(Date kreirana) {
-        this.kreirana = kreirana;
-    }
-
-    @Id
     @Column(name = "ID_RESTORANA")
+    @Id
     public int getIdRestorana() {
         return idRestorana;
     }
@@ -45,8 +32,8 @@ public class RacunEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Id
     @Column(name = "GOST_EMAIL")
+    @Id
     public String getGostEmail() {
         return gostEmail;
     }
@@ -60,11 +47,11 @@ public class RacunEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RacunEntity that = (RacunEntity) o;
+        PozivPrijateljaEntityPK that = (PozivPrijateljaEntityPK) o;
 
-        if (idPorudzbine != that.idPorudzbine) return false;
         if (idRestorana != that.idRestorana) return false;
-        if (kreirana != null ? !kreirana.equals(that.kreirana) : that.kreirana != null) return false;
+        if (prijateljEmail != null ? !prijateljEmail.equals(that.prijateljEmail) : that.prijateljEmail != null)
+            return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
 
         return true;
@@ -72,8 +59,7 @@ public class RacunEntity {
 
     @Override
     public int hashCode() {
-        int result = idPorudzbine;
-        result = 31 * result + (kreirana != null ? kreirana.hashCode() : 0);
+        int result = prijateljEmail != null ? prijateljEmail.hashCode() : 0;
         result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;

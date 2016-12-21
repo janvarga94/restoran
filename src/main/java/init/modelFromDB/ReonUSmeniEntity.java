@@ -3,25 +3,16 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "reon_u_smeni", schema = "restorani", catalog = "")
 @IdClass(ReonUSmeniEntityPK.class)
 public class ReonUSmeniEntity {
-    private int mbr;
     private int idSmene;
     private int idReona;
-
-    @Id
-    @Column(name = "MBR")
-    public int getMbr() {
-        return mbr;
-    }
-
-    public void setMbr(int mbr) {
-        this.mbr = mbr;
-    }
+    private int idRestorana;
+    private String konobarEmail;
 
     @Id
     @Column(name = "ID_SMENE")
@@ -43,6 +34,26 @@ public class ReonUSmeniEntity {
         this.idReona = idReona;
     }
 
+    @Id
+    @Column(name = "ID_RESTORANA")
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
+    @Id
+    @Column(name = "KONOBAR_EMAIL")
+    public String getKonobarEmail() {
+        return konobarEmail;
+    }
+
+    public void setKonobarEmail(String konobarEmail) {
+        this.konobarEmail = konobarEmail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,18 +61,20 @@ public class ReonUSmeniEntity {
 
         ReonUSmeniEntity that = (ReonUSmeniEntity) o;
 
-        if (mbr != that.mbr) return false;
         if (idSmene != that.idSmene) return false;
         if (idReona != that.idReona) return false;
+        if (idRestorana != that.idRestorana) return false;
+        if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = mbr;
-        result = 31 * result + idSmene;
+        int result = idSmene;
         result = 31 * result + idReona;
+        result = 31 * result + idRestorana;
+        result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
         return result;
     }
 }

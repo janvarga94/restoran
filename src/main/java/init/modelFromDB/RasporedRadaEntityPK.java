@@ -6,12 +6,12 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 public class RasporedRadaEntityPK implements Serializable {
     private int idSmene;
-    private int mbr;
     private Date datumPocetka;
+    private String radnikEmail;
 
     @Column(name = "ID_SMENE")
     @Id
@@ -21,16 +21,6 @@ public class RasporedRadaEntityPK implements Serializable {
 
     public void setIdSmene(int idSmene) {
         this.idSmene = idSmene;
-    }
-
-    @Column(name = "MBR")
-    @Id
-    public int getMbr() {
-        return mbr;
-    }
-
-    public void setMbr(int mbr) {
-        this.mbr = mbr;
     }
 
     @Column(name = "DATUM_POCETKA")
@@ -43,6 +33,16 @@ public class RasporedRadaEntityPK implements Serializable {
         this.datumPocetka = datumPocetka;
     }
 
+    @Column(name = "RADNIK_EMAIL")
+    @Id
+    public String getRadnikEmail() {
+        return radnikEmail;
+    }
+
+    public void setRadnikEmail(String radnikEmail) {
+        this.radnikEmail = radnikEmail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,8 +51,8 @@ public class RasporedRadaEntityPK implements Serializable {
         RasporedRadaEntityPK that = (RasporedRadaEntityPK) o;
 
         if (idSmene != that.idSmene) return false;
-        if (mbr != that.mbr) return false;
         if (datumPocetka != null ? !datumPocetka.equals(that.datumPocetka) : that.datumPocetka != null) return false;
+        if (radnikEmail != null ? !radnikEmail.equals(that.radnikEmail) : that.radnikEmail != null) return false;
 
         return true;
     }
@@ -60,8 +60,8 @@ public class RasporedRadaEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = idSmene;
-        result = 31 * result + mbr;
         result = 31 * result + (datumPocetka != null ? datumPocetka.hashCode() : 0);
+        result = 31 * result + (radnikEmail != null ? radnikEmail.hashCode() : 0);
         return result;
     }
 }

@@ -3,16 +3,15 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "ocena_jela", schema = "restorani", catalog = "")
+@IdClass(OcenaJelaEntityPK.class)
 public class OcenaJelaEntity {
     private Integer ocena;
-    private int id;
-    private String jelNaziv;
-    private String naziv;
-    private String jeloNaziv;
+    private String nazivJela;
+    private String gostEmail;
 
     @Basic
     @Column(name = "OCENA")
@@ -25,43 +24,23 @@ public class OcenaJelaEntity {
     }
 
     @Id
-    @Column(name = "ID")
-    public int getId() {
-        return id;
+    @Column(name = "NAZIV_JELA")
+    public String getNazivJela() {
+        return nazivJela;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNazivJela(String nazivJela) {
+        this.nazivJela = nazivJela;
     }
 
-    @Basic
-    @Column(name = "JEL_NAZIV")
-    public String getJelNaziv() {
-        return jelNaziv;
+    @Id
+    @Column(name = "GOST_EMAIL")
+    public String getGostEmail() {
+        return gostEmail;
     }
 
-    public void setJelNaziv(String jelNaziv) {
-        this.jelNaziv = jelNaziv;
-    }
-
-    @Basic
-    @Column(name = "NAZIV")
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
-
-    @Basic
-    @Column(name = "JELO_NAZIV")
-    public String getJeloNaziv() {
-        return jeloNaziv;
-    }
-
-    public void setJeloNaziv(String jeloNaziv) {
-        this.jeloNaziv = jeloNaziv;
+    public void setGostEmail(String gostEmail) {
+        this.gostEmail = gostEmail;
     }
 
     @Override
@@ -71,11 +50,9 @@ public class OcenaJelaEntity {
 
         OcenaJelaEntity that = (OcenaJelaEntity) o;
 
-        if (id != that.id) return false;
         if (ocena != null ? !ocena.equals(that.ocena) : that.ocena != null) return false;
-        if (jelNaziv != null ? !jelNaziv.equals(that.jelNaziv) : that.jelNaziv != null) return false;
-        if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
-        if (jeloNaziv != null ? !jeloNaziv.equals(that.jeloNaziv) : that.jeloNaziv != null) return false;
+        if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
+        if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
 
         return true;
     }
@@ -83,10 +60,8 @@ public class OcenaJelaEntity {
     @Override
     public int hashCode() {
         int result = ocena != null ? ocena.hashCode() : 0;
-        result = 31 * result + id;
-        result = 31 * result + (jelNaziv != null ? jelNaziv.hashCode() : 0);
-        result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
-        result = 31 * result + (jeloNaziv != null ? jeloNaziv.hashCode() : 0);
+        result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
+        result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
     }
 }

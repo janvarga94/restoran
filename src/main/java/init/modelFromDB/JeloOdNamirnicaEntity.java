@@ -1,18 +1,18 @@
 package init.modelFromDB;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-public class PotraznjaNamirnacaEntityPK implements Serializable {
+@Entity
+@Table(name = "jelo_od_namirnica", schema = "restorani", catalog = "")
+public class JeloOdNamirnicaEntity {
     private int idNamirnice;
-    private int idPotraznje;
+    private String nazivJela;
 
+    @Basic
     @Column(name = "ID_NAMIRNICE")
-    @Id
     public int getIdNamirnice() {
         return idNamirnice;
     }
@@ -21,14 +21,14 @@ public class PotraznjaNamirnacaEntityPK implements Serializable {
         this.idNamirnice = idNamirnice;
     }
 
-    @Column(name = "ID_POTRAZNJE")
     @Id
-    public int getIdPotraznje() {
-        return idPotraznje;
+    @Column(name = "NAZIV_JELA")
+    public String getNazivJela() {
+        return nazivJela;
     }
 
-    public void setIdPotraznje(int idPotraznje) {
-        this.idPotraznje = idPotraznje;
+    public void setNazivJela(String nazivJela) {
+        this.nazivJela = nazivJela;
     }
 
     @Override
@@ -36,10 +36,10 @@ public class PotraznjaNamirnacaEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PotraznjaNamirnacaEntityPK that = (PotraznjaNamirnacaEntityPK) o;
+        JeloOdNamirnicaEntity that = (JeloOdNamirnicaEntity) o;
 
         if (idNamirnice != that.idNamirnice) return false;
-        if (idPotraznje != that.idPotraznje) return false;
+        if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
 
         return true;
     }
@@ -47,7 +47,7 @@ public class PotraznjaNamirnacaEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = idNamirnice;
-        result = 31 * result + idPotraznje;
+        result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
         return result;
     }
 }

@@ -3,15 +3,15 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "pice", schema = "restorani", catalog = "")
 public class PiceEntity {
     private String nazivPica;
     private Integer idRestorana;
-    private String tekst;
     private Double cena;
+    private String opis;
 
     @Id
     @Column(name = "NAZIV_PICA")
@@ -34,16 +34,6 @@ public class PiceEntity {
     }
 
     @Basic
-    @Column(name = "TEKST")
-    public String getTekst() {
-        return tekst;
-    }
-
-    public void setTekst(String tekst) {
-        this.tekst = tekst;
-    }
-
-    @Basic
     @Column(name = "CENA")
     public Double getCena() {
         return cena;
@@ -51,6 +41,16 @@ public class PiceEntity {
 
     public void setCena(Double cena) {
         this.cena = cena;
+    }
+
+    @Basic
+    @Column(name = "OPIS")
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
     }
 
     @Override
@@ -62,8 +62,8 @@ public class PiceEntity {
 
         if (nazivPica != null ? !nazivPica.equals(that.nazivPica) : that.nazivPica != null) return false;
         if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
-        if (tekst != null ? !tekst.equals(that.tekst) : that.tekst != null) return false;
         if (cena != null ? !cena.equals(that.cena) : that.cena != null) return false;
+        if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
 
         return true;
     }
@@ -72,8 +72,8 @@ public class PiceEntity {
     public int hashCode() {
         int result = nazivPica != null ? nazivPica.hashCode() : 0;
         result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
-        result = 31 * result + (tekst != null ? tekst.hashCode() : 0);
         result = 31 * result + (cena != null ? cena.hashCode() : 0);
+        result = 31 * result + (opis != null ? opis.hashCode() : 0);
         return result;
     }
 }

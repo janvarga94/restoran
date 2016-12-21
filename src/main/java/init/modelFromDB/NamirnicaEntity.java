@@ -3,14 +3,14 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "namirnica", schema = "restorani", catalog = "")
 public class NamirnicaEntity {
     private String naziv;
-    private String tekst;
     private int idNamirnice;
+    private String opis;
 
     @Basic
     @Column(name = "NAZIV")
@@ -20,16 +20,6 @@ public class NamirnicaEntity {
 
     public void setNaziv(String naziv) {
         this.naziv = naziv;
-    }
-
-    @Basic
-    @Column(name = "TEKST")
-    public String getTekst() {
-        return tekst;
-    }
-
-    public void setTekst(String tekst) {
-        this.tekst = tekst;
     }
 
     @Id
@@ -42,6 +32,16 @@ public class NamirnicaEntity {
         this.idNamirnice = idNamirnice;
     }
 
+    @Basic
+    @Column(name = "OPIS")
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,7 +51,7 @@ public class NamirnicaEntity {
 
         if (idNamirnice != that.idNamirnice) return false;
         if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
-        if (tekst != null ? !tekst.equals(that.tekst) : that.tekst != null) return false;
+        if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
 
         return true;
     }
@@ -59,8 +59,8 @@ public class NamirnicaEntity {
     @Override
     public int hashCode() {
         int result = naziv != null ? naziv.hashCode() : 0;
-        result = 31 * result + (tekst != null ? tekst.hashCode() : 0);
         result = 31 * result + idNamirnice;
+        result = 31 * result + (opis != null ? opis.hashCode() : 0);
         return result;
     }
 }

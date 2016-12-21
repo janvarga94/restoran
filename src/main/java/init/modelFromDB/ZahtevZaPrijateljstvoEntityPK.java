@@ -5,30 +5,30 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 public class ZahtevZaPrijateljstvoEntityPK implements Serializable {
-    private int idPosiljaoca;
-    private int idPrimaoca;
+    private String prviEmail;
+    private String drugiEmail;
 
-    @Column(name = "ID_POSILJAOCA")
+    @Column(name = "PRVI_EMAIL")
     @Id
-    public int getIdPosiljaoca() {
-        return idPosiljaoca;
+    public String getPrviEmail() {
+        return prviEmail;
     }
 
-    public void setIdPosiljaoca(int idPosiljaoca) {
-        this.idPosiljaoca = idPosiljaoca;
+    public void setPrviEmail(String prviEmail) {
+        this.prviEmail = prviEmail;
     }
 
-    @Column(name = "ID_PRIMAOCA")
+    @Column(name = "DRUGI_EMAIL")
     @Id
-    public int getIdPrimaoca() {
-        return idPrimaoca;
+    public String getDrugiEmail() {
+        return drugiEmail;
     }
 
-    public void setIdPrimaoca(int idPrimaoca) {
-        this.idPrimaoca = idPrimaoca;
+    public void setDrugiEmail(String drugiEmail) {
+        this.drugiEmail = drugiEmail;
     }
 
     @Override
@@ -38,16 +38,16 @@ public class ZahtevZaPrijateljstvoEntityPK implements Serializable {
 
         ZahtevZaPrijateljstvoEntityPK that = (ZahtevZaPrijateljstvoEntityPK) o;
 
-        if (idPosiljaoca != that.idPosiljaoca) return false;
-        if (idPrimaoca != that.idPrimaoca) return false;
+        if (prviEmail != null ? !prviEmail.equals(that.prviEmail) : that.prviEmail != null) return false;
+        if (drugiEmail != null ? !drugiEmail.equals(that.drugiEmail) : that.drugiEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idPosiljaoca;
-        result = 31 * result + idPrimaoca;
+        int result = prviEmail != null ? prviEmail.hashCode() : 0;
+        result = 31 * result + (drugiEmail != null ? drugiEmail.hashCode() : 0);
         return result;
     }
 }

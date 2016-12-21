@@ -6,21 +6,21 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "sanker", schema = "restorani", catalog = "")
 public class SankerEntity {
-    private int mbr;
+    private String sankerEmail;
 
     @Id
-    @Column(name = "MBR")
-    public int getMbr() {
-        return mbr;
+    @Column(name = "SANKER_EMAIL")
+    public String getSankerEmail() {
+        return sankerEmail;
     }
 
-    public void setMbr(int mbr) {
-        this.mbr = mbr;
+    public void setSankerEmail(String sankerEmail) {
+        this.sankerEmail = sankerEmail;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class SankerEntity {
 
         SankerEntity that = (SankerEntity) o;
 
-        if (mbr != that.mbr) return false;
+        if (sankerEmail != null ? !sankerEmail.equals(that.sankerEmail) : that.sankerEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return mbr;
+        return sankerEmail != null ? sankerEmail.hashCode() : 0;
     }
 }

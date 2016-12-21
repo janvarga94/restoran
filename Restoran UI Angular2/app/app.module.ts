@@ -13,7 +13,7 @@ import { RestoranDetailComponent} from './restoran detail/restoranDetail.compone
 import { PageNotFoundComponent} from './page not found/pageNotFound.component';
 import { MenazerSistemaViewComponent} from './menazerSistemaView/menazerView.component';
 
-import { LimitDuzineStringa} from './pipes/LimitDuzineStringa';
+//import { LimitDuzineStringa} from './pipes/LimitDuzineStringa';
 
 import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
@@ -50,7 +50,7 @@ import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.compon
     HeaderComponent,
     PageNotFoundComponent,
     MenazerSistemaViewComponent,
-    LimitDuzineStringa
+    //LimitDuzineStringa
    ],
    providers: [
      RestoranService,

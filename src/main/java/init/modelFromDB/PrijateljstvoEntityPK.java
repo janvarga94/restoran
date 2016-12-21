@@ -5,30 +5,30 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 public class PrijateljstvoEntityPK implements Serializable {
-    private int idPrvog;
-    private int idDrugog;
+    private String prviEmail;
+    private String drugiEmail;
 
-    @Column(name = "ID_PRVOG")
+    @Column(name = "PRVI_EMAIL")
     @Id
-    public int getIdPrvog() {
-        return idPrvog;
+    public String getPrviEmail() {
+        return prviEmail;
     }
 
-    public void setIdPrvog(int idPrvog) {
-        this.idPrvog = idPrvog;
+    public void setPrviEmail(String prviEmail) {
+        this.prviEmail = prviEmail;
     }
 
-    @Column(name = "ID_DRUGOG")
+    @Column(name = "DRUGI_EMAIL")
     @Id
-    public int getIdDrugog() {
-        return idDrugog;
+    public String getDrugiEmail() {
+        return drugiEmail;
     }
 
-    public void setIdDrugog(int idDrugog) {
-        this.idDrugog = idDrugog;
+    public void setDrugiEmail(String drugiEmail) {
+        this.drugiEmail = drugiEmail;
     }
 
     @Override
@@ -38,16 +38,16 @@ public class PrijateljstvoEntityPK implements Serializable {
 
         PrijateljstvoEntityPK that = (PrijateljstvoEntityPK) o;
 
-        if (idPrvog != that.idPrvog) return false;
-        if (idDrugog != that.idDrugog) return false;
+        if (prviEmail != null ? !prviEmail.equals(that.prviEmail) : that.prviEmail != null) return false;
+        if (drugiEmail != null ? !drugiEmail.equals(that.drugiEmail) : that.drugiEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idPrvog;
-        result = 31 * result + idDrugog;
+        int result = prviEmail != null ? prviEmail.hashCode() : 0;
+        result = 31 * result + (drugiEmail != null ? drugiEmail.hashCode() : 0);
         return result;
     }
 }

@@ -3,37 +3,17 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "ocena_konobara", schema = "restorani", catalog = "")
 @IdClass(OcenaKonobaraEntityPK.class)
 public class OcenaKonobaraEntity {
-    private int idGosta;
-    private int mbrKonobara;
     private int ocena;
+    private String konobarEmail;
+    private String gostEmail;
 
-    @Id
-    @Column(name = "ID_GOSTA")
-    public int getIdGosta() {
-        return idGosta;
-    }
-
-    public void setIdGosta(int idGosta) {
-        this.idGosta = idGosta;
-    }
-
-    @Id
-    @Column(name = "MBR_KONOBARA")
-    public int getMbrKonobara() {
-        return mbrKonobara;
-    }
-
-    public void setMbrKonobara(int mbrKonobara) {
-        this.mbrKonobara = mbrKonobara;
-    }
-
-    @Id
+    @Basic
     @Column(name = "OCENA")
     public int getOcena() {
         return ocena;
@@ -43,6 +23,26 @@ public class OcenaKonobaraEntity {
         this.ocena = ocena;
     }
 
+    @Id
+    @Column(name = "KONOBAR_EMAIL")
+    public String getKonobarEmail() {
+        return konobarEmail;
+    }
+
+    public void setKonobarEmail(String konobarEmail) {
+        this.konobarEmail = konobarEmail;
+    }
+
+    @Id
+    @Column(name = "GOST_EMAIL")
+    public String getGostEmail() {
+        return gostEmail;
+    }
+
+    public void setGostEmail(String gostEmail) {
+        this.gostEmail = gostEmail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,18 +50,18 @@ public class OcenaKonobaraEntity {
 
         OcenaKonobaraEntity that = (OcenaKonobaraEntity) o;
 
-        if (idGosta != that.idGosta) return false;
-        if (mbrKonobara != that.mbrKonobara) return false;
         if (ocena != that.ocena) return false;
+        if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
+        if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idGosta;
-        result = 31 * result + mbrKonobara;
-        result = 31 * result + ocena;
+        int result = ocena;
+        result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
+        result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
     }
 }

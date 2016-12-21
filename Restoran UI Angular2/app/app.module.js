@@ -21,7 +21,7 @@ var restorani_component_1 = require("./restorani/restorani.component");
 var restoranDetail_component_1 = require("./restoran detail/restoranDetail.component");
 var pageNotFound_component_1 = require("./page not found/pageNotFound.component");
 var menazerView_component_1 = require("./menazerSistemaView/menazerView.component");
-var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
+//import { LimitDuzineStringa} from './pipes/LimitDuzineStringa';
 var restorani_service_1 = require("./services/restorani.service");
 var login_service_1 = require("./services/login.service");
 var notification_service_1 = require("./services/notification.service");
@@ -60,7 +60,6 @@ AppModule = __decorate([
             header_component_1.HeaderComponent,
             pageNotFound_component_1.PageNotFoundComponent,
             menazerView_component_1.MenazerSistemaViewComponent,
-            LimitDuzineStringa_1.LimitDuzineStringa
         ],
         providers: [
             restorani_service_1.RestoranService,

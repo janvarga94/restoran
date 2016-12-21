@@ -1,28 +1,28 @@
 package init.modelFromDB;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-@Entity
-@Table(name = "gost", schema = "restorani", catalog = "")
-public class GostEntity {
-    private Byte aktiviran;
+public class OcenaJelaEntityPK implements Serializable {
+    private String nazivJela;
     private String gostEmail;
 
-    @Basic
-    @Column(name = "AKTIVIRAN")
-    public Byte getAktiviran() {
-        return aktiviran;
-    }
-
-    public void setAktiviran(Byte aktiviran) {
-        this.aktiviran = aktiviran;
-    }
-
+    @Column(name = "NAZIV_JELA")
     @Id
+    public String getNazivJela() {
+        return nazivJela;
+    }
+
+    public void setNazivJela(String nazivJela) {
+        this.nazivJela = nazivJela;
+    }
+
     @Column(name = "GOST_EMAIL")
+    @Id
     public String getGostEmail() {
         return gostEmail;
     }
@@ -36,9 +36,9 @@ public class GostEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GostEntity that = (GostEntity) o;
+        OcenaJelaEntityPK that = (OcenaJelaEntityPK) o;
 
-        if (aktiviran != null ? !aktiviran.equals(that.aktiviran) : that.aktiviran != null) return false;
+        if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
 
         return true;
@@ -46,7 +46,7 @@ public class GostEntity {
 
     @Override
     public int hashCode() {
-        int result = aktiviran != null ? aktiviran.hashCode() : 0;
+        int result = nazivJela != null ? nazivJela.hashCode() : 0;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
     }

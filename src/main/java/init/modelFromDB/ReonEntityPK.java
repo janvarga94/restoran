@@ -1,20 +1,18 @@
 package init.modelFromDB;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-@Entity
-@Table(name = "reon", schema = "restorani", catalog = "")
-@IdClass(ReonEntityPK.class)
-public class ReonEntity {
+public class ReonEntityPK implements Serializable {
     private int idReona;
     private int idRestorana;
-    private String opis;
 
-    @Id
     @Column(name = "ID_REONA")
+    @Id
     public int getIdReona() {
         return idReona;
     }
@@ -23,8 +21,8 @@ public class ReonEntity {
         this.idReona = idReona;
     }
 
-    @Id
     @Column(name = "ID_RESTORANA")
+    @Id
     public int getIdRestorana() {
         return idRestorana;
     }
@@ -33,26 +31,15 @@ public class ReonEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Basic
-    @Column(name = "OPIS")
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ReonEntity that = (ReonEntity) o;
+        ReonEntityPK that = (ReonEntityPK) o;
 
         if (idReona != that.idReona) return false;
         if (idRestorana != that.idRestorana) return false;
-        if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
 
         return true;
     }
@@ -61,7 +48,6 @@ public class ReonEntity {
     public int hashCode() {
         int result = idReona;
         result = 31 * result + idRestorana;
-        result = 31 * result + (opis != null ? opis.hashCode() : 0);
         return result;
     }
 }

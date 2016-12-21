@@ -1,5 +1,7 @@
 package init;
 
+import init.modelFromDB.GostEntity;
+import init.modelFromDB.KorisnikEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
 import org.hibernate.Session;
@@ -28,10 +30,29 @@ public class Main {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-
+        popuniKorisnike();
 
         SpringApplication.run(Main.class, args);
 
+    }
+
+    private static void popuniKorisnike(){
+        for(int i=0; i<10; i++){
+            KorisnikEntity korisnikEntity = new KorisnikEntity();
+            korisnikEntity.setEmail("email"+i);
+            korisnikEntity.setLozinka("pass"+i);
+            korisnikEntity.setIme("Ime"+i);
+            korisnikEntity.setPrezime("Prezime"+i);
+
+            session.save(korisnikEntity);
+
+            GostEntity gostEntity = new GostEntity();
+            gostEntity.setGostEmail("email"+i);
+
+            session.save(gostEntity);
+        }
+
+        session.getTransaction().commit();
     }
 
     @Bean

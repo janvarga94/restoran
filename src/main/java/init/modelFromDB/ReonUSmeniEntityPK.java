@@ -5,22 +5,13 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 public class ReonUSmeniEntityPK implements Serializable {
-    private int mbr;
     private int idSmene;
     private int idReona;
-
-    @Column(name = "MBR")
-    @Id
-    public int getMbr() {
-        return mbr;
-    }
-
-    public void setMbr(int mbr) {
-        this.mbr = mbr;
-    }
+    private int idRestorana;
+    private String konobarEmail;
 
     @Column(name = "ID_SMENE")
     @Id
@@ -42,6 +33,26 @@ public class ReonUSmeniEntityPK implements Serializable {
         this.idReona = idReona;
     }
 
+    @Column(name = "ID_RESTORANA")
+    @Id
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
+    @Column(name = "KONOBAR_EMAIL")
+    @Id
+    public String getKonobarEmail() {
+        return konobarEmail;
+    }
+
+    public void setKonobarEmail(String konobarEmail) {
+        this.konobarEmail = konobarEmail;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,18 +60,20 @@ public class ReonUSmeniEntityPK implements Serializable {
 
         ReonUSmeniEntityPK that = (ReonUSmeniEntityPK) o;
 
-        if (mbr != that.mbr) return false;
         if (idSmene != that.idSmene) return false;
         if (idReona != that.idReona) return false;
+        if (idRestorana != that.idRestorana) return false;
+        if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = mbr;
-        result = 31 * result + idSmene;
+        int result = idSmene;
         result = 31 * result + idReona;
+        result = 31 * result + idRestorana;
+        result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
         return result;
     }
 }

@@ -9,17 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var welcome_service_1 = require("../services/welcome.service");
 var WelcomeComponent = (function () {
-    function WelcomeComponent() {
+    function WelcomeComponent(_welcomeService) {
+        this._welcomeService = _welcomeService;
         this.pageTitle = 'Welcome people';
+        this.mbr = 0;
     }
+    WelcomeComponent.prototype.ngOnInit = function () {
+        // this._welcomeService.getRestoraniForUser().subscribe( restorani =>{
+        //     //   this.restorani = restorani;
+        //     this.restorani = restorani;
+        // });
+        //   console.log(this.restorani.length);
+    };
     return WelcomeComponent;
 }());
 WelcomeComponent = __decorate([
     core_1.Component({
         templateUrl: 'app/home/welcome.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [welcome_service_1.WelcomeService])
 ], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

@@ -3,13 +3,13 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "token", schema = "restorani", catalog = "")
 public class TokenEntity {
     private String tokenString;
-    private Integer idGosta;
+    private String email;
 
     @Id
     @Column(name = "TOKEN_STRING")
@@ -22,13 +22,13 @@ public class TokenEntity {
     }
 
     @Basic
-    @Column(name = "ID_GOSTA")
-    public Integer getIdGosta() {
-        return idGosta;
+    @Column(name = "EMAIL")
+    public String getEmail() {
+        return email;
     }
 
-    public void setIdGosta(Integer idGosta) {
-        this.idGosta = idGosta;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class TokenEntity {
         TokenEntity that = (TokenEntity) o;
 
         if (tokenString != null ? !tokenString.equals(that.tokenString) : that.tokenString != null) return false;
-        if (idGosta != null ? !idGosta.equals(that.idGosta) : that.idGosta != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
 
         return true;
     }
@@ -47,7 +47,7 @@ public class TokenEntity {
     @Override
     public int hashCode() {
         int result = tokenString != null ? tokenString.hashCode() : 0;
-        result = 31 * result + (idGosta != null ? idGosta.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
 }

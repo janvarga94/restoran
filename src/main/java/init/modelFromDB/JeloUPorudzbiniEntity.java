@@ -1,16 +1,21 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "jelo_u_porudzbini", schema = "restorani", catalog = "")
 public class JeloUPorudzbiniEntity {
     private String nazivJela;
-    private int id;
-    private Integer mbrKuvara;
+    private int idPorudzbineJela;
+    private Date kreirana;
+    private Integer idRestorana;
+    private String gostEmail;
+    private String email;
+    private String kuvarEmail;
 
     @Basic
     @Column(name = "NAZIV_JELA")
@@ -23,23 +28,63 @@ public class JeloUPorudzbiniEntity {
     }
 
     @Id
-    @Column(name = "ID")
-    public int getId() {
-        return id;
+    @Column(name = "ID_PORUDZBINE_JELA")
+    public int getIdPorudzbineJela() {
+        return idPorudzbineJela;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdPorudzbineJela(int idPorudzbineJela) {
+        this.idPorudzbineJela = idPorudzbineJela;
     }
 
     @Basic
-    @Column(name = "MBR_KUVARA")
-    public Integer getMbrKuvara() {
-        return mbrKuvara;
+    @Column(name = "KREIRANA")
+    public Date getKreirana() {
+        return kreirana;
     }
 
-    public void setMbrKuvara(Integer mbrKuvara) {
-        this.mbrKuvara = mbrKuvara;
+    public void setKreirana(Date kreirana) {
+        this.kreirana = kreirana;
+    }
+
+    @Basic
+    @Column(name = "ID_RESTORANA")
+    public Integer getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(Integer idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
+    @Basic
+    @Column(name = "GOST_EMAIL")
+    public String getGostEmail() {
+        return gostEmail;
+    }
+
+    public void setGostEmail(String gostEmail) {
+        this.gostEmail = gostEmail;
+    }
+
+    @Basic
+    @Column(name = "EMAIL")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Basic
+    @Column(name = "KUVAR_EMAIL")
+    public String getKuvarEmail() {
+        return kuvarEmail;
+    }
+
+    public void setKuvarEmail(String kuvarEmail) {
+        this.kuvarEmail = kuvarEmail;
     }
 
     @Override
@@ -49,9 +94,13 @@ public class JeloUPorudzbiniEntity {
 
         JeloUPorudzbiniEntity that = (JeloUPorudzbiniEntity) o;
 
-        if (id != that.id) return false;
+        if (idPorudzbineJela != that.idPorudzbineJela) return false;
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
-        if (mbrKuvara != null ? !mbrKuvara.equals(that.mbrKuvara) : that.mbrKuvara != null) return false;
+        if (kreirana != null ? !kreirana.equals(that.kreirana) : that.kreirana != null) return false;
+        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
+        if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (kuvarEmail != null ? !kuvarEmail.equals(that.kuvarEmail) : that.kuvarEmail != null) return false;
 
         return true;
     }
@@ -59,8 +108,12 @@ public class JeloUPorudzbiniEntity {
     @Override
     public int hashCode() {
         int result = nazivJela != null ? nazivJela.hashCode() : 0;
-        result = 31 * result + id;
-        result = 31 * result + (mbrKuvara != null ? mbrKuvara.hashCode() : 0);
+        result = 31 * result + idPorudzbineJela;
+        result = 31 * result + (kreirana != null ? kreirana.hashCode() : 0);
+        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
+        result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (kuvarEmail != null ? kuvarEmail.hashCode() : 0);
         return result;
     }
 }

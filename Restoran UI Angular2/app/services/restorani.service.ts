@@ -18,15 +18,15 @@ export class RestoranService {
     constructor(private _http: Http, private _notificator: Notificator) { }
 
     getRestorani(): Observable<IRestoran[]> {
-        return this._http.get(this._restoraniUrl)
-            .map((response: Response) => {
-                var restorani = <IRestoran[]> response.json();
-                // for(var i = 0; i < 10; i++)
-                //     restorani.push(restorani[0]);
-                console.log(restorani.length);
-                return restorani;
-            })
-            .catch(this.handleError);
+    return this._http.get(this._restoraniUrl)
+        .map((response: Response) => {
+            var restorani = <IRestoran[]> response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            console.log(restorani.length);
+            return restorani;
+        })
+        .catch(this.handleError);
     }
 
     getRestoran(id: string): Observable<IRestoran> {

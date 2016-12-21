@@ -3,14 +3,13 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/19/2016.
+ * Created by Svetozar Stojkovic on 12/21/2016.
  */
 @Entity
 @Table(name = "menazer_restorana", schema = "restorani", catalog = "")
 public class MenazerRestoranaEntity {
     private Integer idRestorana;
-    private int id;
-    private String naziv;
+    private String email;
 
     @Basic
     @Column(name = "ID_RESTORANA")
@@ -23,23 +22,13 @@ public class MenazerRestoranaEntity {
     }
 
     @Id
-    @Column(name = "ID")
-    public int getId() {
-        return id;
+    @Column(name = "EMAIL")
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
-    @Column(name = "NAZIV")
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
@@ -49,9 +38,8 @@ public class MenazerRestoranaEntity {
 
         MenazerRestoranaEntity that = (MenazerRestoranaEntity) o;
 
-        if (id != that.id) return false;
         if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
-        if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
 
         return true;
     }
@@ -59,8 +47,7 @@ public class MenazerRestoranaEntity {
     @Override
     public int hashCode() {
         int result = idRestorana != null ? idRestorana.hashCode() : 0;
-        result = 31 * result + id;
-        result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
 }

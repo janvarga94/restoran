@@ -1,22 +1,21 @@
 package init.modelFromDB;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
  */
-@Entity
-@Table(name = "racun", schema = "restorani", catalog = "")
-@IdClass(RacunEntityPK.class)
-public class RacunEntity {
+public class RacunEntityPK implements Serializable {
     private int idPorudzbine;
     private Date kreirana;
     private int idRestorana;
     private String gostEmail;
 
-    @Id
     @Column(name = "ID_PORUDZBINE")
+    @Id
     public int getIdPorudzbine() {
         return idPorudzbine;
     }
@@ -25,8 +24,8 @@ public class RacunEntity {
         this.idPorudzbine = idPorudzbine;
     }
 
-    @Id
     @Column(name = "KREIRANA")
+    @Id
     public Date getKreirana() {
         return kreirana;
     }
@@ -35,8 +34,8 @@ public class RacunEntity {
         this.kreirana = kreirana;
     }
 
-    @Id
     @Column(name = "ID_RESTORANA")
+    @Id
     public int getIdRestorana() {
         return idRestorana;
     }
@@ -45,8 +44,8 @@ public class RacunEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Id
     @Column(name = "GOST_EMAIL")
+    @Id
     public String getGostEmail() {
         return gostEmail;
     }
@@ -60,7 +59,7 @@ public class RacunEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        RacunEntity that = (RacunEntity) o;
+        RacunEntityPK that = (RacunEntityPK) o;
 
         if (idPorudzbine != that.idPorudzbine) return false;
         if (idRestorana != that.idRestorana) return false;
