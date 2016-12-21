@@ -12,7 +12,8 @@ import { RestoraniComponent} from './restorani/restorani.component';
 import { RestoranDetailComponent} from './restoran detail/restoranDetail.component';
 //import { PageNotFoundComponent} from './page not found/pageNotFound.component';
 import { MenazerSistemaViewComponent} from './menazerSistemaView/menazerView.component';
-
+import { LoginComponent} from './register login/login.component';
+import { RegisterComponent} from './register login/register.component';
 //import { LimitDuzineStringa} from './pipes/LimitDuzineStringa';
 
 import {RestoranService} from './services/restorani.service';
@@ -35,6 +36,8 @@ import {WelcomeService} from "./services/welcome.service";
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
          { path: 'welcome', component : WelcomeComponent},
+         { path: 'login', component : LoginComponent},
+         { path: 'register', component : RegisterComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
@@ -51,6 +54,8 @@ import {WelcomeService} from "./services/welcome.service";
     HeaderComponent,
  //   PageNotFoundComponent,
     MenazerSistemaViewComponent,
+    RegisterComponent,
+    LoginComponent,
     //LimitDuzineStringa
    ],
    providers: [

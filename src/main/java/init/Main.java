@@ -33,10 +33,10 @@ public class Main {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-//        popuniRestorane();
-//        popuniKorisnike();
-//        popuniPorudzbine();
-//        popuniRadnike();
+        popuniRestorane();
+        popuniKorisnike();
+        popuniPorudzbine();
+        popuniRadnike();
 
         SpringApplication.run(Main.class, args);
 
