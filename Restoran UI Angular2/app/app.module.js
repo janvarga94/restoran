@@ -8,6 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var ContainsString_1 = require("./pipes/ContainsString");
+var gostProfil_component_1 = require("./gost profil/gostProfil.component");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
@@ -50,6 +52,7 @@ AppModule = __decorate([
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
+                { path: 'gostProfil', component: gostProfil_component_1.GostProfilComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
@@ -62,10 +65,11 @@ AppModule = __decorate([
             zaposleniDetail_component_1.ZaposleniDetailComponent,
             restoranDetail_component_1.RestoranDetailComponent,
             header_component_1.HeaderComponent,
-            //   PageNotFoundComponent,
             menazerView_component_1.MenazerSistemaViewComponent,
             register_component_1.RegisterComponent,
             login_component_1.LoginComponent,
+            gostProfil_component_1.GostProfilComponent,
+            ContainsString_1.ContainsString
         ],
         providers: [
             restorani_service_1.RestoranService,

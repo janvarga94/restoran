@@ -1,3 +1,5 @@
+import { ContainsString } from './pipes/ContainsString';
+import { GostProfilComponent } from './gost profil/gostProfil.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -38,6 +40,7 @@ import {WelcomeService} from "./services/welcome.service";
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
+         { path: 'gostProfil', component : GostProfilComponent}
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
@@ -52,11 +55,13 @@ import {WelcomeService} from "./services/welcome.service";
       ZaposleniDetailComponent,
     RestoranDetailComponent,
     HeaderComponent,
- //   PageNotFoundComponent,
     MenazerSistemaViewComponent,
     RegisterComponent,
     LoginComponent,
-    //LimitDuzineStringa
+    GostProfilComponent,
+
+    ContainsString
+
    ],
    providers: [
      RestoranService,
