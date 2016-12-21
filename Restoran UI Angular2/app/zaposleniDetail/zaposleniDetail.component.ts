@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
  */
 
 @Component({
-    selector: 'zaposleni/:mbr',
+    selector: 'zaposleni/:email',
     templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
     providers: [ZaposleniDetailService]
 })
@@ -20,7 +20,7 @@ export class ZaposleniDetailComponent implements OnInit{
     pageTitle : string = "Zaposleni";
 
     zaposlen : IZaposleni;
-    mbr : number;
+    email : string;
 
     constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
 
@@ -29,15 +29,15 @@ export class ZaposleniDetailComponent implements OnInit{
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            this.mbr = +params['mbr'];
+            this.email = params['email'];
         })
 
-        console.log(this.mbr);
+        console.log(this.email);
 
-        this._zaposleniDetailService.getZaposlen(this.mbr).subscribe( zaposleni =>{
+        this._zaposleniDetailService.getZaposlen(this.email).subscribe( zaposleni =>{
             //   this.restorani = restorani;
             this.zaposlen = zaposleni;
-            console.log(this.zaposlen.ime)
+            console.log(this.zaposlen.radnikEmail)
         });
 
     }

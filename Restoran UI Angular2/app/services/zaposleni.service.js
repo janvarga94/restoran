@@ -34,9 +34,9 @@ var ZaposleniService = (function () {
         })
             .catch(this.handleError);
     };
-    ZaposleniService.prototype.getZaposlen = function (mbr) {
+    ZaposleniService.prototype.getZaposlen = function (radnikEmail) {
         return this.getZaposleni()
-            .map(function (zaposleni) { return zaposleni.find(function (z) { return z.mbr === mbr; }); })
+            .map(function (zaposleni) { return zaposleni.find(function (z) { return z.radnikEmail === radnikEmail; }); })
             .catch(this.handleError);
     };
     ZaposleniService.prototype.addZaposleni = function (zaposleni) {

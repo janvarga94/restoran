@@ -25,15 +25,14 @@ var LoginService = (function () {
         //provera kesiranog
     };
     LoginService.prototype.loginKorisnika = function (username, password) {
-        var _this = this;
-        this._http.get(this._restoraniUrl)
-            .map(function (response) { return response.json(); })
-            .catch(this.handleError)
-            .subscribe(function (response) {
-            if (response.success) {
-                _this.bSubject.next({ ime: username, uloga: response.uloga });
-            }
-        });
+        // this._http.get(this._restoraniUrl)
+        //     .map((response: Response) => <LoginResponse> response.json())
+        //     .catch(this.handleError)
+        //     .subscribe(response  => {
+        //         if(response.success){
+        //              this.bSubject.next({ ime : username, uloga: response.uloga });
+        //         }
+        //     });
     };
     LoginService.prototype.logoutKorisnika = function () {
         this.bSubject.next(null);

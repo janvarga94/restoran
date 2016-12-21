@@ -1,9 +1,52 @@
-﻿<div class="jumbotron">
-  <h1 class="display-3">Dobrodošli!</h1>
-  <p class="lead">Dobro došli na sajt za organizaciju najboljih restorana koje ste ikad videli i uživajte :* </p>
-  <hr class="my-2">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
+﻿<style>
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+    .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.5em;
+    }
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+</style>
+
+<div class="jumbotron">
+    <h1 class="display-3">Dobrodošli!</h1>
+    <p class="lead">Dobro došli na sajt za organizaciju najboljih restorana koje ste ikad videli i uživajte :* </p>
+    <hr class="my-2">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </p>
+    </p>
 </div>
+
+<b>Posećeni restorani</b>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Naziv</th>
+            <th>Vrsta</th>
+            <th><p style="float: right">Ocena</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let restoran of restorani">
+            <td>{{restoran.idRestorana}}</td>
+            <td>{{restoran.naziv}}</td>
+            <td>{{restoran.vrsta}}</td>
+            <td >
+                <div class="rating">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -13,23 +13,20 @@
 <table class="table">
     <thead>
     <tr>
-        <th>mbr</th>
-        <th>Ime</th>
-        <th>Prezime</th>
+        <th>Email</th>
         <th>Id Restorana</th>
         <th>Konf. Broj</th>
-        <th>Detalji</th>
+        <th>Velicina Obuce</th>
         <th>#</th>
     </tr>
     </thead>
     <tbody>
     <tr class="dimOnHover" *ngFor="let zaposlen of zaposleni">
-        <td>{{zaposlen.mbr}}</td>
-        <td>{{zaposlen.ime}}</td>
-        <td>{{zaposlen.prezime}}</td>
+        <td>{{zaposlen.radnikEmail}}</td>
         <td>{{zaposlen.idRestorana}}</td>
         <td>{{zaposlen.konferencijskiBroj}}</td>
-        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + zaposlen.mbr" class="btn btn-primary btn-sm">Detalji</button></td>
+        <td>{{zaposlen.velicinaObuce}}</td>
+        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + zaposlen.radnikEmail" class="btn btn-primary btn-sm">Detalji</button></td>
         <td><button (click)="obrisiZaposlenog(zaposlen)" class="btn btn-primary btn-sm">✕</button></td>
 
     </tr>

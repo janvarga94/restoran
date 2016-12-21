@@ -27,8 +27,8 @@ var ZaposleniDetailService = (function () {
         this._notificator = _notificator;
         this._zaposleniUrl = 'http://localhost:8080/resursi/get_zaposlen';
     }
-    ZaposleniDetailService.prototype.getZaposlen = function (mbr) {
-        return this._http.get(this._zaposleniUrl + "?mbr=" + mbr)
+    ZaposleniDetailService.prototype.getZaposlen = function (email) {
+        return this._http.get(this._zaposleniUrl + "?radnikEmail=" + email)
             .map(function (response) {
             var zaposleni = response.json();
             // for(var i = 0; i < 10; i++)
@@ -39,7 +39,7 @@ var ZaposleniDetailService = (function () {
     };
     ZaposleniDetailService.prototype.getParam = function () {
         var params = new http_1.URLSearchParams(window.location.search);
-        var someParam = params.get('mbr');
+        var someParam = params.get('re');
         return someParam;
     };
     ZaposleniDetailService.prototype.handleError = function (error) {

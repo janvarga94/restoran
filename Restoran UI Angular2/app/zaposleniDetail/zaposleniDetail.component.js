@@ -25,20 +25,20 @@ var ZaposleniDetailComponent = (function () {
     ZaposleniDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            _this.mbr = +params['mbr'];
+            _this.email = params['email'];
         });
-        console.log(this.mbr);
-        this._zaposleniDetailService.getZaposlen(this.mbr).subscribe(function (zaposleni) {
+        console.log(this.email);
+        this._zaposleniDetailService.getZaposlen(this.email).subscribe(function (zaposleni) {
             //   this.restorani = restorani;
             _this.zaposlen = zaposleni;
-            console.log(_this.zaposlen.ime);
+            console.log(_this.zaposlen.radnikEmail);
         });
     };
     return ZaposleniDetailComponent;
 }());
 ZaposleniDetailComponent = __decorate([
     core_1.Component({
-        selector: 'zaposleni/:mbr',
+        selector: 'zaposleni/:email',
         templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
         providers: [zaposleniDetail_service_1.ZaposleniDetailService]
     }),

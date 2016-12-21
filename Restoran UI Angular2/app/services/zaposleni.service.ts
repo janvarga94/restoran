@@ -31,9 +31,9 @@ export class ZaposleniService {
             .catch(this.handleError);
     }
 
-    getZaposlen(mbr: number): Observable<IZaposleni> {
+    getZaposlen(radnikEmail: string): Observable<IZaposleni> {
         return this.getZaposleni()
-            .map((zaposleni: IZaposleni[]) => zaposleni.find(z => z.mbr === mbr))
+            .map((zaposleni: IZaposleni[]) => zaposleni.find(z => z.radnikEmail === radnikEmail))
             .catch(this.handleError);
     }
 

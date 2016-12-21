@@ -38,6 +38,6 @@ export class ZaposleniComponent implements OnInit{
     }
 
     detaljiZaposlenog(zaposleni : IZaposleni){
-        console.log(zaposleni.mbr);
+        console.log(zaposleni.radnikEmail);
     }
 }

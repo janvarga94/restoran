@@ -46,17 +46,16 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/get_zaposlen", method=RequestMethod.GET)
-    public RadnikEntity getRadnik(int mbr){
-        Query query = session.createQuery("select p from RadnikEntity as p where p.mbr=:mbr")
-                .setParameter("mbr",mbr);
+    public RadnikEntity getRadnik(String radnikEmail){
+        Query query = session.createQuery("select p from RadnikEntity as p where p.radnikEmail=:email")
+                .setParameter("email",radnikEmail);
         return (RadnikEntity) query.uniqueResult();
     }
 
     @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
-    public RestoranEntity getRestoraniForGost(String email){
-        Query query = session.createQuery("select * from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.email=:email)")
-                .setParameter("email",email);
-        return (RestoranEntity) query.uniqueResult();
+    public Collection<RestoranEntity> getRestoraniForGost(String email){
+        return  (Collection<RestoranEntity>) session.createQuery("select r from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.gostEmail='"+email+"')").list();
+
     }
 
 

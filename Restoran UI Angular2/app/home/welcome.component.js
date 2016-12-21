@@ -14,14 +14,13 @@ var WelcomeComponent = (function () {
     function WelcomeComponent(_welcomeService) {
         this._welcomeService = _welcomeService;
         this.pageTitle = 'Welcome people';
-        this.mbr = 0;
     }
     WelcomeComponent.prototype.ngOnInit = function () {
-        // this._welcomeService.getRestoraniForUser().subscribe( restorani =>{
-        //     //   this.restorani = restorani;
-        //     this.restorani = restorani;
-        // });
-        //   console.log(this.restorani.length);
+        var _this = this;
+        this._welcomeService.getRestoraniForUser("email0").subscribe(function (restorani) {
+            //   this.restorani = restorani;
+            _this.restorani = restorani;
+        });
     };
     return WelcomeComponent;
 }());

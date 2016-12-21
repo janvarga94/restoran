@@ -18,17 +18,17 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() : void{
-        this._loginService.ulogovan.subscribe(ulogovan =>{       
-            this.ulogovan = ulogovan;
-        });
+        // this._loginService.ulogovan.subscribe(ulogovan =>{
+        //     this.ulogovan = ulogovan;
+        // });
     }
 
     doLogin() : void{
-        this._loginService.loginKorisnika(this.username,this.password);
+        //this._loginService.loginKorisnika(this.username,this.password);
     }
 
     doLogout() : void{
-        this._loginService.logoutKorisnika();
+        //this._loginService.logoutKorisnika();
     }
 
 

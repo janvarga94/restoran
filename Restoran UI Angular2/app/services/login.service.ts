@@ -14,9 +14,9 @@ import { LoginResponse } from '../models/loginResponse';
 export class LoginService implements OnInit {
 
     private _restoraniUrl = 'api/loginResponse.json';
-    private bSubject: BehaviorSubject<IKorisnik> = new BehaviorSubject<IKorisnik>(null); 
+    private bSubject: BehaviorSubject<IKorisnik> = new BehaviorSubject<IKorisnik>(null);
 
-    ulogovan : Observable<IKorisnik> = this.bSubject.asObservable();   
+    ulogovan : Observable<IKorisnik> = this.bSubject.asObservable();
 
     constructor(private _http: Http) { }
 
@@ -24,15 +24,15 @@ export class LoginService implements OnInit {
         //provera kesiranog
     }
 
-    loginKorisnika(username: string, password: string): void{    
-        this._http.get(this._restoraniUrl)
-            .map((response: Response) => <LoginResponse> response.json())
-            .catch(this.handleError)
-            .subscribe(response  => {
-                if(response.success){              
-                     this.bSubject.next({ ime : username, uloga: response.uloga });
-                }                   
-            });   
+    loginKorisnika(username: string, password: string): void{
+        // this._http.get(this._restoraniUrl)
+        //     .map((response: Response) => <LoginResponse> response.json())
+        //     .catch(this.handleError)
+        //     .subscribe(response  => {
+        //         if(response.success){
+        //              this.bSubject.next({ ime : username, uloga: response.uloga });
+        //         }
+        //     });
     }
 
     logoutKorisnika(){
