@@ -20,7 +20,7 @@ export class LoginService implements OnInit {
     public emailUlogovanog : string = "email0";
 
     private _restoraniUrl = 'api/loginResponse.json';
-    private bSubject: BehaviorSubject<IKorisnik> = new BehaviorSubject<IKorisnik>(null);
+    private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     private _registerUrl = Config.BackendUrl + '/auth/register';
 
     ulogovan : Observable<any> = this.bSubject.asObservable();
@@ -48,19 +48,19 @@ export class LoginService implements OnInit {
 
     registerKorisnika(email : string, password : string){
 
-        // let params: URLSearchParams = new URLSearchParams();
-        // params.set('email',email);
-        // params.set('password', password);
-        //
-        //  this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
-        //     .map((response: Response) => <boolean> response.json())
-        //     .catch(this.handleError)
-        //     .subscribe(response  => {
-        //         if(response.success){
-        //              this.bSubject.next({ email : email, uloga: "gost" });
-        //             this._notificator.notifySuccess("Registrovan");
-        //         }
-        //     });
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('email',email);
+        params.set('password', password);
+        
+         this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
+            .map((response: Response) => <boolean> response.json())
+            .catch(this.handleError)
+            .subscribe(response  => {
+                if(response.success){
+                     this.bSubject.next({ email : email, uloga: "gost" });
+                    this._notificator.notifySuccess("Registrovan");
+                }
+            });
     }
 
     private handleError(error: Response) {

@@ -43,19 +43,19 @@ var LoginService = (function () {
         this.bSubject.next(null);
     };
     LoginService.prototype.registerKorisnika = function (email, password) {
-        // let params: URLSearchParams = new URLSearchParams();
-        // params.set('email',email);
-        // params.set('password', password);
-        //
-        //  this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
-        //     .map((response: Response) => <boolean> response.json())
-        //     .catch(this.handleError)
-        //     .subscribe(response  => {
-        //         if(response.success){
-        //              this.bSubject.next({ email : email, uloga: "gost" });
-        //             this._notificator.notifySuccess("Registrovan");
-        //         }
-        //     });
+        var _this = this;
+        var params = new http_1.URLSearchParams();
+        params.set('email', email);
+        params.set('password', password);
+        this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError)
+            .subscribe(function (response) {
+            if (response.success) {
+                _this.bSubject.next({ email: email, uloga: "gost" });
+                _this._notificator.notifySuccess("Registrovan");
+            }
+        });
     };
     LoginService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
