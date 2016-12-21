@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Response, URLSearchParams } from '@angular/http';
 
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
@@ -10,33 +10,47 @@ import { IKorisnik } from '../models/korisnik';
 import { Uloga } from '../models/uloga';
 import { LoginResponse } from '../models/loginResponse';
 
+import {Notificator} from './notification.service';
+
+import { Config } from '../app.config';
+
 @Injectable()
 export class LoginService implements OnInit {
 
-    private _restoraniUrl = 'api/loginResponse.json';
-    private bSubject: BehaviorSubject<IKorisnik> = new BehaviorSubject<IKorisnik>(null); 
+    private _registerUrl = Config.BackendUrl + '/auth/register';
+    private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null); 
 
-    ulogovan : Observable<IKorisnik> = this.bSubject.asObservable();   
+    ulogovan : Observable<any> = this.bSubject.asObservable();   
 
-    constructor(private _http: Http) { }
+    constructor(private _http: Http, private _notificator: Notificator) { }
 
     ngOnInit(): void{
         //provera kesiranog
     }
 
-    loginKorisnika(username: string, password: string): void{    
-        this._http.get(this._restoraniUrl)
-            .map((response: Response) => <LoginResponse> response.json())
-            .catch(this.handleError)
-            .subscribe(response  => {
-                if(response.success){              
-                     this.bSubject.next({ ime : username, uloga: response.uloga });
-                }                   
-            });   
+    loginKorisnika(email: string, password: string): void{    
+
     }
 
     logoutKorisnika(){
         this.bSubject.next(null);
+    }
+
+    registerKorisnika(email : string, password : string){
+
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('email',email);
+        params.set('password', password);
+
+         this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
+            .map((response: Response) => <boolean> response.json())
+            .catch(this.handleError)
+            .subscribe(response  => {
+                if(response.success){              
+                     this.bSubject.next({ email : email, uloga: "gost" });
+                    this._notificator.notifySuccess("Registrovan");
+                }                   
+            });   
     }
 
     private handleError(error: Response) {

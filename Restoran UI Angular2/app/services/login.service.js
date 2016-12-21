@@ -14,29 +14,38 @@ var Rx_1 = require("rxjs/Rx");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
+var notification_service_1 = require("./notification.service");
+var app_config_1 = require("../app.config");
 var LoginService = (function () {
-    function LoginService(_http) {
+    function LoginService(_http, _notificator) {
         this._http = _http;
-        this._restoraniUrl = 'api/loginResponse.json';
+        this._notificator = _notificator;
+        this._registerUrl = app_config_1.Config.BackendUrl + '/auth/register';
         this.bSubject = new Rx_1.BehaviorSubject(null);
         this.ulogovan = this.bSubject.asObservable();
     }
     LoginService.prototype.ngOnInit = function () {
         //provera kesiranog
     };
-    LoginService.prototype.loginKorisnika = function (username, password) {
+    LoginService.prototype.loginKorisnika = function (email, password) {
+    };
+    LoginService.prototype.logoutKorisnika = function () {
+        this.bSubject.next(null);
+    };
+    LoginService.prototype.registerKorisnika = function (email, password) {
         var _this = this;
-        this._http.get(this._restoraniUrl)
+        var params = new http_1.URLSearchParams();
+        params.set('email', email);
+        params.set('password', password);
+        this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
             .map(function (response) { return response.json(); })
             .catch(this.handleError)
             .subscribe(function (response) {
             if (response.success) {
-                _this.bSubject.next({ ime: username, uloga: response.uloga });
+                _this.bSubject.next({ email: email, uloga: "gost" });
+                _this._notificator.notifySuccess("Registrovan");
             }
         });
-    };
-    LoginService.prototype.logoutKorisnika = function () {
-        this.bSubject.next(null);
     };
     LoginService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
@@ -48,7 +57,7 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

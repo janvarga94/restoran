@@ -18,14 +18,14 @@
      <li class="nav-item"><a class="nav-link" [routerLink] = "['/sistemMenadzer']" [routerLinkActive]="['active']">Sistem menazer</a></li>
       <li class="nav-item"><a class="nav-link" [routerLink] = "['/zaposleni']" [routerLinkActive]="['active']">Zaposleni</a></li>
   </ul>
-  <form class="form-inline float-xs-right" *ngIf="ulogovan == null">  
+<!--  <form class="form-inline float-xs-right" *ngIf="ulogovan == null">  
       <input class="form-control" type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}" placeholder="username">
       <input class="form-control" type="password" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="password">
       <button class="btn" type="submit" (click)="doLogin()">Login</button> 
-  </form>
+  </form> -->
 
   <ul class="nav navbar-nav  float-xs-right" *ngIf="ulogovan != null">    
-       <li class="nav-item"><a class="nav-link">asdfasdf</a></li>
+       <li class="nav-item">{{ulogovan.ime != null? ulogovan.ime : ulogovan.email}}</li>
        <li class="nav-item"><button class="btn" type="button" (click)="doLogout()">Logout</button></li>
   </ul>
   
