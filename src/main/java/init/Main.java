@@ -39,6 +39,7 @@ public class Main {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/resursi/restorani").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/zaposleni").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/auth/register").allowedOrigins("http://localhost:3000");
             }
         };
     }

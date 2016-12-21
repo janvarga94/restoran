@@ -1,3 +1,3 @@
-export class Config{
-    BackendUrl : "localhost:4354" //TODO change this
+export const Config{
+    BackendUrl : "http://localhost:8080" //TODO change this
 }

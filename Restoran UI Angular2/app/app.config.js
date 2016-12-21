@@ -1,8 +1,5 @@
 "use strict";
-var Config = (function () {
-    function Config() {
-    }
-    return Config;
-}());
-exports.Config = Config;
+exports.Config = {
+    BackendUrl: "http://localhost:8080" //TODO change this
+};
 //# sourceMappingURL=app.config.js.map

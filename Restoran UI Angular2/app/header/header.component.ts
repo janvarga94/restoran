@@ -8,9 +8,9 @@ import { IKorisnik } from '../models/korisnik';
     templateUrl: 'app/header/header.component.html'
 })
 export class HeaderComponent implements OnInit {
-    username : string = "";
+
     password : string = "";
-    ulogovan : IKorisnik = null;
+    ulogovan : any = null;
     public asdf : string = "asfd";
 
     constructor(private _loginService : LoginService){
@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     }
 
     doLogin() : void{
-        this._loginService.loginKorisnika(this.username,this.password);
+        this._loginService.loginKorisnika("",this.password);
     }
 
     doLogout() : void{

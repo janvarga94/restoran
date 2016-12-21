@@ -19,7 +19,8 @@ import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
-
+import {LoginComponent} from "./register login/login.component"
+import {RegisterComponent} from "./register login/register.component"
 
 @NgModule({
   imports: [
@@ -33,8 +34,11 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
          { path: 'zaposleni', component : ZaposleniComponent},
         { path: 'welcome', component : WelcomeComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
+        { path: 'register', component: RegisterComponent},
+        { path: "login", component : LoginComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
         { path: '**', component : PageNotFoundComponent},
+    
 
      ]), 
   ],
@@ -47,6 +51,9 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
     HeaderComponent,
     PageNotFoundComponent,
     MenazerSistemaViewComponent,
+    LoginComponent,
+    RegisterComponent,
+
     LimitDuzineStringa
    ],
    providers: [

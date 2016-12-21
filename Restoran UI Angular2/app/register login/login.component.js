@@ -8,18 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var MenazerViewComponent = (function () {
-    function MenazerViewComponent() {
+var core_1 = require("@angular/core");
+var notification_service_1 = require("../services/notification.service");
+var LoginComponent = (function () {
+    function LoginComponent(_notificator) {
+        this._notificator = _notificator;
     }
-    MenazerViewComponent = __decorate([
-        core_1.Component({
-            selector: 'menazer-detail',
-            templateUrl: 'app/menazerView/menazerView.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MenazerViewComponent);
-    return MenazerViewComponent;
+    LoginComponent.prototype.ngOnInit = function () {
+    };
+    return LoginComponent;
 }());
-exports.MenazerViewComponent = MenazerViewComponent;
-//# sourceMappingURL=menazerView.component.js.map
+LoginComponent = __decorate([
+    core_1.Component({
+        templateUrl: 'app/register login/login.component.html'
+    }),
+    __metadata("design:paramtypes", [notification_service_1.Notificator])
+], LoginComponent);
+exports.LoginComponent = LoginComponent;
+//# sourceMappingURL=login.component.js.map
