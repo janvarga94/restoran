@@ -24,7 +24,7 @@ import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
-
+import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
 
 @NgModule({
   imports: [
@@ -59,14 +59,14 @@ import {WelcomeService} from "./services/welcome.service";
     RegisterComponent,
     LoginComponent,
     GostProfilComponent,
-
+    LimitDuzineStringa,
     ContainsString
 
    ],
    providers: [
      RestoranService,
      LoginService,
-       WelcomeService,
+     WelcomeService,
      Notificator
    ],
     bootstrap: [ AppComponent ]

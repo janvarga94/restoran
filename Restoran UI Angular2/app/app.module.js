@@ -32,6 +32,7 @@ var notification_service_1 = require("./services/notification.service");
 var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
 var welcome_service_1 = require("./services/welcome.service");
+var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -69,6 +70,7 @@ AppModule = __decorate([
             register_component_1.RegisterComponent,
             login_component_1.LoginComponent,
             gostProfil_component_1.GostProfilComponent,
+            LimitDuzineStringa_1.LimitDuzineStringa,
             ContainsString_1.ContainsString
         ],
         providers: [

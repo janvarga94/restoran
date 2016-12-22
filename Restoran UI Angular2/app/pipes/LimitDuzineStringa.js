@@ -22,7 +22,10 @@ var LimitDuzineStringa = (function () {
     function LimitDuzineStringa() {
     }
     LimitDuzineStringa.prototype.transform = function (value, duzina) {
-        return value.substr(0, duzina);
+        if (value.length > duzina)
+            return value.substr(0, duzina) + "...";
+        else
+            return value;
     };
     return LimitDuzineStringa;
 }());

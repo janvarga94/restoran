@@ -11,6 +11,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({name: 'limitDuzineStringa'})
 export class LimitDuzineStringa implements PipeTransform {
   transform(value: string, duzina: number): string {
-    return value.substr(0, duzina);
+    if(value.length > duzina )
+      return value.substr(0, duzina) + "...";
+    else
+      return value;
   }
 }
