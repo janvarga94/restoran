@@ -25,8 +25,8 @@ var WelcomeComponent = (function () {
         });
     };
     WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
-        console.log(idRestorana, " , " + gostEmail + " , " + ocena);
-        //_welcomeService.
+        console.log(idRestorana + " , " + gostEmail + " , " + ocena);
+        this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: idRestorana, gostEmail: gostEmail });
     };
     return WelcomeComponent;
 }());

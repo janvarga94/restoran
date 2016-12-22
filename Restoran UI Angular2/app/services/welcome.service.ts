@@ -21,28 +21,39 @@ export class WelcomeService {
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
-    getRestoraniForUser(email : string): Observable<IRestoran[]> {
+    getRestoraniForUser(email : string): Observable<any[]> {
         return this._http.get(this._restorani_for_user_url+"?email="+email)
             .map((response: Response) => {
-                var restorani = <IRestoran> response.json();
-                // for(var i = 0; i < 10; i++)
-                //     restorani.push(restorani[0]);
-                return restorani;
+                var restoraniOcena = <any[]> response.json();
+
+                return restoraniOcena;
             })
             .catch(this.handleError);
     }
 
     postOcenaForRestoran(ocena : IOcenaRestorana){
 
-        let ocenaUrl : string = 'http://localhost:8080/resursi/add_ocena';
+        console.log(ocena.ocena);
 
-        let bodyString = JSON.stringify(ocena); // Stringify payload
-        let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        let options       = new RequestOptions({ headers: headers }); // Create a request option
+        let ocenaUrl : string = 'http://localhost:8080/resursi/add_ocena_restoran';
 
-        // return this._http.post(this.commentsUrl, ocena, options) // ...using post request
-        //     .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
-        //     .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+        let creds = JSON.stringify(ocena);
+
+        console.log(creds);
+
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        this._http.post(ocenaUrl, creds, {
+            headers: headers
+        })
+            .subscribe(
+                data => {
+
+                },
+                err => this.handleError(err.json().message),
+                () => console.log('Authentication Complete')
+            );
     }
 
     private handleError(error: Response) {

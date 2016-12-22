@@ -27,21 +27,24 @@ var WelcomeService = (function () {
     WelcomeService.prototype.getRestoraniForUser = function (email) {
         return this._http.get(this._restorani_for_user_url + "?email=" + email)
             .map(function (response) {
-            var restorani = response.json();
-            // for(var i = 0; i < 10; i++)
-            //     restorani.push(restorani[0]);
-            return restorani;
+            var restoraniOcena = response.json();
+            return restoraniOcena;
         })
             .catch(this.handleError);
     };
     WelcomeService.prototype.postOcenaForRestoran = function (ocena) {
-        var ocenaUrl = 'http://localhost:8080/resursi/add_ocena';
-        var bodyString = JSON.stringify(ocena); // Stringify payload
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
-        // return this._http.post(this.commentsUrl, ocena, options) // ...using post request
-        //     .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
-        //     .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
+        var _this = this;
+        console.log(ocena.ocena);
+        var ocenaUrl = 'http://localhost:8080/resursi/add_ocena_restoran';
+        var creds = JSON.stringify(ocena);
+        console.log(creds);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        this._http.post(ocenaUrl, creds, {
+            headers: headers
+        })
+            .subscribe(function (data) {
+        }, function (err) { return _this.handleError(err.json().message); }, function () { return console.log('Authentication Complete'); });
     };
     WelcomeService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

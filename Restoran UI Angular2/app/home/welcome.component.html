@@ -33,26 +33,29 @@
 </div>
 
 <b>Posećeni restorani</b>
-
+<div *ngIf="restorani != null">
 <table class="table">
     <thead>
         <tr>
             <th>Id</th>
             <th>Naziv</th>
             <th>Vrsta</th>
-            <th><p style="float: right">Ocena</p></th>
+            <th>Ocena</th>
+            <th><p style="float: right">Oceni</p></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let restoran of restorani">
-            <td>{{restoran.idRestorana}}</td>
-            <td>{{restoran.naziv}}</td>
-            <td>{{restoran.vrsta}}</td>
+            <td>{{restoran.restoranEntity.idRestorana}}</td>
+            <td>{{restoran.restoranEntity.naziv}}</td>
+            <td>{{restoran.restoranEntity.vrsta}}</td>
+            <td>{{restoran.ocena}}</td>
             <td >
                 <div class="rating">
-                    <span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 5)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 4)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 3)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 2)">☆</span><span (click)="rate(restoran.idRestorana, _loginService.emailUlogovanog, 1)">☆</span>
+                    <span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 5)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 4)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 3)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 2)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 1)">☆</span>
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
+</div>
