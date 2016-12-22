@@ -16,12 +16,16 @@ var WelcomeComponent = (function () {
         this._welcomeService = _welcomeService;
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
+        this.ulogovan = null;
     }
     WelcomeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._welcomeService.getRestoraniForUser(this._loginService.emailUlogovanog).subscribe(function (restorani) {
             //   this.restorani = restorani;
             _this.restorani = restorani;
+        });
+        this._loginService.ulogovan.subscribe(function (ulogovan) {
+            _this.ulogovan = ulogovan;
         });
     };
     WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {

@@ -18,17 +18,17 @@ export class ZaposleniService {
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
-    getGost(): Observable<any> {
-        // return this._http.get(this._zaposleniUrl)
-        //     .map((response: Response) => {
-        //         var zaposleni = <any> response.json();
-        //         // for(var i = 0; i < 10; i++)
-        //         //     restorani.push(restorani[0]);
-        //         return zaposleni;
-        //     })
-        //     .catch(this.handleError);
-
-    }
+    // getGost(): Observable<any> {
+    //     // return this._http.get(this._zaposleniUrl)
+    //     //     .map((response: Response) => {
+    //     //         var zaposleni = <any> response.json();
+    //     //         // for(var i = 0; i < 10; i++)
+    //     //         //     restorani.push(restorani[0]);
+    //     //         return zaposleni;
+    //     //     })
+    //     //     .catch(this.handleError);
+    //     return {};
+    // }
 
 
     private handleError(error: Response) {

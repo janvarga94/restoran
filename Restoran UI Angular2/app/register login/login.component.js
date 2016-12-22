@@ -8,13 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var login_service_1 = require("./../services/login.service");
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../services/notification.service");
 var LoginComponent = (function () {
-    function LoginComponent(_notificator) {
+    function LoginComponent(_notificator, _loginService) {
         this._notificator = _notificator;
+        this._loginService = _loginService;
+        this.email = '';
+        this.password = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
+    };
+    LoginComponent.prototype.doLogin = function () {
+        this._loginService.loginKorisnika(this.email, this.password);
     };
     return LoginComponent;
 }());
@@ -22,7 +29,7 @@ LoginComponent = __decorate([
     core_1.Component({
         templateUrl: 'app/register login/login.component.html'
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, login_service_1.LoginService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

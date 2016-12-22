@@ -21,16 +21,17 @@ var ZaposleniService = (function () {
         this._notificator = _notificator;
         this._zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
     }
-    ZaposleniService.prototype.getGost = function () {
-        // return this._http.get(this._zaposleniUrl)
-        //     .map((response: Response) => {
-        //         var zaposleni = <any> response.json();
-        //         // for(var i = 0; i < 10; i++)
-        //         //     restorani.push(restorani[0]);
-        //         return zaposleni;
-        //     })
-        //     .catch(this.handleError);
-    };
+    // getGost(): Observable<any> {
+    //     // return this._http.get(this._zaposleniUrl)
+    //     //     .map((response: Response) => {
+    //     //         var zaposleni = <any> response.json();
+    //     //         // for(var i = 0; i < 10; i++)
+    //     //         //     restorani.push(restorani[0]);
+    //     //         return zaposleni;
+    //     //     })
+    //     //     .catch(this.handleError);
+    //     return {};
+    // }
     ZaposleniService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

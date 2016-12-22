@@ -20,7 +20,7 @@ export class LoginService implements OnInit {
     public emailUlogovanog : string = "email0";
 
     private _restoraniUrl = 'api/loginResponse.json';
-    private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ ime : "Neko"});
     private _registerUrl = Config.BackendUrl + '/auth/register';
 
     ulogovan : Observable<any> = this.bSubject.asObservable();
@@ -31,7 +31,7 @@ export class LoginService implements OnInit {
         //provera kesiranog
     }
 
-    loginKorisnika(username: string, password: string): void{
+    loginKorisnika(email: string, password: string): void{
         // this._http.get(this._restoraniUrl)
         //     .map((response: Response) => <LoginResponse> response.json())
         //     .catch(this.handleError)
@@ -40,6 +40,7 @@ export class LoginService implements OnInit {
         //              this.bSubject.next({ ime : username, uloga: response.uloga });
         //         }
         //     });
+        this.bSubject.next({ email : email, ime : email});
     }
 
     logoutKorisnika(){

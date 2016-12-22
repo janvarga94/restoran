@@ -24,9 +24,12 @@
       <button class="btn" type="submit" (click)="doLogin()">Login</button> 
   </form> -->
 
-  <ul class="nav navbar-nav  float-xs-right" *ngIf="ulogovan != null">    
-       <li class="nav-item">{{ulogovan.ime != null? ulogovan.ime : ulogovan.email}}</li>
+  <ul class="nav navbar-nav  float-xs-right" *ngIf="ulogovan != null">   
+       <li class="nav-item"><a class="nav-link" [routerLink] = "['/gostProfil']" >{{ulogovan.ime}}</a></li>
        <li class="nav-item"><button class="btn" type="button" (click)="doLogout()">Logout</button></li>
+  </ul>
+  <ul class="nav navbar-nav  float-xs-right" *ngIf="ulogovan == null">   
+       <li class="nav-item"><button class="btn" type="button" [routerLink] = "['/login']">Login</button></li>
   </ul>
   
 </nav>

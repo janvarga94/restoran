@@ -13,6 +13,7 @@ export class WelcomeComponent {
     public pageTitle: string = 'Welcome people';
 
     restorani : IRestoran[];
+    ulogovan : any = null;
 
     constructor(private _welcomeService : WelcomeService, public _loginService : LoginService) {
 
@@ -24,6 +25,10 @@ export class WelcomeComponent {
         this._welcomeService.getRestoraniForUser(this._loginService.emailUlogovanog).subscribe( restorani =>{
             //   this.restorani = restorani;
             this.restorani = restorani;
+        });
+
+        this._loginService.ulogovan.subscribe(ulogovan => {
+            this.ulogovan = ulogovan;
         });
     }
 

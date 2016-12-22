@@ -22,16 +22,19 @@
 
 </style>
 
-<div class="jumbotron">
+<div class="jumbotron" *ngIf="!ulogovan">
     <h1 class="display-3">Dobrodošli!</h1>
     <p class="lead">Dobro došli na sajt za organizaciju najboljih restorana koje ste ikad videli i uživajte :* </p>
     <hr class="my-2">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <p class="lead">
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     <a class="btn btn-primary btn-lg" [routerLink]="['/login']">Login</a>
     <a class="btn btn-primary btn-lg" [routerLink]="['/register']">Register</a>
     </p>
+</div>
+
+<div class="row" *ngIf="ulogovan" style="margin-top : 50px;">
+    <p style="font-size : 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{ulogovan.ime}}</p>
+    <hr class="my-1">
 </div>
 
 <b>Posećeni restorani</b>

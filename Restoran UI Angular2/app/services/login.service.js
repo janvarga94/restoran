@@ -22,14 +22,14 @@ var LoginService = (function () {
         this._notificator = _notificator;
         this.emailUlogovanog = "email0";
         this._restoraniUrl = 'api/loginResponse.json';
-        this.bSubject = new Rx_1.BehaviorSubject(null);
+        this.bSubject = new Rx_1.BehaviorSubject({ ime: "Neko" });
         this._registerUrl = app_config_1.Config.BackendUrl + '/auth/register';
         this.ulogovan = this.bSubject.asObservable();
     }
     LoginService.prototype.ngOnInit = function () {
         //provera kesiranog
     };
-    LoginService.prototype.loginKorisnika = function (username, password) {
+    LoginService.prototype.loginKorisnika = function (email, password) {
         // this._http.get(this._restoraniUrl)
         //     .map((response: Response) => <LoginResponse> response.json())
         //     .catch(this.handleError)
@@ -38,6 +38,7 @@ var LoginService = (function () {
         //              this.bSubject.next({ ime : username, uloga: response.uloga });
         //         }
         //     });
+        this.bSubject.next({ email: email, ime: email });
     };
     LoginService.prototype.logoutKorisnika = function () {
         this.bSubject.next(null);

@@ -19,15 +19,16 @@ var HeaderComponent = (function () {
         this.asdf = "asfd";
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        // this._loginService.ulogovan.subscribe(ulogovan =>{
-        //     this.ulogovan = ulogovan;
-        // });
+        var _this = this;
+        this._loginService.ulogovan.subscribe(function (ulogovan) {
+            _this.ulogovan = ulogovan;
+        });
     };
     HeaderComponent.prototype.doLogin = function () {
         //this._loginService.loginKorisnika(this.username,this.password);
     };
     HeaderComponent.prototype.doLogout = function () {
-        //this._loginService.logoutKorisnika();
+        this._loginService.logoutKorisnika();
     };
     return HeaderComponent;
 }());

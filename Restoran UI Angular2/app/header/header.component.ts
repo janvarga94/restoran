@@ -18,9 +18,9 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() : void{
-        // this._loginService.ulogovan.subscribe(ulogovan =>{
-        //     this.ulogovan = ulogovan;
-        // });
+         this._loginService.ulogovan.subscribe(ulogovan =>{
+             this.ulogovan = ulogovan;
+         });
     }
 
     doLogin() : void{
@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
     }
 
     doLogout() : void{
-        //this._loginService.logoutKorisnika();
+        this._loginService.logoutKorisnika();
     }
 
 

@@ -1,3 +1,4 @@
+import { LoginService } from './../services/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import {IRestoran} from '../models/restoran';
@@ -10,12 +11,19 @@ import {RestoranService} from '../services/restorani.service';
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private _notificator: Notificator) {
+    email : string = '';
+    password : string = '';
+
+    constructor(private _notificator: Notificator, private _loginService : LoginService) {
         
     }
 
     ngOnInit(){
 
+    }
+
+    doLogin(){
+        this._loginService.loginKorisnika(this.email,this.password);
     }
 
  }

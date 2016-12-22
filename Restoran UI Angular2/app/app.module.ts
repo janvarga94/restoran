@@ -40,7 +40,7 @@ import {WelcomeService} from "./services/welcome.service";
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
-         { path: 'gostProfil', component : GostProfilComponent}
+         { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
