@@ -1,16 +1,16 @@
 package init.restServices;
 
-import init.model.Restoran;
+import init.Main;
+import init.model.RestoranOcenaDTO;
 import init.modelFromDB.OcenaRestoranaEntity;
-import init.modelFromDB.PorudzbinaEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
-import init.podaci.Restorani;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import init.services.ServiceRestorani;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -51,18 +51,50 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
-    public Collection<RestoranEntity> getRestoraniForGost(String email){
-        return  (Collection<RestoranEntity>) session.createQuery("select r from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.gostEmail='"+email+"')").list();
+    public Collection<RestoranOcenaDTO> getRestoraniForGost(String email){
+        Collection<RestoranEntity> kolekc = (Collection<RestoranEntity>) session.createQuery("select r from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.gostEmail='"+email+"')").list();
 
+        Collection<RestoranOcenaDTO> restOcena = new ArrayList<>();
+
+        for(RestoranEntity restoranEntity : kolekc){
+            RestoranOcenaDTO restoranOcenaDTO = new RestoranOcenaDTO(restoranEntity, getOcenaForRestoran(restoranEntity.getIdRestorana()));
+            restOcena.add(restoranOcenaDTO);
+        }
+
+        return restOcena;
     }
 
-    @RequestMapping(path = "/add_ocena", method=RequestMethod.POST)
-    public void addOcena(OcenaRestoranaEntity ocenaRestoranaEntity){
+    @RequestMapping(path = "/add_ocena_restoran", method=RequestMethod.POST)
+    public void addOcenaRestorana(@RequestBody OcenaRestoranaEntity ocenaRestoranaEntity){
 
-        OcenaRestoranaEntity ocena = (OcenaRestoranaEntity) session.createQuery("from OcenaRestoranaEntity as or where or.gostEmail="+ocenaRestoranaEntity.getGostEmail()+" and or.idRestorana="+ocenaRestoranaEntity.getIdRestorana());
+        Main.log.info(ocenaRestoranaEntity);
+
+        Query query = session.createQuery("from OcenaRestoranaEntity as ore where ore.gostEmail=:email and ore.idRestorana=:id");
+        query.setParameter("email",ocenaRestoranaEntity.getGostEmail());
+        query.setParameter("id",ocenaRestoranaEntity.getIdRestorana());
+
+        //OcenaRestoranaEntity ocena = (OcenaRestoranaEntity) session.createQuery("from OcenaRestoranaEntity as ore where ore.gostEmail='"+ocenaRestoranaEntity.getGostEmail()+"' and ore.idRestorana="+ocenaRestoranaEntity.getIdRestorana());
+        OcenaRestoranaEntity ocena = (OcenaRestoranaEntity) query.uniqueResult();
+
         if (ocena != null) {
             session.delete(ocena);
         }
         session.save(ocenaRestoranaEntity);
+
+        session.getTransaction().commit();
+
+        session.beginTransaction();
+    }
+
+    @RequestMapping(path = "/ocena_for_restoran", method=RequestMethod.GET)
+    public double getOcenaForRestoran(int idRestorana){
+        Collection<OcenaRestoranaEntity> lista = (Collection<OcenaRestoranaEntity>) session.createQuery("from OcenaRestoranaEntity as ore where ore.idRestorana="+idRestorana).list();
+
+        double ocena = 0;
+        for (OcenaRestoranaEntity ore : lista){
+            ocena+=ore.getOcena();
+        }
+        ocena /= lista.size();
+        return ocena;
     }
 }

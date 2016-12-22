@@ -1,7 +1,8 @@
 package init;
 
-import init.model.Restoran;
 import init.modelFromDB.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -21,6 +22,8 @@ import java.sql.Date;
 
 @SpringBootApplication
 public class Main {
+
+    public static Log log = LogFactory.getLog(Main.class.getName());
 
     public static Session session;
 
@@ -124,7 +127,9 @@ public class Main {
                 registry.addMapping("/resursi/zaposleni").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/get_zaposlen").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/restorani_for_user").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/resursi/add_ocena").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/resursi/add_ocena_restoran").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/resursi/ocena_for_restoran").allowedOrigins("http://localhost:3000");
+
             }
         };
     }

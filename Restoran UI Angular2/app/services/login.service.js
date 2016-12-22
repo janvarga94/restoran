@@ -20,7 +20,7 @@ var LoginService = (function () {
     function LoginService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this.emailUlogovanog = "email0";
+        this.emailUlogovanog = 'email0';
         this._restoraniUrl = 'api/loginResponse.json';
         this.bSubject = new Rx_1.BehaviorSubject({ ime: "Neko" });
         this._registerUrl = app_config_1.Config.BackendUrl + '/auth/register';

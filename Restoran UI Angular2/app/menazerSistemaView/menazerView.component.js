@@ -45,7 +45,7 @@ var MenazerSistemaViewComponent = (function () {
         var index = this.restorani.indexOf(restoran);
         if (index > -1) {
             this.restorani.splice(index, 1);
-            this._notificator.notifySuccess("Restoran obrisan");
+            this._notificator.notifySuccess(" obrisan");
         }
     };
     return MenazerSistemaViewComponent;

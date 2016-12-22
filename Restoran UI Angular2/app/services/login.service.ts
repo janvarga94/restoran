@@ -17,7 +17,7 @@ import { Config } from '../app.config';
 @Injectable()
 export class LoginService implements OnInit {
 
-    public emailUlogovanog : string = "email0";
+    public emailUlogovanog : string = 'email0';
 
     private _restoraniUrl = 'api/loginResponse.json';
     private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ ime : "Neko"});
