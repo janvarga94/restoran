@@ -10,7 +10,7 @@ import { IKorisnik } from '../models/korisnik';
 export class HeaderComponent implements OnInit {
     username : string = "";
     password : string = "";
-    ulogovan : IKorisnik = null;
+    ulogovan : any = null;
     public asdf : string = "asfd";
 
     constructor(private _loginService : LoginService){

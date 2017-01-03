@@ -26,6 +26,8 @@ public class Main {
     public static Log log = LogFactory.getLog(Main.class.getName());
 
     public static Session session;
+    public static final String backendUrl = "http://localhost:8080";
+    public static final String frontendUrl = "http://localhost:3000";
 
     public static int pocetak = 0;
     public static int kraj = 10;
@@ -123,12 +125,14 @@ public class Main {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
+
                 registry.addMapping("/resursi/restorani").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/zaposleni").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/get_zaposlen").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/restorani_for_user").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/add_ocena_restoran").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/ocena_for_restoran").allowedOrigins("http://localhost:3000");
+                registry.addMapping("/**");
 
             }
         };

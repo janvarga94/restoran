@@ -33,8 +33,8 @@ export class RegisterComponent implements OnInit {
     }
 
     doRegister(){
-        this._loginService.registerKorisnika(this.email,this.password);
-        this._router.navigateByUrl("/login");
+        this._loginService.registerKorisnika(this.email,this.password, this.ime, this.prezime);
+        this._notificator.notifyInfo("Molim sacekajte.....");
     }
 
  }

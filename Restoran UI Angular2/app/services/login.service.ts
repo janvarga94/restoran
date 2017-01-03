@@ -1,5 +1,8 @@
+import { IUlogovan } from './../models/ulogovan';
+
 import { Injectable, OnInit } from '@angular/core';
 import { Http, Response, URLSearchParams } from '@angular/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import 'rxjs/add/operator/do';
@@ -15,31 +18,29 @@ import {Notificator} from './notification.service';
 import { Config } from '../app.config';
 
 @Injectable()
-export class LoginService implements OnInit {
+export class LoginService {
 
     public emailUlogovanog : string = 'email0';
 
-    private _restoraniUrl = 'api/loginResponse.json';
-    private bSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ ime : "Neko"});
+    private bSubject: BehaviorSubject<any> = new BehaviorSubject<IUlogovan>(null);
     private _registerUrl = Config.BackendUrl + '/auth/register';
+    private _activateUrl = Config.BackendUrl + '/auth/activateAccount';
+    private _loginUrl = Config.BackendUrl + '/auth/login';
+    private _logoutUrl = Config.BackendUrl + '/auth/logout';
 
-    ulogovan : Observable<any> = this.bSubject.asObservable();
+    ulogovan : Observable<IUlogovan> = this.bSubject.asObservable();
 
-    constructor(private _http: Http, private _notificator: Notificator) { }
-
-    ngOnInit(): void{
-        //provera kesiranog
-    }
+    constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
 
     loginKorisnika(email: string, password: string): void{
-        // this._http.get(this._restoraniUrl)
-        //     .map((response: Response) => <LoginResponse> response.json())
-        //     .catch(this.handleError)
-        //     .subscribe(response  => {
-        //         if(response.success){
-        //              this.bSubject.next({ ime : username, uloga: response.uloga });
-        //         }
-        //     });
+        this._http.get(this._loginUrl)
+            .map((response: Response) => <any> response.json())
+            .catch(this.handleError)
+            .subscribe(response  => {
+                if(response.success){
+                     this.bSubject.next({ ime : username, uloga: response.uloga });
+                }
+            });
         this.bSubject.next({ email : email, ime : email});
     }
 
@@ -47,19 +48,35 @@ export class LoginService implements OnInit {
         this.bSubject.next(null);
     }
 
-    registerKorisnika(email : string, password : string){
+    registerKorisnika(email : string, password : string, ime: string, prezime : string){
 
         let params: URLSearchParams = new URLSearchParams();
         params.set('email',email);
         params.set('password', password);
         
-         this._http.get(this._registerUrl + "?email=" + email + "&password=" + password)
-            .map((response: Response) => <boolean> response.json())
+         this._http.post(this._registerUrl, { email : email, password: password, ime : ime, prezime: prezime})
+            .map((response: Response) => <any> response.json())
             .catch(this.handleError)
             .subscribe(response  => {
                 if(response.success){
-                     this.bSubject.next({ email : email, uloga: "gost" });
-                    this._notificator.notifySuccess("Registrovan");
+                    this._notificator.notifySuccess("Registrovan, proverite email kako bi ste aktivirali nalog");
+                     this._router.navigate(['/login']);
+                }else{
+                    this._notificator.notifyInfo(response.description);
+                }
+            });
+    }
+
+    activateKorisnika(token : string){
+        this._http.get(this._activateUrl + "?tokenString=" + token)
+            .map((response: Response) => <any> response.json())
+            .catch(this.handleError)
+            .subscribe(response  => {
+                 if(response.success){
+                    this._notificator.notifySuccess("Aktiviran :)), mozete da se ulogujete na vas nalog");
+                    this._router.navigate(['/login']);
+                }else{
+                    this._notificator.notifyInfo(response.object);
                 }
             });
     }

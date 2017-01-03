@@ -1,3 +1,4 @@
+import { ActivationComponent } from './accountActivation/activation.component';
 import { ContainsString } from './pipes/ContainsString';
 import { GostProfilComponent } from './gost profil/gostProfil.component';
 import { NgModule } from '@angular/core';
@@ -42,6 +43,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
          { path: 'register', component : RegisterComponent},
          { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
+        { path: 'activateAccount/:token', component : ActivationComponent}
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -59,6 +61,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     RegisterComponent,
     LoginComponent,
     GostProfilComponent,
+    ActivationComponent,
     LimitDuzineStringa,
     ContainsString
 

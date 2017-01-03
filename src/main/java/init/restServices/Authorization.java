@@ -1,17 +1,29 @@
 package init.restServices;
 
-import init.modelFromDB.RestoranEntity;
-import init.services.ServiceRestorani;
-import org.springframework.beans.factory.annotation.Autowired;
+import init.Main;
+import init.dtos.LoginDto;
+import init.dtos.LoginKorisnikResponseDto;
+import init.dtos.RegisterDto;
+import init.dtos.ResponseDto;
+import init.modelFromDB.GostEntity;
+import init.modelFromDB.KorisnikEntity;
+import init.modelFromDB.TokenEntity;
+import org.hibernate.*;
+import org.hibernate.cfg.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.*;
+import javax.mail.Session;
 import javax.mail.internet.*;
+import javax.servlet.http.HttpSession;
 
-import java.text.SimpleDateFormat;
-import java.util.Collection;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.UUID;
+
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -22,23 +34,122 @@ import java.util.Collection;
 @RequestMapping("/auth")
 public class Authorization {
 
-    @RequestMapping(path="/login", method = RequestMethod.GET)
-    public boolean login(String username, String password){
-        return true;
-    }
-
-    @RequestMapping(path="/register", method = RequestMethod.GET)
-    public boolean register(String email, String password){
-       /* SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+    @RequestMapping(path="/login", method = RequestMethod.POST)
+    public boolean login(@RequestBody LoginDto acc, HttpSession httpSession){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        session.save(new Korisnik);*/
-        sendMail(email);
+        KorisnikEntity k = session.get(KorisnikEntity.class, acc.email);
+
+        if(k != null){
+            LoginKorisnikResponseDto u = new LoginKorisnikResponseDto();
+            u.email = k.getEmail();
+            u.ime = k .getIme();
+            u.prezime = k.getPrezime();
+            //TODO stopped here
+            httpSession.setAttribute("korisnik",k);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @RequestMapping(path="/logout", method = RequestMethod.GET)
+    public boolean logout(HttpSession httpSession){
+        httpSession.setAttribute("korisnik",null);
         return true;
     }
 
-    private void sendMail(String email){
+    @RequestMapping(path="/register", method = RequestMethod.POST)
+    public ResponseDto register(@RequestBody RegisterDto acc){
+
+        if(acc.email == null || acc.email == "" || acc.password==null || acc.password == "" || acc.ime == null || acc.ime == "" || acc.prezime == null || acc.prezime == ""){
+            ResponseDto dto = new ResponseDto();
+            dto.setSuccess(false);
+            dto.setDescription("polja nesmeju biti prazna");
+            return dto;
+        }
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        KorisnikEntity k = new KorisnikEntity();
+        k.setEmail(acc.email);
+        k.setLozinka(acc.password);
+        k.setIme(acc.ime);
+        k.setPrezime(acc.prezime);
+
+        GostEntity g = new GostEntity();
+        g.setAktiviran(Byte.MIN_VALUE);
+        g.setGostEmail(acc.email);
+
+        TokenEntity t = new TokenEntity();
+        t.setEmail(acc.email);
+        t.setTokenString(UUID.randomUUID().toString());
+
+        session.save(k);
+        session.save(g);
+        session.save(t);
+
+        try {
+            session.getTransaction().commit();
+
+        }catch(Exception e){
+            ResponseDto dto = new ResponseDto();
+            dto.setSuccess(false);
+            dto.setDescription("Email already registred");
+            return dto;
+        }
+
+        try {
+            sendMail(acc.email, t.getTokenString());
+        }catch(Exception e){
+            ResponseDto dto = new ResponseDto();
+            dto.setSuccess(false);
+            dto.setDescription("We cant send email sorry");
+            return dto;
+        }
+
+
+        ResponseDto dto = new ResponseDto();
+        dto.setSuccess(true);
+        dto.setObject(t.getTokenString());
+        return dto;
+    }
+
+    @RequestMapping(path="/activateAccount", method = RequestMethod.GET)
+    public ResponseDto activateAccount(String tokenString){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("select g from TokenEntity as g where g.tokenString=:tokenString")
+                .setParameter("tokenString",tokenString);
+
+        TokenEntity t = (TokenEntity) query.uniqueResult();
+
+        if(t != null){
+
+            GostEntity gost = (GostEntity) session.get(GostEntity.class, t.getEmail());
+
+            gost.setAktiviran(Byte.MAX_VALUE);
+            session.save(gost);
+            session.getTransaction().commit();
+            ResponseDto dto = new ResponseDto();
+            dto.setSuccess(true);
+            return dto;
+        }else{
+            ResponseDto dto = new ResponseDto();
+            dto.setSuccess(false);
+            dto.setDescription("gost nije registrovan");
+            return dto;
+        }
+
+    }
+
+    private void sendMail(String email, String token){
         java.util.Properties props = new java.util.Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -59,13 +170,15 @@ public class Authorization {
             msg.setFrom(new InternetAddress(from));
             msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
             msg.setSubject(subject);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-            msg.setText("Kliknite na sledeci link: baldkfjsdalfkjsadflkjsadfkjsdalfkjd " + sdf.toString());
+    //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            msg.setText("Aktivacioni link: " + Main.frontendUrl + "/activateAccount/" + URLEncoder.encode(token, "UTF-8") );
 
             // Send the message.
             Transport.send(msg);
         } catch (MessagingException e) {
             // Error.
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
     }
 

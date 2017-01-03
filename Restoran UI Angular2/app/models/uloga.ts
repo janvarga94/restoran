@@ -1,5 +1,3 @@
 export enum Uloga{
-    MenazerSistema,
-    MenazerRestorana,
-    //stali
+    MENAZER_SISTEMA, MENAZER_RESTORANA, SANKER, KONOBAR, KUVAR, GOST
 } 

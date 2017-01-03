@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var activation_component_1 = require("./accountActivation/activation.component");
 var ContainsString_1 = require("./pipes/ContainsString");
 var gostProfil_component_1 = require("./gost profil/gostProfil.component");
 var core_1 = require("@angular/core");
@@ -55,6 +56,7 @@ AppModule = __decorate([
                 { path: 'register', component: register_component_1.RegisterComponent },
                 { path: 'gostProfil', component: gostProfil_component_1.GostProfilComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
+                { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -70,6 +72,7 @@ AppModule = __decorate([
             register_component_1.RegisterComponent,
             login_component_1.LoginComponent,
             gostProfil_component_1.GostProfilComponent,
+            activation_component_1.ActivationComponent,
             LimitDuzineStringa_1.LimitDuzineStringa,
             ContainsString_1.ContainsString
         ],
