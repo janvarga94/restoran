@@ -32,15 +32,25 @@ var LoginService = (function () {
     }
     LoginService.prototype.loginKorisnika = function (email, password) {
         var _this = this;
-        this._http.get(this._loginUrl)
-            .map(function (response) { return response.json(); })
+        this._http.post(this._loginUrl, { email: email, password: password })
+            .map(function (response) {
+            try {
+                return response.json();
+            }
+            catch (e) {
+                return null;
+            }
+        })
             .catch(this.handleError)
             .subscribe(function (response) {
-            if (response.success) {
-                _this.bSubject.next({ ime: username, uloga: response.uloga });
+            if (response) {
+                _this.bSubject.next(response);
+                _this._notificator.notifySuccess("Dobrodosli!");
+            }
+            else {
+                _this._notificator.notifyInfo("Pogresno ime/lozinka");
             }
         });
-        this.bSubject.next({ email: email, ime: email });
     };
     LoginService.prototype.logoutKorisnika = function () {
         this.bSubject.next(null);

@@ -33,15 +33,24 @@ export class LoginService {
     constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
 
     loginKorisnika(email: string, password: string): void{
-        this._http.get(this._loginUrl)
-            .map((response: Response) => <any> response.json())
+        this._http.post(this._loginUrl, {email : email, password : password})
+            .map((response: Response) => {
+                try{
+                    return <IUlogovan> response.json()
+                }catch(e){
+                    return null;
+                }         
+            })
             .catch(this.handleError)
-            .subscribe(response  => {
-                if(response.success){
-                     this.bSubject.next({ ime : username, uloga: response.uloga });
+            .subscribe(response => {
+                if(response){
+                   this.bSubject.next(response);
+                   this._notificator.notifySuccess("Dobrodosli!");
+                }else{
+                    this._notificator.notifyInfo("Pogresno ime/lozinka");
                 }
             });
-        this.bSubject.next({ email : email, ime : email});
+        
     }
 
     logoutKorisnika(){

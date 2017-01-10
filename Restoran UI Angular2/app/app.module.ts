@@ -43,7 +43,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
          { path: 'register', component : RegisterComponent},
          { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
-        { path: 'activateAccount/:token', component : ActivationComponent}
+        { path: 'activateAccount/:token', component : ActivationComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 

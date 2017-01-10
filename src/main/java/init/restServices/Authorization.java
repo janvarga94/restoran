@@ -5,9 +5,7 @@ import init.dtos.LoginDto;
 import init.dtos.LoginKorisnikResponseDto;
 import init.dtos.RegisterDto;
 import init.dtos.ResponseDto;
-import init.modelFromDB.GostEntity;
-import init.modelFromDB.KorisnikEntity;
-import init.modelFromDB.TokenEntity;
+import init.modelFromDB.*;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,23 +33,41 @@ import org.springframework.web.bind.annotation.*;
 public class Authorization {
 
     @RequestMapping(path="/login", method = RequestMethod.POST)
-    public boolean login(@RequestBody LoginDto acc, HttpSession httpSession){
+    public LoginKorisnikResponseDto login(@RequestBody LoginDto acc, HttpSession httpSession){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         KorisnikEntity k = session.get(KorisnikEntity.class, acc.email);
 
-        if(k != null){
+        if(k != null && k.getEmail().equals(acc.email) && k.getLozinka().equals(acc.password)){
             LoginKorisnikResponseDto u = new LoginKorisnikResponseDto();
             u.email = k.getEmail();
             u.ime = k .getIme();
             u.prezime = k.getPrezime();
-            //TODO stopped here
-            httpSession.setAttribute("korisnik",k);
-            return true;
+
+            if(session.get(KonobarEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.KONOBAR);
+            }else   if(session.get(KonobarEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.KONOBAR);
+            }else   if(session.get(SankerEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.SANKER);
+            }else    if(session.get(GostEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.GOST);
+            }else    if(session.get(KuvarEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.KUVAR);
+            }else   if(session.get(MenazerRestoranaEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.MENAZER_RESTORANA);
+            }else    if(session.get(MenadzerSistemaEntity.class, acc.email) != null){
+                u.setUloga(LoginKorisnikResponseDto.Uloga.MENAZER_SISTEMA);
+            }else{
+                return null; //jer nismo nasli ulogu
+            }
+
+             httpSession.setAttribute("korisnik",k);
+            return u;
         }else{
-            return false;
+            return null;
         }
     }
 
