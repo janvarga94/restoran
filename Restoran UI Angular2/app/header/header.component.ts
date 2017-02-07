@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
          this._loginService.ulogovan.subscribe(ulogovan =>{
              this.ulogovan = ulogovan;
          });
+
+         //proverimo dali je neko prethodno ulogovan na "rememberMe"
+         this._loginService.loginAkoJeRememberMeBio();
+
     }
 
     doLogin() : void{

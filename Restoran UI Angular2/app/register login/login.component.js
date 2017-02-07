@@ -15,13 +15,14 @@ var LoginComponent = (function () {
     function LoginComponent(_notificator, _loginService) {
         this._notificator = _notificator;
         this._loginService = _loginService;
+        this.rememberMe = false;
         this.email = '';
         this.password = '';
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.doLogin = function () {
-        this._loginService.loginKorisnika(this.email, this.password);
+        this._loginService.loginKorisnika(this.email, this.password, this.rememberMe);
     };
     return LoginComponent;
 }());

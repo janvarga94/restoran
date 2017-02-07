@@ -23,6 +23,8 @@ var HeaderComponent = (function () {
         this._loginService.ulogovan.subscribe(function (ulogovan) {
             _this.ulogovan = ulogovan;
         });
+        //proverimo dali je neko prethodno ulogovan na "rememberMe"
+        this._loginService.loginAkoJeRememberMeBio();
     };
     HeaderComponent.prototype.doLogin = function () {
         //this._loginService.loginKorisnika(this.username,this.password);

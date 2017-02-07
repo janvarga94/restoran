@@ -8,6 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
+var gosti_service_1 = require("./services/gosti.service.");
 var activation_component_1 = require("./accountActivation/activation.component");
 var ContainsString_1 = require("./pipes/ContainsString");
 var gostProfil_component_1 = require("./gost profil/gostProfil.component");
@@ -74,13 +76,15 @@ AppModule = __decorate([
             gostProfil_component_1.GostProfilComponent,
             activation_component_1.ActivationComponent,
             LimitDuzineStringa_1.LimitDuzineStringa,
+            LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString
         ],
         providers: [
             restorani_service_1.RestoranService,
             login_service_1.LoginService,
             welcome_service_1.WelcomeService,
-            notification_service_1.Notificator
+            notification_service_1.Notificator,
+            gosti_service_1.GostiService
         ],
         bootstrap: [app_component_1.AppComponent]
     }),

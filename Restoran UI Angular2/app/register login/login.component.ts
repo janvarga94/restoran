@@ -11,6 +11,7 @@ import {RestoranService} from '../services/restorani.service';
 })
 export class LoginComponent implements OnInit {
 
+    rememberMe : boolean = false;
     email : string = '';
     password : string = '';
 
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     }
 
     doLogin(){
-        this._loginService.loginKorisnika(this.email,this.password);
+        this._loginService.loginKorisnika(this.email,this.password,this.rememberMe);
     }
 
  }

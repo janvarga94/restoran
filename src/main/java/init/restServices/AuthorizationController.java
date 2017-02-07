@@ -6,8 +6,11 @@ import init.dtos.LoginKorisnikResponseDto;
 import init.dtos.RegisterDto;
 import init.dtos.ResponseDto;
 import init.modelFromDB.*;
+import init.repositories.KorisnikRepository;
+import init.repositories.models.KorisnikRepo;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,45 +33,31 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/auth")
-public class Authorization {
+public class AuthorizationController {
+
+    @Autowired
+    private KorisnikRepository repository;
 
     @RequestMapping(path="/login", method = RequestMethod.POST)
     public LoginKorisnikResponseDto login(@RequestBody LoginDto acc, HttpSession httpSession){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        org.hibernate.Session session = sessionFactory.openSession();
-        session.beginTransaction();
+        KorisnikRepo korisnik = repository.findOne(acc.email);
+        if( korisnik == null)
+            return  null;
 
-        KorisnikEntity k = session.get(KorisnikEntity.class, acc.email);
+        if( korisnik.password.equals(acc.password)){
+            LoginKorisnikResponseDto loginKorisnikResponseDto = new LoginKorisnikResponseDto();
+            loginKorisnikResponseDto.email = korisnik.email;
+            loginKorisnikResponseDto.ime = korisnik.ime;
+            loginKorisnikResponseDto.prezime = korisnik.prezime;
+            loginKorisnikResponseDto.uloga = korisnik.uloga;
+            loginKorisnikResponseDto.Euloga = korisnik.Euloga;
 
-        if(k != null && k.getEmail().equals(acc.email) && k.getLozinka().equals(acc.password)){
-            LoginKorisnikResponseDto u = new LoginKorisnikResponseDto();
-            u.email = k.getEmail();
-            u.ime = k .getIme();
-            u.prezime = k.getPrezime();
+            httpSession.setAttribute("korisnik", loginKorisnikResponseDto);
 
-            if(session.get(KonobarEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.KONOBAR);
-            }else   if(session.get(KonobarEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.KONOBAR);
-            }else   if(session.get(SankerEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.SANKER);
-            }else    if(session.get(GostEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.GOST);
-            }else    if(session.get(KuvarEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.KUVAR);
-            }else   if(session.get(MenazerRestoranaEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.MENAZER_RESTORANA);
-            }else    if(session.get(MenadzerSistemaEntity.class, acc.email) != null){
-                u.setUloga(LoginKorisnikResponseDto.Uloga.MENAZER_SISTEMA);
-            }else{
-                return null; //jer nismo nasli ulogu
-            }
-
-             httpSession.setAttribute("korisnik",k);
-            return u;
-        }else{
-            return null;
+            return loginKorisnikResponseDto;
         }
+
+        return null;
     }
 
     @RequestMapping(path="/logout", method = RequestMethod.GET)

@@ -1,3 +1,4 @@
+import { GostiService } from './../services/gosti.service.';
 import { Component } from '@angular/core';
 import {IRestoran} from "../models/restoran";
 import {WelcomeService} from "../services/welcome.service";
@@ -12,33 +13,42 @@ import {LoginService} from "../services/login.service";
 export class GostProfilComponent {
 
     search : string = '';
-    gost = {
-        ime : "Stefan",
-        prezime : "Boskovic",
-        email : "as;ldkjfsadl;kfjsda@gmail.com",
-    }
 
-    sviGosti : any[] = [
-        {
-            ime : "Jan",
-            prezime : "Ga",
-            email : "as;ldkjfsadl;kfjsda@gmail.com",
-            uPrijateljstvu : false
-        },
-         {
-            ime : "Svet",
-            prezime : "Ar",
-            email : "as;ldkjfsadl;kfjsda@gmail.com",
-            uPrijateljstvu : true
-        }
-    ];
+    gost = {};
 
-    constructor() {
+    prijatelji : any[] = [];
+    nePrijatelji : any[] = [];
+    oniKojimaJePoslatZahtev : any[] = [];
+
+
+    constructor(private _loginService : LoginService, private _gostService : GostiService) {
 
     }
 
     ngOnInit() : void{
+        this._loginService.ulogovan.subscribe(ulogovan =>{
+            this.gost = ulogovan;
+
+            if(ulogovan == null) return;
+
+            this._gostService.GetPrijateljeOf(ulogovan.email).subscribe(prijatelji => {
+                console.log(prijatelji);
+                this.prijatelji = prijatelji;
+                
+            });
+
+            
+            this._gostService.GetNePrijateljeOf(ulogovan.email).subscribe(nePrijatelji => {
+                this.nePrijatelji = nePrijatelji;
+                
+            });
+            
+             this._gostService.GetOneKojimaJePoslatZahtev(ulogovan.email).subscribe(oniKojimaJePoslatZahtev => {
+                this.oniKojimaJePoslatZahtev = oniKojimaJePoslatZahtev;
+                
+            });
+
+        });
 
     }
-
 }

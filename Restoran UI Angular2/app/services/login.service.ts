@@ -22,17 +22,17 @@ export class LoginService {
 
     public emailUlogovanog : string = 'email0';
 
-    private bSubject: BehaviorSubject<any> = new BehaviorSubject<IUlogovan>(null);
+    private ulogovanSubject: BehaviorSubject<any> = new BehaviorSubject<IUlogovan>(null);
     private _registerUrl = Config.BackendUrl + '/auth/register';
     private _activateUrl = Config.BackendUrl + '/auth/activateAccount';
     private _loginUrl = Config.BackendUrl + '/auth/login';
     private _logoutUrl = Config.BackendUrl + '/auth/logout';
 
-    ulogovan : Observable<IUlogovan> = this.bSubject.asObservable();
+    ulogovan : Observable<IUlogovan> = this.ulogovanSubject.asObservable();
 
     constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
 
-    loginKorisnika(email: string, password: string): void{
+    loginKorisnika(email: string, password: string, rememberMe:boolean): void{
         this._http.post(this._loginUrl, {email : email, password : password})
             .map((response: Response) => {
                 try{
@@ -44,17 +44,33 @@ export class LoginService {
             .catch(this.handleError)
             .subscribe(response => {
                 if(response){
-                   this.bSubject.next(response);
+                   this.ulogovanSubject.next(response);
                    this._notificator.notifySuccess("Dobrodosli!");
+                
+                   if(rememberMe){
+                        localStorage.setItem("ISA-email", email);   
+                        localStorage.setItem("ISA-password", password);                  
+                   }
                 }else{
-                    this._notificator.notifyInfo("Pogresno ime/lozinka");
+                    this._notificator.notifyInfo("Pogresno ime/lozinka ili nalog nije aktiviran");
                 }
             });
         
     }
 
+    loginAkoJeRememberMeBio(): void{
+        let email = localStorage.getItem("ISA-email");   
+        let pass = localStorage.getItem("ISA-password");             
+    
+        if( email && pass){
+            this.loginKorisnika(email,pass,false);
+        }
+    }
+
     logoutKorisnika(){
-        this.bSubject.next(null);
+        this.ulogovanSubject.next(null);
+            localStorage.setItem("ISA-email", "");   
+            localStorage.setItem("ISA-password", "");                   
     }
 
     registerKorisnika(email : string, password : string, ime: string, prezime : string){

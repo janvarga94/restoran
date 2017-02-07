@@ -1,3 +1,5 @@
+import { LimitDuzineListe } from './pipes/LimitDuzineListe';
+import { GostiService } from './services/gosti.service.';
 import { ActivationComponent } from './accountActivation/activation.component';
 import { ContainsString } from './pipes/ContainsString';
 import { GostProfilComponent } from './gost profil/gostProfil.component';
@@ -63,6 +65,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     GostProfilComponent,
     ActivationComponent,
     LimitDuzineStringa,
+    LimitDuzineListe,
     ContainsString
 
    ],
@@ -70,7 +73,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
      RestoranService,
      LoginService,
      WelcomeService,
-     Notificator
+     Notificator,
+     GostiService
    ],
     bootstrap: [ AppComponent ]
 })
