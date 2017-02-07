@@ -27,6 +27,7 @@ export class GostiService {
     private _prijateljiUrl = Config.BackendUrl + '/gosti/getPrijatelje';
     private _neprijateljiUrl = Config.BackendUrl + '/gosti/getGosteKojiNisuPrijatelji';
     private _cekaSeDaOdgovoreNaPrijateljstvoUrl = Config.BackendUrl + '/gosti/getGosteKojiCekajuNaOdgovorPrijateljstva';
+    private _modifyGostaUrl = Config.BackendUrl + '/gosti/modifyGosta';
 
     constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
 
@@ -60,6 +61,12 @@ export class GostiService {
             .catch(this.handleError)
     }
 
+    ModifyGosta(ime : String, prezime : String, email : String) : Observable<any>{
+         return this._http.post(this._modifyGostaUrl, {ime : ime, prezime : prezime, email : email})
+            .map((response: Response) =>{
+                return <any> response.json()})
+            .catch(this.handleError)
+    }
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

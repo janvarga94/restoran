@@ -8,11 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var router_1 = require("@angular/router");
 var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var HeaderComponent = (function () {
-    function HeaderComponent(_loginService) {
+    function HeaderComponent(_loginService, _router) {
         this._loginService = _loginService;
+        this._router = _router;
         this.username = "";
         this.password = "";
         this.ulogovan = null;
@@ -31,6 +33,7 @@ var HeaderComponent = (function () {
     };
     HeaderComponent.prototype.doLogout = function () {
         this._loginService.logoutKorisnika();
+        this._router.navigate(['/']);
     };
     return HeaderComponent;
 }());
@@ -39,7 +42,7 @@ HeaderComponent = __decorate([
         selector: 'app-header',
         templateUrl: 'app/header/header.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, router_1.Router])
 ], HeaderComponent);
 exports.HeaderComponent = HeaderComponent;
 //# sourceMappingURL=header.component.js.map

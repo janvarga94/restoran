@@ -8,15 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var notification_service_1 = require("./../services/notification.service");
 var gosti_service_1 = require("./../services/gosti.service.");
 var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var GostProfilComponent = (function () {
-    function GostProfilComponent(_loginService, _gostService) {
+    function GostProfilComponent(_loginService, _gostService, _notificator) {
         this._loginService = _loginService;
         this._gostService = _gostService;
+        this._notificator = _notificator;
         this.search = '';
-        this.gost = {};
+        this.gost = null;
         this.prijatelji = [];
         this.nePrijatelji = [];
         this.oniKojimaJePoslatZahtev = [];
@@ -39,13 +41,24 @@ var GostProfilComponent = (function () {
             });
         });
     };
+    GostProfilComponent.prototype.modifyGosta = function () {
+        var _this = this;
+        this._gostService.ModifyGosta(this.gost['ime'], this.gost['prezime'], this.gost['email']).subscribe(function (response) {
+            if (response.Success == true) {
+                _this._notificator.notifySuccess("Uspesna izmena!");
+            }
+            else {
+                _this._notificator.notifyInfo("Izmena nije izvrsena: " + response.Message);
+            }
+        });
+    };
     return GostProfilComponent;
 }());
 GostProfilComponent = __decorate([
     core_1.Component({
         templateUrl: './app/gost profil/gostProfil.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator])
 ], GostProfilComponent);
 exports.GostProfilComponent = GostProfilComponent;
 //# sourceMappingURL=gostProfil.component.js.map

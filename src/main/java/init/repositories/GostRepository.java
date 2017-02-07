@@ -1,6 +1,7 @@
 package init.repositories;
 
 import init.modelFromDB.KorisnikEntity;
+import init.modelFromDB.PrijateljstvoEntity;
 import init.repositories.models.KorisnikRepo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -57,8 +58,53 @@ public class GostRepository implements  CrudRepository<KorisnikRepo, String>  {
     }
 
     @Override
+    public boolean update(KorisnikRepo entity) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+
+        KorisnikEntity k = session.get(KorisnikEntity.class, entity.email);
+
+        if(k == null) {
+            return false;
+        }
+
+        k.setIme(entity.ime);
+        k.setPrezime(entity.prezime);
+
+        session.update(k);
+
+        session.getTransaction().commit();
+        session.close();
+
+        return true;
+    }
+
+    @Override
     public boolean exists(String primaryKey) {
         return false;
+    }
+
+
+    public boolean prekiniZahtevZaPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.get(PrijateljstvoEntity,emailPosiljaoca);
+
+
+
+        return true;
+    }
+
+    public boolean posaljiZahtevZaPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
+
+    }
+
+    public boolean prekiniPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
+
     }
 
 

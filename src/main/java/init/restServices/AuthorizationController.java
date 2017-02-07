@@ -40,8 +40,10 @@ public class AuthorizationController {
 
     @RequestMapping(path="/login", method = RequestMethod.POST)
     public LoginKorisnikResponseDto login(@RequestBody LoginDto acc, HttpSession httpSession){
+        if(acc == null || acc.email == null || acc.password == null)
+            return null;
         KorisnikRepo korisnik = repository.findOne(acc.email);
-        if( korisnik == null)
+        if( korisnik == null || korisnik.email == null || korisnik.password == null)
             return  null;
 
         if( korisnik.password.equals(acc.password)){

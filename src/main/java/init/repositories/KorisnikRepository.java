@@ -93,6 +93,11 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
     }
 
     @Override
+    public boolean update(KorisnikRepo entity) {
+        return false;
+    }
+
+    @Override
     public boolean exists(String primaryKey) {
         return false;
     }

@@ -1,9 +1,13 @@
 package init.restServices;
 
 import init.dtos.LoginKorisnikResponseDto;
+import init.dtos.ModifyGostDto;
+import init.dtos.ResponseWithMessageSuccess;
+import init.modelFromDB.KorisnikEntity;
 import init.repositories.*;
 import init.repositories.models.KorisnikRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +69,36 @@ public class GostiController {
         Iterable<KorisnikRepo> list =  pozvaniRepo.findAll(email);
 
         return list;
+    }
+
+    @RequestMapping(path="/modifyGosta", method = RequestMethod.POST)
+    public ResponseWithMessageSuccess getZahtevanePrijatelje(@RequestBody ModifyGostDto gost){
+
+        KorisnikRepo k = new KorisnikRepo();
+        k.ime = gost.ime;
+        k.prezime = gost.prezime;
+        k.email = gost.email;
+
+        try{
+            boolean success = gostRepo.update(k);
+            if(!success){
+                ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+                response.Success = false;
+                response.Message = "Podaci su nevalidni, neuspesna izmena";
+                return response;
+            }
+        }catch(Exception e){
+            ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+            response.Success = false;
+            response.Message = "Podaci su nevalidni, neuspesna izmena";
+            return response;
+        }
+
+
+        ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+        response.Success = true;
+
+        return response;
     }
 
 }

@@ -1,3 +1,5 @@
+import { IUlogovan } from './../models/ulogovan';
+import { Notificator } from './../services/notification.service';
 import { GostiService } from './../services/gosti.service.';
 import { Component } from '@angular/core';
 import {IRestoran} from "../models/restoran";
@@ -14,14 +16,14 @@ export class GostProfilComponent {
 
     search : string = '';
 
-    gost = {};
+    gost : IUlogovan = null;
 
     prijatelji : any[] = [];
     nePrijatelji : any[] = [];
     oniKojimaJePoslatZahtev : any[] = [];
 
 
-    constructor(private _loginService : LoginService, private _gostService : GostiService) {
+    constructor(private _loginService : LoginService, private _gostService : GostiService, private _notificator : Notificator) {
 
     }
 
@@ -50,5 +52,15 @@ export class GostProfilComponent {
 
         });
 
+    }
+
+    modifyGosta(): void{
+         this._gostService.ModifyGosta(this.gost['ime'], this.gost['prezime'], this.gost['email']).subscribe(response => {
+             if(response.Success == true){
+                 this._notificator.notifySuccess("Uspesna izmena!");
+             }else{
+                 this._notificator.notifyInfo("Izmena nije izvrsena: " + response.Message);
+             }
+         })
     }
 }

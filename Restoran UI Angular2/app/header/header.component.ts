@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import {LoginService} from '../services/login.service';
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit {
     ulogovan : any = null;
     public asdf : string = "asfd";
 
-    constructor(private _loginService : LoginService){
+    constructor(private _loginService : LoginService, private _router: Router,){
 
     }
 
@@ -33,6 +34,7 @@ export class HeaderComponent implements OnInit {
 
     doLogout() : void{
         this._loginService.logoutKorisnika();
+         this._router.navigate(['/']);
     }
 
 

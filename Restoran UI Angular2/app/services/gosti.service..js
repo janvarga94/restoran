@@ -28,6 +28,7 @@ var GostiService = (function () {
         this._prijateljiUrl = app_config_1.Config.BackendUrl + '/gosti/getPrijatelje';
         this._neprijateljiUrl = app_config_1.Config.BackendUrl + '/gosti/getGosteKojiNisuPrijatelji';
         this._cekaSeDaOdgovoreNaPrijateljstvoUrl = app_config_1.Config.BackendUrl + '/gosti/getGosteKojiCekajuNaOdgovorPrijateljstva';
+        this._modifyGostaUrl = app_config_1.Config.BackendUrl + '/gosti/modifyGosta';
     }
     GostiService.prototype.GetAll = function () {
         return this._http.get(this._gostiUrl)
@@ -52,6 +53,13 @@ var GostiService = (function () {
     };
     GostiService.prototype.GetOneKojimaJePoslatZahtev = function (email) {
         return this._http.get(this._cekaSeDaOdgovoreNaPrijateljstvoUrl + "?email=" + email)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    GostiService.prototype.ModifyGosta = function (ime, prezime, email) {
+        return this._http.post(this._modifyGostaUrl, { ime: ime, prezime: prezime, email: email })
             .map(function (response) {
             return response.json();
         })
