@@ -23,6 +23,7 @@ public class ReonEntity {
         this.idReona = idReona;
     }
 
+    @Basic
     @Id
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {

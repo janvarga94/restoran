@@ -16,6 +16,8 @@ public class PozivPrijateljaEntity {
     private int idRestorana;
     private Date pocetak;
     private String gostEmail;
+    private int idRezervacije;
+    private Byte posiljaocVideoOdgovor;
 
     @Basic
     @Column(name = "PRIHVACEN_POZIV")
@@ -105,5 +107,25 @@ public class PozivPrijateljaEntity {
         result = 31 * result + (pocetak != null ? pocetak.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "ID_REZERVACIJE")
+    public int getIdRezervacije() {
+        return idRezervacije;
+    }
+
+    public void setIdRezervacije(int idRezervacije) {
+        this.idRezervacije = idRezervacije;
+    }
+
+    @Basic
+    @Column(name = "POSILJAOC_VIDEO_ODGOVOR")
+    public Byte getPosiljaocVideoOdgovor() {
+        return posiljaocVideoOdgovor;
+    }
+
+    public void setPosiljaocVideoOdgovor(Byte posiljaocVideoOdgovor) {
+        this.posiljaocVideoOdgovor = posiljaocVideoOdgovor;
     }
 }

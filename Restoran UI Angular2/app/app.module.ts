@@ -1,3 +1,4 @@
+import { PrijateljstvoService } from './services/prijateljstvo.service';
 import { LimitDuzineListe } from './pipes/LimitDuzineListe';
 import { GostiService } from './services/gosti.service.';
 import { ActivationComponent } from './accountActivation/activation.component';
@@ -74,7 +75,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
      LoginService,
      WelcomeService,
      Notificator,
-     GostiService
+     GostiService,
+     PrijateljstvoService
    ],
     bootstrap: [ AppComponent ]
 })

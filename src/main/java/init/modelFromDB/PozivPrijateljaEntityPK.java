@@ -11,6 +11,7 @@ public class PozivPrijateljaEntityPK implements Serializable {
     private String prijateljEmail;
     private int idRestorana;
     private String gostEmail;
+    private int idRezervacije;
 
     @Column(name = "PRIJATELJ_EMAIL")
     @Id
@@ -63,5 +64,15 @@ public class PozivPrijateljaEntityPK implements Serializable {
         result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
+    }
+
+    @Column(name = "ID_REZERVACIJE")
+    @Id
+    public int getIdRezervacije() {
+        return idRezervacije;
+    }
+
+    public void setIdRezervacije(int idRezervacije) {
+        this.idRezervacije = idRezervacije;
     }
 }

@@ -24,9 +24,6 @@ export class GostiService {
 
     private ulogovanSubject: BehaviorSubject<any> = new BehaviorSubject<IUlogovan>(null);
     private _gostiUrl = Config.BackendUrl + '/gosti/getAll';
-    private _prijateljiUrl = Config.BackendUrl + '/gosti/getPrijatelje';
-    private _neprijateljiUrl = Config.BackendUrl + '/gosti/getGosteKojiNisuPrijatelji';
-    private _cekaSeDaOdgovoreNaPrijateljstvoUrl = Config.BackendUrl + '/gosti/getGosteKojiCekajuNaOdgovorPrijateljstva';
     private _modifyGostaUrl = Config.BackendUrl + '/gosti/modifyGosta';
 
     constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
@@ -37,29 +34,7 @@ export class GostiService {
                 return <any[]> response.json()})
             .catch(this.handleError)
     }
-   
 
-    GetPrijateljeOf(email : String) : Observable<any[]>{
-         return this._http.get(this._prijateljiUrl + "?email=" + email)
-            .map((response: Response) =>{
-                return <any[]> response.json()})
-            .catch(this.handleError)
-    }
-
-   GetNePrijateljeOf(email : String) : Observable<any[]>{
-         return this._http.get(this._neprijateljiUrl + "?email=" + email)
-            .map((response: Response) =>{
-                return <any[]> response.json()})
-            .catch(this.handleError)
-    }
-
-    
-   GetOneKojimaJePoslatZahtev(email : String) : Observable<any[]>{
-         return this._http.get(this._cekaSeDaOdgovoreNaPrijateljstvoUrl + "?email=" + email)
-            .map((response: Response) =>{
-                return <any[]> response.json()})
-            .catch(this.handleError)
-    }
 
     ModifyGosta(ime : String, prezime : String, email : String) : Observable<any>{
          return this._http.post(this._modifyGostaUrl, {ime : ime, prezime : prezime, email : email})

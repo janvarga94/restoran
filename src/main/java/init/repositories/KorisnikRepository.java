@@ -54,8 +54,11 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
                 return null; //jer nismo nasli ulogu
             }
 
+            session.close();
             return kRepo;
         }else{
+
+            session.close();
             return null;
         }
     }
@@ -79,6 +82,7 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
             listToReturn.add(k);
         });
 
+        session.close();
         return listToReturn;
     }
 

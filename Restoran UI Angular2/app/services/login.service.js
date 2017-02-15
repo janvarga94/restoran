@@ -30,7 +30,7 @@ var LoginService = (function () {
         this._logoutUrl = app_config_1.Config.BackendUrl + '/auth/logout';
         this.ulogovan = this.ulogovanSubject.asObservable();
     }
-    LoginService.prototype.loginKorisnika = function (email, password, rememberMe) {
+    LoginService.prototype.loginKorisnika = function (email, password, rememberMe, showNotification) {
         var _this = this;
         this._http.post(this._loginUrl, { email: email, password: password })
             .map(function (response) {
@@ -45,7 +45,8 @@ var LoginService = (function () {
             .subscribe(function (response) {
             if (response) {
                 _this.ulogovanSubject.next(response);
-                _this._notificator.notifySuccess("Dobrodosli!");
+                if (showNotification)
+                    _this._notificator.notifySuccess("Dobrodosli!");
                 if (rememberMe) {
                     localStorage.setItem("ISA-email", email);
                     localStorage.setItem("ISA-password", password);
@@ -60,7 +61,7 @@ var LoginService = (function () {
         var email = localStorage.getItem("ISA-email");
         var pass = localStorage.getItem("ISA-password");
         if (email && pass) {
-            this.loginKorisnika(email, pass, false);
+            this.loginKorisnika(email, pass, false, false);
         }
     };
     LoginService.prototype.logoutKorisnika = function () {

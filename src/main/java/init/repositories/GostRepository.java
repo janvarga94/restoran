@@ -2,12 +2,14 @@ package init.repositories;
 
 import init.modelFromDB.KorisnikEntity;
 import init.modelFromDB.PrijateljstvoEntity;
+import init.modelFromDB.PrijateljstvoEntityPK;
 import init.repositories.models.KorisnikRepo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -44,6 +46,7 @@ public class GostRepository implements  CrudRepository<KorisnikRepo, String>  {
             listToReturn.add(k);
         });
 
+        session.close();
         return listToReturn;
     }
 
@@ -75,7 +78,7 @@ public class GostRepository implements  CrudRepository<KorisnikRepo, String>  {
 
         session.update(k);
 
-        session.getTransaction().commit();
+
         session.close();
 
         return true;
@@ -87,25 +90,6 @@ public class GostRepository implements  CrudRepository<KorisnikRepo, String>  {
     }
 
 
-    public boolean prekiniZahtevZaPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        org.hibernate.Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        session.get(PrijateljstvoEntity,emailPosiljaoca);
-
-
-
-        return true;
-    }
-
-    public boolean posaljiZahtevZaPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
-
-    }
-
-    public boolean prekiniPrijateljstvo(String emailPosiljaoca, String emailPrimaoca){
-
-    }
 
 
 }

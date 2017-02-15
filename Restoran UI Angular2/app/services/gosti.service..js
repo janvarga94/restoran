@@ -25,34 +25,10 @@ var GostiService = (function () {
         this.emailUlogovanog = 'email0';
         this.ulogovanSubject = new Rx_1.BehaviorSubject(null);
         this._gostiUrl = app_config_1.Config.BackendUrl + '/gosti/getAll';
-        this._prijateljiUrl = app_config_1.Config.BackendUrl + '/gosti/getPrijatelje';
-        this._neprijateljiUrl = app_config_1.Config.BackendUrl + '/gosti/getGosteKojiNisuPrijatelji';
-        this._cekaSeDaOdgovoreNaPrijateljstvoUrl = app_config_1.Config.BackendUrl + '/gosti/getGosteKojiCekajuNaOdgovorPrijateljstva';
         this._modifyGostaUrl = app_config_1.Config.BackendUrl + '/gosti/modifyGosta';
     }
     GostiService.prototype.GetAll = function () {
         return this._http.get(this._gostiUrl)
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    GostiService.prototype.GetPrijateljeOf = function (email) {
-        return this._http.get(this._prijateljiUrl + "?email=" + email)
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    GostiService.prototype.GetNePrijateljeOf = function (email) {
-        return this._http.get(this._neprijateljiUrl + "?email=" + email)
-            .map(function (response) {
-            return response.json();
-        })
-            .catch(this.handleError);
-    };
-    GostiService.prototype.GetOneKojimaJePoslatZahtev = function (email) {
-        return this._http.get(this._cekaSeDaOdgovoreNaPrijateljstvoUrl + "?email=" + email)
             .map(function (response) {
             return response.json();
         })

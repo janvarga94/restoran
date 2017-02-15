@@ -8,20 +8,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var prijateljstvo_service_1 = require("./../services/prijateljstvo.service");
 var notification_service_1 = require("./../services/notification.service");
 var gosti_service_1 = require("./../services/gosti.service.");
 var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var GostProfilComponent = (function () {
-    function GostProfilComponent(_loginService, _gostService, _notificator) {
+    function GostProfilComponent(_loginService, _gostService, _notificator, _prijateljstvoService) {
         this._loginService = _loginService;
         this._gostService = _gostService;
         this._notificator = _notificator;
+        this._prijateljstvoService = _prijateljstvoService;
         this.search = '';
         this.gost = null;
         this.prijatelji = [];
-        this.nePrijatelji = [];
-        this.oniKojimaJePoslatZahtev = [];
+        this.nepozvaniUPrijateljstvo = [];
+        this.pozvaniUPrijateljstvo = [];
+        this.gostPozvanUPrijateljstvoOd = [];
+        this.search1 = '';
+        this.search2 = '';
+        this.search3 = '';
+        this.search4 = '';
+        this._prijatelji = [];
+        this._nepozvaniUPrijateljstvo = [];
+        this._pozvaniUPrijateljstvo = [];
+        this._gostPozvanUPrijateljstvoOd = [];
     }
     GostProfilComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -29,26 +40,110 @@ var GostProfilComponent = (function () {
             _this.gost = ulogovan;
             if (ulogovan == null)
                 return;
-            _this._gostService.GetPrijateljeOf(ulogovan.email).subscribe(function (prijatelji) {
-                console.log(prijatelji);
-                _this.prijatelji = prijatelji;
+            _this._prijateljstvoService.GetPrijateljeOf(ulogovan.email).subscribe(function (prijatelji) {
+                _this._prijatelji = prijatelji;
+                _this.IzmenaListe();
             });
-            _this._gostService.GetNePrijateljeOf(ulogovan.email).subscribe(function (nePrijatelji) {
-                _this.nePrijatelji = nePrijatelji;
+            _this._prijateljstvoService.GetNepozvaneUPrijateljstvo(ulogovan.email).subscribe(function (nePrijatelji) {
+                _this._nepozvaniUPrijateljstvo = nePrijatelji;
+                _this.IzmenaListe();
             });
-            _this._gostService.GetOneKojimaJePoslatZahtev(ulogovan.email).subscribe(function (oniKojimaJePoslatZahtev) {
-                _this.oniKojimaJePoslatZahtev = oniKojimaJePoslatZahtev;
+            _this._prijateljstvoService.GetPozvaneUPrijateljstvo(ulogovan.email).subscribe(function (oniKojimaJePoslatZahtev) {
+                _this._pozvaniUPrijateljstvo = oniKojimaJePoslatZahtev;
+                _this.IzmenaListe();
+            });
+            _this._prijateljstvoService.GetGostPozvanUPrijateljstvoOd(ulogovan.email).subscribe(function (pozivaociUPrijateljstvo) {
+                _this._gostPozvanUPrijateljstvoOd = pozivaociUPrijateljstvo;
+                _this.IzmenaListe();
             });
         });
+    };
+    GostProfilComponent.prototype.IzmenaListe = function () {
+        var _this = this;
+        this.prijatelji = this._prijatelji.filter(function (p) { return (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(_this.search2.toLowerCase()) > -1; });
+        this.pozvaniUPrijateljstvo = this._pozvaniUPrijateljstvo.filter(function (p) { return (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(_this.search1.toLowerCase()) > -1; });
+        this.nepozvaniUPrijateljstvo = this._nepozvaniUPrijateljstvo.filter(function (p) { return (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(_this.search3.toLowerCase()) > -1; });
+        this.gostPozvanUPrijateljstvoOd = this._gostPozvanUPrijateljstvoOd.filter(function (p) { return (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(_this.search4.toLowerCase()) > -1; });
     };
     GostProfilComponent.prototype.modifyGosta = function () {
         var _this = this;
         this._gostService.ModifyGosta(this.gost['ime'], this.gost['prezime'], this.gost['email']).subscribe(function (response) {
-            if (response.Success == true) {
+            if (response.Success) {
                 _this._notificator.notifySuccess("Uspesna izmena!");
             }
             else {
                 _this._notificator.notifyInfo("Izmena nije izvrsena: " + response.Message);
+            }
+        });
+    };
+    GostProfilComponent.prototype.posaljiZahtev = function (kome, index) {
+        var _this = this;
+        console.log(index);
+        this._prijateljstvoService.PosaljiZahtev(this.gost['email'], kome.email).subscribe(function (response) {
+            if (response.Success) {
+                _this._notificator.notifySuccess("Zahtev poslat");
+                _this._nepozvaniUPrijateljstvo.splice(index, 1);
+                _this._pozvaniUPrijateljstvo.push(kome);
+                _this.IzmenaListe();
+            }
+            else {
+                _this._notificator.notifyInfo("Problem: " + response.Message);
+            }
+        });
+    };
+    GostProfilComponent.prototype.prihvatiZahtev = function (kome, index) {
+        var _this = this;
+        this._prijateljstvoService.PrihvatiZahtev(kome.email, this.gost['email']).subscribe(function (response) {
+            if (response.Success) {
+                _this._notificator.notifySuccess("Prijateljstvo napravljeno :)");
+                _this._gostPozvanUPrijateljstvoOd.splice(index, 1);
+                _this._prijatelji.push(kome);
+                _this.IzmenaListe();
+            }
+            else {
+                _this._notificator.notifyInfo("Problem: " + response.Message);
+            }
+        });
+    };
+    GostProfilComponent.prototype.prekiniZahtev = function (kome, index) {
+        var _this = this;
+        this._prijateljstvoService.PrekiniZahtev(this.gost['email'], kome.email).subscribe(function (response) {
+            if (response.Success) {
+                _this._notificator.notifySuccess("Zahtev prekinut");
+                _this._pozvaniUPrijateljstvo.splice(index, 1);
+                _this._nepozvaniUPrijateljstvo.push(kome);
+                _this.IzmenaListe();
+            }
+            else {
+                _this._notificator.notifyInfo("Problem: " + response.Message);
+            }
+        });
+    };
+    GostProfilComponent.prototype.prekiniPrijateljstvo = function (kome, index) {
+        var _this = this;
+        this._prijateljstvoService.PrekiniPrijateljstvo(this.gost['email'], kome.email).subscribe(function (response) {
+            if (response.Success) {
+                _this._notificator.notifySuccess("Prijateljstvo prekinuto");
+                _this._prijatelji.splice(index, 1);
+                _this._nepozvaniUPrijateljstvo.push(kome);
+                _this.IzmenaListe();
+            }
+            else {
+                _this._notificator.notifyInfo("Problem: " + response.Message);
+            }
+        });
+    };
+    GostProfilComponent.prototype.odbijZahtev = function (kome, index) {
+        var _this = this;
+        this._prijateljstvoService.PrekiniZahtev(this.gost['email'], kome.email).subscribe(function (response) {
+            if (response.Success) {
+                _this._notificator.notifySuccess("Zahtev odbijen");
+                _this._gostPozvanUPrijateljstvoOd.splice(index, 1);
+                _this._nepozvaniUPrijateljstvo.push(kome);
+                _this.IzmenaListe();
+            }
+            else {
+                _this._notificator.notifyInfo("Problem: " + response.Message);
             }
         });
     };
@@ -58,7 +153,7 @@ GostProfilComponent = __decorate([
     core_1.Component({
         templateUrl: './app/gost profil/gostProfil.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator])
+    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator, prijateljstvo_service_1.PrijateljstvoService])
 ], GostProfilComponent);
 exports.GostProfilComponent = GostProfilComponent;
 //# sourceMappingURL=gostProfil.component.js.map

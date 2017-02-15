@@ -1,6 +1,7 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * Created by Svetozar Stojkovic on 12/21/2016.
@@ -11,6 +12,7 @@ import javax.persistence.*;
 public class PrijateljstvoEntity {
     private String prviEmail;
     private String drugiEmail;
+    private Date prihvaceno;
 
     @Id
     @Column(name = "PRVI_EMAIL")
@@ -50,5 +52,15 @@ public class PrijateljstvoEntity {
         int result = prviEmail != null ? prviEmail.hashCode() : 0;
         result = 31 * result + (drugiEmail != null ? drugiEmail.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "PRIHVACENO")
+    public Date getPrihvaceno() {
+        return prihvaceno;
+    }
+
+    public void setPrihvaceno(Date prihvaceno) {
+        this.prihvaceno = prihvaceno;
     }
 }

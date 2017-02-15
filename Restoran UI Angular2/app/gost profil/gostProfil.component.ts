@@ -1,3 +1,4 @@
+import { PrijateljstvoService } from './../services/prijateljstvo.service';
 import { IUlogovan } from './../models/ulogovan';
 import { Notificator } from './../services/notification.service';
 import { GostiService } from './../services/gosti.service.';
@@ -19,11 +20,21 @@ export class GostProfilComponent {
     gost : IUlogovan = null;
 
     prijatelji : any[] = [];
-    nePrijatelji : any[] = [];
-    oniKojimaJePoslatZahtev : any[] = [];
+    nepozvaniUPrijateljstvo : any[] = [];
+    pozvaniUPrijateljstvo : any[] = [];
+    gostPozvanUPrijateljstvoOd : any[] = [];
 
+    search1 = '';
+    search2 = '';
+    search3 = '';
+    search4 = '';
 
-    constructor(private _loginService : LoginService, private _gostService : GostiService, private _notificator : Notificator) {
+    private _prijatelji : any[] = [];
+    private _nepozvaniUPrijateljstvo : any[] = [];
+    private _pozvaniUPrijateljstvo : any[] = [];
+    private _gostPozvanUPrijateljstvoOd : any[] = [];
+
+    constructor(private _loginService : LoginService, private _gostService : GostiService, private _notificator : Notificator, private _prijateljstvoService : PrijateljstvoService) {
 
     }
 
@@ -33,34 +44,120 @@ export class GostProfilComponent {
 
             if(ulogovan == null) return;
 
-            this._gostService.GetPrijateljeOf(ulogovan.email).subscribe(prijatelji => {
-                console.log(prijatelji);
-                this.prijatelji = prijatelji;
-                
+            this._prijateljstvoService.GetPrijateljeOf(ulogovan.email).subscribe(prijatelji => {
+                this._prijatelji = prijatelji;       
+                this.IzmenaListe();
             });
 
             
-            this._gostService.GetNePrijateljeOf(ulogovan.email).subscribe(nePrijatelji => {
-                this.nePrijatelji = nePrijatelji;
-                
+            this._prijateljstvoService.GetNepozvaneUPrijateljstvo(ulogovan.email).subscribe(nePrijatelji => {
+                this._nepozvaniUPrijateljstvo = nePrijatelji;
+                this.IzmenaListe();
             });
             
-             this._gostService.GetOneKojimaJePoslatZahtev(ulogovan.email).subscribe(oniKojimaJePoslatZahtev => {
-                this.oniKojimaJePoslatZahtev = oniKojimaJePoslatZahtev;
-                
+             this._prijateljstvoService.GetPozvaneUPrijateljstvo(ulogovan.email).subscribe(oniKojimaJePoslatZahtev => {
+                this._pozvaniUPrijateljstvo = oniKojimaJePoslatZahtev;
+                this.IzmenaListe();
+            });
+
+              this._prijateljstvoService.GetGostPozvanUPrijateljstvoOd(ulogovan.email).subscribe(pozivaociUPrijateljstvo => {
+                this._gostPozvanUPrijateljstvoOd = pozivaociUPrijateljstvo;
+                this.IzmenaListe();
             });
 
         });
 
     }
 
+    IzmenaListe(){
+        this.prijatelji = this._prijatelji.filter( p => (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(this.search2.toLowerCase()) > -1);
+        this.pozvaniUPrijateljstvo = this._pozvaniUPrijateljstvo.filter( p => (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(this.search1.toLowerCase()) > -1);
+        this.nepozvaniUPrijateljstvo = this._nepozvaniUPrijateljstvo.filter( p => (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(this.search3.toLowerCase()) > -1);
+        this.gostPozvanUPrijateljstvoOd = this._gostPozvanUPrijateljstvoOd.filter( p => (p['ime'] + " " + p['prezime']).toLowerCase().indexOf(this.search4.toLowerCase()) > -1);
+    }
+
     modifyGosta(): void{
          this._gostService.ModifyGosta(this.gost['ime'], this.gost['prezime'], this.gost['email']).subscribe(response => {
-             if(response.Success == true){
+             if(response.Success){
                  this._notificator.notifySuccess("Uspesna izmena!");
              }else{
                  this._notificator.notifyInfo("Izmena nije izvrsena: " + response.Message);
              }
          })
     }
+
+
+    posaljiZahtev(kome : any,index : any): void{
+        console.log(index);
+        this._prijateljstvoService.PosaljiZahtev(this.gost['email'],kome.email).subscribe(response => {
+             if(response.Success){
+                 this._notificator.notifySuccess("Zahtev poslat");
+                 
+                 this._nepozvaniUPrijateljstvo.splice(index,1);
+                 this._pozvaniUPrijateljstvo.push(kome);
+                 this.IzmenaListe();
+             }else{
+                 this._notificator.notifyInfo("Problem: " + response.Message);
+             }
+        })
+    }
+
+     prihvatiZahtev(kome : any,index : any): void{
+        this._prijateljstvoService.PrihvatiZahtev(kome.email,this.gost['email']).subscribe(response => {
+             if(response.Success){
+                 this._notificator.notifySuccess("Prijateljstvo napravljeno :)");
+
+                 this._gostPozvanUPrijateljstvoOd.splice(index,1);
+                 this._prijatelji.push(kome);
+                 this.IzmenaListe();
+             }else{
+                 this._notificator.notifyInfo("Problem: " + response.Message);
+             }
+        })
+    }
+
+     prekiniZahtev(kome : any,index : any): void{
+        this._prijateljstvoService.PrekiniZahtev(this.gost['email'],kome.email).subscribe(response => {
+             if(response.Success){
+                 this._notificator.notifySuccess("Zahtev prekinut");
+
+                 this._pozvaniUPrijateljstvo.splice(index,1);
+                 this._nepozvaniUPrijateljstvo.push(kome);
+                 this.IzmenaListe();
+             }else{
+                 this._notificator.notifyInfo("Problem: " + response.Message);
+             }
+        })
+    }
+
+     prekiniPrijateljstvo(kome : any,index : any): void{
+        this._prijateljstvoService.PrekiniPrijateljstvo(this.gost['email'],kome.email).subscribe(response => {
+             if(response.Success){
+                 this._notificator.notifySuccess("Prijateljstvo prekinuto");
+
+                 this._prijatelji.splice(index,1);
+                 this._nepozvaniUPrijateljstvo.push(kome);
+                 this.IzmenaListe();
+             }else{
+                 this._notificator.notifyInfo("Problem: " + response.Message);
+             }
+        })
+    }
+
+    odbijZahtev(kome : any,index : any): void{
+        this._prijateljstvoService.PrekiniZahtev(this.gost['email'],kome.email).subscribe(response => {
+             if(response.Success){
+                 this._notificator.notifySuccess("Zahtev odbijen");
+
+                 this._gostPozvanUPrijateljstvoOd.splice(index,1);
+                 this._nepozvaniUPrijateljstvo.push(kome);
+                 this.IzmenaListe();
+             }else{
+                 this._notificator.notifyInfo("Problem: " + response.Message);
+             }
+        })
+    }
+
+
+
 }

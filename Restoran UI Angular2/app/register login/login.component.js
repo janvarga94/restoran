@@ -22,7 +22,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.doLogin = function () {
-        this._loginService.loginKorisnika(this.email, this.password, this.rememberMe);
+        this._loginService.loginKorisnika(this.email, this.password, this.rememberMe, true);
     };
     return LoginComponent;
 }());

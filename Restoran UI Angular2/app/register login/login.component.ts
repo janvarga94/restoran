@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     }
 
     doLogin(){
-        this._loginService.loginKorisnika(this.email,this.password,this.rememberMe);
+        this._loginService.loginKorisnika(this.email,this.password,this.rememberMe,true);
     }
 
  }

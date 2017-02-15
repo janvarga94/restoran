@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var prijateljstvo_service_1 = require("./services/prijateljstvo.service");
 var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
 var gosti_service_1 = require("./services/gosti.service.");
 var activation_component_1 = require("./accountActivation/activation.component");
@@ -84,7 +85,8 @@ AppModule = __decorate([
             login_service_1.LoginService,
             welcome_service_1.WelcomeService,
             notification_service_1.Notificator,
-            gosti_service_1.GostiService
+            gosti_service_1.GostiService,
+            prijateljstvo_service_1.PrijateljstvoService
         ],
         bootstrap: [app_component_1.AppComponent]
     }),

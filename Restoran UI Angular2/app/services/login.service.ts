@@ -32,7 +32,7 @@ export class LoginService {
 
     constructor(private _http: Http, private _notificator: Notificator, private _router: Router) { }
 
-    loginKorisnika(email: string, password: string, rememberMe:boolean): void{
+    loginKorisnika(email: string, password: string, rememberMe:boolean, showNotification:boolean): void{
         this._http.post(this._loginUrl, {email : email, password : password})
             .map((response: Response) => {
                 try{
@@ -45,7 +45,8 @@ export class LoginService {
             .subscribe(response => {
                 if(response){
                    this.ulogovanSubject.next(response);
-                   this._notificator.notifySuccess("Dobrodosli!");
+                   if(showNotification)
+                        this._notificator.notifySuccess("Dobrodosli!");
                 
                    if(rememberMe){
                         localStorage.setItem("ISA-email", email);   
@@ -63,7 +64,7 @@ export class LoginService {
         let pass = localStorage.getItem("ISA-password");             
     
         if( email && pass){
-            this.loginKorisnika(email,pass,false);
+            this.loginKorisnika(email,pass,false,false);
         }
     }
 

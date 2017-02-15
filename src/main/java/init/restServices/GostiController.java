@@ -25,12 +25,7 @@ public class GostiController {
     private KorisnikRepository repository;
     @Autowired
     private GostRepository gostRepo;
-    @Autowired
-    private FriendsOfGuestRepository friendsRepo;
-    @Autowired
-    private NotFriendsOfGuestRepository notFriendsRepo;
-    @Autowired
-    private PozvaniUPrijateljstvoGuestRepository pozvaniRepo;
+
 
     @RequestMapping(path="/getAll", method = RequestMethod.GET)
     public List<LoginKorisnikResponseDto> getAll(){
@@ -50,29 +45,10 @@ public class GostiController {
     }
 
 
-    @RequestMapping(path="/getPrijatelje", method = RequestMethod.GET)
-    public Iterable<KorisnikRepo> getPrijatelje(String email){
-        Iterable<KorisnikRepo> list =  friendsRepo.findAll(email);
 
-        return list;
-    }
-
-    @RequestMapping(path="/getGosteKojiNisuPrijatelji", method = RequestMethod.GET)
-    public Iterable<KorisnikRepo> getNePrijatelje(String email){
-        Iterable<KorisnikRepo> list =  notFriendsRepo.findAll(email);
-
-        return list;
-    }
-
-    @RequestMapping(path="/getGosteKojiCekajuNaOdgovorPrijateljstva", method = RequestMethod.GET)
-    public Iterable<KorisnikRepo> getZahtevanePrijatelje(String email){
-        Iterable<KorisnikRepo> list =  pozvaniRepo.findAll(email);
-
-        return list;
-    }
 
     @RequestMapping(path="/modifyGosta", method = RequestMethod.POST)
-    public ResponseWithMessageSuccess getZahtevanePrijatelje(@RequestBody ModifyGostDto gost){
+    public ResponseWithMessageSuccess modifyGosta(@RequestBody ModifyGostDto gost){
 
         KorisnikRepo k = new KorisnikRepo();
         k.ime = gost.ime;
@@ -100,5 +76,6 @@ public class GostiController {
 
         return response;
     }
+
 
 }

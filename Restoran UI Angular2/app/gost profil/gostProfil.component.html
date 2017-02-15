@@ -34,53 +34,117 @@
         </div>     
     </div>
 
-
-
-     <div class="col-md-6">
+    <div class="col-md-6" *ngIf="gostPozvanUPrijateljstvoOd.length != 0">
         <div class="card" style="margin-top: 100px; margin-bottom: 100px; ">
-            <div class="card-header">
-                Svi Gosti
-            </div>
-              <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        Search <input type="text" class="form-control" [(ngModel)]="search">
-                    </li>
-                 
-                    <span *ngFor="let gost of oniKojimaJePoslatZahtev " >
-                        <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)  &&   (gost.ime + gost.prezime + gost.email).toLowerCase().indexOf(search.toLowerCase()) > -1" >
-                            
-                                    • {{gost.ime}} {{gost.prezime}} 
-                                    <span style="float: right">
-                                        <button class="btn btn-success btn-sm" >Prekini zahtev</button>
-                                    </span>  
-                                                        
+                <div class="card-header">
+                    Pozvani ste u prijateljstvo
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search4" (ngModelChange) = "IzmenaListe()" placeholder="Search..">
                         </li>
-                               
-                   </span> 
-                
-                    <span *ngFor="let gost of prijatelji" >
-                        <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)  &&   (gost.ime + gost.prezime + gost.email).toLowerCase().indexOf(search.toLowerCase()) > -1" >
-                            
-                                       • {{gost.ime}} {{gost.prezime}} 
-                                    <span style="float: right">
-                                        <button class="btn btn-warning btn-sm" >Prekini prijateljstvo</button>
-                                    </span>                 
-                        </li>
-                               
-                   </span> 
+                    
+                        <span *ngFor="let i = index; let gost of gostPozvanUPrijateljstvoOd | limitDuzineListe : 15" >
+                            <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
+                                
+                                       <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                       {{gost.email}}
+                                        <span style="float: right">
+                                            <button class="btn btn-primary btn-sm" (click) = "prihvatiZahtev(gost,i)">Prihvati</button>
+                                             <button class="btn btn-danger btn-sm" (click) = "odbijZahtev(gost,i)">Neprihvati</button>
+                                        </span>  
+                                                            
+                            </li>
+                                
+                    </span> 
 
-                    <span *ngFor="let gost of nePrijatelji " >
-                        <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)  &&   (gost.ime + gost.prezime + gost.email).toLowerCase().indexOf(search.toLowerCase()) > -1" >
-                            
-                                    • {{gost.ime}} {{gost.prezime}} 
-                                    <span style="float: right">
-                                        <button class="btn btn-primary btn-sm" >Posalji zahtev</button>
-                                    </span>  
-                                               
+                </ul>
+            </div>
+    </div>
+
+
+
+
+     <div class="col-md-12" *ngIf="gost != null">
+        <div class="card-group">
+    
+            <div class="card" style="margin-top: 100px; margin-bottom: 100px; ">
+                <div class="card-header">
+                    Pozvali ste u prijateljstvo
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search1" (ngModelChange) = "IzmenaListe()" placeholder="Search..">
                         </li>
-                               
-                   </span> 
-            </ul>
+                    
+                        <span *ngFor="let i = index; let gost of pozvaniUPrijateljstvo | limitDuzineListe : 15" >
+                            <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
+                                
+                                       <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                       {{gost.email}}
+                                        <span style="float: right">
+                                            <button class="btn btn-success btn-sm" (click) = "prekiniZahtev(gost,i)">Prekini</button>
+                                        </span>  
+                                                            
+                            </li>
+                                
+                    </span> 
+
+                </ul>
+            </div>
+     
+
+        
+            <div class="card" style="margin-top: 100px; margin-bottom: 100px; ">
+                <div class="card-header">
+                    Prijatelji
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search2" (ngModelChange) = "IzmenaListe()" placeholder="Search..">
+                        </li>
+
+                    
+                        <span *ngFor="let i = index; let gost of prijatelji | limitDuzineListe : 15" >
+                            <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
+                                
+                                           <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                       {{gost.email}}
+                                        <span style="float: right">
+                                            <button class="btn btn-warning btn-sm" (click) = "prekiniPrijateljstvo(gost,i)">Prekini</button>
+                                        </span>                 
+                            </li>
+                                
+                    </span> 
+
+                </ul>
+            </div>
+        
+
+     
+            <div class="card" style="margin-top: 100px; margin-bottom: 100px; ">
+                <div class="card-header">
+                    Ostali
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search3" (ngModelChange) = "IzmenaListe()" placeholder="Search..">
+                        </li>
+
+                        <span *ngFor="let i = index; let gost of nepozvaniUPrijateljstvo | limitDuzineListe : 15 " >
+                            <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
+                                
+                                         <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                       {{gost.email}}
+                                        <span style="float: right">
+                                            <button class="btn btn-primary btn-sm"  (click) = "posaljiZahtev(gost,i)">Posalji zahtev</button>
+                                        </span>  
+                                                
+                            </li>
+                                
+                    </span> 
+                </ul>
+            </div>
         </div>
      </div>
 

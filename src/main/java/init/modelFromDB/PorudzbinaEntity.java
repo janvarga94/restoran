@@ -21,6 +21,7 @@ public class PorudzbinaEntity {
     private int idRestorana;
     private Date pocetakRezervacije;
     private String gostEmail;
+    private Integer idRezervacije;
 
     @Basic
     @Column(name = "SPREMNO_U")
@@ -172,5 +173,15 @@ public class PorudzbinaEntity {
         result = 31 * result + (pocetakRezervacije != null ? pocetakRezervacije.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "ID_REZERVACIJE")
+    public Integer getIdRezervacije() {
+        return idRezervacije;
+    }
+
+    public void setIdRezervacije(Integer idRezervacije) {
+        this.idRezervacije = idRezervacije;
     }
 }

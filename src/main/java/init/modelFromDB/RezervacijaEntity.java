@@ -16,7 +16,9 @@ public class RezervacijaEntity {
     private int idRestorana;
     private Byte otkazano;
     private String gostEmail;
+    private int idRezervacije;
 
+    @Basic
     @Id
     @Column(name = "POCETAK")
     public Date getPocetak() {
@@ -37,6 +39,7 @@ public class RezervacijaEntity {
         this.kraj = kraj;
     }
 
+    @Basic
     @Id
     @Column(name = "BROJ_STOLA")
     public int getBrojStola() {
@@ -67,6 +70,7 @@ public class RezervacijaEntity {
         this.otkazano = otkazano;
     }
 
+    @Basic
     @Id
     @Column(name = "GOST_EMAIL")
     public String getGostEmail() {
@@ -103,5 +107,15 @@ public class RezervacijaEntity {
         result = 31 * result + (otkazano != null ? otkazano.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         return result;
+    }
+
+    @Id
+    @Column(name = "ID_REZERVACIJE")
+    public int getIdRezervacije() {
+        return idRezervacije;
+    }
+
+    public void setIdRezervacije(int idRezervacije) {
+        this.idRezervacije = idRezervacije;
     }
 }
