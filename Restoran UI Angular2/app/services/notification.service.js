@@ -12,26 +12,31 @@ var core_1 = require("@angular/core");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
-var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
+var angular2_toaster_1 = require("angular2-toaster");
 var Notificator = (function () {
     function Notificator(_toastr) {
         this._toastr = _toastr;
         this._restoraniUrl = 'api/restorani.json';
+        var toasterconfig = new angular2_toaster_1.ToasterConfig({
+            showCloseButton: true,
+            tapToDismiss: false,
+            timeout: 0
+        });
     }
     Notificator.prototype.notifySuccess = function (message) {
-        this._toastr.success(message);
+        this._toastr.pop('success', message);
     };
     Notificator.prototype.notifyInfo = function (message) {
-        this._toastr.info(message);
+        this._toastr.pop('info', message);
     };
     Notificator.prototype.notifyError = function (message) {
-        this._toastr.error(message);
+        this._toastr.pop('error', message);
     };
     return Notificator;
 }());
 Notificator = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [ng2_toastr_1.ToastsManager])
+    __metadata("design:paramtypes", [angular2_toaster_1.ToasterService])
 ], Notificator);
 exports.Notificator = Notificator;
 //# sourceMappingURL=notification.service.js.map

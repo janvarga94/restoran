@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { ToastModule} from 'ng2-toastr/ng2-toastr';
+import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
 
 import { AppComponent }  from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -30,12 +30,14 @@ import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.compon
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
 
+
+
 @NgModule({
   imports: [
      BrowserModule,
      FormsModule,
      HttpModule,
-     ToastModule,
+     ToasterModule,
      RouterModule.forRoot([
         { path: 'restorani', component : RestoraniComponent},
         { path: 'restoran/:id', component : RestoranDetailComponent},
@@ -56,8 +58,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     AppComponent,
     WelcomeComponent,
     RestoraniComponent,
-      ZaposleniComponent,
-      ZaposleniDetailComponent,
+    ZaposleniComponent,
+    ZaposleniDetailComponent,
     RestoranDetailComponent,
     HeaderComponent,
     MenazerSistemaViewComponent,
@@ -76,8 +78,11 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
      WelcomeService,
      Notificator,
      GostiService,
-     PrijateljstvoService
+     PrijateljstvoService,
+     ToasterService
    ],
     bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import {ToastsManager} from 'ng2-toastr/ng2-toastr';
+import {ToasterModule, ToasterService, ToasterConfig} from 'angular2-toaster';
 
 import {INotificator} from './notifications';
 
@@ -14,15 +14,24 @@ import {INotificator} from './notifications';
 export class Notificator implements INotificator{
     private _restoraniUrl = 'api/restorani.json';
 
-    constructor(private _toastr: ToastsManager ) { }
+    constructor(private _toastr: ToasterService ) {
+        let toasterconfig : ToasterConfig = 
+            new ToasterConfig({
+                showCloseButton: true, 
+                tapToDismiss: false, 
+                timeout: 0
+            });
+        
+        
+     }
 
     notifySuccess(message: string) : void{
-        this._toastr.success(message);
+        this._toastr.pop('success', message);
     }
     notifyInfo( message: string) : void{
-        this._toastr.info(message);
+        this._toastr.pop('info', message);
     }
     notifyError( message: string) : void{
-        this._toastr.error(message);
+        this._toastr.pop('error', message);
     }
 }
