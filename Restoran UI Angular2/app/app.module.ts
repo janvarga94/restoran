@@ -1,3 +1,4 @@
+import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { PrijateljstvoService } from './services/prijateljstvo.service';
 import { LimitDuzineListe } from './pipes/LimitDuzineListe';
 import { GostiService } from './services/gosti.service.';
@@ -49,6 +50,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
          { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
+        { path: 'rezervacija', component: RezervacijaComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -67,6 +69,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     LoginComponent,
     GostProfilComponent,
     ActivationComponent,
+    RezervacijaComponent,
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString

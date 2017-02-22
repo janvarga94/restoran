@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var rezervacija_component_1 = require("./rezervacija/rezervacija.component");
 var prijateljstvo_service_1 = require("./services/prijateljstvo.service");
 var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
 var gosti_service_1 = require("./services/gosti.service.");
@@ -57,6 +58,7 @@ AppModule = __decorate([
                 { path: 'gostProfil', component: gostProfil_component_1.GostProfilComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
+                { path: 'rezervacija', component: rezervacija_component_1.RezervacijaComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -73,6 +75,7 @@ AppModule = __decorate([
             login_component_1.LoginComponent,
             gostProfil_component_1.GostProfilComponent,
             activation_component_1.ActivationComponent,
+            rezervacija_component_1.RezervacijaComponent,
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString
