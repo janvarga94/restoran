@@ -14,10 +14,10 @@ var http_1 = require("@angular/http");
 /**
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
-var Rx_1 = require("rxjs/Rx");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/catch");
-require("rxjs/add/operator/map");
+var Rx_1 = require('rxjs/Rx');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/map');
 var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
         this._http = _http;
@@ -46,17 +46,26 @@ var WelcomeService = (function () {
             .subscribe(function (data) {
         }, function (err) { return _this.handleError(err.json().message); }, function () { return console.log('Authentication Complete'); });
     };
+    WelcomeService.prototype.getOcenaForRestoran = function (id) {
+        var ocenaUrl = 'http://localhost:8080/resursi/ocena_for_restoran';
+        return this._http.get(ocenaUrl + "?id=" + id)
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
     WelcomeService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
+    WelcomeService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
+    ], WelcomeService);
     return WelcomeService;
 }());
-WelcomeService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
-], WelcomeService);
 exports.WelcomeService = WelcomeService;
 //# sourceMappingURL=welcome.service.js.map

@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var notification_service_1 = require("../services/notification.service");
-var restorani_service_1 = require("../services/restorani.service");
+var core_1 = require('@angular/core');
+var notification_service_1 = require('../services/notification.service');
+var restorani_service_1 = require('../services/restorani.service');
 var MenazerSistemaViewComponent = (function () {
     function MenazerSistemaViewComponent(_notificator, _restoraniService) {
         this._notificator = _notificator;
@@ -48,13 +48,13 @@ var MenazerSistemaViewComponent = (function () {
             this._notificator.notifySuccess(" obrisan");
         }
     };
+    MenazerSistemaViewComponent = __decorate([
+        core_1.Component({
+            templateUrl: 'app/menazerSistemaView/menazerView.component.html'
+        }), 
+        __metadata('design:paramtypes', [notification_service_1.Notificator, restorani_service_1.RestoranService])
+    ], MenazerSistemaViewComponent);
     return MenazerSistemaViewComponent;
 }());
-MenazerSistemaViewComponent = __decorate([
-    core_1.Component({
-        templateUrl: 'app/menazerSistemaView/menazerView.component.html'
-    }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, restorani_service_1.RestoranService])
-], MenazerSistemaViewComponent);
 exports.MenazerSistemaViewComponent = MenazerSistemaViewComponent;
 //# sourceMappingURL=menazerView.component.js.map

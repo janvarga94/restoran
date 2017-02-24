@@ -11,13 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var Observable_1 = require("rxjs/Observable");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/catch");
-require("rxjs/add/operator/map");
-var notification_service_1 = require("./notification.service");
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+var Observable_1 = require('rxjs/Observable');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/map');
+var notification_service_1 = require('./notification.service');
 var ZaposleniService = (function () {
     function ZaposleniService(_http, _notificator) {
         this._http = _http;
@@ -50,11 +50,11 @@ var ZaposleniService = (function () {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
+    ZaposleniService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
+    ], ZaposleniService);
     return ZaposleniService;
 }());
-ZaposleniService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
-], ZaposleniService);
 exports.ZaposleniService = ZaposleniService;
 //# sourceMappingURL=zaposleni.service.js.map

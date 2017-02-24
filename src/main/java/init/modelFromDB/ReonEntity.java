@@ -3,11 +3,10 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
 @Table(name = "reon", schema = "restorani", catalog = "")
-@IdClass(ReonEntityPK.class)
 public class ReonEntity {
     private int idReona;
     private int idRestorana;
@@ -24,7 +23,6 @@ public class ReonEntity {
     }
 
     @Basic
-    @Id
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
         return idRestorana;

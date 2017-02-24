@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var notification_service_1 = require("../services/notification.service");
-var login_service_1 = require("../services/login.service");
-var router_1 = require("@angular/router");
+var core_1 = require('@angular/core');
+var notification_service_1 = require('../services/notification.service');
+var login_service_1 = require('../services/login.service');
+var router_1 = require('@angular/router');
 var RegisterComponent = (function () {
     function RegisterComponent(_notificator, _router, _loginService) {
         this._notificator = _notificator;
@@ -30,13 +30,13 @@ var RegisterComponent = (function () {
         this._loginService.registerKorisnika(this.email, this.password, this.ime, this.prezime);
         this._notificator.notifyInfo("Molim sacekajte.....");
     };
+    RegisterComponent = __decorate([
+        core_1.Component({
+            templateUrl: 'app/register login/register.component.html'
+        }), 
+        __metadata('design:paramtypes', [notification_service_1.Notificator, router_1.Router, login_service_1.LoginService])
+    ], RegisterComponent);
     return RegisterComponent;
 }());
-RegisterComponent = __decorate([
-    core_1.Component({
-        templateUrl: 'app/register login/register.component.html'
-    }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, router_1.Router, login_service_1.LoginService])
-], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

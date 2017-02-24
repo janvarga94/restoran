@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
 @Table(name = "porudzbina", schema = "restorani", catalog = "")
@@ -17,9 +17,7 @@ public class PorudzbinaEntity {
     private Date privacenaOdKuvaraU;
     private Date gostZeliSpremnoU;
     private String konobarEmail;
-    private Integer brojStola;
     private int idRestorana;
-    private Date pocetakRezervacije;
     private String gostEmail;
     private Integer idRezervacije;
 
@@ -93,16 +91,6 @@ public class PorudzbinaEntity {
         this.konobarEmail = konobarEmail;
     }
 
-    @Basic
-    @Column(name = "BROJ_STOLA")
-    public Integer getBrojStola() {
-        return brojStola;
-    }
-
-    public void setBrojStola(Integer brojStola) {
-        this.brojStola = brojStola;
-    }
-
     @Id
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
@@ -113,16 +101,6 @@ public class PorudzbinaEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Basic
-    @Column(name = "POCETAK_REZERVACIJE")
-    public Date getPocetakRezervacije() {
-        return pocetakRezervacije;
-    }
-
-    public void setPocetakRezervacije(Date pocetakRezervacije) {
-        this.pocetakRezervacije = pocetakRezervacije;
-    }
-
     @Id
     @Column(name = "GOST_EMAIL")
     public String getGostEmail() {
@@ -131,6 +109,16 @@ public class PorudzbinaEntity {
 
     public void setGostEmail(String gostEmail) {
         this.gostEmail = gostEmail;
+    }
+
+    @Basic
+    @Column(name = "ID_REZERVACIJE")
+    public Integer getIdRezervacije() {
+        return idRezervacije;
+    }
+
+    public void setIdRezervacije(Integer idRezervacije) {
+        this.idRezervacije = idRezervacije;
     }
 
     @Override
@@ -151,10 +139,9 @@ public class PorudzbinaEntity {
         if (gostZeliSpremnoU != null ? !gostZeliSpremnoU.equals(that.gostZeliSpremnoU) : that.gostZeliSpremnoU != null)
             return false;
         if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
-        if (brojStola != null ? !brojStola.equals(that.brojStola) : that.brojStola != null) return false;
-        if (pocetakRezervacije != null ? !pocetakRezervacije.equals(that.pocetakRezervacije) : that.pocetakRezervacije != null)
-            return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
+        if (idRezervacije != null ? !idRezervacije.equals(that.idRezervacije) : that.idRezervacije != null)
+            return false;
 
         return true;
     }
@@ -168,20 +155,9 @@ public class PorudzbinaEntity {
         result = 31 * result + (privacenaOdKuvaraU != null ? privacenaOdKuvaraU.hashCode() : 0);
         result = 31 * result + (gostZeliSpremnoU != null ? gostZeliSpremnoU.hashCode() : 0);
         result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
-        result = 31 * result + (brojStola != null ? brojStola.hashCode() : 0);
         result = 31 * result + idRestorana;
-        result = 31 * result + (pocetakRezervacije != null ? pocetakRezervacije.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        result = 31 * result + (idRezervacije != null ? idRezervacije.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "ID_REZERVACIJE")
-    public Integer getIdRezervacije() {
-        return idRezervacije;
-    }
-
-    public void setIdRezervacije(Integer idRezervacije) {
-        this.idRezervacije = idRezervacije;
     }
 }

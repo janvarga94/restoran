@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Svetozar Stojkovic on 11/29/2016.
@@ -32,7 +33,7 @@ public class Main {
     public static int pocetak = 0;
     public static int kraj = 10;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
@@ -42,12 +43,18 @@ public class Main {
 //        popuniKorisnike();
 //        popuniPorudzbine();
 //        popuniRadnike();
+//        popuniSmene();
+//        popuniRasporedSmena();
 
         SpringApplication.run(Main.class, args);
 
     }
 
-    private static void popuniRadnike(){
+    private static void popuniRadnike() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         for(int i=pocetak; i<kraj; i++){
             KorisnikEntity korisnikEntity = new KorisnikEntity();
             korisnikEntity.setEmail("radnikEmail"+i);
@@ -69,7 +76,12 @@ public class Main {
         session.getTransaction().commit();
     }
 
-    private static void popuniPorudzbine(){
+    private static void popuniPorudzbine() {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         for(int i=pocetak; i<kraj; i++){
             PorudzbinaEntity porudzbinaEntity = new PorudzbinaEntity();
             porudzbinaEntity.setGostEmail("email"+i);
@@ -83,7 +95,12 @@ public class Main {
         session.getTransaction().commit();
     }
 
-    private static void popuniKorisnike(){
+    private static void popuniKorisnike() {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         for(int i=pocetak; i<kraj; i++){
             KorisnikEntity korisnikEntity = new KorisnikEntity();
             korisnikEntity.setEmail("email"+i);
@@ -102,7 +119,11 @@ public class Main {
         session.getTransaction().commit();
     }
 
-    private static void popuniRestorane(){
+    private static void popuniRestorane() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         for(int i=pocetak; i<kraj; i++){
             RestoranEntity restoranEntity = new RestoranEntity();
             restoranEntity.setIdRestorana(i);
@@ -116,6 +137,38 @@ public class Main {
 
             session.save(restoranEntity);
 
+        }
+        session.getTransaction().commit();
+    }
+
+    private static void popuniSmene() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for(int i=pocetak; i<kraj; i++){
+            SmenaEntity smenaEntity = new SmenaEntity();
+            smenaEntity.setIdRestorana(i);
+            smenaEntity.setIdSmene(i);
+            smenaEntity.setBrojSmene(i%3);
+            smenaEntity.setPecetak(new Timestamp(System.currentTimeMillis()));
+
+            session.save(smenaEntity);
+        }
+        session.getTransaction().commit();
+    }
+
+    private static void popuniRasporedSmena() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for(int i=pocetak; i<kraj; i++){
+            RasporedRadaEntity rasporedRadaEntity = new RasporedRadaEntity();
+            rasporedRadaEntity.setIdSmene(i);
+            rasporedRadaEntity.setRadnikEmail("radnikEmail"+i);
+
+            session.save(rasporedRadaEntity);
         }
         session.getTransaction().commit();
     }
