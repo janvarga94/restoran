@@ -1,0 +1,61 @@
+<h2 style="margin-top: 20px;">Moje rezervacije</h2>
+
+<div class="row" style="margin-top: 20px; margin-bottom: 10px;">                   
+    <div class="col-md-12 text-center">
+        <span *ngFor="let i = index; let rezervacija of rezervacije" >
+            <button class="btn btn-warning" style="margin-left: 10px; margin-top:10px;">RestoranjX u 12:30</button>     
+        </span> 
+    </div>
+</div>
+<div class="row">
+   <div class="col-md-6">      
+        <div class="card" style=" margin-bottom: 100px; ">
+                <div class="card-header">
+                    Jela
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
+                        </li>
+
+                    
+                        <span *ngFor="let i = index; let jelo of jela | limitDuzineListe : 15" >
+                            <li class="list-group-item justify-content-between" >
+                                
+                                        <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                    {{jelo.naziv}}
+                                        <span style="float: right">
+                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                        </span>                 
+                            </li>
+                                
+                        </span> 
+                </ul>
+        </div>     
+   </div>
+    <div class="col-md-6">      
+        <div class="card" style=" margin-bottom: 100px; ">
+                <div class="card-header">
+                    Pica
+                </div>
+                <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
+                        </li>
+
+                    
+                        <span *ngFor="let i = index; let pice of pica | limitDuzineListe : 15" >
+                            <li class="list-group-item justify-content-between" >
+                                
+                                        <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                    {{pice.naziv}}
+                                        <span style="float: right">
+                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                        </span>                 
+                            </li>
+                                
+                        </span> 
+                </ul>
+        </div>     
+   </div>
+</div>
