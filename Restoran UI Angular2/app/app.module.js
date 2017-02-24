@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var rezervacija_component_1 = require("./rezervacija/rezervacija.component");
 var prijateljstvo_service_1 = require("./services/prijateljstvo.service");
 var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
@@ -35,6 +36,7 @@ var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
+var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -52,6 +54,7 @@ AppModule = __decorate([
                 { path: 'restoran/:id', component: restoranDetail_component_1.RestoranDetailComponent },
                 { path: 'zaposleni', component: zaposleni_component_1.ZaposleniComponent },
                 { path: 'zaposleni/:email', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
+                { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
@@ -78,7 +81,8 @@ AppModule = __decorate([
             rezervacija_component_1.RezervacijaComponent,
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
-            ContainsString_1.ContainsString
+            ContainsString_1.ContainsString,
+            noviZaposleni_component_1.NoviZaposleniComponent
         ],
         providers: [
             restorani_service_1.RestoranService,

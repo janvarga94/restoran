@@ -27,9 +27,11 @@ import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
+
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
+import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
 
 
 
@@ -44,6 +46,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
+         { path: 'novizaposleni', component : NoviZaposleniComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -72,8 +75,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     RezervacijaComponent,
     LimitDuzineStringa,
     LimitDuzineListe,
-    ContainsString
-
+    ContainsString,
+    NoviZaposleniComponent
    ],
    providers: [
      RestoranService,
