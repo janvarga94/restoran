@@ -31,6 +31,14 @@ var WelcomeComponent = (function () {
     WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
         console.log(idRestorana + " , " + gostEmail + " , " + ocena);
         this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: idRestorana, gostEmail: gostEmail });
+        for (var _i = 0, _a = this.restorani; _i < _a.length; _i++) {
+            var restoran = _a[_i];
+            if (restoran.idRestorana == idRestorana) {
+                var ocena_1 = this._welcomeService.getOcenaForRestoran(idRestorana);
+                console.log(ocena_1);
+                restoran.ocena = ocena_1;
+            }
+        }
     };
     return WelcomeComponent;
 }());

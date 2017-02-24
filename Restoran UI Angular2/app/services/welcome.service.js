@@ -46,6 +46,15 @@ var WelcomeService = (function () {
             .subscribe(function (data) {
         }, function (err) { return _this.handleError(err.json().message); }, function () { return console.log('Authentication Complete'); });
     };
+    WelcomeService.prototype.getOcenaForRestoran = function (id) {
+        var ocenaUrl = 'http://localhost:8080/resursi/ocena_for_restoran';
+        return this._http.get(ocenaUrl + "?id=" + id)
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
     WelcomeService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

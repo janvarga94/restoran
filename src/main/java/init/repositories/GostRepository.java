@@ -1,15 +1,12 @@
 package init.repositories;
 
 import init.modelFromDB.KorisnikEntity;
-import init.modelFromDB.PrijateljstvoEntity;
-import init.modelFromDB.PrijateljstvoEntityPK;
 import init.repositories.models.KorisnikRepo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**

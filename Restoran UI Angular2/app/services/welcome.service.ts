@@ -56,6 +56,17 @@ export class WelcomeService {
             );
     }
 
+    getOcenaForRestoran(id : number): Observable<any> {
+        let ocenaUrl : string = 'http://localhost:8080/resursi/ocena_for_restoran';
+        return this._http.get(ocenaUrl+"?id="+id)
+            .map((response: Response) => {
+                var restoraniOcena = <any> response.json();
+
+                return restoraniOcena;
+            })
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

@@ -1,18 +1,15 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
-@Table(name = "raspored_rada", schema = "restorani", catalog = "")
+@Table(name = "raspored_rada", schema = "restorani", catalog="")
 @IdClass(RasporedRadaEntityPK.class)
 public class RasporedRadaEntity {
     private int idSmene;
-    private Date datumPocetka;
-    private Date datumKraja;
     private String radnikEmail;
 
     @Id
@@ -23,26 +20,6 @@ public class RasporedRadaEntity {
 
     public void setIdSmene(int idSmene) {
         this.idSmene = idSmene;
-    }
-
-    @Id
-    @Column(name = "DATUM_POCETKA")
-    public Date getDatumPocetka() {
-        return datumPocetka;
-    }
-
-    public void setDatumPocetka(Date datumPocetka) {
-        this.datumPocetka = datumPocetka;
-    }
-
-    @Basic
-    @Column(name = "DATUM_KRAJA")
-    public Date getDatumKraja() {
-        return datumKraja;
-    }
-
-    public void setDatumKraja(Date datumKraja) {
-        this.datumKraja = datumKraja;
     }
 
     @Id
@@ -63,8 +40,6 @@ public class RasporedRadaEntity {
         RasporedRadaEntity that = (RasporedRadaEntity) o;
 
         if (idSmene != that.idSmene) return false;
-        if (datumPocetka != null ? !datumPocetka.equals(that.datumPocetka) : that.datumPocetka != null) return false;
-        if (datumKraja != null ? !datumKraja.equals(that.datumKraja) : that.datumKraja != null) return false;
         if (radnikEmail != null ? !radnikEmail.equals(that.radnikEmail) : that.radnikEmail != null) return false;
 
         return true;
@@ -73,8 +48,6 @@ public class RasporedRadaEntity {
     @Override
     public int hashCode() {
         int result = idSmene;
-        result = 31 * result + (datumPocetka != null ? datumPocetka.hashCode() : 0);
-        result = 31 * result + (datumKraja != null ? datumKraja.hashCode() : 0);
         result = 31 * result + (radnikEmail != null ? radnikEmail.hashCode() : 0);
         return result;
     }
