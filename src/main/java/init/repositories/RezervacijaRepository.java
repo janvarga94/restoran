@@ -1,16 +1,14 @@
 package init.repositories;
 
 import init.dtos.ResponseWithMessageSuccess;
-import init.modelFromDB.KorisnikEntity;
-import init.modelFromDB.PozivPrijateljaEntity;
-import init.modelFromDB.PrijateljstvoEntity;
-import init.modelFromDB.RezervacijaEntity;
+import init.modelFromDB.*;
 import init.repositories.models.RezervacijaReq;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Random;
 
@@ -33,8 +31,9 @@ public class RezervacijaRepository {
         rezervacija.setBrojStola(rezervacijaReq.idStola);
         rezervacija.setGostEmail(rezervacijaReq.rezervant);
         rezervacija.setIdRezervacije(rezervacijaId = random.nextInt(80000));
-        rezervacija.setKraj(new Date(rezervacijaReq.kraj));
-        rezervacija.setPocetak(new Date(rezervacijaReq.pocetak));
+        rezervacija.setKraj(new Timestamp(rezervacijaReq.kraj));
+        rezervacija.setPocetak(new Timestamp(rezervacijaReq.pocetak));
+        rezervacija.setIdReona(session.get(StoEntity.class,rezervacijaReq.idStola).getIdReona());
 
         session.save(rezervacija);
 

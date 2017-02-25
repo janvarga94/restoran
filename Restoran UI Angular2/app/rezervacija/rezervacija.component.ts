@@ -88,7 +88,7 @@ export class RezervacijaComponent implements OnInit{
         var odlazakGosta =   this._odabraniDatum.getTime() + this.duzinaBoravka*60*60*1000;
         this.stolovi = this._stoloviResponse.map(sto => {
             var slobodneZauzetosti = sto.zauzetost
-                .filter(z => { 
+                .filter((z:any) => { 
                     var pocetak = new Date(z.pocetak).getTime();
                     var kraj = new Date(z.kraj).getTime();
 

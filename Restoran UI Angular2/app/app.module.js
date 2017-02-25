@@ -5,7 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+var rezervacija_service_1 = require("./services/rezervacija.service");
+var GostPozvanPipe_1 = require("./pipes/GostPozvanPipe");
+var rezervacije_component_1 = require("./rezervacije/rezervacije.component");
 var rezervacija_component_1 = require("./rezervacija/rezervacija.component");
 var prijateljstvo_service_1 = require("./services/prijateljstvo.service");
 var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
@@ -59,7 +61,8 @@ AppModule = __decorate([
                 { path: 'gostProfil', component: gostProfil_component_1.GostProfilComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
-                { path: 'rezervacija', component: rezervacija_component_1.RezervacijaComponent },
+                { path: 'rezervacija/:idRestorana', component: rezervacija_component_1.RezervacijaComponent },
+                { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -77,6 +80,9 @@ AppModule = __decorate([
             gostProfil_component_1.GostProfilComponent,
             activation_component_1.ActivationComponent,
             rezervacija_component_1.RezervacijaComponent,
+            rezervacije_component_1.RezervacijeComponent,
+            GostPozvanPipe_1.GostPozvanPipe,
+            GostPozvanPipe_1.GostNeozvanPipe,
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString
@@ -88,7 +94,8 @@ AppModule = __decorate([
             notification_service_1.Notificator,
             gosti_service_1.GostiService,
             prijateljstvo_service_1.PrijateljstvoService,
-            angular2_toaster_1.ToasterService
+            angular2_toaster_1.ToasterService,
+            rezervacija_service_1.RezervacijaService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

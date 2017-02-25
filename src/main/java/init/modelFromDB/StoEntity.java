@@ -13,6 +13,7 @@ public class StoEntity {
     private int brojStola;
     private int idRestorana;
 
+    @Basic
     @Id
     @Column(name = "ID_REONA")
     public int getIdReona() {
@@ -33,6 +34,7 @@ public class StoEntity {
         this.brojStola = brojStola;
     }
 
+    @Basic
     @Id
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
