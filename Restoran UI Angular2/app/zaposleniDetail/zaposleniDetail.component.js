@@ -138,15 +138,15 @@ var ZaposleniDetailComponent = (function () {
         console.log(clickedDay);
         this.currentDay = clickedDay;
     };
-    ZaposleniDetailComponent = __decorate([
-        core_1.Component({
-            selector: 'zaposleni/:email',
-            templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
-            providers: [zaposleniDetail_service_1.ZaposleniDetailService]
-        }), 
-        __metadata('design:paramtypes', [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute])
-    ], ZaposleniDetailComponent);
     return ZaposleniDetailComponent;
 }());
+ZaposleniDetailComponent = __decorate([
+    core_1.Component({
+        selector: 'zaposleni/:email',
+        templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
+        providers: [zaposleniDetail_service_1.ZaposleniDetailService]
+    }),
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute])
+], ZaposleniDetailComponent);
 exports.ZaposleniDetailComponent = ZaposleniDetailComponent;
 //# sourceMappingURL=zaposleniDetail.component.js.map

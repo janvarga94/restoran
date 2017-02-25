@@ -7,16 +7,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var RestoranDetailComponent = (function () {
-    function RestoranDetailComponent() {
+/**
+ * Created by Stefan on 2/23/2017.
+ */
+var NoviZaposleniComponent = (function () {
+    function NoviZaposleniComponent() {
     }
-    return RestoranDetailComponent;
+    NoviZaposleniComponent.prototype.ngOnInit = function () {
+    };
+    return NoviZaposleniComponent;
 }());
-RestoranDetailComponent = __decorate([
+NoviZaposleniComponent = __decorate([
     core_1.Component({
-        selector: 'restoran-detail',
-        templateUrl: 'app/restoran detail/restoranDetail.component.html'
+        selector: 'novizaposleni',
+        templateUrl: 'app/noviZaposleni/noviZaposleni.component.html',
     })
-], RestoranDetailComponent);
-exports.RestoranDetailComponent = RestoranDetailComponent;
-//# sourceMappingURL=restoranDetail.component.js.map
+], NoviZaposleniComponent);
+exports.NoviZaposleniComponent = NoviZaposleniComponent;
+//# sourceMappingURL=noviZaposleni.component.js.map

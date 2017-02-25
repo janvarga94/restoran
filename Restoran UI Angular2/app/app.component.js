@@ -5,11 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var angular2_toaster_1 = require('angular2-toaster');
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular2_toaster_1 = require("angular2-toaster");
+var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
         this.toasterconfig = new angular2_toaster_1.ToasterConfig({
@@ -19,14 +17,13 @@ var AppComponent = (function () {
             positionClass: "toast-bottom-full-width",
         });
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            selector: 'pm-app',
-            template: "\n     <toaster-container [toasterconfig]=\"toasterconfig\"></toaster-container>\n        <app-header></app-header>      \n        <div class=\"container\">\n            <router-outlet></router-outlet>\n        </div>\n    "
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
     return AppComponent;
 }());
+AppComponent = __decorate([
+    core_1.Component({
+        selector: 'pm-app',
+        template: "\n     <toaster-container [toasterconfig]=\"toasterconfig\"></toaster-container>\n        <app-header></app-header>      \n        <div class=\"container\">\n            <router-outlet></router-outlet>\n        </div>\n    "
+    })
+], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

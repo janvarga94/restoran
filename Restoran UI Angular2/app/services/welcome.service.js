@@ -15,10 +15,10 @@ var http_1 = require("@angular/http");
 /**
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
 var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
         this._http = _http;
@@ -62,11 +62,11 @@ var WelcomeService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
-    WelcomeService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
-    ], WelcomeService);
     return WelcomeService;
 }());
+WelcomeService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
+], WelcomeService);
 exports.WelcomeService = WelcomeService;
 //# sourceMappingURL=welcome.service.js.map

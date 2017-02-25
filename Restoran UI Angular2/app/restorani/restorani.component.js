@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var restorani_service_1 = require('../services/restorani.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var restorani_service_1 = require("../services/restorani.service");
 var RestoraniComponent = (function () {
     function RestoraniComponent(_restoranService) {
         this._restoranService = _restoranService;
@@ -22,14 +23,14 @@ var RestoraniComponent = (function () {
         });
         //   console.log(this.restorani.length);
     };
-    RestoraniComponent = __decorate([
-        core_1.Component({
-            selector: 'restorani',
-            templateUrl: 'app/restorani/restorani.component.html'
-        }), 
-        __metadata('design:paramtypes', [restorani_service_1.RestoranService])
-    ], RestoraniComponent);
     return RestoraniComponent;
 }());
+RestoraniComponent = __decorate([
+    core_1.Component({
+        selector: 'restorani',
+        templateUrl: 'app/restorani/restorani.component.html'
+    }),
+    __metadata("design:paramtypes", [restorani_service_1.RestoranService])
+], RestoraniComponent);
 exports.RestoraniComponent = RestoraniComponent;
 //# sourceMappingURL=restorani.component.js.map

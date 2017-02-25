@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var restorani_service_1 = require('../services/restorani.service');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var restorani_service_1 = require("../services/restorani.service");
 var RezervacijaComponent = (function () {
     function RezervacijaComponent(_restoranService) {
         this._restoranService = _restoranService;
@@ -52,14 +53,14 @@ var RezervacijaComponent = (function () {
     }
     RezervacijaComponent.prototype.ngOnInit = function () {
     };
-    RezervacijaComponent = __decorate([
-        core_1.Component({
-            selector: 'restorani',
-            templateUrl: 'app/rezervacija/rezervacija.component.html'
-        }), 
-        __metadata('design:paramtypes', [restorani_service_1.RestoranService])
-    ], RezervacijaComponent);
     return RezervacijaComponent;
 }());
+RezervacijaComponent = __decorate([
+    core_1.Component({
+        selector: 'restorani',
+        templateUrl: 'app/rezervacija/rezervacija.component.html'
+    }),
+    __metadata("design:paramtypes", [restorani_service_1.RestoranService])
+], RezervacijaComponent);
 exports.RezervacijaComponent = RezervacijaComponent;
 //# sourceMappingURL=rezervacija.component.js.map

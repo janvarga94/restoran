@@ -8,15 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var router_1 = require('@angular/router');
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
-var notification_service_1 = require('./notification.service');
-var app_config_1 = require('../app.config');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
+var notification_service_1 = require("./notification.service");
+var app_config_1 = require("../app.config");
 var PrijateljstvoService = (function () {
     function PrijateljstvoService(_http, _notificator, _router) {
         this._http = _http;
@@ -90,11 +91,11 @@ var PrijateljstvoService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
-    PrijateljstvoService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator, router_1.Router])
-    ], PrijateljstvoService);
     return PrijateljstvoService;
 }());
+PrijateljstvoService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator, router_1.Router])
+], PrijateljstvoService);
 exports.PrijateljstvoService = PrijateljstvoService;
 //# sourceMappingURL=prijateljstvo.service.js.map

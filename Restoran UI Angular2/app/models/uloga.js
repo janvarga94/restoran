@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Uloga;
 (function (Uloga) {
     Uloga[Uloga["MENAZER_SISTEMA"] = 0] = "MENAZER_SISTEMA";
     Uloga[Uloga["MENAZER_RESTORANA"] = 1] = "MENAZER_RESTORANA";
@@ -6,6 +8,5 @@
     Uloga[Uloga["KONOBAR"] = 3] = "KONOBAR";
     Uloga[Uloga["KUVAR"] = 4] = "KUVAR";
     Uloga[Uloga["GOST"] = 5] = "GOST";
-})(exports.Uloga || (exports.Uloga = {}));
-var Uloga = exports.Uloga;
+})(Uloga = exports.Uloga || (exports.Uloga = {}));
 //# sourceMappingURL=uloga.js.map
