@@ -8,19 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var Observable_1 = require('rxjs/Observable');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
-var notification_service_1 = require('./notification.service');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
+var notification_service_1 = require("./notification.service");
 var ZaposleniDetailService = (function () {
     function ZaposleniDetailService(_http, _notificator) {
         this._http = _http;
@@ -37,6 +38,33 @@ var ZaposleniDetailService = (function () {
         })
             .catch(this.handleError);
     };
+    ZaposleniDetailService.prototype.getSmena = function (idRestorana, year, month, day) {
+        var smenaUrl = "http://localhost:8080/resursi/get_smene";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana + "&year=" + year + "&month=" + month + "&day=" + day)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getZanimanje = function (email) {
+        var smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        return this._http.get(smenaUrl + "?radnikEmail=" + email)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getStolovi = function (idRestorana) {
+        var smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana)
+            .map(function (response) {
+            var stolovi = response.json();
+            return stolovi;
+        })
+            .catch(this.handleError);
+    };
     ZaposleniDetailService.prototype.getParam = function () {
         var params = new http_1.URLSearchParams(window.location.search);
         var someParam = params.get('re');
@@ -48,11 +76,11 @@ var ZaposleniDetailService = (function () {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    ZaposleniDetailService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
-    ], ZaposleniDetailService);
     return ZaposleniDetailService;
 }());
+ZaposleniDetailService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
+], ZaposleniDetailService);
 exports.ZaposleniDetailService = ZaposleniDetailService;
 //# sourceMappingURL=zaposleniDetail.service.js.map

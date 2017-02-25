@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Created by Svetozar Stojkovic on 2/24/2017.
+ * Created by Svetozar Stojkovic on 2/25/2017.
  */
 @Entity
 @Table(name = "konobar", schema = "restorani", catalog = "")

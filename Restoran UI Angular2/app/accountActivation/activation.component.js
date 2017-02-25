@@ -8,8 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var router_1 = require('@angular/router');
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var router_1 = require("@angular/router");
+var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var ActivationComponent = (function () {
     function ActivationComponent(_loginService, route) {
@@ -24,13 +25,13 @@ var ActivationComponent = (function () {
             _this._loginService.activateKorisnika(param);
         });
     };
-    ActivationComponent = __decorate([
-        core_1.Component({
-            templateUrl: 'app/accountActivation/activation.component.html'
-        }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.ActivatedRoute])
-    ], ActivationComponent);
     return ActivationComponent;
 }());
+ActivationComponent = __decorate([
+    core_1.Component({
+        templateUrl: 'app/accountActivation/activation.component.html'
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService, router_1.ActivatedRoute])
+], ActivationComponent);
 exports.ActivationComponent = ActivationComponent;
 //# sourceMappingURL=activation.component.js.map

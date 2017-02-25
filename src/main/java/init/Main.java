@@ -45,10 +45,139 @@ public class Main {
 //        popuniRadnike();
 //        popuniSmene();
 //        popuniRasporedSmena();
+//        popuniTipoveJela();
+//        popuniKonKuvSan();
+//        popuniReone();
+//        popuniReoneUSmeni();
+//        popuniStolove();
+//        popuniRezervacije();
 
         SpringApplication.run(Main.class, args);
 
     }
+
+    private static void popuniReone() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+            ReonEntity reonEntity = new ReonEntity();
+            reonEntity.setIdRestorana(0);
+            reonEntity.setIdReona(i);
+            reonEntity.setOpis("Opis reona"+i);
+
+            session.save(reonEntity);
+        }
+
+        session.getTransaction().commit();
+    }
+
+    private static void popuniReoneUSmeni() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+            ReonUSmeniEntity reonUSmeniEntity = new ReonUSmeniEntity();
+            reonUSmeniEntity.setIdRestorana(0);
+            reonUSmeniEntity.setIdSmene(0);
+            reonUSmeniEntity.setIdReona(i);
+            reonUSmeniEntity.setKonobarEmail("radnikEmail"+((i/3)*3));
+
+            session.save(reonUSmeniEntity);
+        }
+
+        session.getTransaction().commit();
+    }
+
+    private static void popuniStolove() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+            StoEntity stoEntity = new StoEntity();
+            stoEntity.setIdRestorana(0);
+            stoEntity.setBrojStola(i);
+            stoEntity.setIdReona(i);
+
+
+            session.save(stoEntity);
+        }
+
+        session.getTransaction().commit();
+    }
+
+    private static void popuniRezervacije() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+            RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
+            rezervacijaEntity.setIdRezervacije(i);
+            rezervacijaEntity.setIdRestorana(0);
+            rezervacijaEntity.setIdReona(i);
+            rezervacijaEntity.setBrojStola(i);
+            rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis()));
+            rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis() + 10000*i));
+            rezervacijaEntity.setGostEmail("email"+i);
+
+            session.save(rezervacijaEntity);
+        }
+
+        session.getTransaction().commit();
+    }
+
+    private static void popuniTipoveJela() {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+            TipJelaEntity tipJelaEntity = new TipJelaEntity();
+            tipJelaEntity.setIdTipaJela(i);
+            tipJelaEntity.setOpis("Veoma extravagantan ukus jela sa povrcem"+i);
+
+            session.save(tipJelaEntity);
+        }
+
+        session.getTransaction().commit();
+    }
+
+    private static void popuniKonKuvSan() {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=pocetak; i<kraj; i++) {
+
+            if (i % 3 == 0) {
+                KonobarEntity konobarEntity = new KonobarEntity();
+                konobarEntity.setKonobarEmail("radnikEmail" + i);
+
+                session.save(konobarEntity);
+            } else if (i % 3 == 1) {
+
+                KuvarEntity kuvarEntity = new KuvarEntity();
+                kuvarEntity.setKuvarEmail("radnikEmail" + i);
+                kuvarEntity.setIdTipaJela(i);
+
+                session.save(kuvarEntity);
+            } else {
+
+                SankerEntity sankerEntity = new SankerEntity();
+                sankerEntity.setSankerEmail("radnikEmail" + i);
+
+                session.save(sankerEntity);
+            }
+        }
+
+        session.getTransaction().commit();
+    }
+
 
     private static void popuniRadnike() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -66,7 +195,7 @@ public class Main {
 
             RadnikEntity radnikEntity = new RadnikEntity();
             radnikEntity.setRadnikEmail("radnikEmail"+i);
-            radnikEntity.setIdRestorana(i);
+            radnikEntity.setIdRestorana(0);
             radnikEntity.setKonfekcijskiBroj(i);
             radnikEntity.setVelicinaObuce(45);
 
@@ -85,7 +214,7 @@ public class Main {
         for(int i=pocetak; i<kraj; i++){
             PorudzbinaEntity porudzbinaEntity = new PorudzbinaEntity();
             porudzbinaEntity.setGostEmail("email"+i);
-            porudzbinaEntity.setIdRestorana(i);
+            porudzbinaEntity.setIdRestorana(0);
             porudzbinaEntity.setIdPorudzbine(i);
 
             porudzbinaEntity.setKreirana(new Date(System.currentTimeMillis()));
@@ -148,10 +277,10 @@ public class Main {
 
         for(int i=pocetak; i<kraj; i++){
             SmenaEntity smenaEntity = new SmenaEntity();
-            smenaEntity.setIdRestorana(i);
+            smenaEntity.setIdRestorana(0);
             smenaEntity.setIdSmene(i);
             smenaEntity.setBrojSmene(i%3);
-            smenaEntity.setPecetak(new Timestamp(System.currentTimeMillis()));
+            smenaEntity.setPecetak(new Date(System.currentTimeMillis()));
 
             session.save(smenaEntity);
         }

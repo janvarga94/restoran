@@ -8,10 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var prijateljstvo_service_1 = require('./../services/prijateljstvo.service');
-var notification_service_1 = require('./../services/notification.service');
-var gosti_service_1 = require('./../services/gosti.service.');
-var core_1 = require('@angular/core');
+Object.defineProperty(exports, "__esModule", { value: true });
+var prijateljstvo_service_1 = require("./../services/prijateljstvo.service");
+var notification_service_1 = require("./../services/notification.service");
+var gosti_service_1 = require("./../services/gosti.service.");
+var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var GostProfilComponent = (function () {
     function GostProfilComponent(_loginService, _gostService, _notificator, _prijateljstvoService) {
@@ -147,13 +148,13 @@ var GostProfilComponent = (function () {
             }
         });
     };
-    GostProfilComponent = __decorate([
-        core_1.Component({
-            templateUrl: './app/gost profil/gostProfil.component.html'
-        }), 
-        __metadata('design:paramtypes', [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator, prijateljstvo_service_1.PrijateljstvoService])
-    ], GostProfilComponent);
     return GostProfilComponent;
 }());
+GostProfilComponent = __decorate([
+    core_1.Component({
+        templateUrl: './app/gost profil/gostProfil.component.html'
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator, prijateljstvo_service_1.PrijateljstvoService])
+], GostProfilComponent);
 exports.GostProfilComponent = GostProfilComponent;
 //# sourceMappingURL=gostProfil.component.js.map

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var zaposleni_service_1 = require("../services/zaposleni.service");
 var notification_service_1 = require("../services/notification.service");
@@ -37,15 +38,15 @@ var ZaposleniComponent = (function () {
     ZaposleniComponent.prototype.detaljiZaposlenog = function (zaposleni) {
         console.log(zaposleni.radnikEmail);
     };
-    ZaposleniComponent = __decorate([
-        core_1.Component({
-            selector: 'zaposleni',
-            templateUrl: 'app/zaposleni/zaposleni.component.html',
-            providers: [zaposleni_service_1.ZaposleniService]
-        }), 
-        __metadata('design:paramtypes', [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService])
-    ], ZaposleniComponent);
     return ZaposleniComponent;
 }());
+ZaposleniComponent = __decorate([
+    core_1.Component({
+        selector: 'zaposleni',
+        templateUrl: 'app/zaposleni/zaposleni.component.html',
+        providers: [zaposleni_service_1.ZaposleniService]
+    }),
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService])
+], ZaposleniComponent);
 exports.ZaposleniComponent = ZaposleniComponent;
 //# sourceMappingURL=zaposleni.component.js.map
