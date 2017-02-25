@@ -22,14 +22,23 @@ import {ActivatedRoute} from "@angular/router";
 
 @Injectable()
 export class RezervacijaService {
-    private _rezervacijaUrl = Config.BackendUrl +  '/rezervacija/stolovi';
+    private _stoloviUrl = Config.BackendUrl +  '/rezervacija/stolovi';
+    private _rezervisiUrl = Config.BackendUrl +  '/rezervacija/rezervisi';
 
     constructor(private _http: Http, private _notificator: Notificator) {
 
     }
 
-    getStolovi(restoran: string): Observable<IZaposleni> {
-        return this._http.get(this._rezervacijaUrl+"?restoran="+restoran)
+    getStolovi(restoran: string): Observable<any[]> {
+        return this._http.get(this._stoloviUrl+"?restoran="+restoran)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    rezervisi(rezervisiReq : any): Observable<any[]> {
+        return this._http.post(this._rezervisiUrl,rezervisiReq)
             .map((response: Response) => {
                 return response.json();   
             })

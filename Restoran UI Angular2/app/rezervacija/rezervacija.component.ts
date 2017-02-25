@@ -1,3 +1,4 @@
+import { Notificator } from './../services/notification.service';
 import { ActivatedRoute } from '@angular/router';
 import { RezervacijaService } from './../services/rezervacija.service';
 import { LoginService } from './../services/login.service';
@@ -20,7 +21,7 @@ export class RezervacijaComponent implements OnInit{
     danas : Date = new Date(Date.now());
     casDolaska : Number;
     minutDolaska : Number;
-    duzinaBoravka : Number;
+    duzinaBoravka : any;
     myDate: any;
     odabraniSto : any;
 
@@ -28,6 +29,7 @@ export class RezervacijaComponent implements OnInit{
 
     stage : Number = 1;
 
+    _stoloviResponse : any[] = [];
     stolovi : any[] = [
         { zauzet : false },
          { zauzet : true  },
@@ -51,7 +53,7 @@ export class RezervacijaComponent implements OnInit{
 
     _odabraniDatum: any;
 
-    constructor(private route: ActivatedRoute, private _rezervacijaService : RezervacijaService,private _restoranService : RestoranService, private _loginService : LoginService ,private _prijateljstvoService : PrijateljstvoService) {
+    constructor(private _notificator : Notificator,private route: ActivatedRoute, private _rezervacijaService : RezervacijaService,private _restoranService : RestoranService, private _loginService : LoginService ,private _prijateljstvoService : PrijateljstvoService) {
         this._odabraniDatum = new Date();
     }
 
@@ -72,11 +74,37 @@ export class RezervacijaComponent implements OnInit{
         });
          this.route.params.subscribe(params => {
             this._rezervacijaService.getStolovi(params['idRestorana']).subscribe(stolovi => {
-                console.log(stolovi);
+                this._stoloviResponse = stolovi;
+                this.stolovi = stolovi.map(sto => { return { idStola : sto.idStola, zauzet : false}});
             });
         });
        
     }
+
+    proveriZauzetostStolovaZaOdabraniDolazakOdlazak(){
+        this._odabraniDatum.setHours(this.casDolaska);
+        this._odabraniDatum.setMinutes(this.minutDolaska);
+        var dolazakGosta =  this._odabraniDatum.getTime();
+        var odlazakGosta =   this._odabraniDatum.getTime() + this.duzinaBoravka*60*60*1000;
+        this.stolovi = this._stoloviResponse.map(sto => {
+            var slobodneZauzetosti = sto.zauzetost
+                .filter(z => { 
+                    var pocetak = new Date(z.pocetak).getTime();
+                    var kraj = new Date(z.kraj).getTime();
+
+                    return (pocetak < dolazakGosta && kraj < odlazakGosta) || (pocetak > dolazakGosta && kraj > odlazakGosta);
+                });
+               
+            
+            return {
+                idStola : sto.idStola,
+                zauzet : slobodneZauzetosti.length  != sto.zauzetost.length
+            };
+        });
+                        
+    }
+
+
 
     set search1(e){
         this._search1 = e;
@@ -103,7 +131,7 @@ export class RezervacijaComponent implements OnInit{
     }
 
     odaberiSto(sto:any){
-        this.odaberiSto = sto;
+        this.odabraniSto = sto;
         this.stage = 3;
     }
 
@@ -117,6 +145,23 @@ export class RezervacijaComponent implements OnInit{
         this._nepozvaniPrijatelji.push(this.pozvaniPrijatelji[index]);
         this._pozvaniPrijatelji.splice(index,1);
         this.search1 = this.search1;
+    }
+
+    rezervisi(){
+        this._rezervacijaService.rezervisi(
+            {   pocetak: this._odabraniDatum.getTime(),
+                kraj: this._odabraniDatum.getTime() + + this.duzinaBoravka*60*60*1000,
+                rezervant: this.ulogovan.email,
+                idStola: this.odabraniSto.idStola,
+                pozvaniPrijatelji: this._pozvaniPrijatelji.map(p => p.email),
+            }
+        ).subscribe(response => {
+            if(response['Success'] == true){
+                this._notificator.notifySuccess("Uspesno data rezervacija");
+            }else{
+                this._notificator.notifyError(response['Message']);
+            }
+        });
     }
 
  }

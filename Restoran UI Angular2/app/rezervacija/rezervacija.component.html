@@ -17,7 +17,7 @@
      </div>
 
      <div class="col-md-2 text-center">
-        <button class="btn btn-success" (click)="stage = 2" [disabled]="_odabraniDatum.getTime() <= (danas.getTime()-3600000)"> Potvrdi vreme </button>   
+        <button class="btn btn-success" (click)="stage = 2; proveriZauzetostStolovaZaOdabraniDolazakOdlazak()" [disabled]="_odabraniDatum.getTime() <= (danas.getTime()-3600000)"> Potvrdi vreme </button>   
     </div>   
 </div>
 
@@ -94,7 +94,7 @@
 
 <div  [ngClass]="{'disabledElement': stage != 3}" class="row">
   <div class="col-md-12 text-center" style="margin-top:50px; margin-bottom: 100px;">
-       <button class="btn btn-lg btn-primary">Rezerviši</button>
+       <button class="btn btn-lg btn-primary" (click)="rezervisi()">Rezerviši</button>
    </div>
 </div>
 

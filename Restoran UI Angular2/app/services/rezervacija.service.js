@@ -26,10 +26,18 @@ var RezervacijaService = (function () {
     function RezervacijaService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this._rezervacijaUrl = app_config_1.Config.BackendUrl + '/rezervacija/stolovi';
+        this._stoloviUrl = app_config_1.Config.BackendUrl + '/rezervacija/stolovi';
+        this._rezervisiUrl = app_config_1.Config.BackendUrl + '/rezervacija/rezervisi';
     }
     RezervacijaService.prototype.getStolovi = function (restoran) {
-        return this._http.get(this._rezervacijaUrl + "?restoran=" + restoran)
+        return this._http.get(this._stoloviUrl + "?restoran=" + restoran)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.rezervisi = function (rezervisiReq) {
+        return this._http.post(this._rezervisiUrl, rezervisiReq)
             .map(function (response) {
             return response.json();
         })
