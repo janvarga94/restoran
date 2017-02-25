@@ -1,16 +1,16 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 2/24/2017.
+ * Created by Svetozar Stojkovic on 2/25/2017.
  */
 @Entity
 @Table(name = "smena", schema = "restorani", catalog = "")
 public class SmenaEntity {
     private Integer idRestorana;
-    private Timestamp pecetak;
+    private Date pecetak;
     private int idSmene;
     private Integer brojSmene;
 
@@ -26,11 +26,11 @@ public class SmenaEntity {
 
     @Basic
     @Column(name = "PECETAK")
-    public Timestamp getPecetak() {
+    public Date getPecetak() {
         return pecetak;
     }
 
-    public void setPecetak(Timestamp pecetak) {
+    public void setPecetak(Date pecetak) {
         this.pecetak = pecetak;
     }
 

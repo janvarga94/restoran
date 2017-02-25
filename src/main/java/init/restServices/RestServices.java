@@ -1,17 +1,25 @@
 package init.restServices;
 
 import init.Main;
+import init.dtos.SmenaDTO;
+import init.dtos.StoDTO;
+import init.dtos.ZaposleniDTO;
 import init.model.RestoranOcenaDTO;
 import init.modelFromDB.OcenaRestoranaEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
+import init.modelFromDB.SmenaEntity;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import init.services.ServiceRestorani;
+import sun.rmi.runtime.Log;
 
+import java.security.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import static init.Main.session;
@@ -44,10 +52,11 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/get_zaposlen", method=RequestMethod.GET)
-    public RadnikEntity getRadnik(String radnikEmail){
-        Query query = session.createQuery("select p from RadnikEntity as p where p.radnikEmail=:email")
+    public Object getRadnik(String radnikEmail){
+        Query query = session.createQuery("select p.radnikEmail, ke.lozinka, ke.ime, ke.prezime, p.konfekcijskiBroj, p.idRestorana, p.velicinaObuce from RadnikEntity as p, KorisnikEntity as ke where ke.email = p.radnikEmail and p.radnikEmail=:email")
                 .setParameter("email",radnikEmail);
-        return (RadnikEntity) query.uniqueResult();
+        System.out.println(query.uniqueResult());
+        return (Object) query.uniqueResult();
     }
 
     @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
@@ -96,5 +105,68 @@ public class RestServices {
         }
         ocena /= lista.size();
         return ocena;
+    }
+
+    @RequestMapping(path = "/get_smene", method=RequestMethod.GET)
+    public List<SmenaDTO> getSmenaForRadnik(int idRestorana, int year, int month, int day) {
+
+        List<SmenaDTO> lista = (List<SmenaDTO>) session.createQuery("select se.idRestorana, se.idSmene, se.pecetak, rre.radnikEmail, se.brojSmene, ke.ime, ke.prezime, se.brojSmene" +
+                " from SmenaEntity as se, RasporedRadaEntity rre, KorisnikEntity ke where se.idRestorana="+idRestorana+" and rre.radnikEmail = ke.email and se.idSmene = rre.idSmene and se.pecetak = '"+year+"-"+month+"-"+day+"'").list();
+
+
+        return (List<SmenaDTO>) lista;
+    }
+
+    @RequestMapping(path = "/get_zanimanje", method = RequestMethod.GET)
+    public int getZanimanje(String radnikEmail){
+        if (isKonobar(radnikEmail)) {
+            return 0;
+        } else if (isKuvar(radnikEmail)) {
+            return 1;
+        } else if (isSanker(radnikEmail)) {
+            return 2;
+        }
+        return -1;
+
+    }
+
+    public boolean isKonobar(String radnikEmail){
+        Query query = session.createQuery("select count(k.konobarEmail) from KonobarEntity as k where k.konobarEmail=:email")
+                .setParameter("email",radnikEmail);
+        long out = (long) query.uniqueResult();
+        if (out != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean isKuvar(String radnikEmail){
+        Query query = session.createQuery("select count(k.kuvarEmail) from KuvarEntity as k where k.kuvarEmail=:email")
+                .setParameter("email",radnikEmail);
+        long out = (long) query.uniqueResult();
+        if (out != 0)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean isSanker(String radnikEmail){
+        Query query = session.createQuery("select count(s.sankerEmail) from SankerEntity as s where s.sankerEmail=:email")
+                .setParameter("email",radnikEmail);
+        long out = (long) query.uniqueResult();
+        if (out != 0)
+            return true;
+        else
+            return false;
+    }
+    @RequestMapping(path = "/get_stolovi", method = RequestMethod.GET)
+    public List<Object> getStolovi(int idRestorana) {
+
+        List<Object> lista = (List<Object>) session.createQuery("select sto.idReona, re.opis, sto.brojStola, rez.gostEmail, rez.pocetak, rez.kraj " +
+                "from StoEntity as sto left outer join RezervacijaEntity rez on sto.brojStola = rez.brojStola inner join ReonUSmeniEntity rus ON rus.idReona = sto.idReona inner join ReonEntity re ON re.idReona = sto.idReona " +
+                "where sto.idRestorana="+idRestorana).list();
+
+
+        return (List<Object>) lista;
     }
 }

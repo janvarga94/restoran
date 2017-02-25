@@ -1,128 +1,222 @@
-<!--<p *ngIf="zaposlen != null">{{zaposlen.radnikEmail}}</p>-->
+<div *ngIf="zaposlen != null && zanimanjeInt != null && idRestoran != null">
+
+    <br>
+    <img height="150" src="http://www.clker.com/cliparts/C/N/O/F/T/X/blank-profile-hi.png" style="float: left; padding-right: 10px;">
+
+    <a href="http://www.google.com" style="float: right"><img height="50" src="https://image.flaticon.com/icons/svg/61/61456.svg"></a>
+    <table style="padding-left: 5px">
+        <tr>
+            <td>Ime:</td>
+            <td>{{zaposlen[2]}}</td>
+        </tr>
+        <tr>
+            <td>Prezime:</td>
+            <td>{{zaposlen[3]}}</td>
+        </tr>
+        <tr>
+            <td>Zanimanje:</td>
+            <td>{{mapNumberZanimanje(zanimanjeInt)}}</td>
+        </tr>
+        <tr>
+            <td>Email adresa:</td>
+            <td>{{zaposlen[0]}}</td>
+        </tr>
+        <tr>
+            <td>Konfekcijski broj:</td>
+            <td>{{zaposlen[4]}}</td>
+        </tr>
+        <tr>
+            <td>Id restorana:</td>
+            <td>{{zaposlen[5]}}</td>
+        </tr>
+        <tr>
+            <td>Velicina obuce:</td>
+            <td>{{zaposlen[6]}}</td>
+        </tr>
+
+    </table>
+
+
+    <style>
+        * {box-sizing:border-box;}
+        ul {list-style-type: none;}
+        body {font-family: Verdana,sans-serif;}
+
+        .month {
+            padding: 70px 25px;
+            width: 100%;
+            height: 10px;
+            background: #1abc9c;
+        }
+
+        .day {
+            cursor: pointer;
+        }
+
+        .month ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .month ul li {
+            color: white;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .month .prev {
+            float: left;
+            padding-top: 5px;
+            cursor : pointer;
+        }
+
+        .month .next {
+            float: right;
+            padding-top: 5px;
+            cursor : pointer;
+        }
+
+        .weekdays {
+            margin: 0;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #ddd;
+        }
+
+        .weekdays li {
+            display: inline-block;
+            width: 13%;
+            color: #666;
+            text-align: center;
+        }
+
+        .days {
+            width: 100%;
+            padding: 10px 0;
+            background: #eee;
+            margin: 0;
+        }
+
+        .days li {
+            list-style-type: none;
+            display: inline-block;
+            width: 14%;
+            text-align: center;
+            margin-bottom: 5px;
+            font-size:12px;
+            color: #777;
+        }
+
+        .days li .active {
+            padding: 10px;
+            background: #1abc9c;
+            color: white !important;
+        }
+
+        /* Add media queries for smaller screens */
+        @media screen and (max-width:720px) {
+            .weekdays li, .days li {width: 13.1%;}
+        }
+
+        @media screen and (max-width: 420px) {
+            .weekdays li, .days li {width: 12.5%;}
+            .days li .active {padding: 2px;}
+        }
+
+        @media screen and (max-width: 290px) {
+            .weekdays li, .days li {width: 12.2%;}
+        }
+
+
+        .column-left{ float: left; width: 33%; }
+        .column-right{ float: right; width: 33%; }
+        .column-center{ display: inline-block; width: 33%; }
+
+    </style>
+
+    <br>
+    <hr>
+    <br>
+
+    <div>
+    <div style="float: right; width: 330px">
+        <div class="month">
+            <ul>
+                <li class="prev" (click)="changeDate(1, currentMonth - 1, currentYear)">❮</li>
+                <li class="next" (click)="changeDate(1, currentMonth + 1, currentYear)">❯</li>
+                <li style="cursor : pointer; float: left; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear - 1)">❮❮</li>
+                <li style="cursor : pointer; float: right; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear + 1)">❯❯</li>
+                <li style="text-align:center">
+                    {{mapNumbersToMonth(currentMonth)}}<br>
+                    <span style="font-size:18px">{{currentYear}}</span>
+                </li>
+
+
+            </ul>
+        </div>
+
+        <ul class="weekdays">
+            <li>Pon</li>
+            <li>Uto</li>
+            <li>Sre</li>
+            <li>Čet</li>
+            <li>Pet</li>
+            <li>Sub</li>
+            <li>Ned</li>
+        </ul>
+
+        <ul class="days" >
+            <li class="day" *ngFor="let day of _days" (click)="clickedOnDay(day)">
+                <span class="active" *ngIf="day == currentDay">{{day}}</span>
+                <p *ngIf="day != currentDay">{{day}}</p>
+            </li>
+
+        </ul>
+    </div>
 
 
 
+    <div class="container" style="width: 70%; float: left">
+        <div class="column-center"><br><br>Druga smena:
+            <ul>
+                <li  *ngFor="let smena of drugaSmena">
+                    <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
+                    <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
+                </li>
+            </ul></div>
+        <div class="column-left"><b>{{mapNumberZanimanje(zanimanjeInt)}}</b><br><br>Prva smena:
+            <ul>
+                <li *ngFor="let smena of prvaSmena">
+                    <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
+                    <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
+                </li>
+            </ul></div>
+        <div class="column-right"><br><br>Treca smena:
+        <ul>
+            <li *ngFor="let smena of trecaSmena">
+                <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
+                <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
+            </li>
+        </ul></div>
+    </div>
 
+    <br>
+    <hr>
+    <br>
 
-<style>
-    * {box-sizing:border-box;}
-    ul {list-style-type: none;}
-    body {font-family: Verdana,sans-serif;}
+    </div>
 
-    .month {
-        padding: 70px 25px;
-        width: 100%;
-        height: 10px;
-        background: #1abc9c;
-    }
-    
-    .day {
-        cursor: pointer;
-    }
+    <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+        <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
+            <div class="card sto" [style.background-color]="sto.zauzet? '#6E470B' :'#461F00'" style="color: white">
+                <div class="card-block">
+                    <h3 class="card-title">Sto {{i}}</h3>
+                    <p *ngIf="sto.zauzet" class="card-text">zauzet</p>
+                    <p *ngIf="!sto.zauzet" class="card-text">slobodan</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    .month ul {
-        margin: 0;
-        padding: 0;
-    }
-
-    .month ul li {
-        color: white;
-        font-size: 20px;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-    }
-
-    .month .prev {
-        float: left;
-        padding-top: 5px;
-        cursor : pointer;
-    }
-
-    .month .next {
-        float: right;
-        padding-top: 5px;
-        cursor : pointer;
-    }
-
-    .weekdays {
-        margin: 0;
-        padding: 10px 0;
-        background-color: #ddd;
-    }
-
-    .weekdays li {
-        display: inline-block;
-        width: 13.6%;
-        color: #666;
-        text-align: center;
-    }
-
-    .days {
-        padding: 10px 0;
-        background: #eee;
-        margin: 0;
-    }
-
-    .days li {
-        list-style-type: none;
-        display: inline-block;
-        width: 13.6%;
-        text-align: center;
-        margin-bottom: 5px;
-        font-size:12px;
-        color: #777;
-    }
-
-    .days li .active {
-        padding: 10px;
-        background: #1abc9c;
-        color: white !important;
-    }
-
-    /* Add media queries for smaller screens */
-    @media screen and (max-width:720px) {
-        .weekdays li, .days li {width: 13.1%;}
-    }
-
-    @media screen and (max-width: 420px) {
-        .weekdays li, .days li {width: 12.5%;}
-        .days li .active {padding: 2px;}
-    }
-
-    @media screen and (max-width: 290px) {
-        .weekdays li, .days li {width: 12.2%;}
-    }
-</style>
-
-<div class="month">
-    <ul>
-        <li class="prev" (click)="changeDate(1, currentMonth - 1, currentYear)">❮</li>
-        <li class="next" (click)="changeDate(1, currentMonth + 1, currentYear)">❯</li>
-        <li style="cursor : pointer; float: left; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear - 1)">❮❮</li>
-        <li style="cursor : pointer; float: right; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear + 1)">❯❯</li>
-        <li style="text-align:center">
-            {{mapNumbersToMonth(currentMonth)}}<br>
-            <span style="font-size:18px">{{currentYear}}</span>
-        </li>
-
-
-    </ul>
 </div>
-
-<ul class="weekdays">
-    <li>Pon</li>
-    <li>Uto</li>
-    <li>Sre</li>
-    <li>Čet</li>
-    <li>Pet</li>
-    <li>Sub</li>
-    <li>Ned</li>
-</ul>
-
-<ul class="days" >
-    <li class="day" *ngFor="let day of _days" (click)="clickedOnDay(day)">
-        <span class="active" *ngIf="day == currentDay">{{day}}</span>
-        <p *ngIf="day != currentDay">{{day}}</p>
-    </li>
-
-</ul>

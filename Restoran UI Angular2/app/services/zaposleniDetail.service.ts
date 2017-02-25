@@ -27,13 +27,46 @@ export class ZaposleniDetailService {
 
     }
 
-    getZaposlen(email: string): Observable<IZaposleni> {
+    getZaposlen(email: string): Observable<any> {
         return this._http.get(this._zaposleniUrl+"?radnikEmail="+email)
             .map((response: Response) => {
-                var zaposleni = <IZaposleni> response.json();
+                var zaposleni = <any> response.json();
                 // for(var i = 0; i < 10; i++)
                 //     restorani.push(restorani[0]);
                 return zaposleni;
+            })
+            .catch(this.handleError);
+    }
+
+    getSmena(idRestorana : number, year : number, month : number, day : number): Observable<any[]> {
+        let smenaUrl = "http://localhost:8080/resursi/get_smene";
+        return this._http.get(smenaUrl+"?idRestorana="+idRestorana+"&year="+year+"&month="+month+"&day="+day)
+            .map((response: Response) => {
+                var smene = <any[]> response.json();
+
+                return smene;
+            })
+            .catch(this.handleError);
+    }
+
+    getZanimanje(email: string): Observable<number> {
+        let smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        return this._http.get(smenaUrl+"?radnikEmail="+email)
+            .map((response: Response) => {
+                var smene = <number> response.json();
+
+                return smene;
+            })
+            .catch(this.handleError);
+    }
+
+    getStolovi(idRestorana: number): Observable<any[]> {
+        let smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        return this._http.get(smenaUrl+"?idRestorana="+idRestorana)
+            .map((response: Response) => {
+                var stolovi = <any[]> response.json();
+
+                return stolovi;
             })
             .catch(this.handleError);
     }

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
@@ -34,6 +35,33 @@ var ZaposleniDetailService = (function () {
             // for(var i = 0; i < 10; i++)
             //     restorani.push(restorani[0]);
             return zaposleni;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getSmena = function (idRestorana, year, month, day) {
+        var smenaUrl = "http://localhost:8080/resursi/get_smene";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana + "&year=" + year + "&month=" + month + "&day=" + day)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getZanimanje = function (email) {
+        var smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        return this._http.get(smenaUrl + "?radnikEmail=" + email)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getStolovi = function (idRestorana) {
+        var smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana)
+            .map(function (response) {
+            var stolovi = response.json();
+            return stolovi;
         })
             .catch(this.handleError);
     };
