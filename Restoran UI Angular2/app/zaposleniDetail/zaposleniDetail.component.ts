@@ -44,6 +44,8 @@ export class ZaposleniDetailComponent implements OnInit{
 
     stolovi : any[] = [];
 
+    reon : number;
+
     constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
         this.zaposleniDetailService = _zaposleniDetailService;
     }
@@ -54,7 +56,6 @@ export class ZaposleniDetailComponent implements OnInit{
             this.email = params['email'];
         });
 
-        console.log(this.email);
 
         let date = new Date();
         this.currentYear = date.getFullYear();
@@ -67,28 +68,18 @@ export class ZaposleniDetailComponent implements OnInit{
             //   this.restorani = restorani;
             this.zaposlen = zaposleni;
             this.idRestoran = zaposleni[5];
+            this.stolovi = [];
+            // this._zaposleniDetailService.getReon(this.id);
 
-            this._zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
-                this.stolovi = stolovi;
-            });
 
             this.changeDate(this.currentDay, this.currentMonth, this.currentYear);
 
-            console.log(this.zaposlen)
         });
 
         this._zaposleniDetailService.getZanimanje(this.email).subscribe(zanimanje => {
             this.zanimanjeInt = zanimanje;
         });
-
-
-
-
-
-
     }
-
-
 
     changeDate(day: number, month : number, year : number) {
         let newDate = new Date();
@@ -106,11 +97,9 @@ export class ZaposleniDetailComponent implements OnInit{
             this.currentMonth = month;
         }
         this.clickedOnDay(day);
-        console.log(this.currentMonth + "_"+ this.currentYear);
 
         newDate.setFullYear(this.currentYear, this.currentMonth-1, 1);
         let danUNedelji = newDate.getDay();
-        console.log(danUNedelji);
         if (danUNedelji < 1)
             danUNedelji += 7;
         for (let _j = danUNedelji; _j > 1; _j--){
@@ -131,30 +120,43 @@ export class ZaposleniDetailComponent implements OnInit{
 
 
     clickedOnDay(clickedDay : number) {
-        console.log(clickedDay);
 
         this.currentDay = clickedDay;
         this.smene = [];
         this.prvaSmena = [];
         this.drugaSmena = [];
         this.trecaSmena = [];
-        this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe( smena =>{
-            for (let sm of smena) {
-                this.smene.push(sm);
-                this.zaposleniDetailService.getZanimanje(sm[0]).subscribe(zanimanje =>{
-                    sm.push(zanimanje);
-                    if (sm[7] == this.zanimanjeInt) {
-                        console.log(sm[4]);
-                        if (sm[4] == 0) {
-                            this.prvaSmena.push(sm);
-                        } else if (sm[4] == 1) {
-                            this.drugaSmena.push(sm);
-                        } else if (sm[4] == 2) {
-                            this.trecaSmena.push(sm);
+        this.stolovi = [];
+
+        this.zaposleniDetailService.getZanimanje(this.email).subscribe(zanimanje =>{
+            this._zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
+                this.stolovi = stolovi;
+                this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe( smena => {
+                    for (let sm of smena) {
+                        if (sm[3] == this.email){
+                            this.zaposleniDetailService.getReon(sm[1], sm[0], this.email).subscribe(reon => {
+                                console.log(sm[1], sm[0], this.email);
+                                console.log(reon);
+                                this.reon = reon;
+                            })
+                        }
+                        this.smene.push(sm);
+                        console.log("smena "+sm);
+                        sm.push(zanimanje);
+                        if (sm[7] == this.zanimanjeInt) {
+                            if (sm[4] == 0) {
+                                this.prvaSmena.push(sm);
+                            } else if (sm[4] == 1) {
+                                this.drugaSmena.push(sm);
+                            } else if (sm[4] == 2) {
+                                this.trecaSmena.push(sm);
+                            }
                         }
                     }
                 });
-            }
+
+            });
+
         });
     }
 

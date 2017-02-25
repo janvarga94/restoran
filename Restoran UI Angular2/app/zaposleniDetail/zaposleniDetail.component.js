@@ -36,7 +36,6 @@ var ZaposleniDetailComponent = (function () {
         this.route.params.subscribe(function (params) {
             _this.email = params['email'];
         });
-        console.log(this.email);
         var date = new Date();
         this.currentYear = date.getFullYear();
         this.currentMonth = date.getMonth() + 1;
@@ -46,11 +45,9 @@ var ZaposleniDetailComponent = (function () {
             //   this.restorani = restorani;
             _this.zaposlen = zaposleni;
             _this.idRestoran = zaposleni[5];
-            _this._zaposleniDetailService.getStolovi(_this.idRestoran).subscribe(function (stolovi) {
-                _this.stolovi = stolovi;
-            });
+            _this.stolovi = [];
+            // this._zaposleniDetailService.getReon(this.id);
             _this.changeDate(_this.currentDay, _this.currentMonth, _this.currentYear);
-            console.log(_this.zaposlen);
         });
         this._zaposleniDetailService.getZanimanje(this.email).subscribe(function (zanimanje) {
             _this.zanimanjeInt = zanimanje;
@@ -73,10 +70,8 @@ var ZaposleniDetailComponent = (function () {
             this.currentMonth = month;
         }
         this.clickedOnDay(day);
-        console.log(this.currentMonth + "_" + this.currentYear);
         newDate.setFullYear(this.currentYear, this.currentMonth - 1, 1);
         var danUNedelji = newDate.getDay();
-        console.log(danUNedelji);
         if (danUNedelji < 1)
             danUNedelji += 7;
         for (var _j = danUNedelji; _j > 1; _j--) {
@@ -94,35 +89,45 @@ var ZaposleniDetailComponent = (function () {
     };
     ZaposleniDetailComponent.prototype.clickedOnDay = function (clickedDay) {
         var _this = this;
-        console.log(clickedDay);
         this.currentDay = clickedDay;
         this.smene = [];
         this.prvaSmena = [];
         this.drugaSmena = [];
         this.trecaSmena = [];
-        this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe(function (smena) {
-            var _loop_1 = function (sm) {
-                _this.smene.push(sm);
-                _this.zaposleniDetailService.getZanimanje(sm[0]).subscribe(function (zanimanje) {
-                    sm.push(zanimanje);
-                    if (sm[7] == _this.zanimanjeInt) {
-                        console.log(sm[4]);
-                        if (sm[4] == 0) {
-                            _this.prvaSmena.push(sm);
+        this.stolovi = [];
+        this.zaposleniDetailService.getZanimanje(this.email).subscribe(function (zanimanje) {
+            _this._zaposleniDetailService.getStolovi(_this.idRestoran).subscribe(function (stolovi) {
+                _this.stolovi = stolovi;
+                _this.zaposleniDetailService.getSmena(_this.idRestoran, _this.currentYear, _this.currentMonth, _this.currentDay).subscribe(function (smena) {
+                    var _loop_1 = function (sm) {
+                        if (sm[3] == _this.email) {
+                            _this.zaposleniDetailService.getReon(sm[1], sm[0], _this.email).subscribe(function (reon) {
+                                console.log(sm[1], sm[0], _this.email);
+                                console.log(reon);
+                                _this.reon = reon;
+                            });
                         }
-                        else if (sm[4] == 1) {
-                            _this.drugaSmena.push(sm);
+                        _this.smene.push(sm);
+                        console.log("smena " + sm);
+                        sm.push(zanimanje);
+                        if (sm[7] == _this.zanimanjeInt) {
+                            if (sm[4] == 0) {
+                                _this.prvaSmena.push(sm);
+                            }
+                            else if (sm[4] == 1) {
+                                _this.drugaSmena.push(sm);
+                            }
+                            else if (sm[4] == 2) {
+                                _this.trecaSmena.push(sm);
+                            }
                         }
-                        else if (sm[4] == 2) {
-                            _this.trecaSmena.push(sm);
-                        }
+                    };
+                    for (var _a = 0, smena_1 = smena; _a < smena_1.length; _a++) {
+                        var sm = smena_1[_a];
+                        _loop_1(sm);
                     }
                 });
-            };
-            for (var _a = 0, smena_1 = smena; _a < smena_1.length; _a++) {
-                var sm = smena_1[_a];
-                _loop_1(sm);
-            }
+            });
         });
     };
     ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {

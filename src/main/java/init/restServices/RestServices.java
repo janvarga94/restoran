@@ -169,4 +169,16 @@ public class RestServices {
 
         return (List<Object>) lista;
     }
+    @RequestMapping(path = "/get_reon", method = RequestMethod.GET)
+    public int getReon(int idSmene, int idRestorana, String konobarMail) {
+
+        Query query = session.createQuery("select rus.idReona from ReonUSmeniEntity as rus where rus.konobarEmail='"+konobarMail+"' and rus.idRestorana="+idRestorana+" and rus.idSmene="+idSmene);
+        Object value = query.uniqueResult();
+        if (value == null)
+            return -1;
+        else
+            return (int) query.uniqueResult();
+
+
+    }
 }

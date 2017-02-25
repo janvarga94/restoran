@@ -65,6 +65,15 @@ var ZaposleniDetailService = (function () {
         })
             .catch(this.handleError);
     };
+    ZaposleniDetailService.prototype.getReon = function (idSmene, idRestorana, mail) {
+        var url = "http://localhost:8080/resursi/get_reon";
+        return this._http.get(url + "?idSmene=" + idSmene + "&idRestorana=" + idRestorana + "&konobarMail=" + mail)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
     ZaposleniDetailService.prototype.getParam = function () {
         var params = new http_1.URLSearchParams(window.location.search);
         var someParam = params.get('re');

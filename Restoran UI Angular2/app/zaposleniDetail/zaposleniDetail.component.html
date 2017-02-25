@@ -140,80 +140,95 @@
     <br>
 
     <div>
-    <div style="float: right; width: 330px">
-        <div class="month">
-            <ul>
-                <li class="prev" (click)="changeDate(1, currentMonth - 1, currentYear)">❮</li>
-                <li class="next" (click)="changeDate(1, currentMonth + 1, currentYear)">❯</li>
-                <li style="cursor : pointer; float: left; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear - 1)">❮❮</li>
-                <li style="cursor : pointer; float: right; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear + 1)">❯❯</li>
-                <li style="text-align:center">
-                    {{mapNumbersToMonth(currentMonth)}}<br>
-                    <span style="font-size:18px">{{currentYear}}</span>
-                </li>
+        <div style="float: right; width: 330px">
+            <div class="month">
+                <ul>
+                    <li class="prev" (click)="changeDate(1, currentMonth - 1, currentYear)">❮</li>
+                    <li class="next" (click)="changeDate(1, currentMonth + 1, currentYear)">❯</li>
+                    <li style="cursor : pointer; float: left; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear - 1)">❮❮</li>
+                    <li style="cursor : pointer; float: right; padding-top: 30px;" (click)="changeDate(1, currentMonth, currentYear + 1)">❯❯</li>
+                    <li style="text-align:center">
+                        {{mapNumbersToMonth(currentMonth)}}<br>
+                        <span style="font-size:18px">{{currentYear}}</span>
+                    </li>
 
+
+                </ul>
+            </div>
+
+            <ul class="weekdays">
+                <li>Pon</li>
+                <li>Uto</li>
+                <li>Sre</li>
+                <li>Čet</li>
+                <li>Pet</li>
+                <li>Sub</li>
+                <li>Ned</li>
+            </ul>
+
+            <ul class="days" >
+                <li class="day" *ngFor="let day of _days" (click)="clickedOnDay(day)">
+                    <span class="active" *ngIf="day == currentDay">{{day}}</span>
+                    <p *ngIf="day != currentDay">{{day}}</p>
+                </li>
 
             </ul>
         </div>
 
-        <ul class="weekdays">
-            <li>Pon</li>
-            <li>Uto</li>
-            <li>Sre</li>
-            <li>Čet</li>
-            <li>Pet</li>
-            <li>Sub</li>
-            <li>Ned</li>
-        </ul>
-
-        <ul class="days" >
-            <li class="day" *ngFor="let day of _days" (click)="clickedOnDay(day)">
-                <span class="active" *ngIf="day == currentDay">{{day}}</span>
-                <p *ngIf="day != currentDay">{{day}}</p>
-            </li>
-
-        </ul>
-    </div>
 
 
-
-    <div class="container" style="width: 70%; float: left">
-        <div class="column-center"><br><br>Druga smena:
+        <div class="container" style="width: 70%; float: left">
+            <div class="column-center"><br><br>Druga smena:
+                <ul>
+                    <li  *ngFor="let smena of drugaSmena">
+                        <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
+                        <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
+                    </li>
+                </ul></div>
+            <div class="column-left"><b>{{mapNumberZanimanje(zanimanjeInt)}}</b><br><br>Prva smena:
+                <ul>
+                    <li *ngFor="let smena of prvaSmena">
+                        <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
+                        <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
+                    </li>
+                </ul></div>
+            <div class="column-right"><br><br>Treca smena:
             <ul>
-                <li  *ngFor="let smena of drugaSmena">
+                <li *ngFor="let smena of trecaSmena">
                     <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
                     <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
                 </li>
             </ul></div>
-        <div class="column-left"><b>{{mapNumberZanimanje(zanimanjeInt)}}</b><br><br>Prva smena:
-            <ul>
-                <li *ngFor="let smena of prvaSmena">
-                    <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
-                    <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
-                </li>
-            </ul></div>
-        <div class="column-right"><br><br>Treca smena:
-        <ul>
-            <li *ngFor="let smena of trecaSmena">
-                <p *ngIf="smena[3] == email"><b>{{smena[5] + " " + smena[6]}}</b></p>
-                <p *ngIf="smena[3] != email">{{smena[5] + " " + smena[6]}}</p>
-            </li>
-        </ul></div>
-    </div>
+        </div>
 
-    <br>
-    <hr>
-    <br>
 
     </div>
 
-    <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
-        <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
-            <div class="card sto" [style.background-color]="sto.zauzet? '#6E470B' :'#461F00'" style="color: white">
-                <div class="card-block">
-                    <h3 class="card-title">Sto {{i}}</h3>
-                    <p *ngIf="sto.zauzet" class="card-text">zauzet</p>
-                    <p *ngIf="!sto.zauzet" class="card-text">slobodan</p>
+
+    <div style="clear: both" *ngIf="zanimanjeInt==0">
+
+        <br>
+        <hr>
+        <br>
+
+        <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+            <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
+                <div class="card sto" [style.background-color]="sto[3] == null? 'green' : 'red'" style="color: white">
+                    <div class="card-block">
+                        <h3 class="card-title">Sto {{i}}</h3>
+                        <div *ngIf="reon == null">
+                            <p *ngIf="sto[3] == null" class="card-text">slobodan</p>
+                            <p *ngIf="sto[3] != null" class="card-text">{{sto[3]}}</p>
+                        </div>
+                        <div *ngIf="reon != null && sto[0] != reon">
+                            <p *ngIf="sto[3] == null" class="card-text">slobodan</p>
+                            <p *ngIf="sto[3] != null" class="card-text">{{sto[3]}}</p>
+                        </div>
+                        <div *ngIf="reon != null && sto[0] == reon">
+                            <p *ngIf="sto[3] == null" class="card-text" style="cursor: pointer;">slobodan</p>
+                            <p *ngIf="sto[3] != null" class="card-text" style="cursor: pointer;">{{sto[3]}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -71,6 +71,17 @@ export class ZaposleniDetailService {
             .catch(this.handleError);
     }
 
+    getReon(idSmene : number, idRestorana : number, mail : string): Observable<any> {
+        let url = "http://localhost:8080/resursi/get_reon";
+        return this._http.get(url+"?idSmene="+idSmene+"&idRestorana="+idRestorana+"&konobarMail="+mail)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
     getParam(){
         let params = new URLSearchParams(window.location.search);
         let someParam = params.get('re');
