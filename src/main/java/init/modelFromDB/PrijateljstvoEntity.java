@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
 @Table(name = "prijateljstvo", schema = "restorani", catalog = "")
@@ -34,6 +34,16 @@ public class PrijateljstvoEntity {
         this.drugiEmail = drugiEmail;
     }
 
+    @Basic
+    @Column(name = "PRIHVACENO")
+    public Date getPrihvaceno() {
+        return prihvaceno;
+    }
+
+    public void setPrihvaceno(Date prihvaceno) {
+        this.prihvaceno = prihvaceno;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,6 +53,7 @@ public class PrijateljstvoEntity {
 
         if (prviEmail != null ? !prviEmail.equals(that.prviEmail) : that.prviEmail != null) return false;
         if (drugiEmail != null ? !drugiEmail.equals(that.drugiEmail) : that.drugiEmail != null) return false;
+        if (prihvaceno != null ? !prihvaceno.equals(that.prihvaceno) : that.prihvaceno != null) return false;
 
         return true;
     }
@@ -51,16 +62,7 @@ public class PrijateljstvoEntity {
     public int hashCode() {
         int result = prviEmail != null ? prviEmail.hashCode() : 0;
         result = 31 * result + (drugiEmail != null ? drugiEmail.hashCode() : 0);
+        result = 31 * result + (prihvaceno != null ? prihvaceno.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "PRIHVACENO")
-    public Date getPrihvaceno() {
-        return prihvaceno;
-    }
-
-    public void setPrihvaceno(Date prihvaceno) {
-        this.prihvaceno = prihvaceno;
     }
 }

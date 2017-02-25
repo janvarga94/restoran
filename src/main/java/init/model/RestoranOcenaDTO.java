@@ -1,9 +1,6 @@
 package init.model;
 
-import init.modelFromDB.OcenaRestoranaEntity;
 import init.modelFromDB.RestoranEntity;
-
-import java.util.ArrayList;
 
 /**
  * This class was created by Jan Varga leta gospodnjeg 2016

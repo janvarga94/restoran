@@ -3,25 +3,13 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
 @Table(name = "sto", schema = "restorani", catalog = "")
-@IdClass(StoEntityPK.class)
 public class StoEntity {
-    private int idRestorana;
     private Integer idReona;
     private int brojStola;
-
-    @Id
-    @Column(name = "ID_RESTORANA")
-    public int getIdRestorana() {
-        return idRestorana;
-    }
-
-    public void setIdRestorana(int idRestorana) {
-        this.idRestorana = idRestorana;
-    }
 
     @Basic
     @Column(name = "ID_REONA")
@@ -50,7 +38,6 @@ public class StoEntity {
 
         StoEntity stoEntity = (StoEntity) o;
 
-        if (idRestorana != stoEntity.idRestorana) return false;
         if (brojStola != stoEntity.brojStola) return false;
         if (idReona != null ? !idReona.equals(stoEntity.idReona) : stoEntity.idReona != null) return false;
 
@@ -59,8 +46,7 @@ public class StoEntity {
 
     @Override
     public int hashCode() {
-        int result = idRestorana;
-        result = 31 * result + (idReona != null ? idReona.hashCode() : 0);
+        int result = idReona != null ? idReona.hashCode() : 0;
         result = 31 * result + brojStola;
         return result;
     }

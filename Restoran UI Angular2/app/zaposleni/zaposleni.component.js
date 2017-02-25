@@ -38,15 +38,15 @@ var ZaposleniComponent = (function () {
     ZaposleniComponent.prototype.detaljiZaposlenog = function (zaposleni) {
         console.log(zaposleni.radnikEmail);
     };
+    ZaposleniComponent = __decorate([
+        core_1.Component({
+            selector: 'zaposleni',
+            templateUrl: 'app/zaposleni/zaposleni.component.html',
+            providers: [zaposleni_service_1.ZaposleniService]
+        }), 
+        __metadata('design:paramtypes', [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService])
+    ], ZaposleniComponent);
     return ZaposleniComponent;
 }());
-ZaposleniComponent = __decorate([
-    core_1.Component({
-        selector: 'zaposleni',
-        templateUrl: 'app/zaposleni/zaposleni.component.html',
-        providers: [zaposleni_service_1.ZaposleniService]
-    }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService])
-], ZaposleniComponent);
 exports.ZaposleniComponent = ZaposleniComponent;
 //# sourceMappingURL=zaposleni.component.js.map

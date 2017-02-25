@@ -8,16 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var http_1 = require("@angular/http");
-var router_1 = require("@angular/router");
-var Rx_1 = require("rxjs/Rx");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/catch");
-require("rxjs/add/operator/map");
-var notification_service_1 = require("./notification.service");
-var app_config_1 = require("../app.config");
+var core_1 = require('@angular/core');
+var http_1 = require('@angular/http');
+var router_1 = require('@angular/router');
+var Rx_1 = require('rxjs/Rx');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/map');
+var notification_service_1 = require('./notification.service');
+var app_config_1 = require('../app.config');
 var LoginService = (function () {
     function LoginService(_http, _notificator, _router) {
         this._http = _http;
@@ -109,11 +108,11 @@ var LoginService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
+    LoginService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator, router_1.Router])
+    ], LoginService);
     return LoginService;
 }());
-LoginService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator, router_1.Router])
-], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

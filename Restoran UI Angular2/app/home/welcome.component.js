@@ -8,8 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
+var core_1 = require('@angular/core');
 var welcome_service_1 = require("../services/welcome.service");
 var login_service_1 = require("../services/login.service");
 var WelcomeComponent = (function () {
@@ -32,14 +31,22 @@ var WelcomeComponent = (function () {
     WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
         console.log(idRestorana + " , " + gostEmail + " , " + ocena);
         this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: idRestorana, gostEmail: gostEmail });
+        for (var _i = 0, _a = this.restorani; _i < _a.length; _i++) {
+            var restoran = _a[_i];
+            if (restoran.idRestorana == idRestorana) {
+                var ocena_1 = this._welcomeService.getOcenaForRestoran(idRestorana);
+                console.log(ocena_1);
+                restoran.ocena = ocena_1;
+            }
+        }
     };
+    WelcomeComponent = __decorate([
+        core_1.Component({
+            templateUrl: 'app/home/welcome.component.html'
+        }), 
+        __metadata('design:paramtypes', [welcome_service_1.WelcomeService, login_service_1.LoginService])
+    ], WelcomeComponent);
     return WelcomeComponent;
 }());
-WelcomeComponent = __decorate([
-    core_1.Component({
-        templateUrl: 'app/home/welcome.component.html'
-    }),
-    __metadata("design:paramtypes", [welcome_service_1.WelcomeService, login_service_1.LoginService])
-], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

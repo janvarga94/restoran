@@ -1,18 +1,18 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
- * Created by Svetozar Stojkovic on 12/21/2016.
+ * Created by Svetozar Stojkovic on 2/24/2017.
  */
 @Entity
 @Table(name = "smena", schema = "restorani", catalog = "")
 public class SmenaEntity {
     private Integer idRestorana;
-    private Date pecetak;
-    private Date kraj;
+    private Timestamp pecetak;
     private int idSmene;
+    private Integer brojSmene;
 
     @Basic
     @Column(name = "ID_RESTORANA")
@@ -26,22 +26,12 @@ public class SmenaEntity {
 
     @Basic
     @Column(name = "PECETAK")
-    public Date getPecetak() {
+    public Timestamp getPecetak() {
         return pecetak;
     }
 
-    public void setPecetak(Date pecetak) {
+    public void setPecetak(Timestamp pecetak) {
         this.pecetak = pecetak;
-    }
-
-    @Basic
-    @Column(name = "KRAJ")
-    public Date getKraj() {
-        return kraj;
-    }
-
-    public void setKraj(Date kraj) {
-        this.kraj = kraj;
     }
 
     @Id
@@ -54,6 +44,16 @@ public class SmenaEntity {
         this.idSmene = idSmene;
     }
 
+    @Basic
+    @Column(name = "BROJ_SMENE")
+    public Integer getBrojSmene() {
+        return brojSmene;
+    }
+
+    public void setBrojSmene(Integer brojSmene) {
+        this.brojSmene = brojSmene;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,7 +64,7 @@ public class SmenaEntity {
         if (idSmene != that.idSmene) return false;
         if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
         if (pecetak != null ? !pecetak.equals(that.pecetak) : that.pecetak != null) return false;
-        if (kraj != null ? !kraj.equals(that.kraj) : that.kraj != null) return false;
+        if (brojSmene != null ? !brojSmene.equals(that.brojSmene) : that.brojSmene != null) return false;
 
         return true;
     }
@@ -73,8 +73,8 @@ public class SmenaEntity {
     public int hashCode() {
         int result = idRestorana != null ? idRestorana.hashCode() : 0;
         result = 31 * result + (pecetak != null ? pecetak.hashCode() : 0);
-        result = 31 * result + (kraj != null ? kraj.hashCode() : 0);
         result = 31 * result + idSmene;
+        result = 31 * result + (brojSmene != null ? brojSmene.hashCode() : 0);
         return result;
     }
 }

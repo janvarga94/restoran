@@ -8,10 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var router_1 = require("@angular/router");
-var core_1 = require("@angular/core");
-var login_service_1 = require("../services/login.service");
+var router_1 = require('@angular/router');
+var core_1 = require('@angular/core');
+var login_service_1 = require('../services/login.service');
 var HeaderComponent = (function () {
     function HeaderComponent(_loginService, _router) {
         this._loginService = _loginService;
@@ -36,14 +35,14 @@ var HeaderComponent = (function () {
         this._loginService.logoutKorisnika();
         this._router.navigate(['/']);
     };
+    HeaderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-header',
+            templateUrl: 'app/header/header.component.html'
+        }), 
+        __metadata('design:paramtypes', [login_service_1.LoginService, router_1.Router])
+    ], HeaderComponent);
     return HeaderComponent;
 }());
-HeaderComponent = __decorate([
-    core_1.Component({
-        selector: 'app-header',
-        templateUrl: 'app/header/header.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, router_1.Router])
-], HeaderComponent);
 exports.HeaderComponent = HeaderComponent;
 //# sourceMappingURL=header.component.js.map

@@ -3,7 +3,6 @@ package init.restServices;
 import init.dtos.LoginKorisnikResponseDto;
 import init.dtos.ModifyGostDto;
 import init.dtos.ResponseWithMessageSuccess;
-import init.modelFromDB.KorisnikEntity;
 import init.repositories.*;
 import init.repositories.models.KorisnikRepo;
 import org.springframework.beans.factory.annotation.Autowired;
