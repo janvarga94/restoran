@@ -4,19 +4,27 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by janva on 2/25/2017.
  */
 @Entity
 @Table(name = "rezervacija", schema = "restorani", catalog = "")
 public class RezervacijaEntity {
+    private int brojStola;
     private Timestamp pocetak;
     private Timestamp kraj;
-    private int brojStola;
     private Byte otkazano;
     private String gostEmail;
     private int idRezervacije;
-    private int idReona;
-    private int idRestorana;
+
+    @Basic
+    @Column(name = "BROJ_STOLA")
+    public int getBrojStola() {
+        return brojStola;
+    }
+
+    public void setBrojStola(int brojStola) {
+        this.brojStola = brojStola;
+    }
 
     @Basic
     @Column(name = "POCETAK")
@@ -36,16 +44,6 @@ public class RezervacijaEntity {
 
     public void setKraj(Timestamp kraj) {
         this.kraj = kraj;
-    }
-
-    @Basic
-    @Column(name = "BROJ_STOLA")
-    public int getBrojStola() {
-        return brojStola;
-    }
-
-    public void setBrojStola(int brojStola) {
-        this.brojStola = brojStola;
     }
 
     @Basic
@@ -78,26 +76,6 @@ public class RezervacijaEntity {
         this.idRezervacije = idRezervacije;
     }
 
-    @Basic
-    @Column(name = "ID_REONA")
-    public int getIdReona() {
-        return idReona;
-    }
-
-    public void setIdReona(int idReona) {
-        this.idReona = idReona;
-    }
-
-    @Basic
-    @Column(name = "ID_RESTORANA")
-    public int getIdRestorana() {
-        return idRestorana;
-    }
-
-    public void setIdRestorana(int idRestorana) {
-        this.idRestorana = idRestorana;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,8 +85,6 @@ public class RezervacijaEntity {
 
         if (brojStola != that.brojStola) return false;
         if (idRezervacije != that.idRezervacije) return false;
-        if (idReona != that.idReona) return false;
-        if (idRestorana != that.idRestorana) return false;
         if (pocetak != null ? !pocetak.equals(that.pocetak) : that.pocetak != null) return false;
         if (kraj != null ? !kraj.equals(that.kraj) : that.kraj != null) return false;
         if (otkazano != null ? !otkazano.equals(that.otkazano) : that.otkazano != null) return false;
@@ -119,14 +95,12 @@ public class RezervacijaEntity {
 
     @Override
     public int hashCode() {
-        int result = pocetak != null ? pocetak.hashCode() : 0;
+        int result = brojStola;
+        result = 31 * result + (pocetak != null ? pocetak.hashCode() : 0);
         result = 31 * result + (kraj != null ? kraj.hashCode() : 0);
-        result = 31 * result + brojStola;
         result = 31 * result + (otkazano != null ? otkazano.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         result = 31 * result + idRezervacije;
-        result = 31 * result + idReona;
-        result = 31 * result + idRestorana;
         return result;
     }
 }

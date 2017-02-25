@@ -4,28 +4,18 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by janva on 2/25/2017.
  */
 @Entity
 @Table(name = "jelo_u_porudzbini", schema = "restorani", catalog = "")
 public class JeloUPorudzbiniEntity {
-    private String nazivJela;
     private int idPorudzbineJela;
+    private String nazivJela;
     private Date kreirana;
     private Integer idRestorana;
     private String gostEmail;
     private String email;
     private String kuvarEmail;
-
-    @Basic
-    @Column(name = "NAZIV_JELA")
-    public String getNazivJela() {
-        return nazivJela;
-    }
-
-    public void setNazivJela(String nazivJela) {
-        this.nazivJela = nazivJela;
-    }
 
     @Id
     @Column(name = "ID_PORUDZBINE_JELA")
@@ -35,6 +25,16 @@ public class JeloUPorudzbiniEntity {
 
     public void setIdPorudzbineJela(int idPorudzbineJela) {
         this.idPorudzbineJela = idPorudzbineJela;
+    }
+
+    @Basic
+    @Column(name = "NAZIV_JELA")
+    public String getNazivJela() {
+        return nazivJela;
+    }
+
+    public void setNazivJela(String nazivJela) {
+        this.nazivJela = nazivJela;
     }
 
     @Basic
@@ -107,8 +107,8 @@ public class JeloUPorudzbiniEntity {
 
     @Override
     public int hashCode() {
-        int result = nazivJela != null ? nazivJela.hashCode() : 0;
-        result = 31 * result + idPorudzbineJela;
+        int result = idPorudzbineJela;
+        result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
         result = 31 * result + (kreirana != null ? kreirana.hashCode() : 0);
         result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);

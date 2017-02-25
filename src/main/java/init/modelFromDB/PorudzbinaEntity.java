@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by janva on 2/25/2017.
  */
 @Entity
 @Table(name = "porudzbina", schema = "restorani", catalog = "")
@@ -14,12 +14,12 @@ public class PorudzbinaEntity {
     private Byte otkazanaOdStraneGosta;
     private Date kreirana;
     private int idPorudzbine;
-    private Date privacenaOdKuvaraU;
-    private Date gostZeliSpremnoU;
     private String konobarEmail;
     private int idRestorana;
     private String gostEmail;
     private Integer idRezervacije;
+    private Date privacenaOdKuvaraU;
+    private Date gostZeliSpremnoU;
 
     @Basic
     @Column(name = "SPREMNO_U")
@@ -62,26 +62,6 @@ public class PorudzbinaEntity {
     }
 
     @Basic
-    @Column(name = "PRIVACENA_OD_KUVARA_U")
-    public Date getPrivacenaOdKuvaraU() {
-        return privacenaOdKuvaraU;
-    }
-
-    public void setPrivacenaOdKuvaraU(Date privacenaOdKuvaraU) {
-        this.privacenaOdKuvaraU = privacenaOdKuvaraU;
-    }
-
-    @Basic
-    @Column(name = "GOST_ZELI_SPREMNO_U")
-    public Date getGostZeliSpremnoU() {
-        return gostZeliSpremnoU;
-    }
-
-    public void setGostZeliSpremnoU(Date gostZeliSpremnoU) {
-        this.gostZeliSpremnoU = gostZeliSpremnoU;
-    }
-
-    @Basic
     @Column(name = "KONOBAR_EMAIL")
     public String getKonobarEmail() {
         return konobarEmail;
@@ -121,6 +101,26 @@ public class PorudzbinaEntity {
         this.idRezervacije = idRezervacije;
     }
 
+    @Basic
+    @Column(name = "PRIVACENA_OD_KUVARA_U")
+    public Date getPrivacenaOdKuvaraU() {
+        return privacenaOdKuvaraU;
+    }
+
+    public void setPrivacenaOdKuvaraU(Date privacenaOdKuvaraU) {
+        this.privacenaOdKuvaraU = privacenaOdKuvaraU;
+    }
+
+    @Basic
+    @Column(name = "GOST_ZELI_SPREMNO_U")
+    public Date getGostZeliSpremnoU() {
+        return gostZeliSpremnoU;
+    }
+
+    public void setGostZeliSpremnoU(Date gostZeliSpremnoU) {
+        this.gostZeliSpremnoU = gostZeliSpremnoU;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,13 +134,13 @@ public class PorudzbinaEntity {
         if (otkazanaOdStraneGosta != null ? !otkazanaOdStraneGosta.equals(that.otkazanaOdStraneGosta) : that.otkazanaOdStraneGosta != null)
             return false;
         if (kreirana != null ? !kreirana.equals(that.kreirana) : that.kreirana != null) return false;
-        if (privacenaOdKuvaraU != null ? !privacenaOdKuvaraU.equals(that.privacenaOdKuvaraU) : that.privacenaOdKuvaraU != null)
-            return false;
-        if (gostZeliSpremnoU != null ? !gostZeliSpremnoU.equals(that.gostZeliSpremnoU) : that.gostZeliSpremnoU != null)
-            return false;
         if (konobarEmail != null ? !konobarEmail.equals(that.konobarEmail) : that.konobarEmail != null) return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
         if (idRezervacije != null ? !idRezervacije.equals(that.idRezervacije) : that.idRezervacije != null)
+            return false;
+        if (privacenaOdKuvaraU != null ? !privacenaOdKuvaraU.equals(that.privacenaOdKuvaraU) : that.privacenaOdKuvaraU != null)
+            return false;
+        if (gostZeliSpremnoU != null ? !gostZeliSpremnoU.equals(that.gostZeliSpremnoU) : that.gostZeliSpremnoU != null)
             return false;
 
         return true;
@@ -152,12 +152,12 @@ public class PorudzbinaEntity {
         result = 31 * result + (otkazanaOdStraneGosta != null ? otkazanaOdStraneGosta.hashCode() : 0);
         result = 31 * result + (kreirana != null ? kreirana.hashCode() : 0);
         result = 31 * result + idPorudzbine;
-        result = 31 * result + (privacenaOdKuvaraU != null ? privacenaOdKuvaraU.hashCode() : 0);
-        result = 31 * result + (gostZeliSpremnoU != null ? gostZeliSpremnoU.hashCode() : 0);
         result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
         result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         result = 31 * result + (idRezervacije != null ? idRezervacije.hashCode() : 0);
+        result = 31 * result + (privacenaOdKuvaraU != null ? privacenaOdKuvaraU.hashCode() : 0);
+        result = 31 * result + (gostZeliSpremnoU != null ? gostZeliSpremnoU.hashCode() : 0);
         return result;
     }
 }

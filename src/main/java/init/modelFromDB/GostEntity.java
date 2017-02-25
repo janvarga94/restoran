@@ -3,23 +3,13 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by janva on 2/25/2017.
  */
 @Entity
 @Table(name = "gost", schema = "restorani", catalog = "")
 public class GostEntity {
-    private Byte aktiviran;
     private String gostEmail;
-
-    @Basic
-    @Column(name = "AKTIVIRAN")
-    public Byte getAktiviran() {
-        return aktiviran;
-    }
-
-    public void setAktiviran(Byte aktiviran) {
-        this.aktiviran = aktiviran;
-    }
+    private Byte aktiviran;
 
     @Id
     @Column(name = "GOST_EMAIL")
@@ -31,6 +21,16 @@ public class GostEntity {
         this.gostEmail = gostEmail;
     }
 
+    @Basic
+    @Column(name = "AKTIVIRAN")
+    public Byte getAktiviran() {
+        return aktiviran;
+    }
+
+    public void setAktiviran(Byte aktiviran) {
+        this.aktiviran = aktiviran;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,16 +38,16 @@ public class GostEntity {
 
         GostEntity that = (GostEntity) o;
 
-        if (aktiviran != null ? !aktiviran.equals(that.aktiviran) : that.aktiviran != null) return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
+        if (aktiviran != null ? !aktiviran.equals(that.aktiviran) : that.aktiviran != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = aktiviran != null ? aktiviran.hashCode() : 0;
-        result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        int result = gostEmail != null ? gostEmail.hashCode() : 0;
+        result = 31 * result + (aktiviran != null ? aktiviran.hashCode() : 0);
         return result;
     }
 }
