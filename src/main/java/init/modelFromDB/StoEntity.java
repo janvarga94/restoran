@@ -3,25 +3,14 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/26/2017.
  */
 @Entity
 @Table(name = "sto", schema = "restorani", catalog = "")
-@IdClass(StoEntityPK.class)
 public class StoEntity {
-    private int idReona;
     private int brojStola;
+    private int idReona;
     private int idRestorana;
-
-    @Id
-    @Column(name = "ID_REONA")
-    public int getIdReona() {
-        return idReona;
-    }
-
-    public void setIdReona(int idReona) {
-        this.idReona = idReona;
-    }
 
     @Id
     @Column(name = "BROJ_STOLA")
@@ -33,7 +22,17 @@ public class StoEntity {
         this.brojStola = brojStola;
     }
 
-    @Id
+    @Basic
+    @Column(name = "ID_REONA")
+    public int getIdReona() {
+        return idReona;
+    }
+
+    public void setIdReona(int idReona) {
+        this.idReona = idReona;
+    }
+
+    @Basic
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
         return idRestorana;
@@ -50,8 +49,8 @@ public class StoEntity {
 
         StoEntity stoEntity = (StoEntity) o;
 
-        if (idReona != stoEntity.idReona) return false;
         if (brojStola != stoEntity.brojStola) return false;
+        if (idReona != stoEntity.idReona) return false;
         if (idRestorana != stoEntity.idRestorana) return false;
 
         return true;
@@ -59,8 +58,8 @@ public class StoEntity {
 
     @Override
     public int hashCode() {
-        int result = idReona;
-        result = 31 * result + brojStola;
+        int result = brojStola;
+        result = 31 * result + idReona;
         result = 31 * result + idRestorana;
         return result;
     }

@@ -1,3 +1,6 @@
+import { RezervacijaService } from './services/rezervacija.service';
+import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
+import { RezervacijeComponent } from './rezervacije/rezervacije.component';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { PrijateljstvoService } from './services/prijateljstvo.service';
 import { LimitDuzineListe } from './pipes/LimitDuzineListe';
@@ -50,7 +53,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
          { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
-        { path: 'rezervacija', component: RezervacijaComponent},
+        { path: 'rezervacija/:idRestorana', component: RezervacijaComponent},
+         { path: 'rezervacije', component: RezervacijeComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -70,6 +74,9 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     GostProfilComponent,
     ActivationComponent,
     RezervacijaComponent,
+    RezervacijeComponent,
+    GostPozvanPipe,
+    GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString
@@ -82,7 +89,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
      Notificator,
      GostiService,
      PrijateljstvoService,
-     ToasterService
+     ToasterService,
+     RezervacijaService
    ],
     bootstrap: [ AppComponent ]
 })

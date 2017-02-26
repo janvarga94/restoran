@@ -1,26 +1,31 @@
 
-<h2  style="margin-top: 20px; " >Vreme dolaska</h2>
+<h2  style="margin-top: 20px; " >1. Vreme dolaska</h2>
 
-<div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+<div  [ngClass]="{'disabledElement': stage != 1}" class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
      <div class="col-md-3">        
-            <input class="form-control" [(ngModel)]="odabraniDatum" min={{danas}} type="date">
+            <input class="form-control" [(ngModel)]="odabraniDatum" type="date">
      </div>
      
       <div class="col-md-2 form-inline">        
-            <input min="9" class="form-control" placeholder="hh" max="20" type="number">
-             <input min="0" class="form-control" placeholder="mm" max="60" type="number">
+            <input [(ngModel)]="casDolaska" min="9" class="form-control" placeholder="hh" max="20" type="number">
+             <input [(ngModel)]="minutDolaska" min="0" class="form-control" placeholder="mm" max="60" type="number">
+     </div>
+
+      <div class="col-md-2 form-inline">    
+            <label>Dužina boravka</label>    
+            <input [(ngModel)]="duzinaBoravka" min="0.5" class="form-control" placeholder="hh" max="4" type="number">
      </div>
 
      <div class="col-md-2 text-center">
-        <button class="btn btn-success"> Potvrdi vreme </button>   
+        <button class="btn btn-success" (click)="stage = 2; proveriZauzetostStolovaZaOdabraniDolazakOdlazak()" [disabled]="_odabraniDatum.getTime() <= (danas.getTime()-3600000)"> Potvrdi vreme </button>   
     </div>   
 </div>
 
-<h2  style="margin-top: 20px;">Stovolvi <button  class="btn btn-success btn-sm">↺</button></h2>
+<h2  style="margin-top: 20px;">2. Stovolvi</h2>
 
-<div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
-    <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
-         <div class="card sto" [style.background-color]="sto.zauzet? '#6E470B' :'#461F00'" style="color: white">
+<div  [ngClass]="{'disabledElement': stage != 2}" class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+    <div *ngFor="let sto of stolovi; let i = index" (click)="!sto.zauzet? odaberiSto(sto): 1" class="col-md-2" style="margin-top:20px">
+         <div class="card sto"  [style.background-color]="sto.zauzet? '#6E470B' :'#461F00'" style="color: white">
             <div class="card-block">
                 <h3 class="card-title">Sto {{i}}</h3>
                 <p *ngIf="sto.zauzet" class="card-text">zauzet</p>
@@ -31,9 +36,9 @@
 </div>
 
 
-<h2  style="margin-top: 20px;">Pozovi prijatelje</h2>
+<h2  style="margin-top: 20px;">3. Pozovi prijatelje</h2>
 
-<div class="row" style="margin-top: -80px;" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+<div  [ngClass]="{'disabledElement': stage != 3}" class="row" style="margin-top: -80px;" style="background-color: rgba(0,0,0,0.05); padding:10px;">
    <div class="col-md-6">
         <div class="card" style="margin-bottom: 100px; ">
                  <div class="card-header">
@@ -41,17 +46,17 @@
                 </div>
                 <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
+                            <input type="text" class="form-control" [(ngModel)]="search1" placeholder="Search..">
                         </li>
 
                     
-                        <span *ngFor="let i = index; let gost of prijatelji | limitDuzineListe : 15" >
+                        <span *ngFor="let i = index; let gost of nepozvaniPrijatelji | limitDuzineListe : 15" >
                             <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
                                 
                                            <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
                                        {{gost.email}}
                                         <span style="float: right">
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                            <button class="btn btn-success btn-sm" (click)="pozovi(i)">Pozovi</button>
                                         </span>                 
                             </li>
                                 
@@ -67,18 +72,16 @@
                     Pozvani prijatelji
                 </div>
                 <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
-                        </li>
+                     
 
                     
-                        <span *ngFor="let i = index; let gost of prijatelji | limitDuzineListe : 15" >
+                        <span *ngFor="let i = index; let gost of pozvaniPrijatelji  | limitDuzineListe : 15" >
                             <li class="list-group-item justify-content-between" *ngIf="(gost.ime != null || gost.prezime != null)" >
                                 
                                            <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
                                        {{gost.email}}
                                         <span style="float: right">
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                            <button class="btn btn-warning btn-sm" (click)="nepozovi(i)">Nepozovi</button>
                                         </span>                 
                             </li>
                                 
@@ -89,9 +92,9 @@
    </div>
 </div>
 
-<div class="row">
+<div  [ngClass]="{'disabledElement': stage != 3}" class="row">
   <div class="col-md-12 text-center" style="margin-top:50px; margin-bottom: 100px;">
-       <button class="btn btn-lg btn-primary">Rezerviši</button>
+       <button class="btn btn-lg btn-primary" (click)="rezervisi()">Rezerviši</button>
    </div>
 </div>
 

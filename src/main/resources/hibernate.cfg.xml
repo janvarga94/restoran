@@ -33,7 +33,6 @@
         <mapping class="init.modelFromDB.PotraznjaRestoranaEntity"/>
         <mapping class="init.modelFromDB.PozivPrijateljaEntity"/>
         <mapping class="init.modelFromDB.PrijateljstvoEntity"/>
-        <mapping class="init.modelFromDB.RacunEntity"/>
         <mapping class="init.modelFromDB.RadnikEntity"/>
         <mapping class="init.modelFromDB.RasporedRadaEntity"/>
         <mapping class="init.modelFromDB.ReonEntity"/>

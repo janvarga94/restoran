@@ -22,14 +22,16 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 var notification_service_1 = require("./notification.service");
+var app_config_1 = require("../app.config");
 var ZaposleniDetailService = (function () {
     function ZaposleniDetailService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this._zaposleniUrl = 'http://localhost:8080/resursi/get_zaposlen';
     }
     ZaposleniDetailService.prototype.getZaposlen = function (email) {
-        return this._http.get(this._zaposleniUrl + "?radnikEmail=" + email)
+        var zaposleniUrl = app_config_1.Config.BackendUrl + "/resursi/get_zaposlen";
+        console.log(zaposleniUrl);
+        return this._http.get(zaposleniUrl + "?radnikEmail=" + email)
             .map(function (response) {
             var zaposleni = response.json();
             // for(var i = 0; i < 10; i++)
@@ -38,8 +40,9 @@ var ZaposleniDetailService = (function () {
         })
             .catch(this.handleError);
     };
-    ZaposleniDetailService.prototype.getSmena = function (idRestorana, year, month, day) {
-        var smenaUrl = "http://localhost:8080/resursi/get_smene";
+    ZaposleniDetailService.prototype.getSmene = function (idRestorana, year, month, day) {
+        var smenaUrl = app_config_1.Config.BackendUrl + "/resursi/get_smene";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl + "?idRestorana=" + idRestorana + "&year=" + year + "&month=" + month + "&day=" + day)
             .map(function (response) {
             var smene = response.json();
@@ -48,7 +51,8 @@ var ZaposleniDetailService = (function () {
             .catch(this.handleError);
     };
     ZaposleniDetailService.prototype.getZanimanje = function (email) {
-        var smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        var smenaUrl = app_config_1.Config.BackendUrl + "/resursi/get_zanimanje";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl + "?radnikEmail=" + email)
             .map(function (response) {
             var smene = response.json();
@@ -57,7 +61,8 @@ var ZaposleniDetailService = (function () {
             .catch(this.handleError);
     };
     ZaposleniDetailService.prototype.getStolovi = function (idRestorana) {
-        var smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        var smenaUrl = app_config_1.Config.BackendUrl + "/resursi/get_stolovi";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl + "?idRestorana=" + idRestorana)
             .map(function (response) {
             var stolovi = response.json();
@@ -66,7 +71,8 @@ var ZaposleniDetailService = (function () {
             .catch(this.handleError);
     };
     ZaposleniDetailService.prototype.getReon = function (idSmene, idRestorana, mail) {
-        var url = "http://localhost:8080/resursi/get_reon";
+        var url = app_config_1.Config.BackendUrl + "/resursi/get_reon";
+        console.log(url);
         return this._http.get(url + "?idSmene=" + idSmene + "&idRestorana=" + idRestorana + "&konobarMail=" + mail)
             .map(function (response) {
             var value = response.json();

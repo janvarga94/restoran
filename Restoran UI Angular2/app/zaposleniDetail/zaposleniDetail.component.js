@@ -30,11 +30,13 @@ var ZaposleniDetailComponent = (function () {
         this.trecaSmena = [];
         this.stolovi = [];
         this.zaposleniDetailService = _zaposleniDetailService;
+        console.log("constructor");
     }
     ZaposleniDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
-            _this.email = params['email'];
+            _this.email = atob(params['email']);
+            console.log(_this.email);
         });
         var date = new Date();
         this.currentYear = date.getFullYear();
@@ -45,12 +47,8 @@ var ZaposleniDetailComponent = (function () {
             //   this.restorani = restorani;
             _this.zaposlen = zaposleni;
             _this.idRestoran = zaposleni[5];
-            _this.stolovi = [];
-            // this._zaposleniDetailService.getReon(this.id);
             _this.changeDate(_this.currentDay, _this.currentMonth, _this.currentYear);
-        });
-        this._zaposleniDetailService.getZanimanje(this.email).subscribe(function (zanimanje) {
-            _this.zanimanjeInt = zanimanje;
+            _this.refreshStolovi();
         });
     };
     ZaposleniDetailComponent.prototype.changeDate = function (day, month, year) {
@@ -94,40 +92,43 @@ var ZaposleniDetailComponent = (function () {
         this.prvaSmena = [];
         this.drugaSmena = [];
         this.trecaSmena = [];
-        this.stolovi = [];
         this.zaposleniDetailService.getZanimanje(this.email).subscribe(function (zanimanje) {
-            _this._zaposleniDetailService.getStolovi(_this.idRestoran).subscribe(function (stolovi) {
-                _this.stolovi = stolovi;
-                _this.zaposleniDetailService.getSmena(_this.idRestoran, _this.currentYear, _this.currentMonth, _this.currentDay).subscribe(function (smena) {
-                    var _loop_1 = function (sm) {
-                        if (sm[3] == _this.email) {
-                            _this.zaposleniDetailService.getReon(sm[1], sm[0], _this.email).subscribe(function (reon) {
-                                console.log(sm[1], sm[0], _this.email);
-                                console.log(reon);
-                                _this.reon = reon;
-                            });
-                        }
-                        _this.smene.push(sm);
-                        console.log("smena " + sm);
-                        sm.push(zanimanje);
-                        if (sm[7] == _this.zanimanjeInt) {
-                            if (sm[4] == 0) {
-                                _this.prvaSmena.push(sm);
-                            }
-                            else if (sm[4] == 1) {
-                                _this.drugaSmena.push(sm);
-                            }
-                            else if (sm[4] == 2) {
-                                _this.trecaSmena.push(sm);
-                            }
-                        }
-                    };
-                    for (var _a = 0, smena_1 = smena; _a < smena_1.length; _a++) {
-                        var sm = smena_1[_a];
-                        _loop_1(sm);
+            _this.zanimanjeInt = zanimanje;
+            console.log("Parametri za smenu" + _this.idRestoran, _this.currentYear, _this.currentMonth, _this.currentDay);
+            _this.zaposleniDetailService.getSmene(_this.idRestoran, _this.currentYear, _this.currentMonth, _this.currentDay).subscribe(function (smene) {
+                console.log("izvrsio smene");
+                for (var _a = 0, smene_1 = smene; _a < smene_1.length; _a++) {
+                    var smena = smene_1[_a];
+                    console.log(smena[3]);
+                    if (smena[3] == _this.email) {
+                        console.log("Entered if for reon");
+                        _this.zaposleniDetailService.getReon(smena[1], smena[0], _this.email).subscribe(function (reon) {
+                            //console.log(sm[1], sm[0], this.email);
+                            _this.reon = reon;
+                        });
                     }
-                });
+                    smena.push(zanimanje);
+                    _this.smene.push(smena);
+                    if (smena[7] == _this.zanimanjeInt) {
+                        if (smena[4] == 0) {
+                            _this.prvaSmena.push(smena);
+                        }
+                        else if (smena[4] == 1) {
+                            _this.drugaSmena.push(smena);
+                        }
+                        else if (smena[4] == 2) {
+                            _this.trecaSmena.push(smena);
+                        }
+                    }
+                }
             });
+        });
+    };
+    ZaposleniDetailComponent.prototype.refreshStolovi = function () {
+        var _this = this;
+        this.stolovi = [];
+        this.zaposleniDetailService.getStolovi(this.idRestoran).subscribe(function (stolovi) {
+            _this.stolovi = stolovi;
         });
     };
     ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {

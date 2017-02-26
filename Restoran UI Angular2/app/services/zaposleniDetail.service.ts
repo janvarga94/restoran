@@ -18,17 +18,19 @@ import { ISuccess} from '../models/ISuccess';
 import { Notificator } from './notification.service';
 import {getRelativePath} from "tslint/lib/configuration";
 import {ActivatedRoute} from "@angular/router";
+import {Config} from "../app.config";
 
 @Injectable()
 export class ZaposleniDetailService {
-    private _zaposleniUrl = 'http://localhost:8080/resursi/get_zaposlen';
 
     constructor(private _http: Http, private _notificator: Notificator) {
 
     }
 
     getZaposlen(email: string): Observable<any> {
-        return this._http.get(this._zaposleniUrl+"?radnikEmail="+email)
+        let zaposleniUrl = Config.BackendUrl+"/resursi/get_zaposlen";
+        console.log(zaposleniUrl);
+        return this._http.get(zaposleniUrl+"?radnikEmail="+email)
             .map((response: Response) => {
                 var zaposleni = <any> response.json();
                 // for(var i = 0; i < 10; i++)
@@ -38,8 +40,9 @@ export class ZaposleniDetailService {
             .catch(this.handleError);
     }
 
-    getSmena(idRestorana : number, year : number, month : number, day : number): Observable<any[]> {
-        let smenaUrl = "http://localhost:8080/resursi/get_smene";
+    getSmene(idRestorana : number, year : number, month : number, day : number): Observable<any[]> {
+        let smenaUrl = Config.BackendUrl+"/resursi/get_smene";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl+"?idRestorana="+idRestorana+"&year="+year+"&month="+month+"&day="+day)
             .map((response: Response) => {
                 var smene = <any[]> response.json();
@@ -50,7 +53,8 @@ export class ZaposleniDetailService {
     }
 
     getZanimanje(email: string): Observable<number> {
-        let smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        let smenaUrl = Config.BackendUrl+"/resursi/get_zanimanje";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl+"?radnikEmail="+email)
             .map((response: Response) => {
                 var smene = <number> response.json();
@@ -61,7 +65,8 @@ export class ZaposleniDetailService {
     }
 
     getStolovi(idRestorana: number): Observable<any[]> {
-        let smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        let smenaUrl = Config.BackendUrl+"/resursi/get_stolovi";
+        console.log(smenaUrl);
         return this._http.get(smenaUrl+"?idRestorana="+idRestorana)
             .map((response: Response) => {
                 var stolovi = <any[]> response.json();
@@ -72,7 +77,8 @@ export class ZaposleniDetailService {
     }
 
     getReon(idSmene : number, idRestorana : number, mail : string): Observable<any> {
-        let url = "http://localhost:8080/resursi/get_reon";
+        let url = Config.BackendUrl+"/resursi/get_reon";
+        console.log(url);
         return this._http.get(url+"?idSmene="+idSmene+"&idRestorana="+idRestorana+"&konobarMail="+mail)
             .map((response: Response) => {
                 var value = <any> response.json();

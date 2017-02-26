@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/26/2017.
  */
 public class PrijateljstvoEntityPK implements Serializable {
     private String prviEmail;

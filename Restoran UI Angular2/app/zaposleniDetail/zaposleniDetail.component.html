@@ -33,6 +33,10 @@
             <td>Velicina obuce:</td>
             <td>{{zaposlen[6]}}</td>
         </tr>
+        <tr>
+            <td>Reon:</td>
+            <td>{{reon}}</td>
+        </tr>
 
     </table>
 
@@ -210,28 +214,46 @@
         <br>
         <hr>
         <br>
-
+        <button class="btn btn-success" (click)="refreshStolovi()">Osveži stolove</button>
         <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
             <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
                 <div class="card sto" [style.background-color]="sto[3] == null? 'green' : 'red'" style="color: white">
-                    <div class="card-block">
+                    <div class="card-block" *ngIf="sto[3] == null" style="cursor: pointer">
                         <h3 class="card-title">Sto {{i}}</h3>
-                        <div *ngIf="reon == null">
-                            <p *ngIf="sto[3] == null" class="card-text">slobodan</p>
-                            <p *ngIf="sto[3] != null" class="card-text">{{sto[3]}}</p>
-                        </div>
-                        <div *ngIf="reon != null && sto[0] != reon">
-                            <p *ngIf="sto[3] == null" class="card-text">slobodan</p>
-                            <p *ngIf="sto[3] != null" class="card-text">{{sto[3]}}</p>
-                        </div>
-                        <div *ngIf="reon != null && sto[0] == reon">
-                            <p *ngIf="sto[3] == null" class="card-text" style="cursor: pointer;">slobodan</p>
-                            <p *ngIf="sto[3] != null" class="card-text" style="cursor: pointer;">{{sto[3]}}</p>
-                        </div>
+                        <p class="card-text">slobodan</p>
+                    </div>
+                    <div class="card-block" *ngIf="sto[3] != null" style="cursor: pointer">
+                        <h3 class="card-title">Sto {{i}}</h3>
+                        <p class="card-text">{{sto[3]}}</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div style="clear: both" *ngIf="zanimanjeInt==0">
+
+        <br>
+        <hr>
+        <br>
+        <button class="btn btn-success" (click)="refreshStolovi()">Osveži stolove</button>
+        <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
+            <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
+                <div class="card sto" [style.background-color]="sto[3] == null? 'green' : 'red'" style="color: white">
+                    <div class="card-block" *ngIf="sto[3] == null" style="cursor: pointer">
+                        <h3 class="card-title">Sto {{i}}</h3>
+                        <p class="card-text">slobodan</p>
+                    </div>
+                    <div class="card-block" *ngIf="sto[3] != null" style="cursor: pointer">
+                        <h3 class="card-title">Sto {{i}}</h3>
+                        <p class="card-text">{{sto[3]}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 </div>
