@@ -24,6 +24,12 @@ var ZaposleniDetailComponent = (function () {
         this.pageTitle = "Zaposleni";
         this._days = [];
         this._neds = [];
+        this.smene = [];
+        this.prvaSmena = [];
+        this.drugaSmena = [];
+        this.trecaSmena = [];
+        this.stolovi = [];
+        this.zaposleniDetailService = _zaposleniDetailService;
     }
     ZaposleniDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -31,21 +37,28 @@ var ZaposleniDetailComponent = (function () {
             _this.email = params['email'];
         });
         console.log(this.email);
-        this._zaposleniDetailService.getZaposlen(this.email).subscribe(function (zaposleni) {
-            //   this.restorani = restorani;
-            _this.zaposlen = zaposleni;
-            console.log(_this.zaposlen.radnikEmail);
-        });
         var date = new Date();
         this.currentYear = date.getFullYear();
         this.currentMonth = date.getMonth() + 1;
         this.currentDay = date.getDate();
         this.weekDay = date.getDay();
-        this.changeDate(this.currentDay, this.currentMonth, this.currentYear);
+        this._zaposleniDetailService.getZaposlen(this.email).subscribe(function (zaposleni) {
+            //   this.restorani = restorani;
+            _this.zaposlen = zaposleni;
+            _this.idRestoran = zaposleni[5];
+            _this._zaposleniDetailService.getStolovi(_this.idRestoran).subscribe(function (stolovi) {
+                _this.stolovi = stolovi;
+            });
+            _this.changeDate(_this.currentDay, _this.currentMonth, _this.currentYear);
+            console.log(_this.zaposlen);
+        });
+        this._zaposleniDetailService.getZanimanje(this.email).subscribe(function (zanimanje) {
+            _this.zanimanjeInt = zanimanje;
+        });
     };
     ZaposleniDetailComponent.prototype.changeDate = function (day, month, year) {
         var newDate = new Date();
-        this.currentDay = day;
+        // this.currentDay = day;
         this.currentYear = year;
         this._days = [];
         if (month < 1) {
@@ -59,6 +72,7 @@ var ZaposleniDetailComponent = (function () {
         else {
             this.currentMonth = month;
         }
+        this.clickedOnDay(day);
         console.log(this.currentMonth + "_" + this.currentYear);
         newDate.setFullYear(this.currentYear, this.currentMonth - 1, 1);
         var danUNedelji = newDate.getDay();
@@ -78,21 +92,51 @@ var ZaposleniDetailComponent = (function () {
             }
         }
     };
-    ZaposleniDetailComponent.prototype.mapNumbersToWeek = function (broj) {
-        if (broj == 0)
-            return "Nedelja";
-        else if (broj == 1)
-            return "Ponedeljak";
-        else if (broj == 2)
-            return "Utorak";
-        else if (broj == 3)
-            return "Sreda";
-        else if (broj == 4)
-            return "Cetvrtak";
-        else if (broj == 5)
-            return "Petak";
-        else if (broj == 6)
-            return "Subota";
+    ZaposleniDetailComponent.prototype.clickedOnDay = function (clickedDay) {
+        var _this = this;
+        console.log(clickedDay);
+        this.currentDay = clickedDay;
+        this.smene = [];
+        this.prvaSmena = [];
+        this.drugaSmena = [];
+        this.trecaSmena = [];
+        this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe(function (smena) {
+            var _loop_1 = function (sm) {
+                _this.smene.push(sm);
+                _this.zaposleniDetailService.getZanimanje(sm[0]).subscribe(function (zanimanje) {
+                    sm.push(zanimanje);
+                    if (sm[7] == _this.zanimanjeInt) {
+                        console.log(sm[4]);
+                        if (sm[4] == 0) {
+                            _this.prvaSmena.push(sm);
+                        }
+                        else if (sm[4] == 1) {
+                            _this.drugaSmena.push(sm);
+                        }
+                        else if (sm[4] == 2) {
+                            _this.trecaSmena.push(sm);
+                        }
+                    }
+                });
+            };
+            for (var _a = 0, smena_1 = smena; _a < smena_1.length; _a++) {
+                var sm = smena_1[_a];
+                _loop_1(sm);
+            }
+        });
+    };
+    ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {
+        if (zan == 0) {
+            return "Konobar";
+        }
+        else if (zan == 1) {
+            return "Kuvar";
+        }
+        else if (zan == 2) {
+            return "Šanker";
+        }
+        else
+            return "Nema zanimanje";
     };
     ZaposleniDetailComponent.prototype.mapNumbersToMonth = function (broj) {
         if (broj == 1)
@@ -120,6 +164,22 @@ var ZaposleniDetailComponent = (function () {
         else if (broj == 12)
             return "Decembar";
     };
+    ZaposleniDetailComponent.prototype.mapNumbersToWeek = function (broj) {
+        if (broj == 0)
+            return "Nedelja";
+        else if (broj == 1)
+            return "Ponedeljak";
+        else if (broj == 2)
+            return "Utorak";
+        else if (broj == 3)
+            return "Sreda";
+        else if (broj == 4)
+            return "Cetvrtak";
+        else if (broj == 5)
+            return "Petak";
+        else if (broj == 6)
+            return "Subota";
+    };
     ZaposleniDetailComponent.prototype.getNumberOfDaysForMonth = function () {
         if (this.currentMonth == 1 || this.currentMonth == 3 || this.currentMonth == 5 || this.currentMonth == 7 || this.currentMonth == 8 || this.currentMonth == 10 || this.currentMonth == 12) {
             return 31;
@@ -133,10 +193,6 @@ var ZaposleniDetailComponent = (function () {
         else {
             return 28;
         }
-    };
-    ZaposleniDetailComponent.prototype.clickedOnDay = function (clickedDay) {
-        console.log(clickedDay);
-        this.currentDay = clickedDay;
     };
     return ZaposleniDetailComponent;
 }());

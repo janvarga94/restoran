@@ -3,14 +3,14 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/24/2017.
+ * Created by Svetozar Stojkovic on 2/25/2017.
  */
 @Entity
 @Table(name = "restoran", schema = "restorani", catalog = "")
 public class RestoranEntity {
+    private int idRestorana;
     private String vrsta;
     private String naziv;
-    private int idRestorana;
     private String opis;
 
     @Basic

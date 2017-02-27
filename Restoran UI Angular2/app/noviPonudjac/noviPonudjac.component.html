@@ -21,11 +21,11 @@
 
                 <div style="margin-bottom: 25px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="add-password" type="password" class="form-control" name="password" placeholder="* password" [(ngModel)] = "password">
+                    <input id="add-password" type="password" class="form-control" name="password" placeholder="* password" [(ngModel)] = "lozinka">
                 </div>
 
                 <div class="col-sm-12 controls">
-                    <button id="btn-add" href="#" class="btn btn-success" style ="margin-left: 450px"  [disabled]="naziv=='' || email=='' || password=='' " >ADD! </button>
+                    <button id="btn-add" (click)="addMenadzera()" class="btn btn-success" style ="margin-left: 450px"  [disabled]="naziv=='' || email=='' || password=='' " >ADD! </button>
 
                 </div>
 

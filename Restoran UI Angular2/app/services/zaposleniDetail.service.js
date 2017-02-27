@@ -38,6 +38,33 @@ var ZaposleniDetailService = (function () {
         })
             .catch(this.handleError);
     };
+    ZaposleniDetailService.prototype.getSmena = function (idRestorana, year, month, day) {
+        var smenaUrl = "http://localhost:8080/resursi/get_smene";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana + "&year=" + year + "&month=" + month + "&day=" + day)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getZanimanje = function (email) {
+        var smenaUrl = "http://localhost:8080/resursi/get_zanimanje";
+        return this._http.get(smenaUrl + "?radnikEmail=" + email)
+            .map(function (response) {
+            var smene = response.json();
+            return smene;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getStolovi = function (idRestorana) {
+        var smenaUrl = "http://localhost:8080/resursi/get_stolovi";
+        return this._http.get(smenaUrl + "?idRestorana=" + idRestorana)
+            .map(function (response) {
+            var stolovi = response.json();
+            return stolovi;
+        })
+            .catch(this.handleError);
+    };
     ZaposleniDetailService.prototype.getParam = function () {
         var params = new http_1.URLSearchParams(window.location.search);
         var someParam = params.get('re');

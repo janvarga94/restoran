@@ -37,6 +37,10 @@ var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.com
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
 var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
+var zaposleni_service_1 = require("./services/zaposleni.service");
+var noviRestoran_component_1 = require("./noviRestoran/noviRestoran.component");
+var noviMenadzerRestorana_component_1 = require("./noviMenadzerRestorana/noviMenadzerRestorana.component");
+var noviPonudjac_component_1 = require("./noviPonudjac/noviPonudjac.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -55,6 +59,7 @@ AppModule = __decorate([
                 { path: 'zaposleni', component: zaposleni_component_1.ZaposleniComponent },
                 { path: 'zaposleni/:email', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
                 { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
+                { path: 'novirestoran', component: noviRestoran_component_1.NoviRestoranComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
@@ -62,6 +67,8 @@ AppModule = __decorate([
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
                 { path: 'rezervacija', component: rezervacija_component_1.RezervacijaComponent },
+                { path: 'novimenadzerrestorana', component: noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent },
+                { path: 'noviponudjac', component: noviPonudjac_component_1.NoviPonudjacComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -82,7 +89,10 @@ AppModule = __decorate([
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString,
-            noviZaposleni_component_1.NoviZaposleniComponent
+            noviZaposleni_component_1.NoviZaposleniComponent,
+            noviRestoran_component_1.NoviRestoranComponent,
+            noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent,
+            noviPonudjac_component_1.NoviPonudjacComponent
         ],
         providers: [
             restorani_service_1.RestoranService,
@@ -91,7 +101,8 @@ AppModule = __decorate([
             notification_service_1.Notificator,
             gosti_service_1.GostiService,
             prijateljstvo_service_1.PrijateljstvoService,
-            angular2_toaster_1.ToasterService
+            angular2_toaster_1.ToasterService,
+            zaposleni_service_1.ZaposleniService,
         ],
         bootstrap: [app_component_1.AppComponent]
     })

@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 2/24/2017.
+ * Created by Svetozar Stojkovic on 2/25/2017.
  */
 public class PotraznjaPicaEntityPK implements Serializable {
     private String naziv;

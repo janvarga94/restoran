@@ -32,6 +32,10 @@ import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.compon
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
 import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
+import {ZaposleniService} from "./services/zaposleni.service";
+import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
+import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadzerRestorana.component";
+import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
 
 
 
@@ -47,6 +51,7 @@ import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
          { path: 'novizaposleni', component : NoviZaposleniComponent},
+         {path: 'novirestoran', component: NoviRestoranComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -54,6 +59,8 @@ import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
         { path: 'rezervacija', component: RezervacijaComponent},
+         { path: 'novimenadzerrestorana',component : NoviMenadzerRestoranaComponent},
+         { path: 'noviponudjac', component: NoviPonudjacComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -76,7 +83,10 @@ import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString,
-    NoviZaposleniComponent
+    NoviZaposleniComponent,
+      NoviRestoranComponent,
+      NoviMenadzerRestoranaComponent,
+      NoviPonudjacComponent
    ],
    providers: [
      RestoranService,
@@ -85,7 +95,8 @@ import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
      Notificator,
      GostiService,
      PrijateljstvoService,
-     ToasterService
+     ToasterService,
+       ZaposleniService,
    ],
     bootstrap: [ AppComponent ]
 })

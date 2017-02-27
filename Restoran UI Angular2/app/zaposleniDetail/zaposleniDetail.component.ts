@@ -27,11 +27,25 @@ export class ZaposleniDetailComponent implements OnInit{
     _days : any[] = [];
     _neds : any[] = [];
 
-    zaposlen : IZaposleni;
+    zaposlen : any;
     email : string;
 
-    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
+    zaposleniDetailService : ZaposleniDetailService;
 
+    smene : any[] = [];
+
+    prvaSmena : any[] = [];
+    drugaSmena : any[] = [];
+    trecaSmena : any[] = [];
+
+    idRestoran : number;
+
+    zanimanjeInt : number;
+
+    stolovi : any[] = [];
+
+    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
+        this.zaposleniDetailService = _zaposleniDetailService;
     }
 
 
@@ -42,27 +56,43 @@ export class ZaposleniDetailComponent implements OnInit{
 
         console.log(this.email);
 
-        this._zaposleniDetailService.getZaposlen(this.email).subscribe( zaposleni =>{
-            //   this.restorani = restorani;
-            this.zaposlen = zaposleni;
-            console.log(this.zaposlen.radnikEmail)
-        });
-
-
         let date = new Date();
         this.currentYear = date.getFullYear();
         this.currentMonth = date.getMonth() + 1;
         this.currentDay = date.getDate();
         this.weekDay = date.getDay();
 
-        this.changeDate(this.currentDay, this.currentMonth, this.currentYear)
+
+        this._zaposleniDetailService.getZaposlen(this.email).subscribe( zaposleni =>{
+            //   this.restorani = restorani;
+            this.zaposlen = zaposleni;
+            this.idRestoran = zaposleni[5];
+
+            this._zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
+                this.stolovi = stolovi;
+            });
+
+            this.changeDate(this.currentDay, this.currentMonth, this.currentYear);
+
+            console.log(this.zaposlen)
+        });
+
+        this._zaposleniDetailService.getZanimanje(this.email).subscribe(zanimanje => {
+            this.zanimanjeInt = zanimanje;
+        });
+
+
+
+
 
 
     }
 
+
+
     changeDate(day: number, month : number, year : number) {
         let newDate = new Date();
-        this.currentDay = day;
+        // this.currentDay = day;
 
         this.currentYear = year;
         this._days = [];
@@ -75,7 +105,7 @@ export class ZaposleniDetailComponent implements OnInit{
         } else {
             this.currentMonth = month;
         }
-
+        this.clickedOnDay(day);
         console.log(this.currentMonth + "_"+ this.currentYear);
 
         newDate.setFullYear(this.currentYear, this.currentMonth-1, 1);
@@ -96,23 +126,47 @@ export class ZaposleniDetailComponent implements OnInit{
             }
 
         }
+
     }
 
-    mapNumbersToWeek(broj : number){
-        if (broj == 0)
-            return "Nedelja";
-        else if (broj == 1)
-            return "Ponedeljak";
-        else if (broj == 2)
-            return "Utorak";
-        else if (broj == 3)
-            return "Sreda";
-        else if (broj == 4)
-            return "Cetvrtak";
-        else if (broj == 5)
-            return "Petak";
-        else if (broj == 6)
-            return "Subota";
+
+    clickedOnDay(clickedDay : number) {
+        console.log(clickedDay);
+
+        this.currentDay = clickedDay;
+        this.smene = [];
+        this.prvaSmena = [];
+        this.drugaSmena = [];
+        this.trecaSmena = [];
+        this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe( smena =>{
+            for (let sm of smena) {
+                this.smene.push(sm);
+                this.zaposleniDetailService.getZanimanje(sm[0]).subscribe(zanimanje =>{
+                    sm.push(zanimanje);
+                    if (sm[7] == this.zanimanjeInt) {
+                        console.log(sm[4]);
+                        if (sm[4] == 0) {
+                            this.prvaSmena.push(sm);
+                        } else if (sm[4] == 1) {
+                            this.drugaSmena.push(sm);
+                        } else if (sm[4] == 2) {
+                            this.trecaSmena.push(sm);
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    mapNumberZanimanje(zan : number){
+        if (zan == 0) {
+            return "Konobar";
+        } else if (zan == 1) {
+            return "Kuvar"
+        } else if (zan == 2) {
+            return "Šanker"
+        } else
+            return "Nema zanimanje"
     }
 
     mapNumbersToMonth(broj : number) {
@@ -142,6 +196,23 @@ export class ZaposleniDetailComponent implements OnInit{
             return "Decembar";
     }
 
+    mapNumbersToWeek(broj : number){
+        if (broj == 0)
+            return "Nedelja";
+        else if (broj == 1)
+            return "Ponedeljak";
+        else if (broj == 2)
+            return "Utorak";
+        else if (broj == 3)
+            return "Sreda";
+        else if (broj == 4)
+            return "Cetvrtak";
+        else if (broj == 5)
+            return "Petak";
+        else if (broj == 6)
+            return "Subota";
+    }
+
     getNumberOfDaysForMonth() {
         if (this.currentMonth == 1 || this.currentMonth == 3 || this.currentMonth == 5 || this.currentMonth == 7 || this.currentMonth == 8 || this.currentMonth == 10 || this.currentMonth == 12) {
             return 31;
@@ -153,12 +224,6 @@ export class ZaposleniDetailComponent implements OnInit{
             return 28;
         }
 
-    }
-
-    clickedOnDay(clickedDay : number) {
-        console.log(clickedDay);
-
-        this.currentDay = clickedDay;
     }
 
 }
