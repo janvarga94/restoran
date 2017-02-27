@@ -1,14 +1,18 @@
 package init.repositories;
 
+import init.Main;
 import init.dtos.ResponseWithMessageSuccess;
 import init.modelFromDB.*;
+import init.repositories.models.RezervacijaRepo;
 import init.repositories.models.RezervacijaReq;
+import init.repositories.models.StoRepo;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +37,6 @@ public class RezervacijaRepository {
         rezervacija.setIdRezervacije(rezervacijaId = random.nextInt(80000));
         rezervacija.setKraj(new Timestamp(rezervacijaReq.kraj));
         rezervacija.setPocetak(new Timestamp(rezervacijaReq.pocetak));
-        rezervacija.setIdReona(session.get(StoEntity.class,rezervacijaReq.idStola).getIdReona());
 
         session.save(rezervacija);
 
@@ -77,4 +80,35 @@ public class RezervacijaRepository {
             return response;
         }
     }
+
+    public List<RezervacijaRepo> getRezervacijeKorisnika(String email){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "SELECT rezervacija.ID_REZERVACIJE, rezervacija.GOST_EMAIL, restoran.NAZIV, restoran.ID_RESTORANA, rezervacija.POCETAK, rezervacija.KRAJ, sto.BROJ_STOLA FROM rezervacija natural join sto natural join reon inner join restoran on restoran.ID_RESTORANA = reon.ID_REONA\n" +
+                "\twhere rezervacija.GOST_EMAIL =  '" + email + "'";
+        List<Object[]> results= new ArrayList<>();
+        try {
+           results = session.createNativeQuery(query).getResultList();
+        }catch(Exception e){
+            int x = 2;
+        }
+        List<RezervacijaRepo> returnValue = new ArrayList<RezervacijaRepo>();
+        for(Object[] r : results){
+            RezervacijaRepo rez = new RezervacijaRepo();
+            rez.brojStola = (int) r[6];
+            rez.gostEmail = (String) r[1];
+            rez.idRezervacije = (int) r[0];
+            rez.pocetak = ((Timestamp) r[4]).getTime();
+            rez.kraj = ((Timestamp) r[5]).getTime();
+            rez.restoranId = (int) r[3];
+            rez.restoranNaziv = (String) r[2];
+
+            returnValue.add(rez);
+        }
+
+        session.close();
+        return returnValue;
+    }
+
 }

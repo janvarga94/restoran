@@ -10,6 +10,7 @@
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/restorani']" [routerLinkActive]="['active']">Restorani page</a></li> 
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/sistemMenadzer']" [routerLinkActive]="['active']">Sistem menazer</a></li>
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/zaposleni']" [routerLinkActive]="['active']">Zaposleni</a></li>
+        <li *ngIf="ulogovan != null" class="nav-item"><a class="nav-link" [routerLink] = "['/rezervacije']" [routerLinkActive]="['active']">Moje rezervacije</a></li>
       </ul>
 
       <form *ngIf="ulogovan != null" class="form-inline my-2 my-md-0">

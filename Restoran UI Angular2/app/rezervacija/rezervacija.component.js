@@ -16,7 +16,8 @@ var prijateljstvo_service_1 = require("./../services/prijateljstvo.service");
 var core_1 = require("@angular/core");
 var restorani_service_1 = require("../services/restorani.service");
 var RezervacijaComponent = (function () {
-    function RezervacijaComponent(_notificator, route, _rezervacijaService, _restoranService, _loginService, _prijateljstvoService) {
+    function RezervacijaComponent(_router, _notificator, route, _rezervacijaService, _restoranService, _loginService, _prijateljstvoService) {
+        this._router = _router;
         this._notificator = _notificator;
         this.route = route;
         this._rezervacijaService = _rezervacijaService;
@@ -77,7 +78,7 @@ var RezervacijaComponent = (function () {
                 .filter(function (z) {
                 var pocetak = new Date(z.pocetak).getTime();
                 var kraj = new Date(z.kraj).getTime();
-                return (pocetak < dolazakGosta && kraj < odlazakGosta) || (pocetak > dolazakGosta && kraj > odlazakGosta);
+                return (pocetak < dolazakGosta && kraj < dolazakGosta) || (pocetak > odlazakGosta && kraj > odlazakGosta);
             });
             return {
                 idStola: sto.idStola,
@@ -137,6 +138,7 @@ var RezervacijaComponent = (function () {
         }).subscribe(function (response) {
             if (response['Success'] == true) {
                 _this._notificator.notifySuccess("Uspesno data rezervacija");
+                _this._router.navigate(['/rezervacije']);
             }
             else {
                 _this._notificator.notifyError(response['Message']);
@@ -151,7 +153,7 @@ RezervacijaComponent = __decorate([
         templateUrl: 'app/rezervacija/rezervacija.component.html',
         styles: ['.disabledElement {  pointer-events:none; opacity:0.5 }']
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, router_1.ActivatedRoute, rezervacija_service_1.RezervacijaService, restorani_service_1.RestoranService, login_service_1.LoginService, prijateljstvo_service_1.PrijateljstvoService])
+    __metadata("design:paramtypes", [router_1.Router, notification_service_1.Notificator, router_1.ActivatedRoute, rezervacija_service_1.RezervacijaService, restorani_service_1.RestoranService, login_service_1.LoginService, prijateljstvo_service_1.PrijateljstvoService])
 ], RezervacijaComponent);
 exports.RezervacijaComponent = RezervacijaComponent;
 //# sourceMappingURL=rezervacija.component.js.map

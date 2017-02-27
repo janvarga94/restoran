@@ -1,5 +1,5 @@
 import { Notificator } from './../services/notification.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RezervacijaService } from './../services/rezervacija.service';
 import { LoginService } from './../services/login.service';
 import { PrijateljstvoService } from './../services/prijateljstvo.service';
@@ -53,7 +53,7 @@ export class RezervacijaComponent implements OnInit{
 
     _odabraniDatum: any;
 
-    constructor(private _notificator : Notificator,private route: ActivatedRoute, private _rezervacijaService : RezervacijaService,private _restoranService : RestoranService, private _loginService : LoginService ,private _prijateljstvoService : PrijateljstvoService) {
+    constructor( private _router: Router, private _notificator : Notificator,private route: ActivatedRoute, private _rezervacijaService : RezervacijaService,private _restoranService : RestoranService, private _loginService : LoginService ,private _prijateljstvoService : PrijateljstvoService) {
         this._odabraniDatum = new Date();
     }
 
@@ -92,7 +92,7 @@ export class RezervacijaComponent implements OnInit{
                     var pocetak = new Date(z.pocetak).getTime();
                     var kraj = new Date(z.kraj).getTime();
 
-                    return (pocetak < dolazakGosta && kraj < odlazakGosta) || (pocetak > dolazakGosta && kraj > odlazakGosta);
+                    return (pocetak < dolazakGosta && kraj < dolazakGosta) || (pocetak > odlazakGosta && kraj > odlazakGosta);
                 });
                
             
@@ -158,6 +158,7 @@ export class RezervacijaComponent implements OnInit{
         ).subscribe(response => {
             if(response['Success'] == true){
                 this._notificator.notifySuccess("Uspesno data rezervacija");
+                this._router.navigate(['/rezervacije']);
             }else{
                 this._notificator.notifyError(response['Message']);
             }

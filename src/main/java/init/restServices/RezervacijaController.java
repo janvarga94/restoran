@@ -1,9 +1,13 @@
 package init.restServices;
 
 import init.dtos.ResponseWithMessageSuccess;
+import init.modelFromDB.JeloEntity;
+import init.modelFromDB.PiceEntity;
+import init.modelFromDB.RezervacijaEntity;
 import init.modelFromDB.StoEntity;
 import init.repositories.RestoranRepository;
 import init.repositories.RezervacijaRepository;
+import init.repositories.models.RezervacijaRepo;
 import init.repositories.models.RezervacijaReq;
 import init.repositories.models.StoRepo;
 import org.hibernate.SessionFactory;
@@ -36,6 +40,21 @@ public class RezervacijaController {
     @RequestMapping(path="/rezervisi", method = RequestMethod.POST)
     public ResponseWithMessageSuccess GetStoloviRestorana(@RequestBody RezervacijaReq req){
         return  rezervacijaRepo.rezervisi(req);
+    }
+
+    @RequestMapping(path="/jela", method = RequestMethod.GET)
+    public List<JeloEntity> GetJelaRestorana(int restoran){
+        return  restoranRepo.getJelaRestorana(restoran);
+    }
+
+    @RequestMapping(path="/pica", method = RequestMethod.GET)
+    public List<PiceEntity> GetPicaRestorana(int restoran){
+        return  restoranRepo.getPicaRestorana(restoran);
+    }
+
+    @RequestMapping(path="/rezervacije", method = RequestMethod.GET)
+    public List<RezervacijaRepo> GetRezervacijaRestorana(String email){
+        return  rezervacijaRepo.getRezervacijeKorisnika(email);
     }
 
 }

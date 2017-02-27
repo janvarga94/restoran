@@ -26,6 +26,7 @@ public class Main {
 
     public static Log log = LogFactory.getLog(Main.class.getName());
 
+    public static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     public static Session session;
     public static final String backendUrl = "http://localhost:8080";
     public static final String frontendUrl = "http://localhost:3000";
@@ -117,8 +118,8 @@ public class Main {
         for (int i=pocetak; i<kraj; i++) {
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             rezervacijaEntity.setIdRezervacije(i);
-            rezervacijaEntity.setIdRestorana(0);
-            rezervacijaEntity.setIdReona(i);
+      //      rezervacijaEntity.setIdRestorana(0);
+      //      rezervacijaEntity.setIdReona(i);
             rezervacijaEntity.setBrojStola(i);
             rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis()));
             rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis() + 10000*i));
