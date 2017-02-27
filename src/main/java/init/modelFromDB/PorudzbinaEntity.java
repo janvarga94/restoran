@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "porudzbina", schema = "restorani", catalog = "")
@@ -14,7 +14,6 @@ public class PorudzbinaEntity {
     private Timestamp kreirana;
     private int idPorudzbine;
     private String konobarEmail;
-    private int idRestorana;
     private String gostEmail;
     private Integer idRezervacije;
     private Timestamp privacenaOdKuvaraU;
@@ -70,16 +69,6 @@ public class PorudzbinaEntity {
 
     public void setKonobarEmail(String konobarEmail) {
         this.konobarEmail = konobarEmail;
-    }
-
-    @Basic
-    @Column(name = "ID_RESTORANA")
-    public int getIdRestorana() {
-        return idRestorana;
-    }
-
-    public void setIdRestorana(int idRestorana) {
-        this.idRestorana = idRestorana;
     }
 
     @Basic
@@ -150,7 +139,6 @@ public class PorudzbinaEntity {
         PorudzbinaEntity that = (PorudzbinaEntity) o;
 
         if (idPorudzbine != that.idPorudzbine) return false;
-        if (idRestorana != that.idRestorana) return false;
         if (spremnoU != null ? !spremnoU.equals(that.spremnoU) : that.spremnoU != null) return false;
         if (otkazanaOdStraneGosta != null ? !otkazanaOdStraneGosta.equals(that.otkazanaOdStraneGosta) : that.otkazanaOdStraneGosta != null)
             return false;
@@ -176,7 +164,6 @@ public class PorudzbinaEntity {
         result = 31 * result + (kreirana != null ? kreirana.hashCode() : 0);
         result = 31 * result + idPorudzbine;
         result = 31 * result + (konobarEmail != null ? konobarEmail.hashCode() : 0);
-        result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
         result = 31 * result + (idRezervacije != null ? idRezervacije.hashCode() : 0);
         result = 31 * result + (privacenaOdKuvaraU != null ? privacenaOdKuvaraU.hashCode() : 0);

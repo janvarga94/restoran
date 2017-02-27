@@ -80,6 +80,36 @@ var ZaposleniDetailService = (function () {
         })
             .catch(this.handleError);
     };
+    ZaposleniDetailService.prototype.getJela = function (idRestorana, kuvarEmail) {
+        var url = app_config_1.Config.BackendUrl + "/resursi/jela_za_kuvara";
+        console.log(url);
+        return this._http.get(url + "?kuvarMail=" + encodeURIComponent(kuvarEmail) + "&idRestorana=" + idRestorana)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.skuvanoJelo = function (idPorudzbine) {
+        var url = app_config_1.Config.BackendUrl + "/resursi/skuvano_jelo";
+        console.log(url);
+        return this._http.get(url + "?idPorudzbine=" + idPorudzbine)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.prihvacenoJelo = function (idPorudzbine) {
+        var url = app_config_1.Config.BackendUrl + "/resursi/prihvaceno_jelo";
+        console.log(url);
+        return this._http.get(url + "?idPorudzbine=" + idPorudzbine)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
     ZaposleniDetailService.prototype.getParam = function () {
         var params = new http_1.URLSearchParams(window.location.search);
         var someParam = params.get('re');

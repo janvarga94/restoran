@@ -3,7 +3,7 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "jelo_u_porudzbini", schema = "restorani", catalog = "")
@@ -12,6 +12,7 @@ public class JeloUPorudzbiniEntity {
     private String nazivJela;
     private Integer idPorudzbine;
     private String kuvarEmail;
+    private Integer idRestorana;
 
     @Id
     @Column(name = "ID_PORUDZBINE_JELA")
@@ -53,6 +54,16 @@ public class JeloUPorudzbiniEntity {
         this.kuvarEmail = kuvarEmail;
     }
 
+    @Basic
+    @Column(name = "ID_RESTORANA")
+    public Integer getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(Integer idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,6 +75,7 @@ public class JeloUPorudzbiniEntity {
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
         if (idPorudzbine != null ? !idPorudzbine.equals(that.idPorudzbine) : that.idPorudzbine != null) return false;
         if (kuvarEmail != null ? !kuvarEmail.equals(that.kuvarEmail) : that.kuvarEmail != null) return false;
+        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
 
         return true;
     }
@@ -74,6 +86,7 @@ public class JeloUPorudzbiniEntity {
         result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
         result = 31 * result + (idPorudzbine != null ? idPorudzbine.hashCode() : 0);
         result = 31 * result + (kuvarEmail != null ? kuvarEmail.hashCode() : 0);
+        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
         return result;
     }
 }

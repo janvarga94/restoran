@@ -47,6 +47,10 @@ export class ZaposleniDetailComponent implements OnInit{
 
     reon : number;
 
+    jela : any[] = [];
+    prihvacena : any[] = [];
+    neprihvacena : any[] = [];
+
     constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor")
@@ -75,6 +79,7 @@ export class ZaposleniDetailComponent implements OnInit{
             this.changeDate(this.currentDay, this.currentMonth, this.currentYear);
 
             this.refreshStolovi();
+            this.refreshJela();
 
         });
     }
@@ -160,6 +165,47 @@ export class ZaposleniDetailComponent implements OnInit{
         this.stolovi = [];
         this.zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
             this.stolovi = stolovi;
+        });
+    }
+
+    refreshJela() {
+        this.jela = [];
+        this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(jela => {
+            for (let jelo of jela) {
+                jelo[8] = this.getDatum(jelo[8]);
+                if (jelo[11]==null || jelo[11]<jelo[8]){
+                    this.neprihvacena.push(jelo);
+                } else if (jelo[0] == this.email){
+                    this.prihvacena[jelo];
+                }
+            }
+            this.jela = jela;
+            console.log(this.jela);
+        });
+    }
+
+    getDatum(broj : number) : string{
+        let datum = new Date(broj);
+        let dan = datum.getDate();
+        let mesec = datum.getMonth() + 1;
+        let godina = datum.getFullYear();
+        let sat = datum.getHours();
+        let minut = datum.getMinutes();
+
+        return dan+'.'+mesec+'.'+godina+'. '+sat+':'+minut
+    }
+
+    napravljeno(jelo : any){
+        console.log(jelo);
+        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(jelo => {
+
+        });
+    }
+
+    prihvaceno(jelo : any){
+        console.log(jelo);
+        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(jelo => {
+
         });
     }
 

@@ -3,13 +3,14 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "jelo", schema = "restorani", catalog = "")
+@IdClass(JeloEntityPK.class)
 public class JeloEntity {
     private String nazivJela;
-    private Integer idRestorana;
+    private int idRestorana;
     private Integer idTipaJela;
     private String opis;
     private Double cena;
@@ -24,13 +25,13 @@ public class JeloEntity {
         this.nazivJela = nazivJela;
     }
 
-    @Basic
+    @Id
     @Column(name = "ID_RESTORANA")
-    public Integer getIdRestorana() {
+    public int getIdRestorana() {
         return idRestorana;
     }
 
-    public void setIdRestorana(Integer idRestorana) {
+    public void setIdRestorana(int idRestorana) {
         this.idRestorana = idRestorana;
     }
 
@@ -71,8 +72,8 @@ public class JeloEntity {
 
         JeloEntity that = (JeloEntity) o;
 
+        if (idRestorana != that.idRestorana) return false;
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
-        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
         if (idTipaJela != null ? !idTipaJela.equals(that.idTipaJela) : that.idTipaJela != null) return false;
         if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
         if (cena != null ? !cena.equals(that.cena) : that.cena != null) return false;
@@ -83,7 +84,7 @@ public class JeloEntity {
     @Override
     public int hashCode() {
         int result = nazivJela != null ? nazivJela.hashCode() : 0;
-        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
+        result = 31 * result + idRestorana;
         result = 31 * result + (idTipaJela != null ? idTipaJela.hashCode() : 0);
         result = 31 * result + (opis != null ? opis.hashCode() : 0);
         result = 31 * result + (cena != null ? cena.hashCode() : 0);

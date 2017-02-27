@@ -88,11 +88,49 @@ export class ZaposleniDetailService {
             .catch(this.handleError);
     }
 
+    getJela(idRestorana : number, kuvarEmail : string) : Observable<any> {
+        let url = Config.BackendUrl+"/resursi/jela_za_kuvara";
+        console.log(url);
+        return this._http.get(url+"?kuvarMail="+encodeURIComponent(kuvarEmail)+"&idRestorana="+idRestorana)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
+    skuvanoJelo(idPorudzbine : number) : Observable<any> {
+        let url = Config.BackendUrl+"/resursi/skuvano_jelo";
+        console.log(url);
+        return this._http.get(url+"?idPorudzbine="+idPorudzbine)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
+    prihvacenoJelo(idPorudzbine : number) : Observable<any> {
+        let url = Config.BackendUrl+"/resursi/prihvaceno_jelo";
+        console.log(url);
+        return this._http.get(url+"?idPorudzbine="+idPorudzbine)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
     getParam(){
         let params = new URLSearchParams(window.location.search);
         let someParam = params.get('re');
         return someParam;
     }
+
+
 
 
 
