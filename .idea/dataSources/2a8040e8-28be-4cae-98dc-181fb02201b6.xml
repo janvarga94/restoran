@@ -9,8 +9,8 @@
     <schema id="3" parent="1" name="information_schema"/>
     <schema id="4" parent="1" name="mysql"/>
     <schema id="5" parent="1" name="performance_schema"/>
-    <schema id="6" parent="1" name="sakila"/>
-    <schema id="7" parent="1" name="sys"/>
+    <schema id="6" parent="1" name="sys"/>
+    <schema id="7" parent="1" name="sakila"/>
     <schema id="8" parent="1" name="world"/>
     <table id="9" parent="2" name="gost"/>
     <table id="10" parent="2" name="jelo"/>
@@ -148,24 +148,24 @@
       <Position>2</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
-    <column id="67" parent="12" name="KREIRANA">
+    <column id="67" parent="12" name="KUVAR_EMAIL">
+      <Position>7</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="68" parent="12" name="KREIRANA">
       <Position>3</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="68" parent="12" name="ID_RESTORANA">
+    <column id="69" parent="12" name="ID_RESTORANA">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="69" parent="12" name="GOST_EMAIL">
+    <column id="70" parent="12" name="GOST_EMAIL">
       <Position>5</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
-    <column id="70" parent="12" name="EMAIL">
+    <column id="71" parent="12" name="EMAIL">
       <Position>6</Position>
-      <DataType>varchar(30)|0</DataType>
-    </column>
-    <column id="71" parent="12" name="KUVAR_EMAIL">
-      <Position>7</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
     <index id="72" parent="12" name="FK_REFERENCE_34">
@@ -497,24 +497,24 @@ GOST_EMAIL</ColNames>
       <Position>2</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="142" parent="24" name="KREIRANA">
+    <column id="142" parent="24" name="SANKER_EMAIL">
+      <Position>7</Position>
+      <DataType>varchar(30)|0</DataType>
+    </column>
+    <column id="143" parent="24" name="KREIRANA">
       <Position>3</Position>
       <DataType>date|0</DataType>
     </column>
-    <column id="143" parent="24" name="ID_RESTORANA">
+    <column id="144" parent="24" name="ID_RESTORANA">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="144" parent="24" name="GOST_EMAIL">
+    <column id="145" parent="24" name="GOST_EMAIL">
       <Position>5</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
-    <column id="145" parent="24" name="EMAIL">
+    <column id="146" parent="24" name="EMAIL">
       <Position>6</Position>
-      <DataType>varchar(30)|0</DataType>
-    </column>
-    <column id="146" parent="24" name="SANKER_EMAIL">
-      <Position>7</Position>
       <DataType>varchar(30)|0</DataType>
     </column>
     <index id="147" parent="24" name="FK_REFERENCE_16">

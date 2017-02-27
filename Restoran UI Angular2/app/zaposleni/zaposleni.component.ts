@@ -40,4 +40,8 @@ export class ZaposleniComponent implements OnInit{
     detaljiZaposlenog(zaposleni : IZaposleni){
         console.log(zaposleni.radnikEmail);
     }
+
+    getBase(url : string) {
+        return btoa(url);
+    }
 }

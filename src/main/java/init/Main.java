@@ -118,8 +118,6 @@ public class Main {
         for (int i=pocetak; i<kraj; i++) {
             RezervacijaEntity rezervacijaEntity = new RezervacijaEntity();
             rezervacijaEntity.setIdRezervacije(i);
-      //      rezervacijaEntity.setIdRestorana(0);
-      //      rezervacijaEntity.setIdReona(i);
             rezervacijaEntity.setBrojStola(i);
             rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis()));
             rezervacijaEntity.setPocetak(new Timestamp(System.currentTimeMillis() + 10000*i));
@@ -218,7 +216,6 @@ public class Main {
             porudzbinaEntity.setIdRestorana(0);
             porudzbinaEntity.setIdPorudzbine(i);
 
-            porudzbinaEntity.setKreirana(new Date(System.currentTimeMillis()));
 
             session.save(porudzbinaEntity);
         }

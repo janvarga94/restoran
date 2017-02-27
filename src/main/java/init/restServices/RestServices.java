@@ -9,13 +9,15 @@ import init.modelFromDB.OcenaRestoranaEntity;
 import init.modelFromDB.RadnikEntity;
 import init.modelFromDB.RestoranEntity;
 import init.modelFromDB.SmenaEntity;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import init.services.ServiceRestorani;
 import sun.rmi.runtime.Log;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -37,6 +39,10 @@ public class RestServices {
 
     @RequestMapping(path="/restorani", method = RequestMethod.GET)
     public Collection<RestoranEntity> getRestorani(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         return (List<RestoranEntity>) session.createQuery("from RestoranEntity").list();
     }
 
@@ -48,11 +54,20 @@ public class RestServices {
 
     @RequestMapping(path = "/zaposleni", method=RequestMethod.GET)
     public Collection<RadnikEntity> getRadnici(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         return (List<RadnikEntity>) session.createQuery("from RadnikEntity").list();
     }
 
     @RequestMapping(path = "/get_zaposlen", method=RequestMethod.GET)
     public Object getRadnik(String radnikEmail){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Query query = session.createQuery("select p.radnikEmail, ke.lozinka, ke.ime, ke.prezime, p.konfekcijskiBroj, p.idRestorana, p.velicinaObuce from RadnikEntity as p, KorisnikEntity as ke where ke.email = p.radnikEmail and p.radnikEmail=:email")
                 .setParameter("email",radnikEmail);
         System.out.println(query.uniqueResult());
@@ -61,6 +76,11 @@ public class RestServices {
 
     @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
     public Collection<RestoranOcenaDTO> getRestoraniForGost(String email){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Collection<RestoranEntity> kolekc = (Collection<RestoranEntity>) session.createQuery("select r from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.gostEmail='"+email+"')").list();
 
         Collection<RestoranOcenaDTO> restOcena = new ArrayList<>();
@@ -75,6 +95,10 @@ public class RestServices {
 
     @RequestMapping(path = "/add_ocena_restoran", method=RequestMethod.POST)
     public void addOcenaRestorana(@RequestBody OcenaRestoranaEntity ocenaRestoranaEntity){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
 
         Main.log.info(ocenaRestoranaEntity);
 
@@ -97,6 +121,11 @@ public class RestServices {
 
     @RequestMapping(path = "/ocena_for_restoran", method=RequestMethod.GET)
     public double getOcenaForRestoran(int idRestorana){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Collection<OcenaRestoranaEntity> lista = (Collection<OcenaRestoranaEntity>) session.createQuery("from OcenaRestoranaEntity as ore where ore.idRestorana="+idRestorana).list();
 
         double ocena = 0;
@@ -108,13 +137,18 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/get_smene", method=RequestMethod.GET)
-    public List<SmenaDTO> getSmenaForRadnik(int idRestorana, int year, int month, int day) {
+    public List<Object> getSmenaForRadnik(int idRestorana, int year, int month, int day) {
 
-        List<SmenaDTO> lista = (List<SmenaDTO>) session.createQuery("select se.idRestorana, se.idSmene, se.pecetak, rre.radnikEmail, se.brojSmene, ke.ime, ke.prezime, se.brojSmene" +
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Object> lista = (List<Object>) session.createQuery("select se.idRestorana, se.idSmene, se.pecetak, rre.radnikEmail, se.brojSmene, ke.ime, ke.prezime, se.brojSmene" +
                 " from SmenaEntity as se, RasporedRadaEntity rre, KorisnikEntity ke where se.idRestorana="+idRestorana+" and rre.radnikEmail = ke.email and se.idSmene = rre.idSmene and se.pecetak = '"+year+"-"+month+"-"+day+"'").list();
 
+        if (lista == null) return new ArrayList<>();
 
-        return (List<SmenaDTO>) lista;
+        return (List<Object>) lista;
     }
 
     @RequestMapping(path = "/get_zanimanje", method = RequestMethod.GET)
@@ -131,6 +165,10 @@ public class RestServices {
     }
 
     public boolean isKonobar(String radnikEmail){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Query query = session.createQuery("select count(k.konobarEmail) from KonobarEntity as k where k.konobarEmail=:email")
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
@@ -141,6 +179,10 @@ public class RestServices {
     }
 
     public boolean isKuvar(String radnikEmail){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Query query = session.createQuery("select count(k.kuvarEmail) from KuvarEntity as k where k.kuvarEmail=:email")
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
@@ -151,6 +193,10 @@ public class RestServices {
     }
 
     public boolean isSanker(String radnikEmail){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
         Query query = session.createQuery("select count(s.sankerEmail) from SankerEntity as s where s.sankerEmail=:email")
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
@@ -162,11 +208,45 @@ public class RestServices {
     @RequestMapping(path = "/get_stolovi", method = RequestMethod.GET)
     public List<Object> getStolovi(int idRestorana) {
 
-        List<Object> lista = (List<Object>) session.createQuery("select sto.idReona, re.opis, sto.brojStola, rez.gostEmail, rez.pocetak, rez.kraj " +
-                "from StoEntity as sto left outer join RezervacijaEntity rez on sto.brojStola = rez.brojStola inner join ReonUSmeniEntity rus ON rus.idReona = sto.idReona inner join ReonEntity re ON re.idReona = sto.idReona " +
-                "where sto.idRestorana="+idRestorana).list();
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
 
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println(timestamp.toString());
+
+        String time = timestamp.toString().substring(0, timestamp.toString().lastIndexOf('.'));
+
+        List<Object> lista = session.createNativeQuery("select sto.ID_REONA, re.opis, sto.BROJ_STOLA, rez.GOST_EMAIL, rez.pocetak, rez.kraj\n" +
+                "from Sto as sto left outer join Rezervacija rez on sto.BROJ_STOLA = rez.BROJ_STOLA inner join reon_u_smeni rus ON rus.ID_REONA = sto.ID_REONA left outer join Reon re ON re.ID_REONA = sto.ID_REONA\n" +
+                "where ((rez.pocetak < '"+timestamp.toString()+"' and rez.kraj > '"+timestamp.toString()+"') or (rez.GOST_EMAIL is null))  and sto.ID_RESTORANA="+idRestorana).getResultList();
 
         return (List<Object>) lista;
+    }
+    @RequestMapping(path = "/get_reon", method = RequestMethod.GET)
+    public int getReon(int idSmene, int idRestorana, String konobarMail) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("select rus.idReona from ReonUSmeniEntity as rus where rus.konobarEmail='"+konobarMail+"' and rus.idRestorana="+idRestorana+" and rus.idSmene="+idSmene);
+        Object value = query.uniqueResult();
+        if (value == null)
+            return -1;
+        else
+            return (int) query.uniqueResult();
+
+    }
+
+    @RequestMapping(path = "/jela_za_kuvara", method = RequestMethod.GET)
+    public List<Object> getJela(String konobarMail) {
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Object> lista = session.createNativeQuery("").getResultList();
+
+        return (List<Object>) lista;
+
     }
 }

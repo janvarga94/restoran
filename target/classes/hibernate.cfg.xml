@@ -9,7 +9,7 @@
 
         <property name="connection.url">jdbc:mysql://localhost:3306/restorani</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">root123</property>
 
         <mapping class="init.modelFromDB.GostEntity"/>
         <mapping class="init.modelFromDB.JeloEntity"/>
@@ -33,7 +33,6 @@
         <mapping class="init.modelFromDB.PotraznjaRestoranaEntity"/>
         <mapping class="init.modelFromDB.PozivPrijateljaEntity"/>
         <mapping class="init.modelFromDB.PrijateljstvoEntity"/>
-        <mapping class="init.modelFromDB.RacunEntity"/>
         <mapping class="init.modelFromDB.RadnikEntity"/>
         <mapping class="init.modelFromDB.RasporedRadaEntity"/>
         <mapping class="init.modelFromDB.ReonEntity"/>

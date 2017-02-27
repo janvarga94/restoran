@@ -5,6 +5,7 @@ import {ZaposleniService} from "../services/zaposleni.service";
 import {Notificator} from "../services/notification.service";
 import {IZaposleni} from "../models/zaposleni";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
@@ -44,17 +45,20 @@ export class ZaposleniDetailComponent implements OnInit{
 
     stolovi : any[] = [];
 
+    reon : number;
+
     constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
         this.zaposleniDetailService = _zaposleniDetailService;
+        console.log("constructor")
     }
 
 
     ngOnInit(): void {
         this.route.params.subscribe(params => {
-            this.email = params['email'];
+            this.email = atob(params['email']);
+            console.log(this.email);
         });
 
-        console.log(this.email);
 
         let date = new Date();
         this.currentYear = date.getFullYear();
@@ -62,33 +66,18 @@ export class ZaposleniDetailComponent implements OnInit{
         this.currentDay = date.getDate();
         this.weekDay = date.getDay();
 
-
         this._zaposleniDetailService.getZaposlen(this.email).subscribe( zaposleni =>{
             //   this.restorani = restorani;
             this.zaposlen = zaposleni;
             this.idRestoran = zaposleni[5];
 
-            this._zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
-                this.stolovi = stolovi;
-            });
 
             this.changeDate(this.currentDay, this.currentMonth, this.currentYear);
 
-            console.log(this.zaposlen)
+            this.refreshStolovi();
+
         });
-
-        this._zaposleniDetailService.getZanimanje(this.email).subscribe(zanimanje => {
-            this.zanimanjeInt = zanimanje;
-        });
-
-
-
-
-
-
     }
-
-
 
     changeDate(day: number, month : number, year : number) {
         let newDate = new Date();
@@ -106,11 +95,9 @@ export class ZaposleniDetailComponent implements OnInit{
             this.currentMonth = month;
         }
         this.clickedOnDay(day);
-        console.log(this.currentMonth + "_"+ this.currentYear);
 
         newDate.setFullYear(this.currentYear, this.currentMonth-1, 1);
         let danUNedelji = newDate.getDay();
-        console.log(danUNedelji);
         if (danUNedelji < 1)
             danUNedelji += 7;
         for (let _j = danUNedelji; _j > 1; _j--){
@@ -131,30 +118,48 @@ export class ZaposleniDetailComponent implements OnInit{
 
 
     clickedOnDay(clickedDay : number) {
-        console.log(clickedDay);
 
         this.currentDay = clickedDay;
         this.smene = [];
         this.prvaSmena = [];
         this.drugaSmena = [];
         this.trecaSmena = [];
-        this.zaposleniDetailService.getSmena(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe( smena =>{
-            for (let sm of smena) {
-                this.smene.push(sm);
-                this.zaposleniDetailService.getZanimanje(sm[0]).subscribe(zanimanje =>{
-                    sm.push(zanimanje);
-                    if (sm[7] == this.zanimanjeInt) {
-                        console.log(sm[4]);
-                        if (sm[4] == 0) {
-                            this.prvaSmena.push(sm);
-                        } else if (sm[4] == 1) {
-                            this.drugaSmena.push(sm);
-                        } else if (sm[4] == 2) {
-                            this.trecaSmena.push(sm);
+
+        this.zaposleniDetailService.getZanimanje(this.email).subscribe(zanimanje =>{
+            this.zanimanjeInt = zanimanje;
+                console.log("Parametri za smenu"+this.idRestoran, this.currentYear, this.currentMonth, this.currentDay);
+                this.zaposleniDetailService.getSmene(this.idRestoran, this.currentYear, this.currentMonth, this.currentDay).subscribe( smene => {
+                    console.log("izvrsio smene");
+                    for (let smena of smene) {
+                        console.log(smena[3]);
+                        if (smena[3] == this.email){
+                            console.log("Entered if for reon");
+                            this.zaposleniDetailService.getReon(smena[1], smena[0], this.email).subscribe(reon => {
+                                //console.log(sm[1], sm[0], this.email);
+                                this.reon = reon;
+                            })
+                        }
+                        smena.push(zanimanje);
+                        this.smene.push(smena);
+                        if (smena[7] == this.zanimanjeInt) {
+                            if (smena[4] == 0) {
+                                this.prvaSmena.push(smena);
+                            } else if (smena[4] == 1) {
+                                this.drugaSmena.push(smena);
+                            } else if (smena[4] == 2) {
+                                this.trecaSmena.push(smena);
+                            }
                         }
                     }
                 });
-            }
+
+            });
+    }
+
+    refreshStolovi() {
+        this.stolovi = [];
+        this.zaposleniDetailService.getStolovi(this.idRestoran).subscribe(stolovi => {
+            this.stolovi = stolovi;
         });
     }
 

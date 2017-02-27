@@ -38,6 +38,7 @@ public class RezervacijaRepository {
         rezervacija.setKraj(new Timestamp(rezervacijaReq.kraj));
         rezervacija.setPocetak(new Timestamp(rezervacijaReq.pocetak));
 
+
         session.save(rezervacija);
 
         for(String pozvani : rezervacijaReq.pozvaniPrijatelji){

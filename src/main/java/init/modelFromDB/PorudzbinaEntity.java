@@ -1,33 +1,34 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
- * Created by janva on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/26/2017.
  */
 @Entity
 @Table(name = "porudzbina", schema = "restorani", catalog = "")
-@IdClass(PorudzbinaEntityPK.class)
 public class PorudzbinaEntity {
-    private Date spremnoU;
+    private Timestamp spremnoU;
     private Byte otkazanaOdStraneGosta;
-    private Date kreirana;
+    private Timestamp kreirana;
     private int idPorudzbine;
     private String konobarEmail;
     private int idRestorana;
     private String gostEmail;
     private Integer idRezervacije;
-    private Date privacenaOdKuvaraU;
-    private Date gostZeliSpremnoU;
+    private Timestamp privacenaOdKuvaraU;
+    private Timestamp gostZeliSpremnoU;
+    private Integer ukupnaCena;
+    private Byte placeno;
 
     @Basic
     @Column(name = "SPREMNO_U")
-    public Date getSpremnoU() {
+    public Timestamp getSpremnoU() {
         return spremnoU;
     }
 
-    public void setSpremnoU(Date spremnoU) {
+    public void setSpremnoU(Timestamp spremnoU) {
         this.spremnoU = spremnoU;
     }
 
@@ -41,17 +42,17 @@ public class PorudzbinaEntity {
         this.otkazanaOdStraneGosta = otkazanaOdStraneGosta;
     }
 
-    @Id
+    @Basic
     @Column(name = "KREIRANA")
-    public Date getKreirana() {
+    public Timestamp getKreirana() {
         return kreirana;
     }
 
-    public void setKreirana(Date kreirana) {
+    public void setKreirana(Timestamp kreirana) {
         this.kreirana = kreirana;
     }
 
-    @Basic
+    @Id
     @Column(name = "ID_PORUDZBINE")
     public int getIdPorudzbine() {
         return idPorudzbine;
@@ -71,7 +72,7 @@ public class PorudzbinaEntity {
         this.konobarEmail = konobarEmail;
     }
 
-    @Id
+    @Basic
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
         return idRestorana;
@@ -81,7 +82,7 @@ public class PorudzbinaEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Id
+    @Basic
     @Column(name = "GOST_EMAIL")
     public String getGostEmail() {
         return gostEmail;
@@ -103,22 +104,42 @@ public class PorudzbinaEntity {
 
     @Basic
     @Column(name = "PRIVACENA_OD_KUVARA_U")
-    public Date getPrivacenaOdKuvaraU() {
+    public Timestamp getPrivacenaOdKuvaraU() {
         return privacenaOdKuvaraU;
     }
 
-    public void setPrivacenaOdKuvaraU(Date privacenaOdKuvaraU) {
+    public void setPrivacenaOdKuvaraU(Timestamp privacenaOdKuvaraU) {
         this.privacenaOdKuvaraU = privacenaOdKuvaraU;
     }
 
     @Basic
     @Column(name = "GOST_ZELI_SPREMNO_U")
-    public Date getGostZeliSpremnoU() {
+    public Timestamp getGostZeliSpremnoU() {
         return gostZeliSpremnoU;
     }
 
-    public void setGostZeliSpremnoU(Date gostZeliSpremnoU) {
+    public void setGostZeliSpremnoU(Timestamp gostZeliSpremnoU) {
         this.gostZeliSpremnoU = gostZeliSpremnoU;
+    }
+
+    @Basic
+    @Column(name = "UKUPNA_CENA")
+    public Integer getUkupnaCena() {
+        return ukupnaCena;
+    }
+
+    public void setUkupnaCena(Integer ukupnaCena) {
+        this.ukupnaCena = ukupnaCena;
+    }
+
+    @Basic
+    @Column(name = "PLACENO")
+    public Byte getPlaceno() {
+        return placeno;
+    }
+
+    public void setPlaceno(Byte placeno) {
+        this.placeno = placeno;
     }
 
     @Override
@@ -142,6 +163,8 @@ public class PorudzbinaEntity {
             return false;
         if (gostZeliSpremnoU != null ? !gostZeliSpremnoU.equals(that.gostZeliSpremnoU) : that.gostZeliSpremnoU != null)
             return false;
+        if (ukupnaCena != null ? !ukupnaCena.equals(that.ukupnaCena) : that.ukupnaCena != null) return false;
+        if (placeno != null ? !placeno.equals(that.placeno) : that.placeno != null) return false;
 
         return true;
     }
@@ -158,6 +181,8 @@ public class PorudzbinaEntity {
         result = 31 * result + (idRezervacije != null ? idRezervacije.hashCode() : 0);
         result = 31 * result + (privacenaOdKuvaraU != null ? privacenaOdKuvaraU.hashCode() : 0);
         result = 31 * result + (gostZeliSpremnoU != null ? gostZeliSpremnoU.hashCode() : 0);
+        result = 31 * result + (ukupnaCena != null ? ukupnaCena.hashCode() : 0);
+        result = 31 * result + (placeno != null ? placeno.hashCode() : 0);
         return result;
     }
 }
