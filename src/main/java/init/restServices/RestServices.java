@@ -114,9 +114,8 @@ public class RestServices {
         }
         session.save(ocenaRestoranaEntity);
 
-        session.getTransaction().commit();
+        session.flush();
 
-        session.beginTransaction();
     }
 
     @RequestMapping(path = "/ocena_for_restoran", method=RequestMethod.GET)

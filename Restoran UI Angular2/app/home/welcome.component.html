@@ -20,6 +20,11 @@
         position: absolute;
     }
 
+     h2{
+        font-weight: normal;
+        font-size: 50px;
+    }
+
 </style>
 
 <div class="jumbotron" *ngIf="!ulogovan">
@@ -32,35 +37,49 @@
     </p>
 </div>
 
-<div class="row" *ngIf="ulogovan" style="margin-top : 50px;">
-    <p style="font-size : 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{ulogovan.ime}}</p>
-    <hr class="my-1">
+
+<h2 style="margin-top:20px;">Svi restorani</h2>
+<div class="row  pre-scrollable" style="margin-top: 10px;">
+    <div class="col-md-4" *ngFor="let restoran of sviRestorani" style="margin-top: 20px;">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{restoran.naziv | limitDuzineStringa : 20 }}</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <button class="btn btn-primary" [routerLink]="['/rezervacija',restoran.idRestorana]">Rezervisi</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<b>Posećeni restorani</b>
-<div *ngIf="restorani != null">
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Naziv</th>
-            <th>Vrsta</th>
-            <th>Ocena</th>
-            <th><p style="float: right">Oceni</p></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let restoran of restorani">
-            <td>{{restoran.restoranEntity.idRestorana}}</td>
-            <td>{{restoran.restoranEntity.naziv}}</td>
-            <td>{{restoran.restoranEntity.vrsta}}</td>
-            <td>{{restoran.ocena}}</td>
-            <td >
-                <div class="rating">
-                    <span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 5)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 4)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 3)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 2)">☆</span><span (click)="rate(restoran.restoranEntity.idRestorana, _loginService.emailUlogovanog, 1)">☆</span>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
+
+
+<h2 style="margin-top:20px;">Posete</h2>
+
+<div class="row" *ngIf="poseceniRestorani != null">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Vrsta</th>
+                <th>Datum posete</th>
+                <th>Ocena</th>
+                <th style="float : right">Oceni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let restoran of poseceniRestorani">
+                <td>{{restoran.restoranNaziv}}</td>
+                <td>{{restoran.vrstaRestorana}}</td>
+                <td>{{getDatum(restoran.pocetak)}}</td>
+                <td>{{restoran.ocenaRestorana}}</td>
+                <td >
+                    <div class="rating">
+                        <span *ngFor="let i of [5,4,3,2,1]" (click)="rate(restoran.restoranId, ulogovan.email, i)">☆</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+

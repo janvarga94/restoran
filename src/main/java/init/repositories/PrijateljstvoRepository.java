@@ -60,6 +60,10 @@ public class PrijateljstvoRepository {
         try{
             PrijateljstvoEntity ppp = session.get(PrijateljstvoEntity.class,pk);
             if(ppp == null)  ppp = session.get(PrijateljstvoEntity.class,pk2);
+
+            //prvo moramo obrisati pozive prijatelja zbog referencijalnog integr.
+
+
             session.delete(ppp);
             session.flush();
         }catch(Exception e){

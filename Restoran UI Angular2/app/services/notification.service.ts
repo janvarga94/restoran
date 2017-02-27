@@ -19,7 +19,7 @@ export class Notificator implements INotificator{
             new ToasterConfig({
                 showCloseButton: true, 
                 tapToDismiss: false, 
-                timeout: 3000
+                timeout: 7000
             });
         
         

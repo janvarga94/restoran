@@ -1,3 +1,4 @@
+import { Config } from './../app.config';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
@@ -14,6 +15,7 @@ import { Notificator } from './notification.service';
 @Injectable()
 export class RestoranService {
     private _restoraniUrl = 'http://localhost:8080/resursi/restorani';
+    private _restoraniSviUrl = Config.BackendUrl + '/restorani/getAll';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -42,6 +44,13 @@ export class RestoranService {
             .catch(this.handleError);        
     }
 
+    getSviRestorani(): Observable<IRestoran[]> {
+        return this._http.get(this._restoraniSviUrl)
+            .map((response: Response) => {
+                return <any> response.json();          
+            })
+            .catch(this.handleError);
+    }
 
 
     private handleError(error: Response) {

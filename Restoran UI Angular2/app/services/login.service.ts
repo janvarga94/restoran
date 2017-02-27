@@ -52,6 +52,9 @@ export class LoginService {
                         localStorage.setItem("ISA-email", email);   
                         localStorage.setItem("ISA-password", password);                  
                    }
+
+                   
+
                 }else{
                     this._notificator.notifyInfo("Pogresno ime/lozinka ili nalog nije aktiviran");
                 }

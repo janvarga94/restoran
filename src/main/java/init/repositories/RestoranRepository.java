@@ -1,10 +1,7 @@
 package init.repositories;
 
 import init.Main;
-import init.modelFromDB.JeloEntity;
-import init.modelFromDB.KorisnikEntity;
-import init.modelFromDB.PiceEntity;
-import init.modelFromDB.StoEntity;
+import init.modelFromDB.*;
 import init.repositories.models.PocetakKrajPair;
 import init.repositories.models.StoRepo;
 import org.hibernate.SessionFactory;
@@ -79,5 +76,14 @@ public class RestoranRepository {
         session.close();
 
         return jela;
+    }
+
+    public List<RestoranEntity> getSviRestorani(){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<RestoranEntity> list = session.createNativeQuery("SELECT * FROM restoran",RestoranEntity.class).getResultList();
+        session.close();
+        return list;
     }
 }

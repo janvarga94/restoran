@@ -16,4 +16,6 @@ public class RezervacijaRepo {
     public int idRezervacije;
     public int restoranId;
     public String restoranNaziv;
+    public int ocenaRestorana;
+    public String vrstaRestorana;
 }

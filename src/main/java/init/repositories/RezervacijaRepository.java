@@ -86,8 +86,9 @@ public class RezervacijaRepository {
         org.hibernate.Session session = Main.sessionFactory.openSession();
         session.beginTransaction();
 
-        String query = "SELECT rezervacija.ID_REZERVACIJE, rezervacija.GOST_EMAIL, restoran.NAZIV, restoran.ID_RESTORANA, rezervacija.POCETAK, rezervacija.KRAJ, sto.BROJ_STOLA FROM rezervacija natural join sto natural join reon inner join restoran on restoran.ID_RESTORANA = reon.ID_REONA\n" +
-                "\twhere rezervacija.GOST_EMAIL =  '" + email + "'";
+        String query = "SELECT rezervacija.ID_REZERVACIJE, rezervacija.GOST_EMAIL, restoran.NAZIV, restoran.ID_RESTORANA, rezervacija.POCETAK, rezervacija.KRAJ, sto.BROJ_STOLA, ocena_restorana.OCENA , restoran.VRSTA\n" +
+                "FROM rezervacija natural join sto natural join reon inner join restoran on restoran.ID_RESTORANA = reon.ID_REONA inner join ocena_restorana on ocena_restorana.ID_RESTORANA = restoran.ID_RESTORANA\n" +
+                "where rezervacija.GOST_EMAIL = '" + email + "'";
         List<Object[]> results= new ArrayList<>();
         try {
            results = session.createNativeQuery(query).getResultList();
@@ -104,6 +105,8 @@ public class RezervacijaRepository {
             rez.kraj = ((Timestamp) r[5]).getTime();
             rez.restoranId = (int) r[3];
             rez.restoranNaziv = (String) r[2];
+            rez.ocenaRestorana = (int) r[7];
+            rez.vrstaRestorana = (String) r[8];
 
             returnValue.add(rez);
         }

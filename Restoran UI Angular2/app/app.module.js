@@ -5,7 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var rezervacija_service_1 = require("./services/rezervacija.service");
 var GostPozvanPipe_1 = require("./pipes/GostPozvanPipe");
 var rezervacije_component_1 = require("./rezervacije/rezervacije.component");
@@ -64,7 +63,7 @@ AppModule = __decorate([
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
                 { path: 'rezervacija/:idRestorana', component: rezervacija_component_1.RezervacijaComponent },
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
-                { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+                { path: '', redirectTo: 'login', pathMatch: 'full' },
             ]),
         ],
         declarations: [
