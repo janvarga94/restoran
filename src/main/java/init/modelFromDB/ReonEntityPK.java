@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 public class ReonEntityPK implements Serializable {
     private int idReona;

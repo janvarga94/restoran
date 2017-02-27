@@ -28,6 +28,9 @@ var ZaposleniDetailComponent = (function () {
         this.drugaSmena = [];
         this.trecaSmena = [];
         this.stolovi = [];
+        this.jela = [];
+        this.prihvacena = [];
+        this.neprihvacena = [];
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor");
     }
@@ -48,6 +51,7 @@ var ZaposleniDetailComponent = (function () {
             _this.idRestoran = zaposleni[5];
             _this.changeDate(_this.currentDay, _this.currentMonth, _this.currentYear);
             _this.refreshStolovi();
+            _this.refreshJela();
         });
     };
     ZaposleniDetailComponent.prototype.changeDate = function (day, month, year) {
@@ -128,6 +132,43 @@ var ZaposleniDetailComponent = (function () {
         this.stolovi = [];
         this.zaposleniDetailService.getStolovi(this.idRestoran).subscribe(function (stolovi) {
             _this.stolovi = stolovi;
+        });
+    };
+    ZaposleniDetailComponent.prototype.refreshJela = function () {
+        var _this = this;
+        this.jela = [];
+        this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(function (jela) {
+            for (var _a = 0, jela_1 = jela; _a < jela_1.length; _a++) {
+                var jelo = jela_1[_a];
+                jelo[8] = _this.getDatum(jelo[8]);
+                if (jelo[11] == null || jelo[11] < jelo[8]) {
+                    _this.neprihvacena.push(jelo);
+                }
+                else if (jelo[0] == _this.email) {
+                    _this.prihvacena[jelo];
+                }
+            }
+            _this.jela = jela;
+            console.log(_this.jela);
+        });
+    };
+    ZaposleniDetailComponent.prototype.getDatum = function (broj) {
+        var datum = new Date(broj);
+        var dan = datum.getDate();
+        var mesec = datum.getMonth() + 1;
+        var godina = datum.getFullYear();
+        var sat = datum.getHours();
+        var minut = datum.getMinutes();
+        return dan + '.' + mesec + '.' + godina + '. ' + sat + ':' + minut;
+    };
+    ZaposleniDetailComponent.prototype.napravljeno = function (jelo) {
+        console.log(jelo);
+        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(function (jelo) {
+        });
+    };
+    ZaposleniDetailComponent.prototype.prihvaceno = function (jelo) {
+        console.log(jelo);
+        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(function (jelo) {
         });
     };
     ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {

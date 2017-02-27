@@ -3,13 +3,15 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "jelo_od_namirnica", schema = "restorani", catalog = "")
+@IdClass(JeloOdNamirnicaEntityPK.class)
 public class JeloOdNamirnicaEntity {
     private int idNamirnice;
     private String nazivJela;
+    private int idRestorana;
 
     @Basic
     @Column(name = "ID_NAMIRNICE")
@@ -31,6 +33,16 @@ public class JeloOdNamirnicaEntity {
         this.nazivJela = nazivJela;
     }
 
+    @Id
+    @Column(name = "ID_RESTORANA")
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +51,7 @@ public class JeloOdNamirnicaEntity {
         JeloOdNamirnicaEntity that = (JeloOdNamirnicaEntity) o;
 
         if (idNamirnice != that.idNamirnice) return false;
+        if (idRestorana != that.idRestorana) return false;
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
 
         return true;
@@ -48,6 +61,7 @@ public class JeloOdNamirnicaEntity {
     public int hashCode() {
         int result = idNamirnice;
         result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
+        result = 31 * result + idRestorana;
         return result;
     }
 }

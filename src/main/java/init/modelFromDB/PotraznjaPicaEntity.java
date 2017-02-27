@@ -3,7 +3,7 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/26/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "potraznja_pica", schema = "restorani", catalog = "")
@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class PotraznjaPicaEntity {
     private String naziv;
     private int idPotraznje;
+    private int idRestorana;
 
     @Id
     @Column(name = "NAZIV")
@@ -32,6 +33,16 @@ public class PotraznjaPicaEntity {
         this.idPotraznje = idPotraznje;
     }
 
+    @Id
+    @Column(name = "ID_RESTORANA")
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -40,6 +51,7 @@ public class PotraznjaPicaEntity {
         PotraznjaPicaEntity that = (PotraznjaPicaEntity) o;
 
         if (idPotraznje != that.idPotraznje) return false;
+        if (idRestorana != that.idRestorana) return false;
         if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
 
         return true;
@@ -49,6 +61,7 @@ public class PotraznjaPicaEntity {
     public int hashCode() {
         int result = naziv != null ? naziv.hashCode() : 0;
         result = 31 * result + idPotraznje;
+        result = 31 * result + idRestorana;
         return result;
     }
 }

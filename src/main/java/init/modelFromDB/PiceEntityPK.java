@@ -1,21 +1,18 @@
 package init.modelFromDB;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  * Created by Svetozar Stojkovic on 2/27/2017.
  */
-@Entity
-@Table(name = "pice", schema = "restorani", catalog = "")
-@IdClass(PiceEntityPK.class)
-public class PiceEntity {
+public class PiceEntityPK implements Serializable {
     private String nazivPica;
     private int idRestorana;
-    private String opis;
-    private Double cena;
 
-    @Id
     @Column(name = "NAZIV_PICA")
+    @Id
     public String getNazivPica() {
         return nazivPica;
     }
@@ -24,8 +21,8 @@ public class PiceEntity {
         this.nazivPica = nazivPica;
     }
 
-    @Id
     @Column(name = "ID_RESTORANA")
+    @Id
     public int getIdRestorana() {
         return idRestorana;
     }
@@ -34,37 +31,15 @@ public class PiceEntity {
         this.idRestorana = idRestorana;
     }
 
-    @Basic
-    @Column(name = "OPIS")
-    public String getOpis() {
-        return opis;
-    }
-
-    public void setOpis(String opis) {
-        this.opis = opis;
-    }
-
-    @Basic
-    @Column(name = "CENA")
-    public Double getCena() {
-        return cena;
-    }
-
-    public void setCena(Double cena) {
-        this.cena = cena;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PiceEntity that = (PiceEntity) o;
+        PiceEntityPK that = (PiceEntityPK) o;
 
         if (idRestorana != that.idRestorana) return false;
         if (nazivPica != null ? !nazivPica.equals(that.nazivPica) : that.nazivPica != null) return false;
-        if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
-        if (cena != null ? !cena.equals(that.cena) : that.cena != null) return false;
 
         return true;
     }
@@ -73,8 +48,6 @@ public class PiceEntity {
     public int hashCode() {
         int result = nazivPica != null ? nazivPica.hashCode() : 0;
         result = 31 * result + idRestorana;
-        result = 31 * result + (opis != null ? opis.hashCode() : 0);
-        result = 31 * result + (cena != null ? cena.hashCode() : 0);
         return result;
     }
 }

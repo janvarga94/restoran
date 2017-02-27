@@ -213,7 +213,7 @@ public class Main {
         for(int i=pocetak; i<kraj; i++){
             PorudzbinaEntity porudzbinaEntity = new PorudzbinaEntity();
             porudzbinaEntity.setGostEmail("email"+i);
-            porudzbinaEntity.setIdRestorana(0);
+//            porudzbinaEntity.setIdRestorana(0);
             porudzbinaEntity.setIdPorudzbine(i);
 
 
