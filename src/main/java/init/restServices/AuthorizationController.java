@@ -10,6 +10,7 @@ import init.repositories.KorisnikRepository;
 import init.repositories.models.KorisnikRepo;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -132,7 +133,7 @@ public class AuthorizationController {
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("select g from TokenEntity as g where g.tokenString=:tokenString")
+        org.hibernate.Query query = session.createQuery("select g from TokenEntity as g where g.tokenString=:tokenString")
                 .setParameter("tokenString",tokenString);
 
         TokenEntity t = (TokenEntity) query.uniqueResult();

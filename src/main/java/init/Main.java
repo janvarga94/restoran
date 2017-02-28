@@ -26,7 +26,7 @@ public class Main {
 
     public static Log log = LogFactory.getLog(Main.class.getName());
 
-    public static Session session;
+    public static SessionFactory sessionFactory;
     public static final String backendUrl = "http://localhost:8080";
     public static final String frontendUrl = "http://localhost:3000";
 
@@ -36,7 +36,7 @@ public class Main {
     public static void main(String[] args) {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
 //        popuniRestorane();
@@ -58,7 +58,7 @@ public class Main {
 
     private static void popuniReone() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -75,7 +75,7 @@ public class Main {
 
     private static void popuniReoneUSmeni() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -93,7 +93,7 @@ public class Main {
 
     private static void popuniStolove() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -111,7 +111,7 @@ public class Main {
 
     private static void popuniRezervacije() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -130,7 +130,7 @@ public class Main {
 
     private static void popuniTipoveJela() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -147,7 +147,7 @@ public class Main {
     private static void popuniKonKuvSan() {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for (int i=pocetak; i<kraj; i++) {
@@ -179,7 +179,7 @@ public class Main {
 
     private static void popuniRadnike() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){
@@ -206,7 +206,7 @@ public class Main {
     private static void popuniPorudzbine() {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){
@@ -224,7 +224,7 @@ public class Main {
     private static void popuniKorisnike() {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){
@@ -247,7 +247,7 @@ public class Main {
 
     private static void popuniRestorane() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){
@@ -269,7 +269,7 @@ public class Main {
 
     private static void popuniSmene() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){
@@ -286,7 +286,7 @@ public class Main {
 
     private static void popuniRasporedSmena() {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         for(int i=pocetak; i<kraj; i++){

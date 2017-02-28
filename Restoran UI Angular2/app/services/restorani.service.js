@@ -16,11 +16,18 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 var notification_service_1 = require("./notification.service");
+var app_config_1 = require("../app.config");
 var RestoranService = (function () {
     function RestoranService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
         this._restoraniUrl = 'http://localhost:8080/resursi/restorani';
+        this._restoraniSviUrl = app_config_1.Config.BackendUrl + '/restorani/getAll';
+        this.dodaj = app_config_1.Config.BackendUrl + '/resursi/add';
+        this._managerRestoranaUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
+        this._addPonudjac = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonudjac';
+        this._addReon = app_config_1.Config.BackendUrl + '/menadzerRestorana/addReon';
+        this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -33,19 +40,65 @@ var RestoranService = (function () {
         })
             .catch(this.handleError);
     };
-    RestoranService.prototype.getRestoran = function (id) {
-        return this.getRestorani()
-            .map(function (restorani) { return restorani.find(function (r) { return r.naziv === id; }); })
+    /* getRestoran(id: string): Observable<IRestoran> {
+         return this.getRestorani()email
+             .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+             .catch(this.handleError);
+     } */
+    RestoranService.prototype.getManagerRestoranID = function (email) {
+        return this._http.get(this._managerRestoranaUrl + "?email=" + email)
+            .map(function (response) {
+            var id = response.json();
+            return id;
+        })
             .catch(this.handleError);
     };
+    RestoranService.prototype.getRestoran = function () {
+    };
+    /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
+           return this._http.get("api/successResponse.json")
+             .map((response: Response) => {   return <ISuccess> response.json(); })
+             .catch(this.handleError);
+     } */
+    /* addRestoran(restoran : any) {
+  
+     } */
     RestoranService.prototype.addRestoran = function (restoran) {
-        return this._http.get("api/successResponse.json")
-            .map(function (response) { return response.json(); })
+        return this._http.post(this.dodaj, restoran).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addPonudjac = function (ponudjac) {
+        return this._http.post(this._addPonudjac, ponudjac).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addReon = function (reon) {
+        return this._http.post(this._addReon, reon).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.getJelovnik = function (email) {
+        return this._http.get(this._getJelovnik + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var jelovnik = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            console.log(jelovnik.length);
+            return jelovnik;
+        })
             .catch(this.handleError);
     };
     RestoranService.prototype.getLongLat = function (adresa) {
         return this._http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(adresa) + "&key=AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc")
             .map(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getSviRestorani = function () {
+        return this._http.get(this._restoraniSviUrl)
+            .map(function (response) {
+            return response.json();
+        })
             .catch(this.handleError);
     };
     RestoranService.prototype.handleError = function (error) {

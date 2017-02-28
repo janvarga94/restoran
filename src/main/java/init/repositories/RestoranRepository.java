@@ -1,6 +1,8 @@
 package init.repositories;
 
+import init.Main;
 import init.modelFromDB.KorisnikEntity;
+import init.modelFromDB.RestoranEntity;
 import init.modelFromDB.StoEntity;
 import init.repositories.models.PocetakKrajPair;
 import init.repositories.models.StoRepo;
@@ -53,5 +55,14 @@ public class RestoranRepository {
         }
 
         return returnValue;
+    }
+
+    public List<RestoranEntity> getSviRestorani(){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<RestoranEntity> list = session.createNativeQuery("SELECT * FROM restoran",RestoranEntity.class).getResultList();
+        session.close();
+        return list;
     }
 }

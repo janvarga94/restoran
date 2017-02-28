@@ -3218,7 +3218,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o73">
 <a:CreationDate>1482274212</a:CreationDate>
 <a:ModificationDate>1482275010</a:ModificationDate>
-<a:Rect>((-24173,32462), (-23723,44414))</a:Rect>
+<a:Rect>((-24448,32462), (-23448,44414))</a:Rect>
 <a:ListOfPoints>((-23948,44414),(-23948,32462))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
@@ -3302,7 +3302,7 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o83">
 <a:CreationDate>1486032283</a:CreationDate>
 <a:ModificationDate>1486032283</a:ModificationDate>
-<a:Rect>((38945,24419), (39395,33661))</a:Rect>
+<a:Rect>((38670,24419), (39670,33661))</a:Rect>
 <a:ListOfPoints>((39170,33661),(39170,24419))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
