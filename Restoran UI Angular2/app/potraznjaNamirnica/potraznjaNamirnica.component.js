@@ -6,17 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by Stefan on 2/28/2017.
+ */
 var core_1 = require("@angular/core");
-var PageNotFoundComponent = (function () {
-    function PageNotFoundComponent() {
+var PotraznjaNamirnicaComponent = (function () {
+    function PotraznjaNamirnicaComponent() {
     }
-    return PageNotFoundComponent;
+    PotraznjaNamirnicaComponent.prototype.ngOnInit = function () {
+    };
+    return PotraznjaNamirnicaComponent;
 }());
-PageNotFoundComponent = __decorate([
+PotraznjaNamirnicaComponent = __decorate([
     core_1.Component({
-        selector: 'restoran-detail',
-        templateUrl: 'app/page not found/pageNotFound.component.html'
+        selector: 'potraznjanamirnica',
+        templateUrl: 'app/potraznjaNamirnica/potraznjaNamirnica.component.html',
     })
-], PageNotFoundComponent);
-exports.PageNotFoundComponent = PageNotFoundComponent;
-//# sourceMappingURL=pageNotFound.component.js.map
+], PotraznjaNamirnicaComponent);
+exports.PotraznjaNamirnicaComponent = PotraznjaNamirnicaComponent;
+//# sourceMappingURL=potraznjaNamirnica.component.js.map

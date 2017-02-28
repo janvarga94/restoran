@@ -11,7 +11,7 @@ import { IRestoran } from '../models/restoran';
 import { ISuccess} from '../models/ISuccess';
 
 import { Notificator } from './notification.service';
-import {Config} from "../app.config";
+
 import {IJelo} from "../models/jelo";
 
 @Injectable()
