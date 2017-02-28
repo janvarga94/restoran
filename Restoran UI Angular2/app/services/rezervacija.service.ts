@@ -31,6 +31,7 @@ export class RezervacijaService {
     private _poruciPicaUrl = Config.BackendUrl + '/rezervacija/poruciPica';
     private _porucenaJelaUrl = Config.BackendUrl + '/rezervacija/porucenaJela';
     private _porucenaPicaUrl = Config.BackendUrl + '/rezervacija/porucenaPica';
+    private _poziviURestorane = Config.BackendUrl + '/rezervacija/poziviIciSaPrijateljima';
 
     constructor(private _http: Http, private _notificator: Notificator) {
 
@@ -104,6 +105,14 @@ export class RezervacijaService {
         return this._http.get(this._rezervaicjeUrl+"?email="+encodeURIComponent(email))
             .map((response: Response) => {
                 return response.json();
+            })
+            .catch(this.handleError);
+    }
+
+     getPoziveURestorane(email: any): Observable<any[]> {
+        return this._http.get(this._poziviURestorane+"?email="+encodeURIComponent(email))
+            .map((response: Response) => {
+                return response.json();   
             })
             .catch(this.handleError);
     }

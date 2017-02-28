@@ -2,7 +2,6 @@
  * Created by Stefan on 2/25/2017.
  */
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
