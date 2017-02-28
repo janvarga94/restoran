@@ -138,7 +138,7 @@ export class RezervacijeComponent implements OnInit{
     }
 
     getDate(date : any){
-        return (new Date(date)).toISOString().slice(0, 16);
+        return (new Date(date)).toLocaleString().slice(0, 16);
     }
 
     toFixed(num : any){

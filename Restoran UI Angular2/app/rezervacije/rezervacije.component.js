@@ -125,7 +125,7 @@ var RezervacijeComponent = (function () {
         return Math.floor(Math.random() * (max - min)) + min;
     };
     RezervacijeComponent.prototype.getDate = function (date) {
-        return (new Date(date)).toISOString().slice(0, 16);
+        return (new Date(date)).toLocaleString().slice(0, 16);
     };
     RezervacijeComponent.prototype.toFixed = function (num) {
         return num.toFixed(1);
