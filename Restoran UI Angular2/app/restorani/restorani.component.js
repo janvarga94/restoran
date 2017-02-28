@@ -23,9 +23,12 @@ var RestoraniComponent = (function () {
         this._restoranService.getRestorani().subscribe(function (restorani) {
             //   this.restorani = restorani;
             _this.restorani = restorani;
+            for (var _i = 0, restorani_1 = restorani; _i < restorani_1.length; _i++) {
+                var rest = restorani_1[_i];
+                _this.getLongLat(rest['adresa']);
+            }
         });
         //   console.log(this.restorani.length);
-        this.getLongLat("janka cmelika 23 novi sad");
     };
     RestoraniComponent.prototype.getLongLat = function (adresa) {
         var _this = this;

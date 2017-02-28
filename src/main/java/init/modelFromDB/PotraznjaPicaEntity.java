@@ -3,15 +3,15 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/27/2017.
+ * Created by Svetozar Stojkovic on 2/28/2017.
  */
 @Entity
 @Table(name = "potraznja_pica", schema = "restorani", catalog = "")
 @IdClass(PotraznjaPicaEntityPK.class)
 public class PotraznjaPicaEntity {
     private String naziv;
-    private int idPotraznje;
     private int idRestorana;
+    private int idPotraznje;
 
     @Id
     @Column(name = "NAZIV")
@@ -24,16 +24,6 @@ public class PotraznjaPicaEntity {
     }
 
     @Id
-    @Column(name = "ID_POTRAZNJE")
-    public int getIdPotraznje() {
-        return idPotraznje;
-    }
-
-    public void setIdPotraznje(int idPotraznje) {
-        this.idPotraznje = idPotraznje;
-    }
-
-    @Id
     @Column(name = "ID_RESTORANA")
     public int getIdRestorana() {
         return idRestorana;
@@ -43,6 +33,16 @@ public class PotraznjaPicaEntity {
         this.idRestorana = idRestorana;
     }
 
+    @Id
+    @Column(name = "ID_POTRAZNJE")
+    public int getIdPotraznje() {
+        return idPotraznje;
+    }
+
+    public void setIdPotraznje(int idPotraznje) {
+        this.idPotraznje = idPotraznje;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,8 +50,8 @@ public class PotraznjaPicaEntity {
 
         PotraznjaPicaEntity that = (PotraznjaPicaEntity) o;
 
-        if (idPotraznje != that.idPotraznje) return false;
         if (idRestorana != that.idRestorana) return false;
+        if (idPotraznje != that.idPotraznje) return false;
         if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
 
         return true;
@@ -60,8 +60,8 @@ public class PotraznjaPicaEntity {
     @Override
     public int hashCode() {
         int result = naziv != null ? naziv.hashCode() : 0;
-        result = 31 * result + idPotraznje;
         result = 31 * result + idRestorana;
+        result = 31 * result + idPotraznje;
         return result;
     }
 }

@@ -203,6 +203,8 @@ var ZaposleniDetailComponent = (function () {
             _this.refreshJela();
         });
     };
+    ZaposleniDetailComponent.prototype.porudzbina = function () {
+    };
     ZaposleniDetailComponent.prototype.connectToWebSocket = function () {
         // var socket = new SockJS('http://localhost:8080/stomp');
         // var stompClient = Stomp.over(socket);

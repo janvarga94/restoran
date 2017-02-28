@@ -225,7 +225,7 @@
         <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
             <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
                 <div class="card sto" [style.background-color]="sto[4] == null? 'green' : 'red'" style="color: white">
-                    <div class="card-block" *ngIf="sto[4] == null" style="cursor: pointer">
+                    <div class="card-block" *ngIf="sto[4] == null" (click)="porudzbina()">
                         <h3 class="card-title">Sto {{i}}</h3>
                         <p class="card-text">slobodan</p>
                     </div>
@@ -318,10 +318,10 @@
         <table style="width: 100%">
             <tr>
                 <th>
-                    Naziv jela
+                    Naziv pica
                 </th>
                 <th>
-                    Opis jela
+                    Opis pica
                 </th>
                 <th>
                     Da bude spremno

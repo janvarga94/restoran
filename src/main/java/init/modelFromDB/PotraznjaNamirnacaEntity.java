@@ -1,9 +1,10 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 2/27/2017.
+ * Created by Svetozar Stojkovic on 2/28/2017.
  */
 @Entity
 @Table(name = "potraznja_namirnaca", schema = "restorani", catalog = "")
@@ -11,6 +12,7 @@ import javax.persistence.*;
 public class PotraznjaNamirnacaEntity {
     private int idNamirnice;
     private int idPotraznje;
+    private Date dokad;
 
     @Id
     @Column(name = "ID_NAMIRNICE")
@@ -32,6 +34,16 @@ public class PotraznjaNamirnacaEntity {
         this.idPotraznje = idPotraznje;
     }
 
+    @Basic
+    @Column(name = "DOKAD")
+    public Date getDokad() {
+        return dokad;
+    }
+
+    public void setDokad(Date dokad) {
+        this.dokad = dokad;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +53,7 @@ public class PotraznjaNamirnacaEntity {
 
         if (idNamirnice != that.idNamirnice) return false;
         if (idPotraznje != that.idPotraznje) return false;
+        if (dokad != null ? !dokad.equals(that.dokad) : that.dokad != null) return false;
 
         return true;
     }
@@ -49,6 +62,7 @@ public class PotraznjaNamirnacaEntity {
     public int hashCode() {
         int result = idNamirnice;
         result = 31 * result + idPotraznje;
+        result = 31 * result + (dokad != null ? dokad.hashCode() : 0);
         return result;
     }
 }

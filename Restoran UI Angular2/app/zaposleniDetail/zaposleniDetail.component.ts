@@ -248,7 +248,9 @@ export class ZaposleniDetailComponent implements OnInit{
         });
     }
 
+    porudzbina() {
 
+    }
 
     connectToWebSocket(){
 

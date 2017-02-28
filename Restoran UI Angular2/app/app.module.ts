@@ -38,6 +38,10 @@ import {JelovnikComponent} from "./jelovnik/jelovnik.component";
 
 import {PushNotificationsModule} from "angular2-notifications";
 import {AgmCoreModule} from "angular2-google-maps/core";
+import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
+import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
+import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
+import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadzerRestorana.component";
 
 
 @NgModule({
@@ -66,6 +70,10 @@ import {AgmCoreModule} from "angular2-google-maps/core";
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
          {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path: 'novirestoran', component: NoviRestoranComponent},
+         {path: 'novizaposleni', component: NoviZaposleniComponent},
+         {path: 'noviponudjac', component: NoviPonudjacComponent},
+         {path: 'novimenadzerrestorana', component: NoviMenadzerRestoranaComponent},
          {path: 'jelovnik', component: JelovnikComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
@@ -94,8 +102,11 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     LimitDuzineListe,
     ContainsString,
       DodatiReonComponent,
-      JelovnikComponent
-
+      JelovnikComponent,
+      NoviRestoranComponent,
+      NoviZaposleniComponent,
+      NoviMenadzerRestoranaComponent,
+      NoviPonudjacComponent
    ],
    providers: [
      RestoranService,

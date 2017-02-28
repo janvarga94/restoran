@@ -29,6 +29,13 @@ var RezervacijaService = (function () {
         this._notificator = _notificator;
         this._stoloviUrl = app_config_1.Config.BackendUrl + '/rezervacija/stolovi';
         this._rezervisiUrl = app_config_1.Config.BackendUrl + '/rezervacija/rezervisi';
+        this._jelaUrl = app_config_1.Config.BackendUrl + '/rezervacija/jela';
+        this._picaUrl = app_config_1.Config.BackendUrl + '/rezervacija/pica';
+        this._rezervaicjeUrl = app_config_1.Config.BackendUrl + '/rezervacija/rezervacije';
+        this._poruciJelaUrl = app_config_1.Config.BackendUrl + '/rezervacija/poruciJela';
+        this._poruciPicaUrl = app_config_1.Config.BackendUrl + '/rezervacija/poruciPica';
+        this._porucenaJelaUrl = app_config_1.Config.BackendUrl + '/rezervacija/porucenaJela';
+        this._porucenaPicaUrl = app_config_1.Config.BackendUrl + '/rezervacija/porucenaPica';
     }
     RezervacijaService.prototype.getStolovi = function (restoran) {
         return this._http.get(this._stoloviUrl + "?restoran=" + restoran)
@@ -39,6 +46,55 @@ var RezervacijaService = (function () {
     };
     RezervacijaService.prototype.rezervisi = function (rezervisiReq) {
         return this._http.post(this._rezervisiUrl, rezervisiReq)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.poruciJela = function (req) {
+        return this._http.post(this._poruciJelaUrl, req)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.poruciPica = function (req) {
+        return this._http.post(this._poruciPicaUrl, req)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.porucenaJela = function (idRez, email) {
+        return this._http.get(this._porucenaJelaUrl + "?idRezervacije=" + idRez + "&email=" + email)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.porucenaPica = function (idRez, email) {
+        return this._http.get(this._porucenaPicaUrl + "?idRezervacije=" + idRez + "&email=" + email)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.getJela = function (restoran) {
+        return this._http.get(this._jelaUrl + "?restoran=" + restoran)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.getPica = function (restoran) {
+        return this._http.get(this._picaUrl + "?restoran=" + restoran)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.getRezervacije = function (email) {
+        return this._http.get(this._rezervaicjeUrl + "?email=" + encodeURIComponent(email))
             .map(function (response) {
             return response.json();
         })

@@ -5,6 +5,7 @@ export interface IRestoran {
     vrsta : string,
     naziv : string,
     idRestorana : number,
-    opis : string
+    opis : string,
+    adresa : string
 }
 

@@ -43,6 +43,10 @@ var dodavanjeReona_component_1 = require("./dodavanjeReona/dodavanjeReona.compon
 var jelovnik_component_1 = require("./jelovnik/jelovnik.component");
 var angular2_notifications_1 = require("angular2-notifications");
 var core_2 = require("angular2-google-maps/core");
+var noviRestoran_component_1 = require("./noviRestoran/noviRestoran.component");
+var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
+var noviPonudjac_component_1 = require("./noviPonudjac/noviPonudjac.component");
+var noviMenadzerRestorana_component_1 = require("./noviMenadzerRestorana/noviMenadzerRestorana.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -75,6 +79,10 @@ AppModule = __decorate([
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
                 { path: 'dodavanjereona', component: dodavanjeReona_component_1.DodatiReonComponent },
+                { path: 'novirestoran', component: noviRestoran_component_1.NoviRestoranComponent },
+                { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
+                { path: 'noviponudjac', component: noviPonudjac_component_1.NoviPonudjacComponent },
+                { path: 'novimenadzerrestorana', component: noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent },
                 { path: 'jelovnik', component: jelovnik_component_1.JelovnikComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -101,7 +109,11 @@ AppModule = __decorate([
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString,
             dodavanjeReona_component_1.DodatiReonComponent,
-            jelovnik_component_1.JelovnikComponent
+            jelovnik_component_1.JelovnikComponent,
+            noviRestoran_component_1.NoviRestoranComponent,
+            noviZaposleni_component_1.NoviZaposleniComponent,
+            noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent,
+            noviPonudjac_component_1.NoviPonudjacComponent
         ],
         providers: [
             restorani_service_1.RestoranService,

@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-block">
                 <h4 class="card-title">{{restoran.naziv | limitDuzineStringa : 20 }}</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{restoran.adresa}}</p>
                 <button class="btn btn-primary" (click)="detaljiRestoran(restoran)" >Detaljnije</button>
             </div>
         </div>
@@ -32,6 +32,6 @@
 </style>
 
 <sebm-google-map class="sebm-google-map-container" [latitude]="lat" [longitude]="lng">
-    <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+    <sebm-google-map-marker *ngFor="let lok of lokacije" [latitude]="lok.lat" [longitude]="lok.lng"></sebm-google-map-marker>
 </sebm-google-map>
 

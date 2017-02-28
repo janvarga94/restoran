@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Config } from './../app.config';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -10,7 +11,7 @@ import { IRestoran } from '../models/restoran';
 import { ISuccess} from '../models/ISuccess';
 
 import { Notificator } from './notification.service';
-import {Config} from "../app.config";
+
 import {IJelo} from "../models/jelo";
 
 @Injectable()
