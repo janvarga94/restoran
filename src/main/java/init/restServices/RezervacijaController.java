@@ -70,4 +70,9 @@ public class RezervacijaController {
     public List<PiceEntity> GetPorucenaPica(int idRezervacije,String email ){
         return  rezervacijaRepo.getPorudzbinePicaZa(idRezervacije,email);
     }
+
+    @RequestMapping(path="/poziviIciSaPrijateljima", method = RequestMethod.GET)
+    public List<PozivURestoran> GetPorucenaPica(String email ){
+        return  rezervacijaRepo.getPoziveIciSaPrijateljima(email);
+    }
 }
