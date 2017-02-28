@@ -14,6 +14,9 @@ var restorani_service_1 = require("../services/restorani.service");
 var RestoraniComponent = (function () {
     function RestoraniComponent(_restoranService) {
         this._restoranService = _restoranService;
+        this.lat = 45.229264;
+        this.lng = 19.8516435;
+        this.lokacije = [];
     }
     RestoraniComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -22,6 +25,21 @@ var RestoraniComponent = (function () {
             _this.restorani = restorani;
         });
         //   console.log(this.restorani.length);
+        this.getLongLat("janka cmelika 23 novi sad");
+    };
+    RestoraniComponent.prototype.getLongLat = function (adresa) {
+        var _this = this;
+        this._restoranService.getLongLat(adresa).subscribe(function (mapsResp) {
+            //   this.restorani = restorani;
+            if (mapsResp['status'] == 'OK') {
+                var lat = mapsResp['results'][0]['geometry']['location']['lat'];
+                var lng = mapsResp['results'][0]['geometry']['location']['lng'];
+                _this.lokacije.push({ lat: lat, lng: lng });
+                console.log(mapsResp['results'][0]['geometry']['location']);
+            }
+        });
+    };
+    RestoraniComponent.prototype.prikaziMapu = function () {
     };
     return RestoraniComponent;
 }());

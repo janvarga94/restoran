@@ -135,6 +135,8 @@
 
     </style>
 
+
+
     <br>
     <hr>
     <br>
@@ -207,6 +209,10 @@
 
     </div>
 
+    <div style="clear: both">
+        <button class="btn btn-success" (click)="sendNotification()">Posalji notification</button>
+    </div>
+
 
     <div style="clear: both" *ngIf="zanimanjeInt==0">
 
@@ -237,7 +243,7 @@
         <br>
         <hr>
         <br>
-        <table style="width: 100%">
+        <table style="width: 100%" *ngIf="prihvacena.length != 0">
             <tr>
                 <th>
                     Naziv jela
@@ -263,7 +269,7 @@
                     {{jelo[8]}}
                 </td>
                 <td>
-                    <button class="btn btn-success" (click)="napravljeno(jelo)">Napravljeno</button>
+                    <button class="btn btn-success" (click)="napravljenoJelo(jelo)">Napravljeno</button>
                 </td>
             </tr>
         </table>
@@ -272,7 +278,7 @@
         <hr>
         <br>
 
-        <table style="width: 100%">
+        <table style="width: 100%" *ngIf="neprihvacena.length != 0">
             <tr>
                 <th>
                     Naziv jela
@@ -298,13 +304,48 @@
                     {{jelo[8]}}
                 </td>
                 <td>
-                    <button class="btn btn-success" (click)="prihvaceno(jelo)">Prihvatam</button>
+                    <button class="btn btn-success" (click)="prihvacenoJelo(jelo)">Prihvatam</button>
                 </td>
             </tr>
         </table>
     </div>
 
+    <div style="clear: both" *ngIf="zanimanjeInt==2">
 
+        <br>
+        <hr>
+        <br>
+        <table style="width: 100%">
+            <tr>
+                <th>
+                    Naziv jela
+                </th>
+                <th>
+                    Opis jela
+                </th>
+                <th>
+                    Da bude spremno
+                </th>
+                <th>
+                    Napravljeno
+                </th>
+            </tr>
+            <tr *ngFor="let pice of pica">
+                <td>
+                    {{pice[3]}}
+                </td>
+                <td>
+                    {{pice[4]}}
+                </td>
+                <td>
+                    {{pice[8]}}
+                </td>
+                <td>
+                    <button class="btn btn-success" (click)="napravljenoPice(pice)">Napravljeno</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 
 </div>

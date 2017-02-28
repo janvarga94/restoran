@@ -33,12 +33,17 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
-
+import {PushNotificationsModule} from "angular2-notifications";
+import {AgmCoreModule} from "angular2-google-maps/core";
 
 
 @NgModule({
   imports: [
      BrowserModule,
+      PushNotificationsModule,
+      AgmCoreModule.forRoot({
+          apiKey: 'AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc'
+      }),
      FormsModule,
      HttpModule,
      ToasterModule,

@@ -42,6 +42,14 @@ export class RestoranService {
             .catch(this.handleError);        
     }
 
+    getLongLat(adresa : string): Observable<any>{
+
+        return this._http.get("https://maps.googleapis.com/maps/api/geocode/json?address="+encodeURIComponent(adresa)+"&key=AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc")
+            .map((response: Response) => {   return <any> response.json(); })
+            .catch(this.handleError);
+    }
+
+
 
 
     private handleError(error: Response) {

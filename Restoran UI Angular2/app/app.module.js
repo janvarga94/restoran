@@ -39,6 +39,8 @@ var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
+var angular2_notifications_1 = require("angular2-notifications");
+var core_2 = require("angular2-google-maps/core");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,6 +50,10 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [
             platform_browser_1.BrowserModule,
+            angular2_notifications_1.PushNotificationsModule,
+            core_2.AgmCoreModule.forRoot({
+                apiKey: 'AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc'
+            }),
             forms_1.FormsModule,
             http_1.HttpModule,
             angular2_toaster_1.ToasterModule,

@@ -5,10 +5,7 @@ import init.dtos.SmenaDTO;
 import init.dtos.StoDTO;
 import init.dtos.ZaposleniDTO;
 import init.model.RestoranOcenaDTO;
-import init.modelFromDB.OcenaRestoranaEntity;
-import init.modelFromDB.RadnikEntity;
-import init.modelFromDB.RestoranEntity;
-import init.modelFromDB.SmenaEntity;
+import init.modelFromDB.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
@@ -17,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import init.services.ServiceRestorani;
 import sun.rmi.runtime.Log;
 
+import javax.websocket.*;
+import java.io.IOException;
+import java.net.URI;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static init.Main.session;
 
@@ -45,8 +42,6 @@ public class RestServices {
 
         List<RestoranEntity> lista = (List<RestoranEntity>) session.createQuery("from RestoranEntity").list();
 
-        session.close();
-
         return lista;
     }
 
@@ -64,25 +59,23 @@ public class RestServices {
 
         List<RadnikEntity> lista = (List<RadnikEntity>) session.createQuery("from RadnikEntity").list();
 
-        session.close();
-
         return lista;
     }
 
     @RequestMapping(path = "/get_zaposlen", method=RequestMethod.GET)
     public Object getRadnik(String radnikEmail){
 
+        System.out.println(radnikEmail);
+
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Query query = session.createQuery("select p.radnikEmail, ke.lozinka, ke.ime, ke.prezime, p.konfekcijskiBroj, p.idRestorana, p.velicinaObuce from RadnikEntity as p, KorisnikEntity as ke where ke.email = p.radnikEmail and p.radnikEmail=:email")
-                .setParameter("email",radnikEmail);
-        System.out.println(query.uniqueResult());
+        Query query = session.createNativeQuery("select RADNIK_EMAIL, LOZINKA, ime, prezime, KONFEKCIJSKI_BROJ, ID_RESTORANA, VELICINA_OBUCE\n" +
+                "from radnik inner join korisnik on radnik.RADNIK_EMAIL=korisnik.EMAIL\n" +
+                "where RADNIK_EMAIL='"+radnikEmail+"'");
 
         Object obj = query.uniqueResult();
-
-        session.close();
 
         return obj;
     }
@@ -94,7 +87,7 @@ public class RestServices {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Collection<RestoranEntity> kolekc = (Collection<RestoranEntity>) session.createQuery("select r from RestoranEntity as r where r.idRestorana = (select p.idRestorana from PorudzbinaEntity as p where p.gostEmail='"+email+"')").list();
+        Collection<RestoranEntity> kolekc = (Collection<RestoranEntity>) session.createNativeQuery("select * from restoran as r where r.id_restorana = (select jelo_u_porudzbini.id_restorana from porudzbina inner join jelo_u_porudzbini on porudzbina.id_porudzbine=jelo_u_porudzbini.id_porudzbine where porudzbina.gost_email='"+email+"')").list();
 
         Collection<RestoranOcenaDTO> restOcena = new ArrayList<>();
 
@@ -102,8 +95,6 @@ public class RestServices {
             RestoranOcenaDTO restoranOcenaDTO = new RestoranOcenaDTO(restoranEntity, getOcenaForRestoran(restoranEntity.getIdRestorana()));
             restOcena.add(restoranOcenaDTO);
         }
-
-        session.close();
 
         return restOcena;
     }
@@ -149,8 +140,6 @@ public class RestServices {
         }
         ocena /= lista.size();
 
-        session.close();
-
         return ocena;
     }
 
@@ -165,8 +154,6 @@ public class RestServices {
                 " from SmenaEntity as se, RasporedRadaEntity rre, KorisnikEntity ke where se.idRestorana="+idRestorana+" and rre.radnikEmail = ke.email and se.idSmene = rre.idSmene and se.pecetak = '"+year+"-"+month+"-"+day+"'").list();
 
         if (lista == null) return new ArrayList<>();
-
-        session.close();
 
         return (List<Object>) lista;
     }
@@ -193,8 +180,6 @@ public class RestServices {
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
 
-        session.close();
-
         if (out != 0)
             return true;
         else
@@ -210,8 +195,6 @@ public class RestServices {
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
 
-        session.close();
-
         if (out != 0)
             return true;
         else
@@ -226,8 +209,6 @@ public class RestServices {
         Query query = session.createQuery("select count(s.sankerEmail) from SankerEntity as s where s.sankerEmail=:email")
                 .setParameter("email",radnikEmail);
         long out = (long) query.uniqueResult();
-
-        session.close();
 
         if (out != 0)
             return true;
@@ -250,7 +231,6 @@ public class RestServices {
                 "from Reon re inner join sto ON re.ID_REONA = sto.ID_REONA left outer join Rezervacija rez on sto.BROJ_STOLA = rez.BROJ_STOLA\n" +
                 "where ((rez.pocetak < '"+timestamp.toString()+"' and rez.kraj > '"+timestamp.toString()+"') or (rez.GOST_EMAIL is null))  and re.ID_RESTORANA="+idRestorana).getResultList();
 
-        session.close();
         return (List<Object>) lista;
 
 
@@ -264,7 +244,7 @@ public class RestServices {
         Query query = session.createQuery("select rus.idReona from ReonUSmeniEntity as rus where rus.konobarEmail='"+konobarMail+"' and rus.idRestorana="+idRestorana+" and rus.idSmene="+idSmene);
         Object value = query.uniqueResult();
 
-        session.close();
+
         if (value == null)
             return -1;
         else
@@ -279,18 +259,17 @@ public class RestServices {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.KUVAR_EMAIL, porudzbina.ID_PORUDZBINE, jelo_u_porudzbini.ID_RESTORANA, jelo.NAZIV_JELA, jelo.OPIS, jelo.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, , porudzbina.PRIVACENA_OD_KUVARA_U\n" +
+        List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.KUVAR_EMAIL, porudzbina.ID_PORUDZBINE, jelo_u_porudzbini.ID_RESTORANA, jelo.NAZIV_JELA, jelo.OPIS, jelo.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, porudzbina.PRIVACENA_OD_KUVARA_U\n" +
                 "from porudzbina inner join jelo_u_porudzbini on porudzbina.ID_PORUDZBINE=jelo_u_porudzbini.ID_PORUDZBINE natural join jelo\n" +
-                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo.ID_RESTORANA="+idRestorana+" and ((porudzbina.SPREMNO_U is null and porudzbina.PRIVACENA_OD_KUVARA_U is null) or (porudzbina.PRIVACENA_OD_KUVARA_U < porudzbina.KREIRANA))").getResultList();
+                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo.ID_RESTORANA="+idRestorana).getResultList();
 
-        session.close();
 
         return (List<Object>) lista;
 
     }
 
     @RequestMapping(path = "/prihvaceno_jelo", method = RequestMethod.GET)
-    public List<Object> prihvaceno(int idPorudzbine) {
+    public boolean prihvaceno(int idPorudzbine) {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
@@ -298,18 +277,28 @@ public class RestServices {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        List<Object> lista = session.createNativeQuery("UPDATE porudzbina\n" +
-                "SET PRIVACENA_OD_KUVARA_U='"+timestamp.toString()+"'\n" +
-                "WHERE ID_PORUDZBINE="+idPorudzbine).getResultList();
+//        Query query = session.createNativeQuery("select *\n" +
+//                "from porudzbina\n" +
+//                "where porudzbina.ID_PORUDZBINE="+idPorudzbine, PorudzbinaEntity.class);
 
-        session.close();
 
-        return (List<Object>) lista;
+
+//        PorudzbinaEntity porudzbinaEntity = (PorudzbinaEntity) query.uniqueResult();
+        PorudzbinaEntity porudzbinaEntity = session.get(PorudzbinaEntity.class, idPorudzbine);
+        porudzbinaEntity.setPrivacenaOdKuvaraU(timestamp);
+
+        System.out.println(porudzbinaEntity);
+
+        session.update(porudzbinaEntity);
+
+        session.getTransaction().commit();
+
+        return true;
 
     }
 
     @RequestMapping(path = "/skuvano_jelo", method = RequestMethod.GET)
-    public List<Object> skuvano(int idPorudzbine) {
+    public boolean skuvano(int idPorudzbine) {
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
@@ -317,13 +306,66 @@ public class RestServices {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 
-        List<Object> lista = session.createNativeQuery("UPDATE porudzbina\n" +
-                "SET spremno_u='"+timestamp.toString()+"'\n" +
-                "WHERE ID_PORUDZBINE="+idPorudzbine).getResultList();
+//        Query query = session.createNativeQuery("select *\n" +
+//                "from porudzbina\n" +
+//                "where porudzbina.ID_PORUDZBINE="+idPorudzbine, PorudzbinaEntity.class);
+//
+//        PorudzbinaEntity porudzbinaEntity = (PorudzbinaEntity) query.uniqueResult();
+        PorudzbinaEntity porudzbinaEntity = session.get(PorudzbinaEntity.class, idPorudzbine);
+        porudzbinaEntity.setSpremnoU(timestamp);
 
-        session.close();
+        System.out.println(porudzbinaEntity);
+
+        session.update(porudzbinaEntity);
+
+        session.getTransaction().commit();
+
+        return true;
+
+    }
+
+    @RequestMapping(path = "/pica_za_sankera", method = RequestMethod.GET)
+    public List<Object> getPica(String sankerEmail, int idRestorana) {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Object> lista = session.createNativeQuery("select pice_u_porudzbini.SANKER_EMAIL, porudzbina.ID_PORUDZBINE, pice_u_porudzbini.ID_RESTORANA, pice.NAZIV_PICA, pice.OPIS, pice.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, porudzbina.PRIVACENA_OD_KUVARA_U\n" +
+                "from porudzbina inner join pice_u_porudzbini on porudzbina.ID_PORUDZBINE=pice_u_porudzbini.ID_PORUDZBINE natural join pice\n" +
+                "where pice_u_porudzbini.SANKER_EMAIL='"+sankerEmail+"' and pice.ID_RESTORANA="+idRestorana+" and ((porudzbina.SPREMNO_U < porudzbina.KREIRANA) or porudzbina.SPREMNO_U is null)").getResultList();
+
 
         return (List<Object>) lista;
 
     }
+
+    @RequestMapping(path = "/spremljeno_pice", method = RequestMethod.GET)
+    public boolean spremljenoPice(int idPorudzbine) {
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+//        Query query = session.createNativeQuery("select *\n" +
+//                "from porudzbina\n" +
+//                "where porudzbina.ID_PORUDZBINE="+idPorudzbine, PorudzbinaEntity.class);
+//
+//        PorudzbinaEntity porudzbinaEntity = (PorudzbinaEntity) query.uniqueResult();
+        PorudzbinaEntity porudzbinaEntity = session.get(PorudzbinaEntity.class, idPorudzbine);
+        porudzbinaEntity.setSpremnoU(timestamp);
+
+        System.out.println(porudzbinaEntity);
+
+        session.update(porudzbinaEntity);
+
+        session.getTransaction().commit();
+
+        return true;
+
+    }
+
+
 }

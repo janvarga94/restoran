@@ -31,7 +31,7 @@ var ZaposleniDetailService = (function () {
     ZaposleniDetailService.prototype.getZaposlen = function (email) {
         var zaposleniUrl = app_config_1.Config.BackendUrl + "/resursi/get_zaposlen";
         console.log(zaposleniUrl);
-        return this._http.get(zaposleniUrl + "?radnikEmail=" + email)
+        return this._http.get(zaposleniUrl + "?radnikEmail=" + encodeURIComponent(email))
             .map(function (response) {
             var zaposleni = response.json();
             // for(var i = 0; i < 10; i++)
@@ -102,6 +102,26 @@ var ZaposleniDetailService = (function () {
     };
     ZaposleniDetailService.prototype.prihvacenoJelo = function (idPorudzbine) {
         var url = app_config_1.Config.BackendUrl + "/resursi/prihvaceno_jelo";
+        console.log(url);
+        return this._http.get(url + "?idPorudzbine=" + idPorudzbine)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.getPica = function (idRestorana, sankerEmail) {
+        var url = app_config_1.Config.BackendUrl + "/resursi/pica_za_sankera";
+        console.log(url);
+        return this._http.get(url + "?sankerEmail=" + encodeURIComponent(sankerEmail) + "&idRestorana=" + idRestorana)
+            .map(function (response) {
+            var value = response.json();
+            return value;
+        })
+            .catch(this.handleError);
+    };
+    ZaposleniDetailService.prototype.napravljenoPice = function (idPorudzbine) {
+        var url = app_config_1.Config.BackendUrl + "/resursi/spremljeno_pice";
         console.log(url);
         return this._http.get(url + "?idPorudzbine=" + idPorudzbine)
             .map(function (response) {

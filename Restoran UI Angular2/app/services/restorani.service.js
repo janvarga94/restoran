@@ -43,6 +43,11 @@ var RestoranService = (function () {
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
     };
+    RestoranService.prototype.getLongLat = function (adresa) {
+        return this._http.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(adresa) + "&key=AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc")
+            .map(function (response) { return response.json(); })
+            .catch(this.handleError);
+    };
     RestoranService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console
