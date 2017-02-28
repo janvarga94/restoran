@@ -3,14 +3,13 @@ package init.repositories;
 import init.Main;
 import init.dtos.ResponseWithMessageSuccess;
 import init.modelFromDB.*;
-import init.repositories.models.RezervacijaRepo;
-import init.repositories.models.RezervacijaReq;
-import init.repositories.models.StoRepo;
+import init.repositories.models.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,5 +113,197 @@ public class RezervacijaRepository {
         session.close();
         return returnValue;
     }
+
+    //postupak je takav da se prethodno obrisu sva jela iz porudzbine, i dodaju nova
+    public ResponseWithMessageSuccess poruciJelo(PoruciJelaRequest request){
+
+        ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+        boolean obrisani = obrisiPorudzbineJelaZa(request.rezervacijaId,request.email);
+        if(!obrisani){
+            response.Message = "Nemozemo obrisati stare porudzbine jela radi postavljanja novih";
+            response.Success = false;
+            return response;
+        }
+
+        int novaPorudzbina;
+        PorudzbinaEntity p = new PorudzbinaEntity();
+        p.setIdPorudzbine(novaPorudzbina = random.nextInt());
+        p.setGostEmail(request.email);
+        p.setIdRezervacije(request.rezervacijaId);
+        p.setKreirana(new Timestamp(System.currentTimeMillis()));
+        if(request.spremnoKadaSeDodje)
+            p.setGostZeliSpremnoU(new Timestamp(123));
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.save(p);
+
+        for(String jelo : request.naziviJela){
+            JeloUPorudzbiniEntity jup = new JeloUPorudzbiniEntity();
+            jup.setIdPorudzbineJela(random.nextInt());
+            jup.setIdPorudzbine(novaPorudzbina);
+
+            JeloEntityPK pk = new JeloEntityPK();
+            pk.setNazivJela(jelo);
+            pk.setIdRestorana(request.restoranId);
+            JeloEntity j = session.get(JeloEntity.class, pk);
+
+            jup.setIdRestorana(j.getIdRestorana());
+            jup.setNazivJela(jelo);
+
+            session.save(jup);
+        }
+
+        try {
+            session.flush();
+            response.Success = true;
+        }catch(Exception e) {
+            response.Success = false;
+            response.Message = "Neuspesno pravljenje porudzbine jela";
+        }
+        session.close();
+        return response;
+    }
+
+    public ResponseWithMessageSuccess poruciPice(PoruciPicaRequest request){
+
+        ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+        boolean obrisani = obrisiPorudzbinePicaZa(request.rezervacijaId,request.email);
+        if(!obrisani){
+            response.Message = "Nemozemo obrisati stare porudzbina pica radi postavljanja novih";
+            response.Success = false;
+            return response;
+        }
+
+        int novaPorudzbina;
+        PorudzbinaEntity p = new PorudzbinaEntity();
+        p.setIdPorudzbine(novaPorudzbina = random.nextInt());
+        p.setGostEmail(request.email);
+        p.setIdRezervacije(request.rezervacijaId);
+        p.setKreirana(new Timestamp(System.currentTimeMillis()));
+        if(request.spremnoKadaSeDodje)
+            p.setGostZeliSpremnoU(new Timestamp(123));
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        session.save(p);
+
+        for(String pice : request.naziviPica){
+            PiceUPorudzbiniEntity jup = new PiceUPorudzbiniEntity();
+            jup.setIdPorudzbinePica(random.nextInt());
+            jup.setIdPorudzbine(novaPorudzbina);
+
+            PiceEntityPK pk = new PiceEntityPK();
+            pk.setNazivPica(pice);
+            pk.setIdRestorana(request.restoranId);
+            PiceEntity j = session.get(PiceEntity.class, pk);
+
+            jup.setIdRestorana(j.getIdRestorana());
+            jup.setNazivPica(pice);
+
+            session.save(jup);
+        }
+
+        try {
+            session.flush();
+            response.Success = true;
+        }catch(Exception e) {
+            response.Success = false;
+            response.Message = "Neuspesno pravljenje porudzbine pica";
+        }
+        session.close();
+        return response;
+    }
+
+    private boolean obrisiPorudzbineJelaZa(int idRezervacije, String gostEmail){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from jelo_u_porudzbini where jelo_u_porudzbini.ID_PORUDZBINE in \n" +
+                "\t(select porudzbina.ID_PORUDZBINE from porudzbina where GOST_EMAIL = '"+gostEmail+"' \n" +
+                "         and porudzbina.ID_REZERVACIJE = "+idRezervacije+")\n";
+
+        List<JeloUPorudzbiniEntity> jelaUPorudzbini = session.createNativeQuery(query,JeloUPorudzbiniEntity.class).getResultList();
+
+        for(JeloUPorudzbiniEntity jelo : jelaUPorudzbini){
+            session.delete(jelo);
+        }
+
+        boolean usphe = false;
+
+        try {
+            session.flush();
+            usphe = true;
+        }catch(Exception e){
+
+        }finally {
+
+        }
+        session.close();
+        return usphe;
+    }
+
+    private boolean obrisiPorudzbinePicaZa(int idRezervacije, String gostEmail){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from pice_u_porudzbini where pice_u_porudzbini.ID_PORUDZBINE in \n" +
+                "\t(select porudzbina.ID_PORUDZBINE from porudzbina where GOST_EMAIL = '"+gostEmail+"' \n" +
+                "         and porudzbina.ID_REZERVACIJE = "+idRezervacije+")\n";
+
+        List<PiceUPorudzbiniEntity> jelaUPorudzbini = session.createNativeQuery(query,PiceUPorudzbiniEntity.class).getResultList();
+
+        for(PiceUPorudzbiniEntity pice : jelaUPorudzbini){
+            session.delete(pice);
+        }
+
+        boolean usphe = false;
+
+        try {
+            session.flush();
+            usphe = true;
+        }catch(Exception e){
+
+        }finally {
+
+        }
+        session.close();
+        return usphe;
+    }
+
+    public List<JeloEntity> getPorudzbineJelaZa(int idRezervacije, String gostEmail){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from jelo inner join\n" +
+                "(select * from jelo_u_porudzbini where jelo_u_porudzbini.ID_PORUDZBINE in \n" +
+                "\t(select porudzbina.ID_PORUDZBINE from porudzbina where GOST_EMAIL = '"+gostEmail+"' \n" +
+                "         and porudzbina.ID_REZERVACIJE = "+idRezervacije+")\n" +
+                ") table1 on jelo.NAZIV_JELA = table1.naziv_jela and jelo.ID_RESTORANA = table1.id_Restorana";
+
+        List<JeloEntity> jela = session.createNativeQuery(query,JeloEntity.class).getResultList();
+
+        session.close();
+        return jela;
+    }
+
+    public List<PiceEntity> getPorudzbinePicaZa(int idRezervacije, String gostEmail){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from pice inner join\n" +
+                "(select * from pice_u_porudzbini where pice_u_porudzbini.ID_PORUDZBINE in \n" +
+                "\t(select porudzbina.ID_PORUDZBINE from porudzbina where GOST_EMAIL = '"+gostEmail+"' \n" +
+                "         and porudzbina.ID_REZERVACIJE = "+idRezervacije+")\n" +
+                ") table1 on pice.NAZIV_PICA = table1.naziv_pica and pice.ID_RESTORANA = table1.id_Restorana";
+
+        List<PiceEntity> jela = session.createNativeQuery(query,PiceEntity.class).getResultList();
+
+        session.close();
+        return jela;
+    }
+
 
 }

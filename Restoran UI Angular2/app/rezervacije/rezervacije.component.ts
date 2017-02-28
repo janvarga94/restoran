@@ -1,3 +1,4 @@
+import { Notificator } from './../services/notification.service';
 import { LoginService } from './../services/login.service';
 import { RezervacijaService } from './../services/rezervacija.service';
 import { Router } from '@angular/router';
@@ -14,18 +15,27 @@ import { Observable } from 'rxjs/Observable';
 })
 export class RezervacijeComponent implements OnInit{
     
-    odabranaRezervacija : any = {};
+    private _search1 : String = "";
+    private _search2 : String = "";
+
+    odabranaRezervacija : any;
+    odabranRestoran : any;
 
     rezervacije : any[] = [];
 
-    jela: any[] = [];
+    private _jela : any[] = [];
+            jela: any[] = [];
 
-    pica: any[] = [];
+    private _pica : any[] = [];
+            pica: any[] = [];
+
+    porucenaJela: any[] = [];
+    porucenaPica: any[] = [];
 
     randomClasses : any[] = [];
    
 
-    constructor(private _loginService : LoginService,private _restoranService : RestoranService, private _rezervacijaService : RezervacijaService) {
+    constructor(private _notificator : Notificator,private _loginService : LoginService,private _restoranService : RestoranService, private _rezervacijaService : RezervacijaService) {
         for(var i = 0; i < 20; i++){
             this.randomClasses.push(this.generateRandomClassButton());
         }
@@ -42,13 +52,44 @@ export class RezervacijeComponent implements OnInit{
             
     }
 
+    get search1(){
+        return this._search1;
+    }
+
+    set search1(e){
+        this._search1 = e;
+        this.jela = this._jela.filter(j => j.nazivJela.toLowerCase().indexOf(e) > -1);
+    }
+      get search2(){
+        return this._search2;
+    }
+
+    set search2(e){
+        this._search2 = e;
+        this.pica = this._pica.filter(j => j.nazivPica.toLowerCase().indexOf(e.toLowerCase()) > -1);
+    }
+
     ucitajJelaIPicaZaRestoran(restoranId : any){
+        this.odabranRestoran = restoranId;
         this._rezervacijaService.getJela(restoranId).subscribe(jela => {
-                this.jela = jela;
-            })
-        this._rezervacijaService.getPica(restoranId).subscribe(pica => {
-            this.pica = pica;
+            this._jela = jela;
+            this.search1 = "";
         })
+        this._rezervacijaService.getPica(restoranId).subscribe(pica => {
+            this._pica = pica;
+            this.search2 = "";
+        })
+
+         this._loginService.ulogovan.subscribe(ulogovan => {
+            if(ulogovan){
+                this._rezervacijaService.porucenaJela(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email)).subscribe(porucena => {
+                    this.porucenaJela = porucena;
+                });         
+                  this._rezervacijaService.porucenaPica(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email)).subscribe(porucena => {
+                    this.porucenaPica = porucena;
+                });    
+            }
+        });
     }
 
     randomClassButton(index : any){
@@ -80,5 +121,62 @@ export class RezervacijeComponent implements OnInit{
 
     toFixed(num : any){
         return num.toFixed(1);
+    }
+
+    dodajUPorucenaJela(nazivJela : any){
+        this.porucenaJela.push(nazivJela);
+    }
+
+    dodajUPorucenaPica(nazivPica : any){
+        this.porucenaPica.push(nazivPica);
+    }
+
+    poruciIzmeni(){
+        this._loginService.ulogovan.subscribe(ulogovan => {
+            if(ulogovan){
+                var request = { 
+                    email: ulogovan.email,
+                    rezervacijaId: this.odabranaRezervacija['idRezervacije'],
+                    spremnoKadaSeDodje : false,
+                    naziviJela : this.porucenaJela.map(j => j.nazivJela),
+                    restoranId : this.odabranRestoran
+                };
+
+
+                this._rezervacijaService.poruciJela(request).subscribe(resp => {
+                    if(resp['Success'] == true){
+                        this._notificator.notifySuccess("Uspesna porudzbina jela!");
+                    }else{
+                        this._notificator.notifyError(resp['Message']);
+                    }
+                });
+
+                var request2 = { 
+                    email: ulogovan.email,
+                    rezervacijaId: this.odabranaRezervacija['idRezervacije'],
+                    spremnoKadaSeDodje : false,
+                    naziviPica : this.porucenaPica.map(j => j.nazivPica),
+                    restoranId : this.odabranRestoran
+                };
+
+
+                this._rezervacijaService.poruciPica(request2).subscribe(resp => {
+                    if(resp['Success'] == true){
+                        this._notificator.notifySuccess("Uspesna porudzbina pica!");
+                    }else{
+                        this._notificator.notifyError(resp['Message']);
+                    }
+                });
+
+
+            }
+        });
+    }
+
+    izbaciJelo(indx : any){
+        this.porucenaJela.splice(indx,1);
+    }
+    izbaciPice(indx : any){
+        this.porucenaPica.splice(indx,1);
     }
  }

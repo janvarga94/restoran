@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var welcome_component_1 = require("./welcome/welcome.component");
 var rezervacija_service_1 = require("./services/rezervacija.service");
 var GostPozvanPipe_1 = require("./pipes/GostPozvanPipe");
 var rezervacije_component_1 = require("./rezervacije/rezervacije.component");
@@ -23,7 +24,6 @@ var router_1 = require("@angular/router");
 var angular2_toaster_1 = require("angular2-toaster");
 var app_component_1 = require("./app.component");
 var header_component_1 = require("./header/header.component");
-var welcome_component_1 = require("./home/welcome.component");
 var restorani_component_1 = require("./restorani/restorani.component");
 var restoranDetail_component_1 = require("./restoran detail/restoranDetail.component");
 //import { PageNotFoundComponent} from './page not found/pageNotFound.component';

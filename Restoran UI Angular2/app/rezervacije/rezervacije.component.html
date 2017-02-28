@@ -3,7 +3,7 @@
 <div class="row" style="margin-top: 20px; margin-bottom: 10px;">                   
     <div class="col-md-12 text-center">
         <span *ngFor="let rezervacija of rezervacije; let i = index;" >
-            <button [ngClass]="randomClassButton(i)" class="btn" style="margin-left: 10px; margin-top:10px;" (click)="ucitajJelaIPicaZaRestoran(rezervacija.restoranId)">{{rezervacija.restoranNaziv}} | {{getDate(rezervacija.pocetak)}}</button>     
+            <button [ngClass]="randomClassButton(i)" class="btn" style="margin-left: 10px; margin-top:10px;" (click)="odabranaRezervacija = rezervacija; ucitajJelaIPicaZaRestoran(rezervacija.restoranId)">{{rezervacija.restoranNaziv}} | {{getDate(rezervacija.pocetak)}}</button>     
         </span> 
     </div>
 </div>
@@ -15,7 +15,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
+                            <input type="text" class="form-control" [(ngModel)]="search1" placeholder="Search..">
                         </li>
 
                     
@@ -26,7 +26,7 @@
                                     {{jelo.nazivJela}}
                                         <span style="float: right">
                                              Cena : {{toFixed(jelo.cena)}} din &nbsp;
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                            <button class="btn btn-success btn-sm" (click)="dodajUPorucenaJela(jelo)">Poruci</button>
                                         </span>                 
                             </li>
                                 
@@ -52,7 +52,7 @@
                                     {{pice.nazivPica}}
                                         <span style="float: right">
                                             Cena : {{toFixed(pice.cena)}} din &nbsp;
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                            <button class="btn btn-success btn-sm" (click)="dodajUPorucenaPica(pice)">Poruci</button>
                                         </span>                 
                             </li>
                                 
@@ -61,58 +61,61 @@
         </div>     
    </div>
 
+
+</div>
+
+<div *ngIf="odabranaRezervacija != null"  class="row">  
+    <div class="col-md-12 text-center">
+        <button class="btn btn-lg btn-primary" (click)="poruciIzmeni()">Poruči / Izmeni porudžbinu</button>
+    </div>
+</div>
+
+<div *ngIf="odabranaRezervacija != null" class="row" style="margin-top: 20px;">
+   <div class="col-md-6">      
+        <div class="card" style=" margin-bottom: 100px; ">
+                <div class="card-header">
+                    Porucena jela
+                </div>
+                <ul class="list-group list-group-flush">
+                    
+                        <span *ngFor="let jelo of porucenaJela;  let i = index; " >
+                            <li class="list-group-item justify-content-between" >
+                                
+                                        <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
+                                    {{jelo.nazivJela}}
+                                        <span style="float: right">
+                                             Cena : {{toFixed(jelo.cena)}} din &nbsp;
+                                            <button class="btn btn-success btn-sm" (click)="izbaciJelo(i)">Izbaci</button>
+                                        </span>                 
+                            </li>
+                                
+                        </span> 
+                </ul>
+        </div>     
+   </div>
     <div class="col-md-6">      
         <div class="card" style=" margin-bottom: 100px; ">
                 <div class="card-header">
                     Porucena pica
                 </div>
                 <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
-                        </li>
 
                     
-                        <span *ngFor="let pice of pica | limitDuzineListe : 15" >
+                        <span *ngFor="let pice of porucenaPica;  let i = index;" >
                             <li class="list-group-item justify-content-between" >
                                 
                                         <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
                                     {{pice.nazivPica}}
                                         <span style="float: right">
                                             Cena : {{toFixed(pice.cena)}} din &nbsp;
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
+                                            <button class="btn btn-success btn-sm" (click)="izbaciPice(i)">Izbaci</button>
                                         </span>                 
                             </li>
                                 
                         </span> 
                 </ul>
-        </div>   
-    </div>
+        </div>     
+   </div>
 
-     <div class="col-md-6">      
-        <div class="card" style=" margin-bottom: 100px; ">
-                <div class="card-header">
-                    Porucena jela
-                </div>
-                <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <input type="text" class="form-control" [(ngModel)]="search2" placeholder="Search..">
-                        </li>
-
-                    
-                        <span *ngFor="let pice of pica | limitDuzineListe : 15" >
-                            <li class="list-group-item justify-content-between" >
-                                
-                                        <!--  {{(gost.ime + ' ' + gost.prezime) | limitDuzineStringa : 15}} -->
-                                    {{pice.nazivPica}}
-                                        <span style="float: right">
-                                            Cena : {{toFixed(pice.cena)}} din &nbsp;
-                                            <button class="btn btn-warning btn-sm">Pozovi</button>
-                                        </span>                 
-                            </li>
-                                
-                        </span> 
-                </ul>
-        </div>   
-    </div>
 
 </div>

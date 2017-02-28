@@ -7,9 +7,7 @@ import init.modelFromDB.RezervacijaEntity;
 import init.modelFromDB.StoEntity;
 import init.repositories.RestoranRepository;
 import init.repositories.RezervacijaRepository;
-import init.repositories.models.RezervacijaRepo;
-import init.repositories.models.RezervacijaReq;
-import init.repositories.models.StoRepo;
+import init.repositories.models.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +54,20 @@ public class RezervacijaController {
     public List<RezervacijaRepo> GetRezervacijaRestorana(String email){
         return  rezervacijaRepo.getRezervacijeKorisnika(email);
     }
-
+    @RequestMapping(path="/poruciJela", method = RequestMethod.POST)
+    public ResponseWithMessageSuccess PoruciJela(@RequestBody PoruciJelaRequest req){
+        return  rezervacijaRepo.poruciJelo(req);
+    }
+    @RequestMapping(path="/porucenaJela", method = RequestMethod.GET)
+    public List<JeloEntity> GetPorucenaJela(int idRezervacije,String email ){
+        return  rezervacijaRepo.getPorudzbineJelaZa(idRezervacije,email);
+    }
+    @RequestMapping(path="/poruciPica", method = RequestMethod.POST)
+    public ResponseWithMessageSuccess PoruciPica(@RequestBody PoruciPicaRequest req){
+        return  rezervacijaRepo.poruciPice(req);
+    }
+    @RequestMapping(path="/porucenaPica", method = RequestMethod.GET)
+    public List<PiceEntity> GetPorucenaPica(int idRezervacije,String email ){
+        return  rezervacijaRepo.getPorudzbinePicaZa(idRezervacije,email);
+    }
 }

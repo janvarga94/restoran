@@ -3,13 +3,12 @@ import { RezervacijaService } from './../services/rezervacija.service';
 import {Component, OnInit} from '@angular/core';
 import {IRestoran} from "../models/restoran";
 import {WelcomeService} from "../services/welcome.service";
-import {RestoranService} from "../services/restorani.service";
 import {LoginResponse} from "../models/loginResponse";
 import {LoginService} from "../services/login.service";
 
 
 @Component({
-    templateUrl: 'app/home/welcome.component.html'
+    templateUrl: 'app/welcome/welcome.component.html'
 })
 export class WelcomeComponent implements OnInit{
     public pageTitle: string = 'Welcome people';

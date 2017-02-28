@@ -1,3 +1,4 @@
+import { WelcomeComponent } from './welcome/welcome.component';
 import { RezervacijaService } from './services/rezervacija.service';
 import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
 import { RezervacijeComponent } from './rezervacije/rezervacije.component';
@@ -17,7 +18,6 @@ import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
 
 import { AppComponent }  from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { WelcomeComponent } from './home/welcome.component';
 import { RestoraniComponent} from './restorani/restorani.component';
 import { RestoranDetailComponent} from './restoran detail/restoranDetail.component';
 //import { PageNotFoundComponent} from './page not found/pageNotFound.component';
