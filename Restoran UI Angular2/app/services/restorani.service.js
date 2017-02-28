@@ -25,6 +25,8 @@ var RestoranService = (function () {
         this.dodaj = app_config_1.Config.BackendUrl + '/resursi/add';
         this._managerRestoranaUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
         this._addPonudjac = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonudjac';
+        this._addReon = app_config_1.Config.BackendUrl + '/menadzerRestorana/addReon';
+        this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -69,6 +71,22 @@ var RestoranService = (function () {
         return this._http.post(this._addPonudjac, ponudjac).map(function (response) {
             return response.json();
         }).catch(this.handleError);
+    };
+    RestoranService.prototype.addReon = function (reon) {
+        return this._http.post(this._addReon, reon).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.getJelovnik = function (email) {
+        return this._http.get(this._getJelovnik + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var jelovnik = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            console.log(jelovnik.length);
+            return jelovnik;
+        })
+            .catch(this.handleError);
     };
     RestoranService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

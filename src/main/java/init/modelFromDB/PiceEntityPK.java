@@ -5,31 +5,20 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
-public class StoEntityPK implements Serializable {
-    private int idReona;
-    private int brojStola;
+public class PiceEntityPK implements Serializable {
+    private String nazivPica;
     private int idRestorana;
 
-    @Column(name = "ID_REONA")
+    @Column(name = "NAZIV_PICA")
     @Id
-    public int getIdReona() {
-        return idReona;
+    public String getNazivPica() {
+        return nazivPica;
     }
 
-    public void setIdReona(int idReona) {
-        this.idReona = idReona;
-    }
-
-    @Column(name = "BROJ_STOLA")
-    @Id
-    public int getBrojStola() {
-        return brojStola;
-    }
-
-    public void setBrojStola(int brojStola) {
-        this.brojStola = brojStola;
+    public void setNazivPica(String nazivPica) {
+        this.nazivPica = nazivPica;
     }
 
     @Column(name = "ID_RESTORANA")
@@ -47,19 +36,17 @@ public class StoEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        StoEntityPK that = (StoEntityPK) o;
+        PiceEntityPK that = (PiceEntityPK) o;
 
-        if (idReona != that.idReona) return false;
-        if (brojStola != that.brojStola) return false;
         if (idRestorana != that.idRestorana) return false;
+        if (nazivPica != null ? !nazivPica.equals(that.nazivPica) : that.nazivPica != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = idReona;
-        result = 31 * result + brojStola;
+        int result = nazivPica != null ? nazivPica.hashCode() : 0;
         result = 31 * result + idRestorana;
         return result;
     }

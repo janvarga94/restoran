@@ -3,7 +3,7 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "ocena_jela", schema = "restorani", catalog = "")
@@ -12,6 +12,7 @@ public class OcenaJelaEntity {
     private Integer ocena;
     private String nazivJela;
     private String gostEmail;
+    private int idRestorana;
 
     @Basic
     @Column(name = "OCENA")
@@ -43,6 +44,16 @@ public class OcenaJelaEntity {
         this.gostEmail = gostEmail;
     }
 
+    @Id
+    @Column(name = "ID_RESTORANA")
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,6 +61,7 @@ public class OcenaJelaEntity {
 
         OcenaJelaEntity that = (OcenaJelaEntity) o;
 
+        if (idRestorana != that.idRestorana) return false;
         if (ocena != null ? !ocena.equals(that.ocena) : that.ocena != null) return false;
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
         if (gostEmail != null ? !gostEmail.equals(that.gostEmail) : that.gostEmail != null) return false;
@@ -62,6 +74,7 @@ public class OcenaJelaEntity {
         int result = ocena != null ? ocena.hashCode() : 0;
         result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        result = 31 * result + idRestorana;
         return result;
     }
 }

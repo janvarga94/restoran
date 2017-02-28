@@ -1,3 +1,6 @@
+import { RezervacijaService } from './services/rezervacija.service';
+import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
+import { RezervacijeComponent } from './rezervacije/rezervacije.component';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { PrijateljstvoService } from './services/prijateljstvo.service';
 import { LimitDuzineListe } from './pipes/LimitDuzineListe';
@@ -27,15 +30,11 @@ import {RestoranService} from './services/restorani.service';
 import {LoginService} from './services/login.service';
 import {Notificator} from './services/notification.service';
 import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
-
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
-import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
-import {ZaposleniService} from "./services/zaposleni.service";
-import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
-import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadzerRestorana.component";
-import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
+import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
+import {JelovnikComponent} from "./jelovnik/jelovnik.component";
 
 
 
@@ -50,17 +49,16 @@ import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
-         { path: 'novizaposleni', component : NoviZaposleniComponent},
-         {path: 'novirestoran', component: NoviRestoranComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
          { path: 'gostProfil', component : GostProfilComponent},
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
-        { path: 'rezervacija', component: RezervacijaComponent},
-         { path: 'novimenadzerrestorana',component : NoviMenadzerRestoranaComponent},
-         { path: 'noviponudjac', component: NoviPonudjacComponent},
+        { path: 'rezervacija/:idRestorana', component: RezervacijaComponent},
+         { path: 'rezervacije', component: RezervacijeComponent},
+         {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path: 'jelovnik', component: JelovnikComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -80,13 +78,15 @@ import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
     GostProfilComponent,
     ActivationComponent,
     RezervacijaComponent,
+    RezervacijeComponent,
+    GostPozvanPipe,
+    GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString,
-    NoviZaposleniComponent,
-      NoviRestoranComponent,
-      NoviMenadzerRestoranaComponent,
-      NoviPonudjacComponent
+      DodatiReonComponent,
+      JelovnikComponent
+
    ],
    providers: [
      RestoranService,
@@ -96,7 +96,7 @@ import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
      GostiService,
      PrijateljstvoService,
      ToasterService,
-       ZaposleniService,
+     RezervacijaService
    ],
     bootstrap: [ AppComponent ]
 })

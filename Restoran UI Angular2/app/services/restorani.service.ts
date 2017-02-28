@@ -11,13 +11,16 @@ import { ISuccess} from '../models/ISuccess';
 
 import { Notificator } from './notification.service';
 import {Config} from "../app.config";
+import {IJelo} from "../models/jelo";
 
 @Injectable()
 export class RestoranService {
     private _restoraniUrl = 'http://localhost:8080/resursi/restorani';
     private dodaj = Config.BackendUrl + '/resursi/add';
     private _managerRestoranaUrl = Config.BackendUrl + '/menadzerRestorana/getRestoranID';
-    private _addPonudjac = Config.BackendUrl + '/menadzerRestorana/addPonudjac'
+    private _addPonudjac = Config.BackendUrl + '/menadzerRestorana/addPonudjac';
+    private _addReon = Config.BackendUrl + '/menadzerRestorana/addReon';
+    private _getJelovnik = Config.BackendUrl + '/menadzerRestorana/getJelovnik';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -75,6 +78,24 @@ export class RestoranService {
         return this._http.post(this._addPonudjac,ponudjac).map((response: Response) => {
             return <any> response.json();
         }).catch(this.handleError);
+    }
+
+    public addReon(reon : any){
+        return this._http.post(this._addReon,reon).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+    public getJelovnik(email: string) : Observable<IJelo[]> {
+        return this._http.get(this._getJelovnik + "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                var jelovnik = <any> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                console.log(jelovnik.length);
+                return jelovnik;
+            })
+            .catch(this.handleError);
     }
 
 

@@ -6,6 +6,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var rezervacija_service_1 = require("./services/rezervacija.service");
+var GostPozvanPipe_1 = require("./pipes/GostPozvanPipe");
+var rezervacije_component_1 = require("./rezervacije/rezervacije.component");
 var rezervacija_component_1 = require("./rezervacija/rezervacija.component");
 var prijateljstvo_service_1 = require("./services/prijateljstvo.service");
 var LimitDuzineListe_1 = require("./pipes/LimitDuzineListe");
@@ -36,11 +39,8 @@ var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
-var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
-var zaposleni_service_1 = require("./services/zaposleni.service");
-var noviRestoran_component_1 = require("./noviRestoran/noviRestoran.component");
-var noviMenadzerRestorana_component_1 = require("./noviMenadzerRestorana/noviMenadzerRestorana.component");
-var noviPonudjac_component_1 = require("./noviPonudjac/noviPonudjac.component");
+var dodavanjeReona_component_1 = require("./dodavanjeReona/dodavanjeReona.component");
+var jelovnik_component_1 = require("./jelovnik/jelovnik.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -58,17 +58,16 @@ AppModule = __decorate([
                 { path: 'restoran/:id', component: restoranDetail_component_1.RestoranDetailComponent },
                 { path: 'zaposleni', component: zaposleni_component_1.ZaposleniComponent },
                 { path: 'zaposleni/:email', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
-                { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
-                { path: 'novirestoran', component: noviRestoran_component_1.NoviRestoranComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
                 { path: 'gostProfil', component: gostProfil_component_1.GostProfilComponent },
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
-                { path: 'rezervacija', component: rezervacija_component_1.RezervacijaComponent },
-                { path: 'novimenadzerrestorana', component: noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent },
-                { path: 'noviponudjac', component: noviPonudjac_component_1.NoviPonudjacComponent },
+                { path: 'rezervacija/:idRestorana', component: rezervacija_component_1.RezervacijaComponent },
+                { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
+                { path: 'dodavanjereona', component: dodavanjeReona_component_1.DodatiReonComponent },
+                { path: 'jelovnik', component: jelovnik_component_1.JelovnikComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -86,13 +85,14 @@ AppModule = __decorate([
             gostProfil_component_1.GostProfilComponent,
             activation_component_1.ActivationComponent,
             rezervacija_component_1.RezervacijaComponent,
+            rezervacije_component_1.RezervacijeComponent,
+            GostPozvanPipe_1.GostPozvanPipe,
+            GostPozvanPipe_1.GostNeozvanPipe,
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString,
-            noviZaposleni_component_1.NoviZaposleniComponent,
-            noviRestoran_component_1.NoviRestoranComponent,
-            noviMenadzerRestorana_component_1.NoviMenadzerRestoranaComponent,
-            noviPonudjac_component_1.NoviPonudjacComponent
+            dodavanjeReona_component_1.DodatiReonComponent,
+            jelovnik_component_1.JelovnikComponent
         ],
         providers: [
             restorani_service_1.RestoranService,
@@ -102,7 +102,7 @@ AppModule = __decorate([
             gosti_service_1.GostiService,
             prijateljstvo_service_1.PrijateljstvoService,
             angular2_toaster_1.ToasterService,
-            zaposleni_service_1.ZaposleniService,
+            rezervacija_service_1.RezervacijaService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

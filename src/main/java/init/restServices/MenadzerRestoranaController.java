@@ -1,17 +1,19 @@
 package init.restServices;
 
 
-import init.dtos.MenadzerRestoranaDto;
-import init.dtos.PonudjacDTO;
+import init.dtos.*;
 
-import init.dtos.ResponseWithMessageSuccess;
-import init.dtos.ZaposleniDTO;
+import init.model.Jelo;
+import init.modelFromDB.JeloEntity;
 import init.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Stefan on 2/26/2017.
@@ -59,6 +61,26 @@ public class MenadzerRestoranaController {
 
     }
 
+    @RequestMapping(path="/addReon", method = RequestMethod.POST)
+    public boolean dodajReon(@RequestBody ReonDTO reonDTO){
+
+        Integer id = mrr.getRestoranID(reonDTO.emailMenadzeraRestorana);
+        boolean uspeh = mrr.dodajReon(reonDTO,id);
+
+        return uspeh;
+
+    }
+
+
+    @RequestMapping(path="/getJelovnik", method = RequestMethod.GET)
+    public List<JeloDTO> getJelovnik(String email){
+        System.out.println("A JEL OVDE STIGAO PRVO: "+ email);
+        Integer z = mrr.getRestoranID(email);
+
+        List<JeloDTO> povratnaLista=  mrr.getJelovnik(z);
+
+        return povratnaLista;
+    }
 
 
 }

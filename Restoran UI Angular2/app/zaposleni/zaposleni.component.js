@@ -38,6 +38,9 @@ var ZaposleniComponent = (function () {
     ZaposleniComponent.prototype.detaljiZaposlenog = function (zaposleni) {
         console.log(zaposleni.radnikEmail);
     };
+    ZaposleniComponent.prototype.getBase = function (url) {
+        return btoa(url);
+    };
     return ZaposleniComponent;
 }());
 ZaposleniComponent = __decorate([

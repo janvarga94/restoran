@@ -26,7 +26,7 @@
         <td>{{zaposlen.idRestorana}}</td>
         <td>{{zaposlen.konferencijskiBroj}}</td>
         <td>{{zaposlen.velicinaObuce}}</td>
-        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + zaposlen.radnikEmail" class="btn btn-primary btn-sm">Detalji</button></td>
+        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + getBase(zaposlen.radnikEmail)" class="btn btn-primary btn-sm">Detalji</button></td>
         <td><button (click)="obrisiZaposlenog(zaposlen)" class="btn btn-primary btn-sm">✕</button></td>
 
     </tr>

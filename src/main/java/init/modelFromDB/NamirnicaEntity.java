@@ -3,14 +3,14 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/25/2017.
+ * Created by Svetozar Stojkovic on 2/27/2017.
  */
 @Entity
 @Table(name = "namirnica", schema = "restorani", catalog = "")
 public class NamirnicaEntity {
     private String naziv;
-    private int idNamirnice;
     private String opis;
+    private int idNamirnice;
 
     @Basic
     @Column(name = "NAZIV")
@@ -22,16 +22,6 @@ public class NamirnicaEntity {
         this.naziv = naziv;
     }
 
-    @Id
-    @Column(name = "ID_NAMIRNICE")
-    public int getIdNamirnice() {
-        return idNamirnice;
-    }
-
-    public void setIdNamirnice(int idNamirnice) {
-        this.idNamirnice = idNamirnice;
-    }
-
     @Basic
     @Column(name = "OPIS")
     public String getOpis() {
@@ -40,6 +30,16 @@ public class NamirnicaEntity {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    @Id
+    @Column(name = "ID_NAMIRNICE")
+    public int getIdNamirnice() {
+        return idNamirnice;
+    }
+
+    public void setIdNamirnice(int idNamirnice) {
+        this.idNamirnice = idNamirnice;
     }
 
     @Override
@@ -59,8 +59,8 @@ public class NamirnicaEntity {
     @Override
     public int hashCode() {
         int result = naziv != null ? naziv.hashCode() : 0;
-        result = 31 * result + idNamirnice;
         result = 31 * result + (opis != null ? opis.hashCode() : 0);
+        result = 31 * result + idNamirnice;
         return result;
     }
 }
