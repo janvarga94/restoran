@@ -62,6 +62,7 @@ AppModule = __decorate([
                 { path: 'sistemMenadzer', component: menazerView_component_1.MenazerSistemaViewComponent },
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
                 { path: 'rezervacija/:idRestorana', component: rezervacija_component_1.RezervacijaComponent },
+                { path: 'rezervacija/:idRestorana/:gost', component: rezervacija_component_1.RezervacijaComponent },
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },

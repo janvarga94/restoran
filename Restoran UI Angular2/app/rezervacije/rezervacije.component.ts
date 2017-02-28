@@ -45,21 +45,26 @@ export class RezervacijeComponent implements OnInit{
             this.randomClasses.push(this.generateRandomClassButton());
         }
 
+        
+      
+    }
+
+    ngOnInit() : void{
+
         this.route.params.subscribe(params => {
             var gost = params['gost'];
-            if(gost == null){
-                this.gostSaKojimRadimoSubject.next({email : gost});
+            if(gost != undefined && gost != null){
+                this.gostSaKojimRadimoSubject.next({email : atob(gost)});
             }else{
                 this._loginService.ulogovan.subscribe(ulogovan => {
                     this.gostSaKojimRadimoSubject.next(ulogovan);
                 });
             }
         });
-      
-    }
 
-    ngOnInit() : void{
-        this._loginService.ulogovan.subscribe(ulogovan => {
+
+
+        this.gostSaKojimRadimo.subscribe(ulogovan => {
             if(ulogovan != null){
                 this._rezervacijaService.getRezervacije(ulogovan.email).subscribe(rezervacije => {
                     this.rezervacije = rezervacije;
@@ -67,15 +72,6 @@ export class RezervacijeComponent implements OnInit{
             }
         });  
             
-    }
-
-    getGostZaKogaPravimoPorudzbinu(callback : Function){
-        this.route.params.subscribe(params => {
-            var gost = params['gost'];
-            if(gost == null){
-                
-            }
-        });
     }
 
     get search1(){
@@ -106,7 +102,7 @@ export class RezervacijeComponent implements OnInit{
             this.search2 = "";
         })
 
-         this._loginService.ulogovan.subscribe(ulogovan => {
+         this.gostSaKojimRadimo.subscribe(ulogovan => {
             if(ulogovan){
                 this._rezervacijaService.porucenaJela(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email)).subscribe(porucena => {
                     this.porucenaJela = porucena;
@@ -158,7 +154,7 @@ export class RezervacijeComponent implements OnInit{
     }
 
     poruciIzmeni(){
-        this._loginService.ulogovan.subscribe(ulogovan => {
+        this.gostSaKojimRadimo.subscribe(ulogovan => {
             if(ulogovan){
                 var request = { 
                     email: ulogovan.email,

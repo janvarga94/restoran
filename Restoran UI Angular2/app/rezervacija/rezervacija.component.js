@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Rx_1 = require("rxjs/Rx");
 var notification_service_1 = require("./../services/notification.service");
 var router_1 = require("@angular/router");
 var rezervacija_service_1 = require("./../services/rezervacija.service");
@@ -25,7 +26,6 @@ var RezervacijaComponent = (function () {
         this._loginService = _loginService;
         this._prijateljstvoService = _prijateljstvoService;
         this.danas = new Date(Date.now());
-        this.ulogovan = null;
         this.stage = 1;
         this._stoloviResponse = [];
         this.stolovi = [
@@ -44,16 +44,29 @@ var RezervacijaComponent = (function () {
         this.nepozvaniPrijatelji = [];
         this._prijatelji = [];
         this._search1 = "";
+        this.gostSaKojimRadimoSubject = new Rx_1.BehaviorSubject(null);
+        this.gostSaKojimRadimo = this.gostSaKojimRadimoSubject.asObservable();
         this._odabraniDatum = new Date();
     }
+    ;
     RezervacijaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.casDolaska = 12;
         this.minutDolaska = 0;
         this.duzinaBoravka = 2;
         this.danas = new Date(Date.now());
-        this._loginService.ulogovan.subscribe(function (user) {
-            _this.ulogovan = user;
+        this.route.params.subscribe(function (params) {
+            var gost = params['gost'];
+            if (gost != undefined && gost != null) {
+                _this.gostSaKojimRadimoSubject.next({ email: atob(gost) });
+            }
+            else {
+                _this._loginService.ulogovan.subscribe(function (ulogovan) {
+                    _this.gostSaKojimRadimoSubject.next(ulogovan);
+                });
+            }
+        });
+        this.gostSaKojimRadimo.subscribe(function (user) {
             if (user != null) {
                 _this._prijateljstvoService.GetPrijateljeOf(user.email).subscribe(function (prijatelji) {
                     _this._prijatelji = prijatelji;
@@ -130,19 +143,29 @@ var RezervacijaComponent = (function () {
     };
     RezervacijaComponent.prototype.rezervisi = function () {
         var _this = this;
-        this._rezervacijaService.rezervisi({ pocetak: this._odabraniDatum.getTime(),
-            kraj: this._odabraniDatum.getTime() + +this.duzinaBoravka * 60 * 60 * 1000,
-            rezervant: this.ulogovan.email,
-            idStola: this.odabraniSto.idStola,
-            pozvaniPrijatelji: this._pozvaniPrijatelji.map(function (p) { return p.email; }),
-        }).subscribe(function (response) {
-            if (response['Success'] == true) {
-                _this._notificator.notifySuccess("Uspesno data rezervacija");
-                _this._router.navigate(['/rezervacije']);
-            }
-            else {
-                _this._notificator.notifyError(response['Message']);
-            }
+        this.gostSaKojimRadimo.subscribe(function (gost) {
+            _this._rezervacijaService.rezervisi({ pocetak: _this._odabraniDatum.getTime(),
+                kraj: _this._odabraniDatum.getTime() + +_this.duzinaBoravka * 60 * 60 * 1000,
+                rezervant: gost.email,
+                idStola: _this.odabraniSto.idStola,
+                pozvaniPrijatelji: _this._pozvaniPrijatelji.map(function (p) { return p.email; }),
+            }).subscribe(function (response) {
+                if (response['Success'] == true) {
+                    _this._notificator.notifySuccess("Uspesno data rezervacija");
+                    _this.route.params.subscribe(function (params) {
+                        var gost = params['gost'];
+                        if (gost != undefined && gost != null) {
+                            _this._router.navigate(['/rezervacije/' + gost]);
+                        }
+                        else {
+                            _this._router.navigate(['/rezervacije']);
+                        }
+                    });
+                }
+                else {
+                    _this._notificator.notifyError(response['Message']);
+                }
+            });
         });
     };
     return RezervacijaComponent;

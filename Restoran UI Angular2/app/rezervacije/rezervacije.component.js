@@ -17,7 +17,6 @@ var core_1 = require("@angular/core");
 var restorani_service_1 = require("../services/restorani.service");
 var RezervacijeComponent = (function () {
     function RezervacijeComponent(route, _notificator, _loginService, _restoranService, _rezervacijaService) {
-        var _this = this;
         this.route = route;
         this._notificator = _notificator;
         this._loginService = _loginService;
@@ -38,10 +37,14 @@ var RezervacijeComponent = (function () {
         for (var i = 0; i < 20; i++) {
             this.randomClasses.push(this.generateRandomClassButton());
         }
+    }
+    ;
+    RezervacijeComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.route.params.subscribe(function (params) {
             var gost = params['gost'];
-            if (gost == null) {
-                _this.gostSaKojimRadimoSubject.next({ email: gost });
+            if (gost != undefined && gost != null) {
+                _this.gostSaKojimRadimoSubject.next({ email: atob(gost) });
             }
             else {
                 _this._loginService.ulogovan.subscribe(function (ulogovan) {
@@ -49,22 +52,11 @@ var RezervacijeComponent = (function () {
                 });
             }
         });
-    }
-    ;
-    RezervacijeComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this._loginService.ulogovan.subscribe(function (ulogovan) {
+        this.gostSaKojimRadimo.subscribe(function (ulogovan) {
             if (ulogovan != null) {
                 _this._rezervacijaService.getRezervacije(ulogovan.email).subscribe(function (rezervacije) {
                     _this.rezervacije = rezervacije;
                 });
-            }
-        });
-    };
-    RezervacijeComponent.prototype.getGostZaKogaPravimoPorudzbinu = function (callback) {
-        this.route.params.subscribe(function (params) {
-            var gost = params['gost'];
-            if (gost == null) {
             }
         });
     };
@@ -101,7 +93,7 @@ var RezervacijeComponent = (function () {
             _this._pica = pica;
             _this.search2 = "";
         });
-        this._loginService.ulogovan.subscribe(function (ulogovan) {
+        this.gostSaKojimRadimo.subscribe(function (ulogovan) {
             if (ulogovan) {
                 _this._rezervacijaService.porucenaJela(_this.odabranaRezervacija['idRezervacije'], encodeURIComponent(ulogovan.email)).subscribe(function (porucena) {
                     _this.porucenaJela = porucena;
@@ -146,7 +138,7 @@ var RezervacijeComponent = (function () {
     };
     RezervacijeComponent.prototype.poruciIzmeni = function () {
         var _this = this;
-        this._loginService.ulogovan.subscribe(function (ulogovan) {
+        this.gostSaKojimRadimo.subscribe(function (ulogovan) {
             if (ulogovan) {
                 var request = {
                     email: ulogovan.email,

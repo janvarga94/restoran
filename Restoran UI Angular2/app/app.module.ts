@@ -54,6 +54,7 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
         { path: 'rezervacija/:idRestorana', component: RezervacijaComponent},
+         { path: 'rezervacija/:idRestorana/:gost', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},

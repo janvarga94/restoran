@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/Rx';
 import { Notificator } from './../services/notification.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RezervacijaService } from './../services/rezervacija.service';
@@ -25,7 +26,6 @@ export class RezervacijaComponent implements OnInit{
     myDate: any;
     odabraniSto : any;
 
-    ulogovan : any = null;
 
     stage : Number = 1;
 
@@ -53,6 +53,10 @@ export class RezervacijaComponent implements OnInit{
 
     _odabraniDatum: any;
 
+     private gostSaKojimRadimoSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);;
+        gostSaKojimRadimo : Observable<any> = this.gostSaKojimRadimoSubject.asObservable();
+
+
     constructor( private _router: Router, private _notificator : Notificator,private route: ActivatedRoute, private _rezervacijaService : RezervacijaService,private _restoranService : RestoranService, private _loginService : LoginService ,private _prijateljstvoService : PrijateljstvoService) {
         this._odabraniDatum = new Date();
     }
@@ -62,9 +66,21 @@ export class RezervacijaComponent implements OnInit{
         this.minutDolaska = 0;
         this.duzinaBoravka = 2;
         this.danas = new Date(Date.now());
+
+         this.route.params.subscribe(params => {
+            var gost = params['gost'];
+            if(gost != undefined && gost != null){
+                this.gostSaKojimRadimoSubject.next({email : atob(gost)});
+            }else{
+                this._loginService.ulogovan.subscribe(ulogovan => {
+                    this.gostSaKojimRadimoSubject.next(ulogovan);
+                });
+            }
+        });
+
+
         
-        this._loginService.ulogovan.subscribe(user => {
-            this.ulogovan = user;
+        this.gostSaKojimRadimo.subscribe(user => {
             if(user != null){
                 this._prijateljstvoService.GetPrijateljeOf(user.email).subscribe(prijatelji =>{
                     this._prijatelji = prijatelji;
@@ -148,21 +164,30 @@ export class RezervacijaComponent implements OnInit{
     }
 
     rezervisi(){
-        this._rezervacijaService.rezervisi(
-            {   pocetak: this._odabraniDatum.getTime(),
-                kraj: this._odabraniDatum.getTime() + + this.duzinaBoravka*60*60*1000,
-                rezervant: this.ulogovan.email,
-                idStola: this.odabraniSto.idStola,
-                pozvaniPrijatelji: this._pozvaniPrijatelji.map(p => p.email),
-            }
-        ).subscribe(response => {
-            if(response['Success'] == true){
-                this._notificator.notifySuccess("Uspesno data rezervacija");
-                this._router.navigate(['/rezervacije']);
-            }else{
-                this._notificator.notifyError(response['Message']);
-            }
-        });
+        this.gostSaKojimRadimo.subscribe(gost => {      
+            this._rezervacijaService.rezervisi(
+                {   pocetak: this._odabraniDatum.getTime(),
+                    kraj: this._odabraniDatum.getTime() + + this.duzinaBoravka*60*60*1000,
+                    rezervant: gost.email,
+                    idStola: this.odabraniSto.idStola,
+                    pozvaniPrijatelji: this._pozvaniPrijatelji.map(p => p.email),
+                }
+            ).subscribe(response => {
+                if(response['Success'] == true){
+                    this._notificator.notifySuccess("Uspesno data rezervacija");
+                    this.route.params.subscribe(params => {
+                        var gost = params['gost'];
+                        if(gost != undefined && gost != null){                          
+                            this._router.navigate(['/rezervacije/' + gost]);
+                        }else{
+                            this._router.navigate(['/rezervacije']);
+                        }
+                    });
+                }else{
+                    this._notificator.notifyError(response['Message']);
+                }
+            });
+         });
     }
 
  }
