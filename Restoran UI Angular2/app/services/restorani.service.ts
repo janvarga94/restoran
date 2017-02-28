@@ -1,3 +1,4 @@
+import { Config } from './../app.config';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
@@ -16,6 +17,7 @@ import {IJelo} from "../models/jelo";
 @Injectable()
 export class RestoranService {
     private _restoraniUrl = 'http://localhost:8080/resursi/restorani';
+    private _restoraniSviUrl = Config.BackendUrl + '/restorani/getAll';
     private dodaj = Config.BackendUrl + '/resursi/add';
     private _managerRestoranaUrl = Config.BackendUrl + '/menadzerRestorana/getRestoranID';
     private _addPonudjac = Config.BackendUrl + '/menadzerRestorana/addPonudjac';
@@ -98,6 +100,13 @@ export class RestoranService {
             .catch(this.handleError);
     }
 
+    getSviRestorani(): Observable<IRestoran[]> {
+        return this._http.get(this._restoraniSviUrl)
+            .map((response: Response) => {
+                return <any> response.json();
+            })
+            .catch(this.handleError);
+    }
 
 
     private handleError(error: Response) {

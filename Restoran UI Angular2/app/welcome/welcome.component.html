@@ -1,0 +1,85 @@
+<style>
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+    .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.2em;
+    }
+    .rating > span:hover:before,
+    .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+    }
+
+    .rating > span:active:before,
+    .rating > span:active ~ span:before{
+        content: "\2605";
+        position: absolute;
+    }
+
+     h2{
+        font-weight: normal;
+        font-size: 50px;
+    }
+
+</style>
+
+<div class="jumbotron" *ngIf="!ulogovan">
+    <h1 class="display-3">Dobrodošli!</h1>
+    <p class="lead">Dobro došli na sajt za organizaciju najboljih restorana koje ste ikad videli i uživajte :* </p>
+    <hr class="my-2">
+    <p class="lead">
+    <a class="btn btn-primary btn-lg" [routerLink]="['/login']">Login</a>
+    <a class="btn btn-primary btn-lg" [routerLink]="['/register']">Register</a>
+    </p>
+</div>
+
+
+<h2 style="margin-top:20px;">Svi restorani</h2>
+<div class="row  pre-scrollable" style="margin-top: 10px;">
+    <div class="col-md-4" *ngFor="let restoran of sviRestorani" style="margin-top: 20px;">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">{{restoran.naziv | limitDuzineStringa : 20 }}</h4>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <button class="btn btn-primary" [routerLink]="['/rezervacija',restoran.idRestorana]">Rezervisi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<h2 style="margin-top:20px;">Posete</h2>
+
+<div class="row" *ngIf="poseceniRestorani != null">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Vrsta</th>
+                <th>Datum posete</th>
+                <th>Ocena</th>
+                <th style="float : right">Oceni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let restoran of poseceniRestorani">
+                <td>{{restoran.restoranNaziv}}</td>
+                <td>{{restoran.vrstaRestorana}}</td>
+                <td>{{getDatum(restoran.pocetak)}}</td>
+                <td>{{restoran.ocenaRestorana}}</td>
+                <td >
+                    <div class="rating">
+                        <span *ngFor="let i of [5,4,3,2,1]" (click)="rate(restoran.restoranId, ulogovan.email, i)">☆</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+

@@ -156,8 +156,7 @@ public class RestServices {
         }
         session.save(ocenaRestoranaEntity);
 
-        session.getTransaction().commit();
-
+        session.flush();
 
     }
 

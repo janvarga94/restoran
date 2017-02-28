@@ -24,6 +24,13 @@ import {ActivatedRoute} from "@angular/router";
 export class RezervacijaService {
     private _stoloviUrl = Config.BackendUrl +  '/rezervacija/stolovi';
     private _rezervisiUrl = Config.BackendUrl +  '/rezervacija/rezervisi';
+    private _jelaUrl = Config.BackendUrl + '/rezervacija/jela';
+    private _picaUrl = Config.BackendUrl + '/rezervacija/pica';
+    private _rezervaicjeUrl = Config.BackendUrl + '/rezervacija/rezervacije';
+    private _poruciJelaUrl = Config.BackendUrl + '/rezervacija/poruciJela';
+    private _poruciPicaUrl = Config.BackendUrl + '/rezervacija/poruciPica';
+    private _porucenaJelaUrl = Config.BackendUrl + '/rezervacija/porucenaJela';
+    private _porucenaPicaUrl = Config.BackendUrl + '/rezervacija/porucenaPica';
 
     constructor(private _http: Http, private _notificator: Notificator) {
 
@@ -39,6 +46,62 @@ export class RezervacijaService {
 
     rezervisi(rezervisiReq : any): Observable<any[]> {
         return this._http.post(this._rezervisiUrl,rezervisiReq)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    poruciJela(req : any): Observable<any[]> {
+        return this._http.post(this._poruciJelaUrl,req)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    poruciPica(req : any): Observable<any[]> {
+        return this._http.post(this._poruciPicaUrl,req)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    porucenaJela(idRez:any, email : any): Observable<any[]> {
+        return this._http.get(this._porucenaJelaUrl + "?idRezervacije=" + idRez + "&email=" + email)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    porucenaPica(idRez:any, email : any): Observable<any[]> {
+        return this._http.get(this._porucenaPicaUrl + "?idRezervacije=" + idRez + "&email=" + email)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    getJela(restoran: any): Observable<any[]> {
+        return this._http.get(this._jelaUrl+"?restoran="+restoran)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+     getPica(restoran: any): Observable<any[]> {
+        return this._http.get(this._picaUrl+"?restoran="+restoran)
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
+    getRezervacije(email: any): Observable<any[]> {
+        return this._http.get(this._rezervaicjeUrl+"?email="+encodeURIComponent(email))
             .map((response: Response) => {
                 return response.json();   
             })

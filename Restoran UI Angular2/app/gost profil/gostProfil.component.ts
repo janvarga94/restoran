@@ -139,7 +139,7 @@ export class GostProfilComponent {
                  this._nepozvaniUPrijateljstvo.push(kome);
                  this.IzmenaListe();
              }else{
-                 this._notificator.notifyInfo("Problem: " + response.Message);
+                 this._notificator.notifyInfo("Problem: " + response.Message + " Verovatno ste prijatelja pozvali u restoran pa prvo obrisite poziv.");
              }
         })
     }

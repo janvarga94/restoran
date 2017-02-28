@@ -43,7 +43,8 @@ public class AuthorizationController {
         if(acc == null || acc.email == null || acc.password == null)
             return null;
         KorisnikRepo korisnik = repository.findOne(acc.email);
-        if( korisnik == null || korisnik.email == null || korisnik.password == null)
+
+        if( korisnik == null || korisnik.email == null || korisnik.password == null || !korisnik.aktiviran)
             return  null;
 
         if( korisnik.password.equals(acc.password)){

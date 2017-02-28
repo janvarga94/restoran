@@ -26,6 +26,7 @@ public class Main {
 
     public static Log log = LogFactory.getLog(Main.class.getName());
 
+    public static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     public static Session session;
     public static final String backendUrl = "http://localhost:8080";
     public static final String frontendUrl = "http://localhost:3000";

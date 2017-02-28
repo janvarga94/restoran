@@ -1,7 +1,7 @@
 package init.repositories;
 
-import init.modelFromDB.KorisnikEntity;
-import init.modelFromDB.StoEntity;
+import init.Main;
+import init.modelFromDB.*;
 import init.repositories.models.PocetakKrajPair;
 import init.repositories.models.StoRepo;
 import org.hibernate.SessionFactory;
@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ public class RestoranRepository {
 
             PocetakKrajPair pair = new PocetakKrajPair();
             try{
-                pair.pocetak = ((Date) r[2]).getTime();
-                pair.kraj = ((Date) r[3]).getTime();
+                pair.pocetak = ((Timestamp) r[2]).getTime();
+                pair.kraj = ((Timestamp) r[3]).getTime();
 
                 try {   //ovaj try je jer findFist baci exception ako nenadje
                     StoRepo ss = returnValue.stream().filter(a -> a.idStola == sto.idStola).findFirst().get();
@@ -53,5 +54,36 @@ public class RestoranRepository {
         }
 
         return returnValue;
+    }
+
+    public List<PiceEntity> getPicaRestorana(int restoranId){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from pice where ID_RESTORANA = " + restoranId;
+        List<PiceEntity> pica = session.createNativeQuery(query, PiceEntity.class).getResultList();
+        session.close();
+
+        return pica;
+    }
+
+    public List<JeloEntity> getJelaRestorana(int restoranId){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from jelo where ID_RESTORANA = " + restoranId;
+        List<JeloEntity> jela = session.createNativeQuery(query, JeloEntity.class).getResultList();
+        session.close();
+
+        return jela;
+    }
+
+    public List<RestoranEntity> getSviRestorani(){
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<RestoranEntity> list = session.createNativeQuery("SELECT * FROM restoran",RestoranEntity.class).getResultList();
+        session.close();
+        return list;
     }
 }

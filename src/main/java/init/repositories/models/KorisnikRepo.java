@@ -12,6 +12,7 @@ public class KorisnikRepo {
     public String password;
     public String uloga;
     public Uloga Euloga;
+    public boolean aktiviran;
 
     public enum Uloga{
         MENAZER_SISTEMA, MENAZER_RESTORANA, SANKER, KONOBAR, KUVAR, GOST
