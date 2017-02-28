@@ -1,7 +1,8 @@
+import { BehaviorSubject } from 'rxjs/Rx';
 import { Notificator } from './../services/notification.service';
 import { LoginService } from './../services/login.service';
 import { RezervacijaService } from './../services/rezervacija.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import {RestoranService} from '../services/restorani.service';
@@ -33,12 +34,28 @@ export class RezervacijeComponent implements OnInit{
     porucenaPica: any[] = [];
 
     randomClasses : any[] = [];
-   
 
-    constructor(private _notificator : Notificator,private _loginService : LoginService,private _restoranService : RestoranService, private _rezervacijaService : RezervacijaService) {
+    ulogovan : any;
+   
+    private gostSaKojimRadimoSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);;
+    gostSaKojimRadimo : Observable<any> = this.gostSaKojimRadimoSubject.asObservable();
+
+    constructor(private route: ActivatedRoute,private _notificator : Notificator,private _loginService : LoginService,private _restoranService : RestoranService, private _rezervacijaService : RezervacijaService) {
         for(var i = 0; i < 20; i++){
             this.randomClasses.push(this.generateRandomClassButton());
         }
+
+        this.route.params.subscribe(params => {
+            var gost = params['gost'];
+            if(gost == null){
+                this.gostSaKojimRadimoSubject.next({email : gost});
+            }else{
+                this._loginService.ulogovan.subscribe(ulogovan => {
+                    this.gostSaKojimRadimoSubject.next(ulogovan);
+                });
+            }
+        });
+      
     }
 
     ngOnInit() : void{
@@ -50,6 +67,15 @@ export class RezervacijeComponent implements OnInit{
             }
         });  
             
+    }
+
+    getGostZaKogaPravimoPorudzbinu(callback : Function){
+        this.route.params.subscribe(params => {
+            var gost = params['gost'];
+            if(gost == null){
+                
+            }
+        });
     }
 
     get search1(){

@@ -63,6 +63,7 @@ AppModule = __decorate([
                 { path: 'activateAccount/:token', component: activation_component_1.ActivationComponent },
                 { path: 'rezervacija/:idRestorana', component: rezervacija_component_1.RezervacijaComponent },
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
+                { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
             ]),
         ],

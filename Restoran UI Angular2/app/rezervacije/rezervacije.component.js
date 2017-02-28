@@ -8,13 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var Rx_1 = require("rxjs/Rx");
 var notification_service_1 = require("./../services/notification.service");
 var login_service_1 = require("./../services/login.service");
 var rezervacija_service_1 = require("./../services/rezervacija.service");
+var router_1 = require("@angular/router");
 var core_1 = require("@angular/core");
 var restorani_service_1 = require("../services/restorani.service");
 var RezervacijeComponent = (function () {
-    function RezervacijeComponent(_notificator, _loginService, _restoranService, _rezervacijaService) {
+    function RezervacijeComponent(route, _notificator, _loginService, _restoranService, _rezervacijaService) {
+        var _this = this;
+        this.route = route;
         this._notificator = _notificator;
         this._loginService = _loginService;
         this._restoranService = _restoranService;
@@ -29,10 +33,24 @@ var RezervacijeComponent = (function () {
         this.porucenaJela = [];
         this.porucenaPica = [];
         this.randomClasses = [];
+        this.gostSaKojimRadimoSubject = new Rx_1.BehaviorSubject(null);
+        this.gostSaKojimRadimo = this.gostSaKojimRadimoSubject.asObservable();
         for (var i = 0; i < 20; i++) {
             this.randomClasses.push(this.generateRandomClassButton());
         }
+        this.route.params.subscribe(function (params) {
+            var gost = params['gost'];
+            if (gost == null) {
+                _this.gostSaKojimRadimoSubject.next({ email: gost });
+            }
+            else {
+                _this._loginService.ulogovan.subscribe(function (ulogovan) {
+                    _this.gostSaKojimRadimoSubject.next(ulogovan);
+                });
+            }
+        });
     }
+    ;
     RezervacijeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._loginService.ulogovan.subscribe(function (ulogovan) {
@@ -40,6 +58,13 @@ var RezervacijeComponent = (function () {
                 _this._rezervacijaService.getRezervacije(ulogovan.email).subscribe(function (rezervacije) {
                     _this.rezervacije = rezervacije;
                 });
+            }
+        });
+    };
+    RezervacijeComponent.prototype.getGostZaKogaPravimoPorudzbinu = function (callback) {
+        this.route.params.subscribe(function (params) {
+            var gost = params['gost'];
+            if (gost == null) {
             }
         });
     };
@@ -169,7 +194,7 @@ RezervacijeComponent = __decorate([
         selector: 'restorani',
         templateUrl: 'app/rezervacije/rezervacije.component.html'
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, login_service_1.LoginService, restorani_service_1.RestoranService, rezervacija_service_1.RezervacijaService])
+    __metadata("design:paramtypes", [router_1.ActivatedRoute, notification_service_1.Notificator, login_service_1.LoginService, restorani_service_1.RestoranService, rezervacija_service_1.RezervacijaService])
 ], RezervacijeComponent);
 exports.RezervacijeComponent = RezervacijeComponent;
 //# sourceMappingURL=rezervacije.component.js.map
