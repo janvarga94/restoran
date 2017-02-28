@@ -38,6 +38,8 @@ var zaposleni_component_1 = require("./zaposleni/zaposleni.component");
 var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.component");
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
+var dodavanjeReona_component_1 = require("./dodavanjeReona/dodavanjeReona.component");
+var jelovnik_component_1 = require("./jelovnik/jelovnik.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -66,6 +68,9 @@ AppModule = __decorate([
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
+                { path: 'dodavanjereona', component: dodavanjeReona_component_1.DodatiReonComponent },
+                { path: 'jelovnik', component: jelovnik_component_1.JelovnikComponent },
+                { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
         declarations: [
@@ -87,7 +92,9 @@ AppModule = __decorate([
             GostPozvanPipe_1.GostNeozvanPipe,
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
-            ContainsString_1.ContainsString
+            ContainsString_1.ContainsString,
+            dodavanjeReona_component_1.DodatiReonComponent,
+            jelovnik_component_1.JelovnikComponent
         ],
         providers: [
             restorani_service_1.RestoranService,

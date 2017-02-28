@@ -33,6 +33,8 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
+import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
+import {JelovnikComponent} from "./jelovnik/jelovnik.component";
 
 
 
@@ -58,6 +60,9 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
+         {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path: 'jelovnik', component: JelovnikComponent},
+        { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
      ]), 
@@ -81,7 +86,9 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
     GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
-    ContainsString
+    ContainsString,
+      DodatiReonComponent,
+      JelovnikComponent
 
    ],
    providers: [

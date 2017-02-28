@@ -1,6 +1,7 @@
 package init.restServices;
 
 import init.Main;
+import init.dtos.RestoranDTO;
 import init.dtos.SmenaDTO;
 import init.dtos.StoDTO;
 import init.dtos.ZaposleniDTO;
@@ -51,9 +52,35 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/add",method = RequestMethod.POST)
-    public void addRestoran(RestoranEntity r){
-        session.save(r);
-        session.getTransaction().commit();
+    public boolean addRestoran(@RequestBody RestoranDTO r){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        System.out.println(r.idRestorana);
+        System.out.println(r.naziv);
+
+        RestoranEntity restoran = new RestoranEntity();
+        restoran.setIdRestorana(r.idRestorana);
+        restoran.setNaziv(r.naziv);
+        restoran.setOpis(r.opis);
+        restoran.setVrsta(r.vrsta);
+
+        session.save(restoran);
+
+
+        try{
+            session.flush();
+        }
+        catch(Exception e){
+
+            return false;
+
+        }finally {
+            session.close();
+        }
+
+        return true;
     }
 
     @RequestMapping(path = "/zaposleni", method=RequestMethod.GET)

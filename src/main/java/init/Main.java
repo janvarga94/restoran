@@ -312,7 +312,7 @@ public class Main {
                 registry.addMapping("/resursi/restorani_for_user").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/add_ocena_restoran").allowedOrigins("http://localhost:3000");
                 registry.addMapping("/resursi/ocena_for_restoran").allowedOrigins("http://localhost:3000");
-                registry.addMapping("/**");
+                registry.addMapping("/**").allowedOrigins("http://localhost:3000");
 
             }
         };

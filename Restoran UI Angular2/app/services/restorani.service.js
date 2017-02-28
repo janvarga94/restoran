@@ -22,6 +22,11 @@ var RestoranService = (function () {
         this._notificator = _notificator;
         this._restoraniUrl = 'http://localhost:8080/resursi/restorani';
         this._restoraniSviUrl = app_config_1.Config.BackendUrl + '/restorani/getAll';
+        this.dodaj = app_config_1.Config.BackendUrl + '/resursi/add';
+        this._managerRestoranaUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
+        this._addPonudjac = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonudjac';
+        this._addReon = app_config_1.Config.BackendUrl + '/menadzerRestorana/addReon';
+        this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -34,14 +39,53 @@ var RestoranService = (function () {
         })
             .catch(this.handleError);
     };
-    RestoranService.prototype.getRestoran = function (id) {
-        return this.getRestorani()
-            .map(function (restorani) { return restorani.find(function (r) { return r.naziv === id; }); })
+    /* getRestoran(id: string): Observable<IRestoran> {
+         return this.getRestorani()email
+             .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+             .catch(this.handleError);
+     } */
+    RestoranService.prototype.getManagerRestoranID = function (email) {
+        return this._http.get(this._managerRestoranaUrl + "?email=" + email)
+            .map(function (response) {
+            var id = response.json();
+            return id;
+        })
             .catch(this.handleError);
     };
+    RestoranService.prototype.getRestoran = function () {
+    };
+    /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
+           return this._http.get("api/successResponse.json")
+             .map((response: Response) => {   return <ISuccess> response.json(); })
+             .catch(this.handleError);
+     } */
+    /* addRestoran(restoran : any) {
+  
+     } */
     RestoranService.prototype.addRestoran = function (restoran) {
-        return this._http.get("api/successResponse.json")
-            .map(function (response) { return response.json(); })
+        return this._http.post(this.dodaj, restoran).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addPonudjac = function (ponudjac) {
+        return this._http.post(this._addPonudjac, ponudjac).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addReon = function (reon) {
+        return this._http.post(this._addReon, reon).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.getJelovnik = function (email) {
+        return this._http.get(this._getJelovnik + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var jelovnik = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            console.log(jelovnik.length);
+            return jelovnik;
+        })
             .catch(this.handleError);
     };
     RestoranService.prototype.getSviRestorani = function () {
