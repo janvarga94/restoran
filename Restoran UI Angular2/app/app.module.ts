@@ -33,6 +33,9 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
+import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
+import {JelovnikComponent} from "./jelovnik/jelovnik.component";
+
 import {PushNotificationsModule} from "angular2-notifications";
 import {AgmCoreModule} from "angular2-google-maps/core";
 
@@ -60,6 +63,11 @@ import {AgmCoreModule} from "angular2-google-maps/core";
         { path: 'activateAccount/:token', component : ActivationComponent},
         { path: 'rezervacija/:idRestorana', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
+         { path: 'rezervacije/:gost', component: RezervacijeComponent},
+        { path: '', redirectTo: 'login', pathMatch: 'full'},
+         {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path: 'jelovnik', component: JelovnikComponent},
+        { path: '', redirectTo: 'welcome', pathMatch: 'full'},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -84,7 +92,9 @@ import {AgmCoreModule} from "angular2-google-maps/core";
     GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
-    ContainsString
+    ContainsString,
+      DodatiReonComponent,
+      JelovnikComponent
 
    ],
    providers: [

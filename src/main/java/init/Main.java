@@ -314,7 +314,6 @@ public class Main {
                 registry.addMapping("/stomp/**").allowedHeaders("http://localhost:3000");
 
                 registry.addMapping("/**").allowedOrigins("http://localhost:3000");
-
             }
         };
     }

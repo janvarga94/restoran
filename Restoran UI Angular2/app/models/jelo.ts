@@ -1,6 +1,8 @@
 export interface IJelo {
     naziv : string,
-    tekst : string,
+    idRestorana : number,
+    idTipJela : number,
+    opis : string,
     cena : number
 }
 

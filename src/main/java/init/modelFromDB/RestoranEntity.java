@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "restoran", schema = "restorani", catalog = "")
 public class RestoranEntity {
+    private int idRestorana;
     private String vrsta;
     private String naziv;
-    private int idRestorana;
     private String opis;
 
     @Basic
