@@ -28,8 +28,8 @@ var NoviRestoranComponent = (function () {
     };
     NoviRestoranComponent.prototype.addRestoran = function () {
         var _this = this;
-        this._restoranService.addRestoran({ idRestorana: this.id, vrsta: this.vrsta, naziv: this.naziv, opis: this.opis }).subscribe(function (response) {
-            if (response.Succes == true)
+        this._restoranService.addRestoran({ idRestorana: this.id, vrsta: this.vrsta, naziv: this.naziv, opis: this.opis, adresa: this.adresa }).subscribe(function (response) {
+            if (response.Success == true)
                 _this._notificator.notifySuccess("Usposno dodat restoran");
             else
                 _this._notificator.notifyError("Greska");

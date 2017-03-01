@@ -9,13 +9,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var rezervacija_service_1 = require("./../services/rezervacija.service");
 var prijateljstvo_service_1 = require("./../services/prijateljstvo.service");
 var notification_service_1 = require("./../services/notification.service");
 var gosti_service_1 = require("./../services/gosti.service.");
 var core_1 = require("@angular/core");
 var login_service_1 = require("../services/login.service");
 var GostProfilComponent = (function () {
-    function GostProfilComponent(_loginService, _gostService, _notificator, _prijateljstvoService) {
+    function GostProfilComponent(_rezervacijaService, _loginService, _gostService, _notificator, _prijateljstvoService) {
+        this._rezervacijaService = _rezervacijaService;
         this._loginService = _loginService;
         this._gostService = _gostService;
         this._notificator = _notificator;
@@ -26,6 +28,7 @@ var GostProfilComponent = (function () {
         this.nepozvaniUPrijateljstvo = [];
         this.pozvaniUPrijateljstvo = [];
         this.gostPozvanUPrijateljstvoOd = [];
+        this.poziviURestorane = [];
         this.search1 = '';
         this.search2 = '';
         this.search3 = '';
@@ -56,6 +59,9 @@ var GostProfilComponent = (function () {
             _this._prijateljstvoService.GetGostPozvanUPrijateljstvoOd(ulogovan.email).subscribe(function (pozivaociUPrijateljstvo) {
                 _this._gostPozvanUPrijateljstvoOd = pozivaociUPrijateljstvo;
                 _this.IzmenaListe();
+            });
+            _this._rezervacijaService.getPoziveURestorane(ulogovan.email).subscribe(function (pozivi) {
+                _this.poziviURestorane = pozivi;
             });
         });
     };
@@ -148,13 +154,38 @@ var GostProfilComponent = (function () {
             }
         });
     };
+    GostProfilComponent.prototype.getVreme = function (vreme) {
+        return new Date(vreme).toLocaleDateString() + " " + new Date(vreme).toLocaleTimeString();
+    };
+    GostProfilComponent.prototype.prihvatiPozivURestoran = function (idPoziva) {
+        var _this = this;
+        this._rezervacijaService.prihvatiOdbij(idPoziva, true).subscribe(function (resp) {
+            if (resp['Success'] == true) {
+                _this._notificator.notifySuccess("Poziv prihvacen!");
+            }
+            else {
+                _this._notificator.notifyError(resp["Message"]);
+            }
+        });
+    };
+    GostProfilComponent.prototype.odbijPozivURestoran = function (idPoziva) {
+        var _this = this;
+        this._rezervacijaService.prihvatiOdbij(idPoziva, false).subscribe(function (resp) {
+            if (resp['Success'] == true) {
+                _this._notificator.notifyInfo("Poziv odbijen");
+            }
+            else {
+                _this._notificator.notifyError(resp["Message"]);
+            }
+        });
+    };
     return GostProfilComponent;
 }());
 GostProfilComponent = __decorate([
     core_1.Component({
         templateUrl: './app/gost profil/gostProfil.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator, prijateljstvo_service_1.PrijateljstvoService])
+    __metadata("design:paramtypes", [rezervacija_service_1.RezervacijaService, login_service_1.LoginService, gosti_service_1.GostiService, notification_service_1.Notificator, prijateljstvo_service_1.PrijateljstvoService])
 ], GostProfilComponent);
 exports.GostProfilComponent = GostProfilComponent;
 //# sourceMappingURL=gostProfil.component.js.map

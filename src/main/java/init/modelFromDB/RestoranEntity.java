@@ -3,15 +3,16 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/27/2017.
+ * Created by Svetozar Stojkovic on 3/1/2017.
  */
 @Entity
 @Table(name = "restoran", schema = "restorani", catalog = "")
 public class RestoranEntity {
-    private int idRestorana;
     private String vrsta;
     private String naziv;
+    private int idRestorana;
     private String opis;
+    private String adresa;
 
     @Basic
     @Column(name = "VRSTA")
@@ -53,6 +54,16 @@ public class RestoranEntity {
         this.opis = opis;
     }
 
+    @Basic
+    @Column(name = "ADRESA")
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,6 +75,7 @@ public class RestoranEntity {
         if (vrsta != null ? !vrsta.equals(that.vrsta) : that.vrsta != null) return false;
         if (naziv != null ? !naziv.equals(that.naziv) : that.naziv != null) return false;
         if (opis != null ? !opis.equals(that.opis) : that.opis != null) return false;
+        if (adresa != null ? !adresa.equals(that.adresa) : that.adresa != null) return false;
 
         return true;
     }
@@ -74,6 +86,7 @@ public class RestoranEntity {
         result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
         result = 31 * result + idRestorana;
         result = 31 * result + (opis != null ? opis.hashCode() : 0);
+        result = 31 * result + (adresa != null ? adresa.hashCode() : 0);
         return result;
     }
 }

@@ -1,3 +1,5 @@
+import { StatsRestoranaComponent } from './statsRestorana/statsRestorana.component';
+import { StatService } from './services/stat.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RezervacijaService } from './services/rezervacija.service';
 import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
@@ -33,8 +35,14 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
-import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
-import {JelovnikComponent} from "./jelovnik/jelovnik.component";
+import {AgmCoreModule} from "angular2-google-maps/core";
+import {ZaposleniDetailService} from "./services/zaposleniDetail.service";
+import {PushNotificationsService} from "angular2-notifications";
+import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
+import {ZaposleniService} from "./services/zaposleni.service";
+import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
+//import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
+//import {JelovnikComponent} from "./jelovnik/jelovnik.component";
 import {StatistikaComponent} from "./statistika/statistika.component";
 import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
@@ -45,6 +53,9 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
 @NgModule({
   imports: [
      BrowserModule,
+      AgmCoreModule.forRoot({
+          apiKey: 'AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc'
+      }),
      FormsModule,
      HttpModule,
      ToasterModule,
@@ -53,6 +64,9 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
+         {path: 'novirestoran', component : NoviRestoranComponent},
+         {path: 'novizaposleni', component : NoviZaposleniComponent},
+         {path: 'novizaposleni/:email', component : NoviZaposleniComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -63,10 +77,11 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
          { path: 'rezervacija/:idRestorana/:gost', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
+         { path: 'stats/:idRestorana', component : StatsRestoranaComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
-         {path: 'dodavanjereona', component: DodatiReonComponent},
+       //  {path: 'dodavanjereona', component: DodatiReonComponent},
          {path:'statistika', component: StatistikaComponent},
-         {path: 'jelovnik', component: JelovnikComponent},
+      //   {path: 'jelovnik', component: JelovnikComponent},
          {path: 'dodavanjestola', component: DodavanjeStolaComponent },
          {path: 'potraznajnamirnica', component: PotraznjaNamirnicaComponent},
          {path: 'novojelo', component: NovoJeloComponent},
@@ -79,6 +94,8 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
     AppComponent,
     WelcomeComponent,
     RestoraniComponent,
+      NoviZaposleniComponent,
+      NoviRestoranComponent,
     ZaposleniComponent,
     ZaposleniDetailComponent,
     RestoranDetailComponent,
@@ -90,13 +107,14 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
     ActivationComponent,
     RezervacijaComponent,
     RezervacijeComponent,
+    StatsRestoranaComponent,
     GostPozvanPipe,
     GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString,
-      DodatiReonComponent,
-      JelovnikComponent,
+     // DodatiReonComponent,
+     // JelovnikComponent,
       StatistikaComponent,
       DodavanjeStolaComponent,
       PotraznjaNamirnicaComponent,
@@ -112,7 +130,11 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
      GostiService,
      PrijateljstvoService,
      ToasterService,
-     RezervacijaService
+     RezervacijaService,
+       PushNotificationsService,
+       ZaposleniService,
+       ZaposleniDetailService,
+       StatService
    ],
     bootstrap: [ AppComponent ]
 })

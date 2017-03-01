@@ -3,7 +3,7 @@
     <br>
     <img height="150" src="http://www.clker.com/cliparts/C/N/O/F/T/X/blank-profile-hi.png" style="float: left; padding-right: 10px;">
 
-    <a href="http://www.google.com" style="float: right"><img height="50" src="https://image.flaticon.com/icons/svg/61/61456.svg"></a>
+    <img style="float: right; cursor: pointer" [routerLink] = "'/novizaposleni/' + getBase(zaposlen[0])" height="50" src="https://image.flaticon.com/icons/svg/61/61456.svg">
     <table style="padding-left: 5px">
         <tr>
             <td>Ime:</td>
@@ -135,6 +135,8 @@
 
     </style>
 
+
+
     <br>
     <hr>
     <br>
@@ -207,6 +209,10 @@
 
     </div>
 
+    <div style="clear: both">
+        <button class="btn btn-success" (click)="sendNotification()">Posalji notification</button>
+    </div>
+
 
     <div style="clear: both" *ngIf="zanimanjeInt==0">
 
@@ -219,14 +225,16 @@
         <div class="row" style="background-color: rgba(0,0,0,0.05); padding:10px;">
             <div *ngFor="let sto of stolovi; let i = index" class="col-md-2" style="margin-top:20px">
                 <div class="card sto" [style.background-color]="sto[4] == null? 'green' : 'red'" style="color: white">
-                    <div class="card-block" *ngIf="sto[4] == null" style="cursor: pointer">
+                    <div class="card-block" *ngIf="sto[4] == null" (click)="porudzbina()">
                         <h3 class="card-title">Sto {{i}}</h3>
                         <p class="card-text">slobodan</p>
                     </div>
-                    <div class="card-block" *ngIf="sto[4] != null" style="cursor: pointer">
+
+                    <div class="card-block" *ngIf="sto[4] != null" [routerLink] = "'/rezervacije/'+getBase(sto[4])" style="cursor: pointer" >
                         <h3 class="card-title">Sto {{i}}</h3>
                         <p class="card-text">{{sto[4]}}</p>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -237,7 +245,7 @@
         <br>
         <hr>
         <br>
-        <table style="width: 100%">
+        <table style="width: 100%" *ngIf="prihvacena.length != 0">
             <tr>
                 <th>
                     Naziv jela
@@ -263,7 +271,7 @@
                     {{jelo[8]}}
                 </td>
                 <td>
-                    <button class="btn btn-success" (click)="napravljeno(jelo)">Napravljeno</button>
+                    <button class="btn btn-success" (click)="napravljenoJelo(jelo)">Napravljeno</button>
                 </td>
             </tr>
         </table>
@@ -272,7 +280,7 @@
         <hr>
         <br>
 
-        <table style="width: 100%">
+        <table style="width: 100%" *ngIf="neprihvacena.length != 0">
             <tr>
                 <th>
                     Naziv jela
@@ -298,13 +306,48 @@
                     {{jelo[8]}}
                 </td>
                 <td>
-                    <button class="btn btn-success" (click)="prihvaceno(jelo)">Prihvatam</button>
+                    <button class="btn btn-success" (click)="prihvacenoJelo(jelo)">Prihvatam</button>
                 </td>
             </tr>
         </table>
     </div>
 
+    <div style="clear: both" *ngIf="zanimanjeInt==2">
 
+        <br>
+        <hr>
+        <br>
+        <table style="width: 100%">
+            <tr>
+                <th>
+                    Naziv pica
+                </th>
+                <th>
+                    Opis pica
+                </th>
+                <th>
+                    Da bude spremno
+                </th>
+                <th>
+                    Napravljeno
+                </th>
+            </tr>
+            <tr *ngFor="let pice of pica">
+                <td>
+                    {{pice[3]}}
+                </td>
+                <td>
+                    {{pice[4]}}
+                </td>
+                <td>
+                    {{pice[8]}}
+                </td>
+                <td>
+                    <button class="btn btn-success" (click)="napravljenoPice(pice)">Napravljeno</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 
 </div>

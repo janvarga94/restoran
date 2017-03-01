@@ -1,3 +1,4 @@
+import { RezervacijaService } from './../services/rezervacija.service';
 import { PrijateljstvoService } from './../services/prijateljstvo.service';
 import { IUlogovan } from './../models/ulogovan';
 import { Notificator } from './../services/notification.service';
@@ -23,6 +24,7 @@ export class GostProfilComponent {
     nepozvaniUPrijateljstvo : any[] = [];
     pozvaniUPrijateljstvo : any[] = [];
     gostPozvanUPrijateljstvoOd : any[] = [];
+    poziviURestorane : any[] = [];
 
     search1 = '';
     search2 = '';
@@ -34,7 +36,7 @@ export class GostProfilComponent {
     private _pozvaniUPrijateljstvo : any[] = [];
     private _gostPozvanUPrijateljstvoOd : any[] = [];
 
-    constructor(private _loginService : LoginService, private _gostService : GostiService, private _notificator : Notificator, private _prijateljstvoService : PrijateljstvoService) {
+    constructor(private _rezervacijaService : RezervacijaService ,private _loginService : LoginService, private _gostService : GostiService, private _notificator : Notificator, private _prijateljstvoService : PrijateljstvoService) {
 
     }
 
@@ -64,6 +66,11 @@ export class GostProfilComponent {
                 this._gostPozvanUPrijateljstvoOd = pozivaociUPrijateljstvo;
                 this.IzmenaListe();
             });
+
+            this._rezervacijaService.getPoziveURestorane(ulogovan.email).subscribe(pozivi => {
+                this.poziviURestorane = pozivi;              
+            });
+            
 
         });
 
@@ -158,6 +165,29 @@ export class GostProfilComponent {
         })
     }
 
+    getVreme(vreme : any){
+        return new Date(vreme).toLocaleDateString() + " " + new Date(vreme).toLocaleTimeString();
+    }
 
+    prihvatiPozivURestoran(idPoziva : any){
+        this._rezervacijaService.prihvatiOdbij(idPoziva, true).subscribe(resp => {
+            if(resp['Success'] == true){
+                this._notificator.notifySuccess("Poziv prihvacen!");
+
+            }else{
+                this._notificator.notifyError(resp["Message"]);                
+            }
+        });
+    }
+    odbijPozivURestoran(idPoziva : any){
+        this._rezervacijaService.prihvatiOdbij(idPoziva, false).subscribe(resp => {
+            if(resp['Success'] == true){
+                this._notificator.notifyInfo("Poziv odbijen");
+                
+            }else{
+                this._notificator.notifyError(resp["Message"]);                
+            }
+        });
+    }
 
 }

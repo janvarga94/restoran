@@ -8,6 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Repository;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -58,10 +63,16 @@ public class RezervacijaRepository {
             poziv.setIdRezervacije(rezervacijaId);
             poziv.setIdPoziva(random.nextInt(800000));
             poziv.setPosiljaocVideoOdgovor(Byte.MIN_VALUE);
-            poziv.setPrihvacenPoziv(Byte.MIN_VALUE);
+            poziv.setPrihvacenPoziv(null);
             poziv.setPocetak(new Date(rezervacijaReq.pocetak));
 
             session.save(poziv);
+
+            try{
+                pozaljiMailPozivnicu(pozvani);
+            }catch(Exception e){
+                response.Message = "Mail nije uspeo stici svima";
+            }
         }
 
         try
@@ -78,6 +89,37 @@ public class RezervacijaRepository {
         {
             session.close();
             return response;
+        }
+    }
+
+    private void pozaljiMailPozivnicu(String email){
+        java.util.Properties props = new java.util.Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("isastefansvetozarjan@gmail.com", "isastefansvetozarjan123");
+            }
+        });
+
+// Construct the message
+        String to = email;
+        String from = "isastefansvetozarjan@gmail.com";
+        String subject = "Pozvani ste u restoran";
+        Message msg = new MimeMessage(session);
+        try {
+            msg.setFrom(new InternetAddress(from));
+            msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            msg.setSubject(subject);
+            //        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            msg.setText("Detaljnije: " + Main.frontendUrl + "/login");
+
+            // Send the message.
+            Transport.send(msg);
+        } catch (MessagingException e) {
+            // Error.
         }
     }
 
@@ -304,6 +346,88 @@ public class RezervacijaRepository {
         session.close();
         return jela;
     }
+
+    public List<PozivURestoran> getPoziveIciSaPrijateljima(String email){
+        String query = "select rezervacija.ID_REZERVACIJE, rezervacija.POCETAK, rezervacija.GOST_EMAIL, restoran.NAZIV,  poziv_prijatelja.ID_POZIVA from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on reon.ID_REONA = sto.ID_REONA inner join rezervacija on sto.BROJ_STOLA = rezervacija.BROJ_STOLA inner join poziv_prijatelja on rezervacija.ID_REZERVACIJE = poziv_prijatelja.ID_REZERVACIJE\n" +
+                "where\trezervacija.GOST_EMAIL != '"+email+"' and poziv_prijatelja.PRIHVACEN_POZIV is NULL\n" +
+                "and (poziv_prijatelja.DRUGI_EMAIL = '"+email+"' or poziv_prijatelja.PRVI_EMAIL = '"+email+"')";
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+        List<Object[]> results = session.createNativeQuery(query).getResultList();
+        List<PozivURestoran> returnValue = new ArrayList<PozivURestoran>();
+        for(Object[] obj : results){
+            PozivURestoran poziv = new PozivURestoran();
+            poziv.rezervacijaId = (int) obj[0];
+            poziv.pocetak = ((Timestamp)obj[1]).getTime();
+            poziv.pozvanOd = (String) obj[2];
+            poziv.restoranNaziv = (String) obj[3];
+            poziv.idPoziva = (int) obj[4];
+
+            returnValue.add(poziv);
+        }
+        session.close();
+        return  returnValue;
+    }
+
+    public ResponseWithMessageSuccess updatePozivURestoran(int idPoziva, boolean prihvati){
+        ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        PozivPrijateljaEntity poziv = session.get(PozivPrijateljaEntity.class, idPoziva);
+        if(poziv == null){
+            session.close();
+            response.Message = "Poziv nije pronadjen";
+            response.Success = false;
+        }else{
+            if(prihvati)
+                poziv.setPrihvacenPoziv(Byte.MAX_VALUE);
+            else
+                poziv.setPrihvacenPoziv(Byte.MIN_VALUE);
+            session.update(poziv);
+            try{
+                session.flush();
+                response.Success = true;
+            }catch(Exception ex){
+                response.Success = false;
+                response.Message = "Neuspesno prihvatanje/odbijanje poziva";
+            }
+        }
+
+
+        session.close();
+        return response;
+
+    }
+
+    public boolean plati (int idRezervacije, String gostEmail, int ukupnaCena) {
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from porudzbina where porudzbina.ID_REZERVACIJE="+idRezervacije+" and porudzbina.GOST_EMAIL='"+gostEmail+"'";
+
+        List<PorudzbinaEntity> porudzbinaEntities = session.createNativeQuery(query,PorudzbinaEntity.class).getResultList();
+
+        porudzbinaEntities.get(0).setUkupnaCena(ukupnaCena);
+        porudzbinaEntities.get(0).setPlaceno(Byte.MAX_VALUE);
+
+        try {
+            session.update(porudzbinaEntities.get(0));
+            session.close();
+            return true;
+        } catch (Exception e) {
+            session.close();
+            return false;
+        }
+
+
+
+    }
+
+
+
 
 
 }

@@ -4,8 +4,9 @@ import {ZaposleniDetailService} from "../services/zaposleniDetail.service";
 import {ZaposleniService} from "../services/zaposleni.service";
 import {Notificator} from "../services/notification.service";
 import {IZaposleni} from "../models/zaposleni";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {PushNotificationsService} from "angular2-notifications";
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
@@ -51,7 +52,9 @@ export class ZaposleniDetailComponent implements OnInit{
     prihvacena : any[] = [];
     neprihvacena : any[] = [];
 
-    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute) {
+    pica : any[] = [];
+
+    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute, private _pushNotifications: PushNotificationsService) {
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor")
     }
@@ -63,6 +66,7 @@ export class ZaposleniDetailComponent implements OnInit{
             console.log(this.email);
         });
 
+        // this._pushNotifications.requestPermission();
 
         let date = new Date();
         this.currentYear = date.getFullYear();
@@ -80,6 +84,7 @@ export class ZaposleniDetailComponent implements OnInit{
 
             this.refreshStolovi();
             this.refreshJela();
+            this.refreshPica();
 
         });
     }
@@ -119,6 +124,17 @@ export class ZaposleniDetailComponent implements OnInit{
 
         }
 
+    }
+
+    createWebSocket(){
+        // console.log(example(3));
+    }
+
+    sendNotification(){
+        this._pushNotifications.create('Test', {body: 'something'}).subscribe(
+            (res : any) => console.log(res),
+            (err : any) => console.log(err)
+        )
     }
 
 
@@ -176,11 +192,25 @@ export class ZaposleniDetailComponent implements OnInit{
                 if (jelo[11]==null || jelo[11]<jelo[8]){
                     this.neprihvacena.push(jelo);
                 } else if (jelo[0] == this.email){
-                    this.prihvacena[jelo];
+                    this.prihvacena.push(jelo);
                 }
             }
             this.jela = jela;
             console.log(this.jela);
+        });
+    }
+
+    refreshPica() {
+        this.pica = [];
+        this.zaposleniDetailService.getPica(this.idRestoran, this.email).subscribe(pica => {
+            // for (let pice of pica) {
+            //     pice[8] = this.getDatum(pice[8]);
+            //     console.log("Pice: "+pice[0]);
+            //     if (pice[9]==null || pice[9]<pice[7]){
+            //         this.pica.push(pice);
+            //     }
+            // }
+            this.pica = pica;
         });
     }
 
@@ -195,18 +225,48 @@ export class ZaposleniDetailComponent implements OnInit{
         return dan+'.'+mesec+'.'+godina+'. '+sat+':'+minut
     }
 
-    napravljeno(jelo : any){
+    napravljenoJelo(jelo : any){
         console.log(jelo);
         this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(jelo => {
 
         });
     }
 
-    prihvaceno(jelo : any){
+    prihvacenoJelo(jelo : any){
         console.log(jelo);
         this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(jelo => {
 
         });
+    }
+
+    porudzbina(sto : any) {
+        // = "'/rezervacije/' + getBase(sto[4])"
+        console.log(sto)
+    }
+
+    connectToWebSocket(){
+
+        // var socket = new SockJS('http://localhost:8080/stomp');
+        // var stompClient = Stomp.over(socket);
+        // stompClient.connect({}, function(frame) {
+        //     stompClient.subscribe("/topic/message", function(data) {
+        //         var message = data.body;
+        //
+        //     });
+        // });
+
+    }
+
+    napravljenoPice(pice : any){
+        console.log(pice);
+        this.zaposleniDetailService.napravljenoPice(pice[1]).subscribe(pice => {
+            this.refreshPica();
+
+        });
+    }
+
+    getBase(url : string) {
+        return btoa(url);
     }
 
     mapNumberZanimanje(zan : number){

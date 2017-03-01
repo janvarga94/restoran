@@ -1,6 +1,6 @@
-import { Config } from './../app.config';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Config } from './../app.config';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -36,22 +36,22 @@ export class RestoranService {
     constructor(private _http: Http, private _notificator: Notificator) { }
 
     getRestorani(): Observable<IRestoran[]> {
-    return this._http.get(this._restoraniUrl)
-        .map((response: Response) => {
-            var restorani = <IRestoran[]> response.json();
-            // for(var i = 0; i < 10; i++)
-            //     restorani.push(restorani[0]);
-            console.log(restorani.length);
-            return restorani;
-        })
-        .catch(this.handleError);
+        return this._http.get(this._restoraniUrl)
+            .map((response: Response) => {
+                var restorani = <IRestoran[]> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                console.log(restorani.length);
+                return restorani;
+            })
+            .catch(this.handleError);
     }
 
-   /* getRestoran(id: string): Observable<IRestoran> {
-        return this.getRestorani()email
-            .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
-            .catch(this.handleError);
-    } */
+    /* getRestoran(id: string): Observable<IRestoran> {
+     return this.getRestorani()email
+     .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+     .catch(this.handleError);
+     } */
 
     getManagerRestoranID(email: string) : any{
         return this._http.get(this._managerRestoranaUrl+"?email="+email)
@@ -71,15 +71,15 @@ export class RestoranService {
     }
 
 
-   /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
-          return this._http.get("api/successResponse.json")
-            .map((response: Response) => {   return <ISuccess> response.json(); })
-            .catch(this.handleError);        
-    } */
+    /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
+     return this._http.get("api/successResponse.json")
+     .map((response: Response) => {   return <ISuccess> response.json(); })
+     .catch(this.handleError);
+     } */
 
-  /* addRestoran(restoran : any) {
+    /* addRestoran(restoran : any) {
 
-   } */
+     } */
 
     addRestoran(restoran : any )  {
         return this._http.post(this.dodaj,restoran).map((response: Response) => {
@@ -128,6 +128,14 @@ export class RestoranService {
             })
             .catch(this.handleError);
     }
+
+    getLongLat(adresa : string): Observable<any>{
+
+        return this._http.get("https://maps.googleapis.com/maps/api/geocode/json?address="+encodeURIComponent(adresa)+"&key=AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc")
+            .map((response: Response) => {   return <any> response.json(); })
+            .catch(this.handleError);
+    }
+
 
     public getReoni(email: string) : Observable<IReon[]> {
         return this._http.get(this._getReoni + "?email="+ encodeURIComponent(email))
@@ -185,6 +193,8 @@ export class RestoranService {
     getNamirniceUPotraznji() : any {
 
     }
+
+
 
 
 

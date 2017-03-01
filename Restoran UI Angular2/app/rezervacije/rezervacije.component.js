@@ -33,18 +33,19 @@ var RezervacijeComponent = (function () {
         this.porucenaJela = [];
         this.porucenaPica = [];
         this.randomClasses = [];
+        this.ukupnaCena = 0;
         this.gostSaKojimRadimoSubject = new Rx_1.BehaviorSubject(null);
         this.gostSaKojimRadimo = this.gostSaKojimRadimoSubject.asObservable();
         for (var i = 0; i < 20; i++) {
             this.randomClasses.push(this.generateRandomClassButton());
         }
     }
-    ;
     RezervacijeComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
             var gost = params['gost'];
             if (gost != undefined && gost != null) {
+                console.log("Gost : " + atob(gost));
                 _this.gostSaKojimRadimoSubject.next({ email: atob(gost) });
             }
             else {
@@ -96,11 +97,41 @@ var RezervacijeComponent = (function () {
         });
         this.gostSaKojimRadimo.subscribe(function (ulogovan) {
             if (ulogovan) {
+                _this.ukupnaCena = 0;
                 _this._rezervacijaService.porucenaJela(_this.odabranaRezervacija['idRezervacije'], encodeURIComponent(ulogovan.email)).subscribe(function (porucena) {
                     _this.porucenaJela = porucena;
+                    console.log(porucena);
+                    _this.izracunajJela();
                 });
                 _this._rezervacijaService.porucenaPica(_this.odabranaRezervacija['idRezervacije'], encodeURIComponent(ulogovan.email)).subscribe(function (porucena) {
                     _this.porucenaPica = porucena;
+                    _this.izracunajPica();
+                });
+            }
+        });
+    };
+    RezervacijeComponent.prototype.izracunajCenu = function () {
+        this.ukupnaCena = 0;
+        this.izracunajJela();
+        this.izracunajPica();
+    };
+    RezervacijeComponent.prototype.izracunajJela = function () {
+        for (var _i = 0, _a = this.porucenaJela; _i < _a.length; _i++) {
+            var por = _a[_i];
+            this.ukupnaCena += por.cena;
+        }
+    };
+    RezervacijeComponent.prototype.izracunajPica = function () {
+        for (var _i = 0, _a = this.porucenaPica; _i < _a.length; _i++) {
+            var por = _a[_i];
+            this.ukupnaCena += por.cena;
+        }
+    };
+    RezervacijeComponent.prototype.plati = function () {
+        var _this = this;
+        this.gostSaKojimRadimo.subscribe(function (ulogovan) {
+            if (ulogovan != null) {
+                _this._rezervacijaService.plati(_this.odabranaRezervacija['idRezervacije'], encodeURIComponent(ulogovan.email), _this.ukupnaCena).subscribe(function (porucena) {
                 });
             }
         });
@@ -171,6 +202,7 @@ var RezervacijeComponent = (function () {
                         _this._notificator.notifyError(resp['Message']);
                     }
                 });
+                _this.izracunajCenu();
             }
         });
     };

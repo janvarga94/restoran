@@ -1,5 +1,5 @@
 
-<div class ="col-md-7">
+<div class ="col-md-7" *ngIf="update != null">
     <div class="card">
         <div class="card-header">
             Dodaj Zaposlenog
@@ -20,19 +20,22 @@
 
                 <div style="margin-bottom: 25px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <div class="form-control">
-                      <input id="datum" type="date"  name="datum rodjenja" value="" [(ngModel)] = "datum" >
-                    </div>
+                    <input id="email" type="email" name="email" [disabled]="update==true" class="form-control" value="" [(ngModel)] = "email" placeholder="* email">
                 </div>
 
-                <div style="margin-bottom: 25px" class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                    <input id="email" type="email" name="email" class="form-control" value="" [(ngModel)] = "email" placeholder="* email">
+                <div style="margin-bottom: 25px" class="input-group" *ngIf="update == true">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="old-password" type="password" class="form-control" name="password" placeholder="* old password" [(ngModel)] = "typedOldPassword">
                 </div>
 
                 <div style="margin-bottom: 25px" class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="add-password" type="password" class="form-control" name="password" placeholder="* password" [(ngModel)] = "password">
+                    <input id="add-password" type="password" class="form-control" name="password" placeholder="* new password" [(ngModel)] = "password">
+                </div>
+
+                <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="repeat-password" type="password" class="form-control" name="password" placeholder="* repeat password" [(ngModel)] = "passwordRepeat">
                 </div>
 
                 <div style="margin-bottom: 25px" class="input-group">
@@ -45,7 +48,7 @@
                     <input id="add-obuca" type="number" min="10" max="55" class="form-control" name="obuca" value="" [(ngModel)] = "obuca" placeholder="* broj obuce">
                 </div>
 
-                <div style="margin-bottom: 25px" class="input-group">
+                <div style="margin-bottom: 25px" class="input-group" *ngIf="update==false">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                     <select  class="form-control" [(ngModel)]="selectedJob">
                         <option  *ngFor="let j of jobs" [ngValue]="j">{{j.name}}</option>
@@ -53,7 +56,7 @@
                 </div>
 
                 <div class="col-sm-12 controls">
-                    <button id="btn-add" href="#" (click)="addZaposlenog()" class="btn btn-success" style ="margin-left: 450px"  [disabled]="ime=='' || prezime=='' || datum=='' || email=='' || password=='' ||  konfekcijski == '' " >ADD! </button>
+                    <button id="btn-add" href="#" (click)="addZaposlenog()" class="btn btn-success" style ="margin-left: 450px"  [disabled]="ime=='' || prezime=='' || password != passwordRepeat || datum=='' || email=='' || password=='' ||  konfekcijski == '' " >Dodaj</button>
 
                 </div>
 

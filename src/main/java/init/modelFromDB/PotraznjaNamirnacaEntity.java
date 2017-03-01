@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 /**
- * Created by Svetozar Stojkovic on 2/27/2017.
+ * Created by Svetozar Stojkovic on 3/1/2017.
  */
 @Entity
 @Table(name = "potraznja_namirnaca", schema = "restorani", catalog = "")
@@ -33,11 +33,16 @@ public class PotraznjaNamirnacaEntity {
         this.idPotraznje = idPotraznje;
     }
 
-    @Id
+    @Basic
     @Column(name = "DOKAD")
-    public Date getDokad() {return this.dokad; }
+    public Date getDokad() {
+        return dokad;
+    }
 
-    public void setDokad(Date dokad) {this.dokad = dokad; }
+    public void setDokad(Date dokad) {
+        this.dokad = dokad;
+    }
+
 
 
     @Override
@@ -49,6 +54,7 @@ public class PotraznjaNamirnacaEntity {
 
         if (idNamirnice != that.idNamirnice) return false;
         if (idPotraznje != that.idPotraznje) return false;
+        if (dokad != null ? !dokad.equals(that.dokad) : that.dokad != null) return false;
 
         return true;
     }
@@ -57,6 +63,7 @@ public class PotraznjaNamirnacaEntity {
     public int hashCode() {
         int result = idNamirnice;
         result = 31 * result + idPotraznje;
+        result = 31 * result + (dokad != null ? dokad.hashCode() : 0);
         return result;
     }
 }

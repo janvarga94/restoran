@@ -13,14 +13,16 @@ var core_1 = require("@angular/core");
 var zaposleniDetail_service_1 = require("../services/zaposleniDetail.service");
 var notification_service_1 = require("../services/notification.service");
 var router_1 = require("@angular/router");
+var angular2_notifications_1 = require("angular2-notifications");
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
 var ZaposleniDetailComponent = (function () {
-    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route) {
+    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route, _pushNotifications) {
         this._notificator = _notificator;
         this._zaposleniDetailService = _zaposleniDetailService;
         this.route = route;
+        this._pushNotifications = _pushNotifications;
         this.pageTitle = "Zaposleni";
         this._days = [];
         this._neds = [];
@@ -32,6 +34,7 @@ var ZaposleniDetailComponent = (function () {
         this.jela = [];
         this.prihvacena = [];
         this.neprihvacena = [];
+        this.pica = [];
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor");
     }
@@ -41,6 +44,7 @@ var ZaposleniDetailComponent = (function () {
             _this.email = atob(params['email']);
             console.log(_this.email);
         });
+        // this._pushNotifications.requestPermission();
         var date = new Date();
         this.currentYear = date.getFullYear();
         this.currentMonth = date.getMonth() + 1;
@@ -53,6 +57,7 @@ var ZaposleniDetailComponent = (function () {
             _this.changeDate(_this.currentDay, _this.currentMonth, _this.currentYear);
             _this.refreshStolovi();
             _this.refreshJela();
+            _this.refreshPica();
         });
     };
     ZaposleniDetailComponent.prototype.changeDate = function (day, month, year) {
@@ -88,6 +93,12 @@ var ZaposleniDetailComponent = (function () {
                 this._days.push(_i);
             }
         }
+    };
+    ZaposleniDetailComponent.prototype.createWebSocket = function () {
+        // console.log(example(3));
+    };
+    ZaposleniDetailComponent.prototype.sendNotification = function () {
+        this._pushNotifications.create('Test', { body: 'something' }).subscribe(function (res) { return console.log(res); }, function (err) { return console.log(err); });
     };
     ZaposleniDetailComponent.prototype.clickedOnDay = function (clickedDay) {
         var _this = this;
@@ -146,11 +157,25 @@ var ZaposleniDetailComponent = (function () {
                     _this.neprihvacena.push(jelo);
                 }
                 else if (jelo[0] == _this.email) {
-                    _this.prihvacena[jelo];
+                    _this.prihvacena.push(jelo);
                 }
             }
             _this.jela = jela;
             console.log(_this.jela);
+        });
+    };
+    ZaposleniDetailComponent.prototype.refreshPica = function () {
+        var _this = this;
+        this.pica = [];
+        this.zaposleniDetailService.getPica(this.idRestoran, this.email).subscribe(function (pica) {
+            // for (let pice of pica) {
+            //     pice[8] = this.getDatum(pice[8]);
+            //     console.log("Pice: "+pice[0]);
+            //     if (pice[9]==null || pice[9]<pice[7]){
+            //         this.pica.push(pice);
+            //     }
+            // }
+            _this.pica = pica;
         });
     };
     ZaposleniDetailComponent.prototype.getDatum = function (broj) {
@@ -162,15 +187,39 @@ var ZaposleniDetailComponent = (function () {
         var minut = datum.getMinutes();
         return dan + '.' + mesec + '.' + godina + '. ' + sat + ':' + minut;
     };
-    ZaposleniDetailComponent.prototype.napravljeno = function (jelo) {
+    ZaposleniDetailComponent.prototype.napravljenoJelo = function (jelo) {
         console.log(jelo);
         this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(function (jelo) {
         });
     };
-    ZaposleniDetailComponent.prototype.prihvaceno = function (jelo) {
+    ZaposleniDetailComponent.prototype.prihvacenoJelo = function (jelo) {
         console.log(jelo);
         this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(function (jelo) {
         });
+    };
+    ZaposleniDetailComponent.prototype.porudzbina = function (sto) {
+        // = "'/rezervacije/' + getBase(sto[4])"
+        console.log(sto);
+    };
+    ZaposleniDetailComponent.prototype.connectToWebSocket = function () {
+        // var socket = new SockJS('http://localhost:8080/stomp');
+        // var stompClient = Stomp.over(socket);
+        // stompClient.connect({}, function(frame) {
+        //     stompClient.subscribe("/topic/message", function(data) {
+        //         var message = data.body;
+        //
+        //     });
+        // });
+    };
+    ZaposleniDetailComponent.prototype.napravljenoPice = function (pice) {
+        var _this = this;
+        console.log(pice);
+        this.zaposleniDetailService.napravljenoPice(pice[1]).subscribe(function (pice) {
+            _this.refreshPica();
+        });
+    };
+    ZaposleniDetailComponent.prototype.getBase = function (url) {
+        return btoa(url);
     };
     ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {
         if (zan == 0) {
@@ -249,7 +298,8 @@ ZaposleniDetailComponent = __decorate([
         templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
         providers: [zaposleniDetail_service_1.ZaposleniDetailService]
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, typeof (_a = typeof angular2_notifications_1.PushNotificationsService !== "undefined" && angular2_notifications_1.PushNotificationsService) === "function" && _a || Object])
 ], ZaposleniDetailComponent);
 exports.ZaposleniDetailComponent = ZaposleniDetailComponent;
+var _a;
 //# sourceMappingURL=zaposleniDetail.component.js.map

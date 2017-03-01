@@ -128,32 +128,7 @@ public class MenadzerRestoranaRepository {
         return uspeh;
     }
 
-    public boolean dodajSto(stolDTO stolDTO,Integer id){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        org.hibernate.Session session = sessionFactory.openSession();
-        session.beginTransaction();
 
-        StoEntity sto = new StoEntity();
-        sto.setIdRestorana(id);
-        sto.setIdReona(stolDTO.idReona);
-        sto.setBrojStola(stolDTO.brojStola);
-
-        boolean uspeh = true;
-
-        session.save(sto);
-
-        try{
-            session.flush();
-        }
-        catch(Exception e){
-
-            uspeh = false;
-        }finally {
-            session.close();
-        }
-
-        return uspeh;
-    }
 
     public boolean dodajNamirnicu(ArtikalDTO artikalDTO, Integer id){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -221,6 +196,35 @@ public class MenadzerRestoranaRepository {
 
     }
 
+    public boolean dodajSto(stolDTO stolDTO,Integer id){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        StoEntity sto = new StoEntity();
+        sto.setIdRestorana(id);
+        sto.setIdReona(stolDTO.idReona);
+        sto.setBrojStola(stolDTO.brojStola);
+
+        boolean uspeh = true;
+
+        session.save(sto);
+
+        try{
+            session.flush();
+        }
+        catch(Exception e){
+
+            uspeh = false;
+        }finally {
+            session.close();
+        }
+
+        return uspeh;
+    }
+
+
+
     public List<JeloDTO> getJelovnik(Integer idRestorana){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
@@ -241,6 +245,36 @@ public class MenadzerRestoranaRepository {
 
         session.close();
        return povratanaLista;
+
+    }
+
+
+
+
+
+
+
+
+
+    public List<NamirnicaDTO> getNamirnice(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<NamirnicaEntity> list = session.createNativeQuery("SELECT * FROM restorani.namirnica;" ,NamirnicaEntity.class).getResultList();
+        List<NamirnicaDTO> povratanaLista = new ArrayList<NamirnicaDTO>();
+
+        list.forEach(namirnica -> {
+            NamirnicaDTO nam = new NamirnicaDTO();
+            nam.id= namirnica.getIdNamirnice();
+            nam.naziv = namirnica.getNaziv();
+            nam.opis = namirnica.getOpis();
+
+            povratanaLista.add(nam);
+
+        });
+
+        return povratanaLista;
 
     }
 
@@ -306,27 +340,7 @@ public class MenadzerRestoranaRepository {
 
     }
 
-    public List<NamirnicaDTO> getNamirnice(){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        org.hibernate.Session session = sessionFactory.openSession();
-        session.beginTransaction();
 
-        List<NamirnicaEntity> list = session.createNativeQuery("SELECT * FROM restorani.namirnica;" ,NamirnicaEntity.class).getResultList();
-        List<NamirnicaDTO> povratanaLista = new ArrayList<NamirnicaDTO>();
-
-        list.forEach(namirnica -> {
-            NamirnicaDTO nam = new NamirnicaDTO();
-            nam.id= namirnica.getIdNamirnice();
-            nam.naziv = namirnica.getNaziv();
-            nam.opis = namirnica.getOpis();
-
-            povratanaLista.add(nam);
-
-        });
-
-        return povratanaLista;
-
-    }
 
     public void getNamirniceUPotraznji(){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();

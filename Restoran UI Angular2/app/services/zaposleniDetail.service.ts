@@ -30,7 +30,7 @@ export class ZaposleniDetailService {
     getZaposlen(email: string): Observable<any> {
         let zaposleniUrl = Config.BackendUrl+"/resursi/get_zaposlen";
         console.log(zaposleniUrl);
-        return this._http.get(zaposleniUrl+"?radnikEmail="+email)
+        return this._http.get(zaposleniUrl+"?radnikEmail="+encodeURIComponent(email))
             .map((response: Response) => {
                 var zaposleni = <any> response.json();
                 // for(var i = 0; i < 10; i++)
@@ -114,6 +114,32 @@ export class ZaposleniDetailService {
 
     prihvacenoJelo(idPorudzbine : number) : Observable<any> {
         let url = Config.BackendUrl+"/resursi/prihvaceno_jelo";
+        console.log(url);
+        return this._http.get(url+"?idPorudzbine="+idPorudzbine)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
+
+    getPica(idRestorana : number, sankerEmail : string) : Observable<any> {
+        let url = Config.BackendUrl+"/resursi/pica_za_sankera";
+        console.log(url);
+        return this._http.get(url+"?sankerEmail="+encodeURIComponent(sankerEmail)+"&idRestorana="+idRestorana)
+            .map((response: Response) => {
+                var value = <any> response.json();
+
+                return value;
+            })
+            .catch(this.handleError);
+    }
+
+
+    napravljenoPice(idPorudzbine : number) : Observable<any> {
+        let url = Config.BackendUrl+"/resursi/spremljeno_pice";
         console.log(url);
         return this._http.get(url+"?idPorudzbine="+idPorudzbine)
             .map((response: Response) => {

@@ -22,7 +22,8 @@ import java.util.List;
 @RequestMapping("/menadzerRestorana")
 public class MenadzerRestoranaController {
     @Autowired
-    public  MenadzerRestoranaRepository mrr;
+    public MenadzerRestoranaRepository mrr;
+    // public  MenadzerRestoranaRepository mrr;
 
     @RequestMapping(path="/getRestoranID", method = RequestMethod.GET)
     public int getRestoranID(String email){
@@ -41,6 +42,21 @@ public class MenadzerRestoranaController {
 
         ZaposleniRepository zr = new ZaposleniRepository();
         ResponseWithMessageSuccess message =  zr.addZaposlenog(zps,z);
+
+        return message;
+
+    }
+
+    @RequestMapping(path="/updateZaposlenog", method = RequestMethod.POST)
+    public ResponseWithMessageSuccess update(@RequestBody ZaposleniDTO zps){
+        System.out.println("Jel dosao");
+        int z = Integer.parseInt(zps.emailM); //ovako sam prosledio idRestorana da ubrzam
+
+        System.out.println(zps.email);
+        System.out.println(zps.ime);
+
+        ZaposleniRepository zr = new ZaposleniRepository();
+        ResponseWithMessageSuccess message =  zr.updateZaposlenog(zps,z);
 
         return message;
 
@@ -70,6 +86,12 @@ public class MenadzerRestoranaController {
         return uspeh;
 
     }
+
+
+
+
+
+
 
 
     @RequestMapping(path="/addStol", method = RequestMethod.POST)
@@ -111,8 +133,6 @@ public class MenadzerRestoranaController {
     }
 
 
-
-
     @RequestMapping(path="/getOcenaRestorana", method = RequestMethod.GET)
     public int getOcenaRestorana(String email){
         System.out.println("A JEL OVDE STIGAO PRVO: "+ email);
@@ -123,16 +143,8 @@ public class MenadzerRestoranaController {
         return m;
     }
 
-    @RequestMapping(path="/getOcenaJela", method = RequestMethod.GET)
-    public int getOcenaJela(String email,String jelo){
-        System.out.println("A JEL OVDE STIGAO PRVO: "+ email+" jelo"+ jelo);
-        Integer z = mrr.getRestoranID(email);
 
 
-        int m = mrr.getOcenaJela(z,jelo);
-
-        return m;
-    }
 
 
     @RequestMapping(path="/getReoni", method = RequestMethod.GET)
@@ -154,7 +166,27 @@ public class MenadzerRestoranaController {
 
     }
 
-    @RequestMapping(path="/getNamirnice", method = RequestMethod.GET)
+
+
+
+
+    @RequestMapping(path="/getOcenaJela", method = RequestMethod.GET)
+    public int getOcenaJela(String email,String jelo){
+        System.out.println("A JEL OVDE STIGAO PRVO: "+ email+" jelo"+ jelo);
+        Integer z = mrr.getRestoranID(email);
+
+
+        int m = mrr.getOcenaJela(z,jelo);
+
+        return m;
+    }
+
+
+
+
+
+
+    @RequestMapping(path="/getNamirnicep", method = RequestMethod.GET)
     public void getNamirniceUPotraznji(){
         mrr.getNamirniceUPotraznji();
     }

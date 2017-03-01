@@ -70,4 +70,23 @@ public class RezervacijaController {
     public List<PiceEntity> GetPorucenaPica(int idRezervacije,String email ){
         return  rezervacijaRepo.getPorudzbinePicaZa(idRezervacije,email);
     }
+
+    @RequestMapping(path="/poziviIciSaPrijateljima", method = RequestMethod.GET)
+    public List<PozivURestoran> GetPorucenaPica(String email ){
+        return  rezervacijaRepo.getPoziveIciSaPrijateljima(email);
+    }
+
+    @RequestMapping(path="/prihvatiIliOdbijPoziv", method = RequestMethod.GET)
+    public ResponseWithMessageSuccess GetPrihvatiOdbijPoziv(String  idPoziva, String prihvati){
+        if(Integer.parseInt(idPoziva) == 0){
+            return rezervacijaRepo.updatePozivURestoran(Integer.parseInt(idPoziva),true);
+        }else{
+            return rezervacijaRepo.updatePozivURestoran(Integer.parseInt(idPoziva),false);
+        }
+    }
+
+    @RequestMapping(path="/plati", method = RequestMethod.GET)
+    public boolean plati(int idRezervacije, String gostEmail, int ukupnaCena){
+        return rezervacijaRepo.plati(idRezervacije, gostEmail, ukupnaCena);
+    }
 }

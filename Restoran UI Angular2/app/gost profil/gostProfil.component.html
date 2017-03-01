@@ -1,4 +1,5 @@
 <div class="row">
+
      <div class="col-md-6" *ngIf="gost != null">
         <div class="card" style="margin-top: 100px; margin-bottom: 100px;">
             <div class="card-header">
@@ -34,6 +35,32 @@
         </div>     
     </div>
 
+
+    <div class="col-md-6" *ngIf="poziviURestorane.length != 0" style="margin-top:100px;">      
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Pozivaoc</th>
+                    <th>Restoran</th>
+                    <th>Vreme</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i = index; let poziv of poziviURestorane" >
+                    <td>{{poziv.pozvanOd}}</td>
+                    <td>{{poziv.restoranNaziv}}</td>
+                    <td>{{getVreme(poziv.pocetak)}}</td>
+                    <td><button class="btn btn-sm btn-primary" (click)="prihvatiPozivURestoran(poziv.idPoziva)">Prihvati</button></td>
+                    <td><button class="btn btn-sm btn-warn" (click)="odbijPozivURestoran(poziv.idPoziva)">Odbij</button></td>
+                </tr>                      
+            </tbody>
+        </table>  
+    </div>
+
+
+
+
     <div class="col-md-6" *ngIf="gostPozvanUPrijateljstvoOd.length != 0">
         <div class="card" style="margin-top: 100px; margin-bottom: 100px; ">
                 <div class="card-header">
@@ -62,8 +89,9 @@
             </div>
     </div>
 
+</div>
 
-
+<div class="row">
 
      <div class="col-md-12" *ngIf="gost != null">
         <div class="card-group">
@@ -147,5 +175,4 @@
             </div>
         </div>
      </div>
-
 </div>
