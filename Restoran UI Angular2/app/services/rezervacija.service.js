@@ -36,6 +36,7 @@ var RezervacijaService = (function () {
         this._porucenaJelaUrl = app_config_1.Config.BackendUrl + '/rezervacija/porucenaJela';
         this._porucenaPicaUrl = app_config_1.Config.BackendUrl + '/rezervacija/porucenaPica';
         this._poziviURestorane = app_config_1.Config.BackendUrl + '/rezervacija/poziviIciSaPrijateljima';
+        this._prihvatiOdbijUrl = app_config_1.Config.BackendUrl + '/rezervacija/prihvatiIliOdbijPoziv';
     }
     RezervacijaService.prototype.getStolovi = function (restoran) {
         return this._http.get(this._stoloviUrl + "?restoran=" + restoran)
@@ -102,6 +103,13 @@ var RezervacijaService = (function () {
     };
     RezervacijaService.prototype.getPoziveURestorane = function (email) {
         return this._http.get(this._poziviURestorane + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.prihvatiOdbij = function (idPoziva, prihtavi) {
+        return this._http.get(this._prihvatiOdbijUrl + "?idPoziva=" + idPoziva + "&prihvati=" + (prihtavi ? 1 : 0))
             .map(function (response) {
             return response.json();
         })

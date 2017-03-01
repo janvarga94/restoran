@@ -63,7 +63,7 @@ public class RezervacijaRepository {
             poziv.setIdRezervacije(rezervacijaId);
             poziv.setIdPoziva(random.nextInt(800000));
             poziv.setPosiljaocVideoOdgovor(Byte.MIN_VALUE);
-            poziv.setPrihvacenPoziv(Byte.MIN_VALUE);
+            poziv.setPrihvacenPoziv(null);
             poziv.setPocetak(new Date(rezervacijaReq.pocetak));
 
             session.save(poziv);
@@ -348,8 +348,8 @@ public class RezervacijaRepository {
     }
 
     public List<PozivURestoran> getPoziveIciSaPrijateljima(String email){
-        String query = "select rezervacija.ID_REZERVACIJE, rezervacija.POCETAK, rezervacija.GOST_EMAIL, restoran.NAZIV from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on reon.ID_REONA = sto.ID_REONA inner join rezervacija on sto.BROJ_STOLA = rezervacija.BROJ_STOLA inner join poziv_prijatelja on rezervacija.ID_REZERVACIJE = poziv_prijatelja.ID_REZERVACIJE\n" +
-                "where\trezervacija.GOST_EMAIL != '"+email+"' and poziv_prijatelja.PRIHVACEN_POZIV = NULL\n" +
+        String query = "select rezervacija.ID_REZERVACIJE, rezervacija.POCETAK, rezervacija.GOST_EMAIL, restoran.NAZIV,  poziv_prijatelja.ID_POZIVA from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on reon.ID_REONA = sto.ID_REONA inner join rezervacija on sto.BROJ_STOLA = rezervacija.BROJ_STOLA inner join poziv_prijatelja on rezervacija.ID_REZERVACIJE = poziv_prijatelja.ID_REZERVACIJE\n" +
+                "where\trezervacija.GOST_EMAIL != '"+email+"' and poziv_prijatelja.PRIHVACEN_POZIV is NULL\n" +
                 "and (poziv_prijatelja.DRUGI_EMAIL = '"+email+"' or poziv_prijatelja.PRVI_EMAIL = '"+email+"')";
         org.hibernate.Session session = Main.sessionFactory.openSession();
         session.beginTransaction();
@@ -361,10 +361,47 @@ public class RezervacijaRepository {
             poziv.pocetak = ((Timestamp)obj[1]).getTime();
             poziv.pozvanOd = (String) obj[2];
             poziv.restoranNaziv = (String) obj[3];
+            poziv.idPoziva = (int) obj[4];
 
             returnValue.add(poziv);
         }
         session.close();
         return  returnValue;
     }
+
+    public ResponseWithMessageSuccess updatePozivURestoran(int idPoziva, boolean prihvati){
+        ResponseWithMessageSuccess response = new ResponseWithMessageSuccess();
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        PozivPrijateljaEntity poziv = session.get(PozivPrijateljaEntity.class, idPoziva);
+        if(poziv == null){
+            session.close();
+            response.Message = "Poziv nije pronadjen";
+            response.Success = false;
+        }else{
+            if(prihvati)
+                poziv.setPrihvacenPoziv(Byte.MAX_VALUE);
+            else
+                poziv.setPrihvacenPoziv(Byte.MIN_VALUE);
+            session.update(poziv);
+            try{
+                session.flush();
+                response.Success = true;
+            }catch(Exception ex){
+                response.Success = false;
+                response.Message = "Neuspesno prihvatanje/odbijanje poziva";
+            }
+        }
+
+
+        session.close();
+        return response;
+
+    }
+
+
+
+
 }

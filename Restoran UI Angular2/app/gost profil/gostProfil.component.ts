@@ -165,6 +165,29 @@ export class GostProfilComponent {
         })
     }
 
+    getVreme(vreme : any){
+        return new Date(vreme).toLocaleDateString() + " " + new Date(vreme).toLocaleTimeString();
+    }
 
+    prihvatiPozivURestoran(idPoziva : any){
+        this._rezervacijaService.prihvatiOdbij(idPoziva, true).subscribe(resp => {
+            if(resp['Success'] == true){
+                this._notificator.notifySuccess("Poziv prihvacen!");
+
+            }else{
+                this._notificator.notifyError(resp["Message"]);                
+            }
+        });
+    }
+    odbijPozivURestoran(idPoziva : any){
+        this._rezervacijaService.prihvatiOdbij(idPoziva, false).subscribe(resp => {
+            if(resp['Success'] == true){
+                this._notificator.notifyInfo("Poziv odbijen");
+                
+            }else{
+                this._notificator.notifyError(resp["Message"]);                
+            }
+        });
+    }
 
 }

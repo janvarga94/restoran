@@ -8,4 +8,5 @@ public class PozivURestoran {
     public int rezervacijaId;
     public String restoranNaziv;
     public long pocetak;
+    public int idPoziva;
 }

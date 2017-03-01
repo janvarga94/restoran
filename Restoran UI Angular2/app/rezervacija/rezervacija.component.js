@@ -144,6 +144,8 @@ var RezervacijaComponent = (function () {
     RezervacijaComponent.prototype.rezervisi = function () {
         var _this = this;
         this.gostSaKojimRadimo.subscribe(function (gost) {
+            if (gost == null)
+                return;
             _this._rezervacijaService.rezervisi({ pocetak: _this._odabraniDatum.getTime(),
                 kraj: _this._odabraniDatum.getTime() + +_this.duzinaBoravka * 60 * 60 * 1000,
                 rezervant: gost.email,

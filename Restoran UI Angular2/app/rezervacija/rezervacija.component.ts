@@ -164,7 +164,8 @@ export class RezervacijaComponent implements OnInit{
     }
 
     rezervisi(){
-        this.gostSaKojimRadimo.subscribe(gost => {      
+        this.gostSaKojimRadimo.subscribe(gost => {  
+            if(gost == null) return;    
             this._rezervacijaService.rezervisi(
                 {   pocetak: this._odabraniDatum.getTime(),
                     kraj: this._odabraniDatum.getTime() + + this.duzinaBoravka*60*60*1000,

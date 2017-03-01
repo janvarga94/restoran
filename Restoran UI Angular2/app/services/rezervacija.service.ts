@@ -32,6 +32,7 @@ export class RezervacijaService {
     private _porucenaJelaUrl = Config.BackendUrl + '/rezervacija/porucenaJela';
     private _porucenaPicaUrl = Config.BackendUrl + '/rezervacija/porucenaPica';
     private _poziviURestorane = Config.BackendUrl + '/rezervacija/poziviIciSaPrijateljima';
+    private _prihvatiOdbijUrl = Config.BackendUrl + '/rezervacija/prihvatiIliOdbijPoziv';
 
     constructor(private _http: Http, private _notificator: Notificator) {
 
@@ -116,6 +117,16 @@ export class RezervacijaService {
             })
             .catch(this.handleError);
     }
+
+
+    prihvatiOdbij(idPoziva : any, prihtavi : boolean): Observable<any[]> {
+        return this._http.get(this._prihvatiOdbijUrl + "?idPoziva=" + idPoziva + "&prihvati=" + (prihtavi? 1 : 0))
+            .map((response: Response) => {
+                return response.json();   
+            })
+            .catch(this.handleError);
+    }
+
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

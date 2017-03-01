@@ -153,6 +153,31 @@ var GostProfilComponent = (function () {
             }
         });
     };
+    GostProfilComponent.prototype.getVreme = function (vreme) {
+        return new Date(vreme).toLocaleDateString() + " " + new Date(vreme).toLocaleTimeString();
+    };
+    GostProfilComponent.prototype.prihvatiPozivURestoran = function (idPoziva) {
+        var _this = this;
+        this._rezervacijaService.prihvatiOdbij(idPoziva, true).subscribe(function (resp) {
+            if (resp['Success'] == true) {
+                _this._notificator.notifySuccess("Poziv prihvacen!");
+            }
+            else {
+                _this._notificator.notifyError(resp["Message"]);
+            }
+        });
+    };
+    GostProfilComponent.prototype.odbijPozivURestoran = function (idPoziva) {
+        var _this = this;
+        this._rezervacijaService.prihvatiOdbij(idPoziva, false).subscribe(function (resp) {
+            if (resp['Success'] == true) {
+                _this._notificator.notifyInfo("Poziv odbijen");
+            }
+            else {
+                _this._notificator.notifyError(resp["Message"]);
+            }
+        });
+    };
     return GostProfilComponent;
 }());
 GostProfilComponent = __decorate([
