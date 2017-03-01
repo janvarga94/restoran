@@ -54,6 +54,7 @@ export class RezervacijeComponent implements OnInit{
         this.route.params.subscribe(params => {
             var gost = params['gost'];
             if(gost != undefined && gost != null){
+                console.log("Gost : "+atob(gost));
                 this.gostSaKojimRadimoSubject.next({email : atob(gost)});
             }else{
                 this._loginService.ulogovan.subscribe(ulogovan => {

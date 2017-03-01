@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import static init.Main.sessionFactory;
+
 /**
  * Created by janva on 2/2/2017.
  */
@@ -23,7 +25,6 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
 
     @Override
     public KorisnikRepo findOne(String primaryKey) {
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -35,13 +36,13 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
             kRepo.ime = k .getIme();
             kRepo.prezime = k.getPrezime();
             kRepo.password = k.getLozinka();
-            kRepo.aktiviran = false;
+            kRepo.aktiviran = true;
 
             GostEntity gostEntity = session.get(GostEntity.class, primaryKey);
 
             if(gostEntity != null){
                 kRepo.setUloga(Uloga.GOST);
-                kRepo.aktiviran = gostEntity.getAktiviran() == Byte.MAX_VALUE;
+                kRepo.aktiviran = true;//gostEntity.getAktiviran() == Byte.MAX_VALUE;
             }else if(session.get(KonobarEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.KONOBAR);
             }else   if(session.get(KonobarEntity.class, primaryKey) != null){
@@ -69,7 +70,6 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
 
     @Override
     public Iterable<KorisnikRepo> findAll() {
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 

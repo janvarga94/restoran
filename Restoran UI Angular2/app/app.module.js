@@ -39,7 +39,10 @@ var zaposleniDetail_component_1 = require("./zaposleniDetail/zaposleniDetail.com
 var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
 var core_2 = require("angular2-google-maps/core");
+var zaposleniDetail_service_1 = require("./services/zaposleniDetail.service");
 var angular2_notifications_1 = require("angular2-notifications");
+var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
+var zaposleni_service_1 = require("./services/zaposleni.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -60,6 +63,8 @@ AppModule = __decorate([
                 { path: 'restoran/:id', component: restoranDetail_component_1.RestoranDetailComponent },
                 { path: 'zaposleni', component: zaposleni_component_1.ZaposleniComponent },
                 { path: 'zaposleni/:email', component: zaposleniDetail_component_1.ZaposleniDetailComponent },
+                { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
+                { path: 'novizaposleni/:email', component: noviZaposleni_component_1.NoviZaposleniComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
@@ -77,6 +82,7 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             welcome_component_1.WelcomeComponent,
             restorani_component_1.RestoraniComponent,
+            noviZaposleni_component_1.NoviZaposleniComponent,
             zaposleni_component_1.ZaposleniComponent,
             zaposleniDetail_component_1.ZaposleniDetailComponent,
             restoranDetail_component_1.RestoranDetailComponent,
@@ -103,7 +109,9 @@ AppModule = __decorate([
             prijateljstvo_service_1.PrijateljstvoService,
             angular2_toaster_1.ToasterService,
             rezervacija_service_1.RezervacijaService,
-            angular2_notifications_1.PushNotificationsService
+            angular2_notifications_1.PushNotificationsService,
+            zaposleni_service_1.ZaposleniService,
+            zaposleniDetail_service_1.ZaposleniDetailService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

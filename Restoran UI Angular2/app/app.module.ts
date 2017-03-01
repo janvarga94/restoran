@@ -36,6 +36,8 @@ import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
 import {AgmCoreModule} from "angular2-google-maps/core";
 import {ZaposleniDetailService} from "./services/zaposleniDetail.service";
 import {PushNotificationsService} from "angular2-notifications";
+import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
+import {ZaposleniService} from "./services/zaposleni.service";
 
 
 
@@ -53,6 +55,8 @@ import {PushNotificationsService} from "angular2-notifications";
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
+         {path: 'novizaposleni', component : NoviZaposleniComponent},
+         {path: 'novizaposleni/:email', component : NoviZaposleniComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -72,6 +76,7 @@ import {PushNotificationsService} from "angular2-notifications";
     AppComponent,
     WelcomeComponent,
     RestoraniComponent,
+      NoviZaposleniComponent,
     ZaposleniComponent,
     ZaposleniDetailComponent,
     RestoranDetailComponent,
@@ -99,7 +104,9 @@ import {PushNotificationsService} from "angular2-notifications";
      PrijateljstvoService,
      ToasterService,
      RezervacijaService,
-       PushNotificationsService
+       PushNotificationsService,
+       ZaposleniService,
+       ZaposleniDetailService
    ],
     bootstrap: [ AppComponent ]
 })

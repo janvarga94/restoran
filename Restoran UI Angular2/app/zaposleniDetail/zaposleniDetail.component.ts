@@ -54,7 +54,7 @@ export class ZaposleniDetailComponent implements OnInit{
 
     pica : any[] = [];
 
-    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute, private _pushNotifications: PushNotificationsService, private router: Router) {
+    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute, private _pushNotifications: PushNotificationsService) {
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor")
     }
