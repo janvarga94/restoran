@@ -2,6 +2,7 @@ package init.repositories;
 
 import init.Main;
 import init.model.RestoranOcenaDTO;
+import init.modelFromDB.OcenaJelaEntity;
 import init.modelFromDB.OcenaRestoranaEntity;
 import init.modelFromDB.RestoranEntity;
 import org.hibernate.SessionFactory;
@@ -39,13 +40,13 @@ public class OcenaRepository {
         return restOcena;
     }
 
-    public void addOcenaRestorana(OcenaRestoranaEntity ocenaRestoranaEntity){
+    public boolean addOcenaRestorana(OcenaRestoranaEntity ocenaRestoranaEntity){
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Main.log.info(ocenaRestoranaEntity);
+        System.out.println(ocenaRestoranaEntity.getGostEmail());
 
         Query query = session.createQuery("from OcenaRestoranaEntity as ore where ore.gostEmail=:email and ore.idRestorana=:id");
         query.setParameter("email",ocenaRestoranaEntity.getGostEmail());
@@ -58,8 +59,12 @@ public class OcenaRepository {
             session.delete(ocena);
         }
         session.save(ocenaRestoranaEntity);
-
-        session.getTransaction().commit();
+        try {
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
 
 
     }
@@ -79,5 +84,37 @@ public class OcenaRepository {
         ocena /= lista.size();
 
         return ocena;
+    }
+
+
+
+    public boolean addOcenaJela(OcenaJelaEntity ocenaJelaEntity){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        System.out.println(ocenaJelaEntity.getGostEmail());
+
+        Query query = session.createQuery("from OcenaJelaEntity as oje where oje.gostEmail=:email and oje.idRestorana=:id and oje.nazivJela=:nazivJela");
+        query.setParameter("email",ocenaJelaEntity.getGostEmail());
+        query.setParameter("id",ocenaJelaEntity.getIdRestorana());
+        query.setParameter("nazivJela",ocenaJelaEntity.getNazivJela());
+
+        //OcenaRestoranaEntity ocena = (OcenaRestoranaEntity) session.createQuery("from OcenaRestoranaEntity as ore where ore.gostEmail='"+ocenaRestoranaEntity.getGostEmail()+"' and ore.idRestorana="+ocenaRestoranaEntity.getIdRestorana());
+        OcenaJelaEntity ocena = (OcenaJelaEntity) query.uniqueResult();
+
+        if (ocena != null) {
+            session.delete(ocena);
+        }
+        session.save(ocenaJelaEntity);
+        try {
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+
     }
 }

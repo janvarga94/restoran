@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var app_config_1 = require("./../app.config");
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
@@ -110,6 +111,14 @@ var RezervacijaService = (function () {
     };
     RezervacijaService.prototype.prihvatiOdbij = function (idPoziva, prihtavi) {
         return this._http.get(this._prihvatiOdbijUrl + "?idPoziva=" + idPoziva + "&prihvati=" + (prihtavi ? 1 : 0))
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RezervacijaService.prototype.plati = function (idRezervacije, email, ukupnaCena) {
+        var platiurl = app_config_1.Config.BackendUrl + '/rezervacija/plati';
+        return this._http.get(platiurl + "?idRezervacije=" + idRezervacije + "&gostEmail=" + email + "&ukupnaCena=" + ukupnaCena)
             .map(function (response) {
             return response.json();
         })

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Created by Stefan on 2/27/2017.
  */
@@ -27,7 +28,7 @@ var NoviRestoranComponent = (function () {
     };
     NoviRestoranComponent.prototype.addRestoran = function () {
         var _this = this;
-        this._restoranService.addRestoran({ idRestorana: this.id, vrsta: this.vrsta, naziv: this.naziv, opis: this.opis }).subscribe(function (response) {
+        this._restoranService.addRestoran({ idRestorana: this.id, vrsta: this.vrsta, naziv: this.naziv, opis: this.opis, adresa: this.adresa }).subscribe(function (response) {
             if (response.Success == true)
                 _this._notificator.notifySuccess("Usposno dodat restoran");
             else

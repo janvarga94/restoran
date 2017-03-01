@@ -38,6 +38,7 @@ import {ZaposleniDetailService} from "./services/zaposleniDetail.service";
 import {PushNotificationsService} from "angular2-notifications";
 import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
 import {ZaposleniService} from "./services/zaposleni.service";
+import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
 
 
 
@@ -55,6 +56,7 @@ import {ZaposleniService} from "./services/zaposleni.service";
         { path: 'restoran/:id', component : RestoranDetailComponent},
          { path: 'zaposleni', component : ZaposleniComponent},
          { path: 'zaposleni/:email', component : ZaposleniDetailComponent},
+         {path: 'novirestoran', component : NoviRestoranComponent},
          {path: 'novizaposleni', component : NoviZaposleniComponent},
          {path: 'novizaposleni/:email', component : NoviZaposleniComponent},
          { path: 'welcome', component : WelcomeComponent},
@@ -77,6 +79,7 @@ import {ZaposleniService} from "./services/zaposleni.service";
     WelcomeComponent,
     RestoraniComponent,
       NoviZaposleniComponent,
+      NoviRestoranComponent,
     ZaposleniComponent,
     ZaposleniDetailComponent,
     RestoranDetailComponent,

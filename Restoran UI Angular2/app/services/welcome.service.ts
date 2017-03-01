@@ -12,6 +12,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {IOcenaRestorana} from "../models/ocenaRestorana";
+import {Config} from "../app.config";
 
 
 @Injectable()
@@ -31,29 +32,18 @@ export class WelcomeService {
             .catch(this.handleError);
     }
 
-    postOcenaForRestoran(ocena : any){
+    postOcenaForRestoran(idRestorana : number, ocena : number, gostEmail : string) : Observable<any> {
 
-        console.log(ocena.ocena);
+        console.log("Mail: "+gostEmail);
+        let ocenaUrl : string = Config.BackendUrl+'/resursi/add_ocena_restoran';
 
-        let ocenaUrl : string = 'http://localhost:8080/resursi/add_ocena_restoran';
+        return this._http.get(ocenaUrl+"?idRestorana="+idRestorana+"&ocena="+ocena+"&gostEmail="+encodeURIComponent(gostEmail))
+            .map((response: Response) => {
+                var restoraniOcena = <any> response.json();
 
-        let creds = JSON.stringify(ocena);
-
-        console.log(creds);
-
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        this._http.post(ocenaUrl, creds, {
-            headers: headers
-        })
-            .subscribe(
-                data => {
-
-                },
-                err => this.handleError(err.json().message),
-                () => console.log('Authentication Complete')
-            );
+                return restoraniOcena;
+            })
+            .catch(this.handleError);
     }
 
     getOcenaForRestoran(id : number): Observable<any> {
@@ -63,6 +53,24 @@ export class WelcomeService {
                 var restoraniOcena = <any> response.json();
 
                 return restoraniOcena;
+            })
+            .catch(this.handleError);
+    }
+
+    getJelaForRestoran(id : number, email : string): Observable<any> {
+        let ocenaUrl : string = Config.BackendUrl+'/resursi/get_jela_for_restoran';
+        return this._http.get(ocenaUrl+"?idRestorana="+id+"&email="+encodeURIComponent(email))
+            .map((response: Response) => {
+                return <any> response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    oceniJelo(nazivJela : string, idRestorana : number, email : string, ocena : number): Observable<any> {
+        let ocenaUrl : string = Config.BackendUrl+'/resursi/oceni_jelo';
+        return this._http.get(ocenaUrl+"?nazivJela="+nazivJela+"&idRestorana="+idRestorana+"&email="+encodeURIComponent(email)+"&ocena="+ocena)
+            .map((response: Response) => {
+                return <any> response.json();
             })
             .catch(this.handleError);
     }

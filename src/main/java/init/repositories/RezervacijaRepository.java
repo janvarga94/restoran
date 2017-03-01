@@ -401,6 +401,32 @@ public class RezervacijaRepository {
 
     }
 
+    public boolean plati (int idRezervacije, String gostEmail, int ukupnaCena) {
+
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select * from porudzbina where porudzbina.ID_REZERVACIJE="+idRezervacije+" and porudzbina.GOST_EMAIL='"+gostEmail+"'";
+
+        List<PorudzbinaEntity> porudzbinaEntities = session.createNativeQuery(query,PorudzbinaEntity.class).getResultList();
+
+        porudzbinaEntities.get(0).setUkupnaCena(ukupnaCena);
+        porudzbinaEntities.get(0).setPlaceno(Byte.MAX_VALUE);
+
+        try {
+            session.update(porudzbinaEntities.get(0));
+            session.close();
+            return true;
+        } catch (Exception e) {
+            session.close();
+            return false;
+        }
+
+
+
+    }
+
+
 
 
 

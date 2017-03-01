@@ -84,4 +84,9 @@ public class RezervacijaController {
             return rezervacijaRepo.updatePozivURestoran(Integer.parseInt(idPoziva),false);
         }
     }
+
+    @RequestMapping(path="/plati", method = RequestMethod.GET)
+    public boolean plati(int idRezervacije, String gostEmail, int ukupnaCena){
+        return rezervacijaRepo.plati(idRezervacije, gostEmail, ukupnaCena);
+    }
 }

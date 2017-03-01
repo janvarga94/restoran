@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Uloga;
 (function (Uloga) {
     Uloga[Uloga["MENAZER_SISTEMA"] = 0] = "MENAZER_SISTEMA";

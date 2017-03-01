@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var restorani_service_1 = require("./../services/restorani.service");
 var rezervacija_service_1 = require("./../services/rezervacija.service");
 var core_1 = require("@angular/core");
@@ -21,6 +22,7 @@ var WelcomeComponent = (function () {
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
         this.ulogovan = null;
+        this.jela = [];
     }
     WelcomeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -30,23 +32,38 @@ var WelcomeComponent = (function () {
         this._loginService.ulogovan.subscribe(function (ulogovan) {
             _this.ulogovan = ulogovan;
             if (ulogovan) {
+                _this.gostEmail = ulogovan.email;
                 _this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(function (rezervacijeIRezervacije) {
                     _this.poseceniRestorani = rezervacijeIRezervacije;
+                    console.log(rezervacijeIRezervacije);
                 });
             }
         });
     };
     WelcomeComponent.prototype.rate = function (restoranId, gostEmail, ocena) {
+        var _this = this;
         console.log(restoranId + " , " + gostEmail + " , " + ocena);
-        this._welcomeService.postOcenaForRestoran({ ocena: ocena, restoranId: restoranId, gostEmail: gostEmail });
-        for (var _i = 0, _a = this.poseceniRestorani; _i < _a.length; _i++) {
-            var restoran = _a[_i];
-            if (restoran.restoranId == restoranId) {
-                var ocena_1 = this._welcomeService.getOcenaForRestoran(restoranId);
-                console.log(ocena_1);
-                restoran.ocena = ocena_1;
+        this._welcomeService.postOcenaForRestoran(restoranId, ocena, gostEmail).subscribe(function (response) {
+            for (var _i = 0, _a = _this.poseceniRestorani; _i < _a.length; _i++) {
+                var restoran = _a[_i];
+                if (restoran.restoranId == restoranId) {
+                    var ocena_1 = _this._welcomeService.getOcenaForRestoran(restoranId);
+                    console.log(ocena_1);
+                    restoran.ocena = ocena_1;
+                }
             }
-        }
+        });
+    };
+    WelcomeComponent.prototype.getJela = function (restoran) {
+        var _this = this;
+        console.log(restoran);
+        this._welcomeService.getJelaForRestoran(restoran.restoranId, this.gostEmail).subscribe(function (response) {
+            _this.jela = response;
+        });
+    };
+    WelcomeComponent.prototype.rateJelo = function (jelo, ocena) {
+        this._welcomeService.oceniJelo(jelo[0], jelo[1], this.gostEmail, ocena).subscribe(function (response) {
+        });
     };
     WelcomeComponent.prototype.getDatum = function (milli) {
         return new Date(milli).toLocaleString();
