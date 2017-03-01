@@ -31,7 +31,7 @@ export class WelcomeService {
             .catch(this.handleError);
     }
 
-    postOcenaForRestoran(ocena : IOcenaRestorana){
+    postOcenaForRestoran(ocena : any){
 
         console.log(ocena.ocena);
 

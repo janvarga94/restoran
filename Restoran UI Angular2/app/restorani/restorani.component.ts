@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
     templateUrl: 'app/restorani/restorani.component.html'
 })
 export class RestoraniComponent implements OnInit{
-    
+
     restorani : IRestoran[];
 
     googleMap : any;
@@ -21,18 +21,18 @@ export class RestoraniComponent implements OnInit{
     lokacije : any[] = [];
 
     constructor(private _restoranService : RestoranService) {
-        
+
     }
 
     ngOnInit() : void{
         this._restoranService.getRestorani().subscribe( restorani =>{
-         //   this.restorani = restorani;
+            //   this.restorani = restorani;
             this.restorani = restorani;
             for (let rest of restorani) {
                 this.getLongLat(rest['adresa']);
             }
         });
-     //   console.log(this.restorani.length);
+        //   console.log(this.restorani.length);
 
 
     }
@@ -57,4 +57,4 @@ export class RestoraniComponent implements OnInit{
 
     }
 
- }
+}

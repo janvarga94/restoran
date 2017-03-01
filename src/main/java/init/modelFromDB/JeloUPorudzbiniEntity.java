@@ -3,16 +3,16 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/28/2017.
+ * Created by Svetozar Stojkovic on 3/1/2017.
  */
 @Entity
 @Table(name = "jelo_u_porudzbini", schema = "restorani", catalog = "")
 public class JeloUPorudzbiniEntity {
     private int idPorudzbineJela;
     private String nazivJela;
-    private Integer idRestorana;
-    private String kuvarEmail;
     private Integer idPorudzbine;
+    private String kuvarEmail;
+    private Integer idRestorana;
 
     @Id
     @Column(name = "ID_PORUDZBINE_JELA")
@@ -35,13 +35,13 @@ public class JeloUPorudzbiniEntity {
     }
 
     @Basic
-    @Column(name = "ID_RESTORANA")
-    public Integer getIdRestorana() {
-        return idRestorana;
+    @Column(name = "ID_PORUDZBINE")
+    public Integer getIdPorudzbine() {
+        return idPorudzbine;
     }
 
-    public void setIdRestorana(Integer idRestorana) {
-        this.idRestorana = idRestorana;
+    public void setIdPorudzbine(Integer idPorudzbine) {
+        this.idPorudzbine = idPorudzbine;
     }
 
     @Basic
@@ -55,13 +55,13 @@ public class JeloUPorudzbiniEntity {
     }
 
     @Basic
-    @Column(name = "ID_PORUDZBINE")
-    public Integer getIdPorudzbine() {
-        return idPorudzbine;
+    @Column(name = "ID_RESTORANA")
+    public Integer getIdRestorana() {
+        return idRestorana;
     }
 
-    public void setIdPorudzbine(Integer idPorudzbine) {
-        this.idPorudzbine = idPorudzbine;
+    public void setIdRestorana(Integer idRestorana) {
+        this.idRestorana = idRestorana;
     }
 
     @Override
@@ -73,9 +73,9 @@ public class JeloUPorudzbiniEntity {
 
         if (idPorudzbineJela != that.idPorudzbineJela) return false;
         if (nazivJela != null ? !nazivJela.equals(that.nazivJela) : that.nazivJela != null) return false;
-        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
-        if (kuvarEmail != null ? !kuvarEmail.equals(that.kuvarEmail) : that.kuvarEmail != null) return false;
         if (idPorudzbine != null ? !idPorudzbine.equals(that.idPorudzbine) : that.idPorudzbine != null) return false;
+        if (kuvarEmail != null ? !kuvarEmail.equals(that.kuvarEmail) : that.kuvarEmail != null) return false;
+        if (idRestorana != null ? !idRestorana.equals(that.idRestorana) : that.idRestorana != null) return false;
 
         return true;
     }
@@ -84,9 +84,9 @@ public class JeloUPorudzbiniEntity {
     public int hashCode() {
         int result = idPorudzbineJela;
         result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
-        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
-        result = 31 * result + (kuvarEmail != null ? kuvarEmail.hashCode() : 0);
         result = 31 * result + (idPorudzbine != null ? idPorudzbine.hashCode() : 0);
+        result = 31 * result + (kuvarEmail != null ? kuvarEmail.hashCode() : 0);
+        result = 31 * result + (idRestorana != null ? idRestorana.hashCode() : 0);
         return result;
     }
 }

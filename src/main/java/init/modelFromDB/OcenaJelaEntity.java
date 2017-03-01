@@ -3,7 +3,7 @@ package init.modelFromDB;
 import javax.persistence.*;
 
 /**
- * Created by Svetozar Stojkovic on 2/28/2017.
+ * Created by Svetozar Stojkovic on 3/1/2017.
  */
 @Entity
 @Table(name = "ocena_jela", schema = "restorani", catalog = "")
@@ -11,8 +11,8 @@ import javax.persistence.*;
 public class OcenaJelaEntity {
     private Integer ocena;
     private String nazivJela;
-    private int idRestorana;
     private String gostEmail;
+    private int idRestorana;
 
     @Basic
     @Column(name = "OCENA")
@@ -35,16 +35,6 @@ public class OcenaJelaEntity {
     }
 
     @Id
-    @Column(name = "ID_RESTORANA")
-    public int getIdRestorana() {
-        return idRestorana;
-    }
-
-    public void setIdRestorana(int idRestorana) {
-        this.idRestorana = idRestorana;
-    }
-
-    @Id
     @Column(name = "GOST_EMAIL")
     public String getGostEmail() {
         return gostEmail;
@@ -52,6 +42,16 @@ public class OcenaJelaEntity {
 
     public void setGostEmail(String gostEmail) {
         this.gostEmail = gostEmail;
+    }
+
+    @Id
+    @Column(name = "ID_RESTORANA")
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
     }
 
     @Override
@@ -73,8 +73,8 @@ public class OcenaJelaEntity {
     public int hashCode() {
         int result = ocena != null ? ocena.hashCode() : 0;
         result = 31 * result + (nazivJela != null ? nazivJela.hashCode() : 0);
-        result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        result = 31 * result + idRestorana;
         return result;
     }
 }

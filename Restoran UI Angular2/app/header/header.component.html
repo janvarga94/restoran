@@ -3,13 +3,14 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <a class="navbar-brand" [routerLink] = "['/']" style="margin-top: -4px;">@Home</a>
+     <a *ngIf="ulogovan" class="navbar-brand" [routerLink] = "['/welcome']" style="margin-top: -4px;">@Home</a>
     <div class="collapse navbar-collapse" id="navbarNav">
       
       <ul class="navbar-nav mr-auto">     
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/restorani']" [routerLinkActive]="['active']">Restorani page</a></li> 
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/sistemMenadzer']" [routerLinkActive]="['active']">Sistem menazer</a></li>
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/zaposleni']" [routerLinkActive]="['active']">Zaposleni</a></li>
+        <li *ngIf="ulogovan != null" class="nav-item"><a class="nav-link" [routerLink] = "['/rezervacije']" [routerLinkActive]="['active']">Moje rezervacije</a></li>
       </ul>
 
       <form *ngIf="ulogovan != null" class="form-inline my-2 my-md-0">
@@ -18,7 +19,8 @@
       </form>
 
       <form *ngIf="ulogovan == null" class="form-inline my-2 my-md-0">
-        <button class="btn btn-success my-2 my-sm-0" type="button" [routerLink] = "['/login']">Login</button>
+        <button class="btn btn-success my-2 my-sm-0" type="button" [routerLink] = "['/login']">Login</button>&nbsp;
+        <button class="btn btn-success my-2 my-sm-0" type="button" [routerLink] = "['/register']">Register</button>
       </form>
 
     </div>

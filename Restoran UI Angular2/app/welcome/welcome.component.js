@@ -38,7 +38,7 @@ var WelcomeComponent = (function () {
     };
     WelcomeComponent.prototype.rate = function (restoranId, gostEmail, ocena) {
         console.log(restoranId + " , " + gostEmail + " , " + ocena);
-        this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: restoranId, gostEmail: gostEmail });
+        this._welcomeService.postOcenaForRestoran({ ocena: ocena, restoranId: restoranId, gostEmail: gostEmail });
         for (var _i = 0, _a = this.poseceniRestorani; _i < _a.length; _i++) {
             var restoran = _a[_i];
             if (restoran.restoranId == restoranId) {

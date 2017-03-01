@@ -5,12 +5,12 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Svetozar Stojkovic on 2/28/2017.
+ * Created by Svetozar Stojkovic on 3/1/2017.
  */
 public class OcenaJelaEntityPK implements Serializable {
     private String nazivJela;
-    private int idRestorana;
     private String gostEmail;
+    private int idRestorana;
 
     @Column(name = "NAZIV_JELA")
     @Id
@@ -22,16 +22,6 @@ public class OcenaJelaEntityPK implements Serializable {
         this.nazivJela = nazivJela;
     }
 
-    @Column(name = "ID_RESTORANA")
-    @Id
-    public int getIdRestorana() {
-        return idRestorana;
-    }
-
-    public void setIdRestorana(int idRestorana) {
-        this.idRestorana = idRestorana;
-    }
-
     @Column(name = "GOST_EMAIL")
     @Id
     public String getGostEmail() {
@@ -40,6 +30,16 @@ public class OcenaJelaEntityPK implements Serializable {
 
     public void setGostEmail(String gostEmail) {
         this.gostEmail = gostEmail;
+    }
+
+    @Column(name = "ID_RESTORANA")
+    @Id
+    public int getIdRestorana() {
+        return idRestorana;
+    }
+
+    public void setIdRestorana(int idRestorana) {
+        this.idRestorana = idRestorana;
     }
 
     @Override
@@ -59,8 +59,8 @@ public class OcenaJelaEntityPK implements Serializable {
     @Override
     public int hashCode() {
         int result = nazivJela != null ? nazivJela.hashCode() : 0;
-        result = 31 * result + idRestorana;
         result = 31 * result + (gostEmail != null ? gostEmail.hashCode() : 0);
+        result = 31 * result + idRestorana;
         return result;
     }
 }

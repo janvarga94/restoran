@@ -40,9 +40,9 @@ var RestoranService = (function () {
             .catch(this.handleError);
     };
     /* getRestoran(id: string): Observable<IRestoran> {
-         return this.getRestorani()email
-             .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
-             .catch(this.handleError);
+     return this.getRestorani()email
+     .map((restorani: IRestoran[]) => restorani.find(r => r.naziv === id))
+     .catch(this.handleError);
      } */
     RestoranService.prototype.getManagerRestoranID = function (email) {
         return this._http.get(this._managerRestoranaUrl + "?email=" + email)
@@ -55,12 +55,12 @@ var RestoranService = (function () {
     RestoranService.prototype.getRestoran = function () {
     };
     /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
-           return this._http.get("api/successResponse.json")
-             .map((response: Response) => {   return <ISuccess> response.json(); })
-             .catch(this.handleError);
+     return this._http.get("api/successResponse.json")
+     .map((response: Response) => {   return <ISuccess> response.json(); })
+     .catch(this.handleError);
      } */
     /* addRestoran(restoran : any) {
-  
+
      } */
     RestoranService.prototype.addRestoran = function (restoran) {
         return this._http.post(this.dodaj, restoran).map(function (response) {

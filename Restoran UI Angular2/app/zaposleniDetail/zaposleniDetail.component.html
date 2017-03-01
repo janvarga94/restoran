@@ -229,10 +229,12 @@
                         <h3 class="card-title">Sto {{i}}</h3>
                         <p class="card-text">slobodan</p>
                     </div>
-                    <div class="card-block" *ngIf="sto[4] != null" style="cursor: pointer">
+
+                    <div class="card-block" *ngIf="sto[4] != null" [routerLink] = "'/rezervacije/'+getBase(sto[4])" style="cursor: pointer" >
                         <h3 class="card-title">Sto {{i}}</h3>
                         <p class="card-text">{{sto[4]}}</p>
                     </div>
+
                 </div>
             </div>
         </div>

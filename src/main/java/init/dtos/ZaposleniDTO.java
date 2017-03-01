@@ -7,19 +7,17 @@ import javax.validation.constraints.NotNull;
  */
 public class ZaposleniDTO {
     @NotNull
-    public String emailM;
+    public String email;
+    @NotNull
+    public String pass;
     @NotNull
     public String ime;
     @NotNull
     public String prezime;
     @NotNull
-    public String email;
-    @NotNull
-    public String pass;
-    @NotNull
     public Integer konfenkcijskiBroj;
     @NotNull
-    public Integer velicinaObuce;
+    public Integer idRestorana;
     @NotNull
-    public String selectedJob;
+    public Integer velicinaObuce;
 }

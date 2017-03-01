@@ -33,7 +33,8 @@ export class MenazerSistemaViewComponent implements OnInit {
                 naziv : this.noviNaziv,
                 vrsta : this.novaVrsta,
                 idRestorana : 10,
-                opis : ""
+                opis : "",
+                adresa : ""
             };
             this._restoraniService
             .addRestoran(noviRestoran)

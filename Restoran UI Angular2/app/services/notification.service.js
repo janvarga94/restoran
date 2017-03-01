@@ -20,7 +20,7 @@ var Notificator = (function () {
         var toasterconfig = new angular2_toaster_1.ToasterConfig({
             showCloseButton: true,
             tapToDismiss: false,
-            timeout: 0
+            timeout: 7000
         });
     }
     Notificator.prototype.notifySuccess = function (message) {

@@ -18,14 +18,11 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
 var notification_service_1 = require("./notification.service");
-var app_config_1 = require("../app.config");
 var ZaposleniService = (function () {
     function ZaposleniService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
         this._zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
-        this._registerUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/addZaposlenog';
-        this._managerRestoranaURL = app_config_1.Config.BackendUrl + '/menadzerRestorana/addmenadzeraRestorana';
     }
     ZaposleniService.prototype.getZaposleni = function () {
         return this._http.get(this._zaposleniUrl)
@@ -46,16 +43,6 @@ var ZaposleniService = (function () {
         return this._http.get("api/successResponse.json")
             .map(function (response) { return response.json(); })
             .catch(this.handleError);
-    };
-    ZaposleniService.prototype.addZaposlen = function (zaposlen) {
-        return this._http.post(this._registerUrl, zaposlen).map(function (response) {
-            return response.json();
-        }).catch(this.handleError);
-    };
-    ZaposleniService.prototype.addMenadzera = function (menadzer) {
-        return this._http.post(this._managerRestoranaURL, menadzer).map(function (response) {
-            return response.json();
-        }).catch(this.handleError);
     };
     ZaposleniService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

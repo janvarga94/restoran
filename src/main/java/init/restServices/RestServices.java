@@ -1,7 +1,6 @@
 package init.restServices;
 
 import init.Main;
-import init.dtos.RestoranDTO;
 import init.dtos.SmenaDTO;
 import init.dtos.StoDTO;
 import init.dtos.ZaposleniDTO;
@@ -24,6 +23,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 import static init.Main.session;
+import static init.Main.sessionFactory;
 
 
 /**
@@ -48,37 +48,37 @@ public class RestServices {
         return lista;
     }
 
-    @RequestMapping(path = "/add",method = RequestMethod.POST)
-    public boolean addRestoran(@RequestBody RestoranDTO r){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        System.out.println(r.idRestorana);
-        System.out.println(r.naziv);
-
-        RestoranEntity restoran = new RestoranEntity();
-        restoran.setIdRestorana(r.idRestorana);
-        restoran.setNaziv(r.naziv);
-        restoran.setOpis(r.opis);
-        restoran.setVrsta(r.vrsta);
-
-        session.save(restoran);
-
-
-        try{
-            session.flush();
-        }
-        catch(Exception e){
-
-            return false;
-
-        }finally {
-            session.close();
-        }
-
-        return true;
-    }
+//    @RequestMapping(path = "/add",method = RequestMethod.POST)
+//    public boolean addRestoran(@RequestBody RestoranDTO r){
+//        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+//        session = sessionFactory.openSession();
+//        session.beginTransaction();
+//
+//        System.out.println(r.idRestorana);
+//        System.out.println(r.naziv);
+//
+//        RestoranEntity restoran = new RestoranEntity();
+//        restoran.setIdRestorana(r.idRestorana);
+//        restoran.setNaziv(r.naziv);
+//        restoran.setOpis(r.opis);
+//        restoran.setVrsta(r.vrsta);
+//
+//        session.save(restoran);
+//
+//
+//        try{
+//            session.flush();
+//        }
+//        catch(Exception e){
+//
+//            return false;
+//
+//        }finally {
+//            session.close();
+//        }
+//
+//        return true;
+//    }
 
     @RequestMapping(path = "/zaposleni", method=RequestMethod.GET)
     public Collection<RadnikEntity> getRadnici(){
@@ -247,7 +247,7 @@ public class RestServices {
     @RequestMapping(path = "/get_stolovi", method = RequestMethod.GET)
     public List<Object> getStolovi(int idRestorana) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+//        sessionFactory = new Configuration().configure().buildSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
 

@@ -23,12 +23,12 @@
       '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
       'angular2-toaster' : 'npm:angular2-toaster/bundles/angular2-toaster.umd.js',
-      'angular2-notifications': 'node_modules/angular2-notifications',
+        'angular2-notifications': 'node_modules/angular2-notifications',
 
       // other libraries
       'rxjs': 'npm:rxjs',
 
-        'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js',
+        'angular2-google-maps/core': 'npm:angular2-google-maps/core/core.umd.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -39,7 +39,7 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      'angular2-notifications': { main: 'components.js', defaultExtension: 'js' }
+        'angular2-notifications': { main: 'components.js', defaultExtension: 'js' }
     }
   });
 })(this);

@@ -33,68 +33,12 @@
     </script>
 
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!-- Koristi sockjs biblioteku da se konektuje na /stomp endpoint -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js">
-    </script>
-    <!-- Koristi sockjs biblioteku da se konektuje na /stomp endpoint -->
-    <script type="text/javascript" src="//cdn.jsdelivr.net/sockjs/1.0.3/sockjs.min.js">
-    </script>
-    <!-- Koristi stomp biblioteku da se pretplati na brokerov /topic/message endpoint -->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
-    <!-- load angular2-google-maps bundle - version 0.10.0 -->
-    <script src="https://npmcdn.com/angular2-google-maps@0.10.0/bundles/angular2-google-maps.js"></script>
-
 </head>
 
 <body>
-
-    <script>
-
-        var socket = new SockJS('http://localhost:8080/stomp');
-        var stompClient = Stomp.over(socket);
-        stompClient.connect({}, function(frame) {
-            stompClient.subscribe("/topic/message", function(data) {
-                var message = data.body;
-
-            });
-        });
-
-    </script>
-
     <pm-app></pm-app>
 
-    <!--<br>-->
-    <!--<div style="text-align: center">-->
-        <!--<button class="btn btn-success" onclick="show_hide()">Prikazi mapu</button>-->
-    <!--</div>-->
-    <!--<br>-->
-    <!--<div id="googleMap" style="width:100%;height:400px; visibility: collapse"></div>-->
-
-    <!--<script>-->
-        <!--function show_hide() {-->
-            <!--var x = document.getElementById("googleMap");-->
-            <!--if (x.style.visibility === 'collapse') {-->
-                <!--x.style.visibility = 'visible';-->
-            <!--} else {-->
-                <!--x.style.visibility = 'collapse';-->
-            <!--}-->
-        <!--}-->
-
-        <!--function myMap() {-->
-            <!--var mapProp= {-->
-                <!--center:new google.maps.LatLng(45.229264,19.8516435),-->
-                <!--zoom:7-->
-            <!--};-->
-            <!--var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);-->
-        <!--}-->
-
-
-    <!--</script>-->
-
-    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc&callback=myMap"></script>-->
-
-
+   
 </body>
 
 </html>

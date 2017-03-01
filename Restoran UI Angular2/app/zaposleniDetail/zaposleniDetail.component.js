@@ -17,11 +17,12 @@ var angular2_notifications_1 = require("angular2-notifications");
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
 var ZaposleniDetailComponent = (function () {
-    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route, _pushNotifications) {
+    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route, _pushNotifications, router) {
         this._notificator = _notificator;
         this._zaposleniDetailService = _zaposleniDetailService;
         this.route = route;
         this._pushNotifications = _pushNotifications;
+        this.router = router;
         this.pageTitle = "Zaposleni";
         this._days = [];
         this._neds = [];
@@ -43,7 +44,7 @@ var ZaposleniDetailComponent = (function () {
             _this.email = atob(params['email']);
             console.log(_this.email);
         });
-        this._pushNotifications.requestPermission();
+        // this._pushNotifications.requestPermission();
         var date = new Date();
         this.currentYear = date.getFullYear();
         this.currentMonth = date.getMonth() + 1;
@@ -148,21 +149,19 @@ var ZaposleniDetailComponent = (function () {
     ZaposleniDetailComponent.prototype.refreshJela = function () {
         var _this = this;
         this.jela = [];
-        this.prihvacena = [];
-        this.neprihvacena = [];
         this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(function (jela) {
             for (var _a = 0, jela_1 = jela; _a < jela_1.length; _a++) {
                 var jelo = jela_1[_a];
                 jelo[8] = _this.getDatum(jelo[8]);
-                console.log(jelo[0]);
-                if (jelo[10] == null || jelo[10] < jelo[7]) {
+                if (jelo[11] == null || jelo[11] < jelo[8]) {
                     _this.neprihvacena.push(jelo);
                 }
-                else if (jelo[10] > jelo[9] || jelo[9] == null) {
+                else if (jelo[0] == _this.email) {
                     _this.prihvacena.push(jelo);
                 }
             }
             _this.jela = jela;
+            console.log(_this.jela);
         });
     };
     ZaposleniDetailComponent.prototype.refreshPica = function () {
@@ -189,20 +188,18 @@ var ZaposleniDetailComponent = (function () {
         return dan + '.' + mesec + '.' + godina + '. ' + sat + ':' + minut;
     };
     ZaposleniDetailComponent.prototype.napravljenoJelo = function (jelo) {
-        var _this = this;
         console.log(jelo);
-        this.zaposleniDetailService.skuvanoJelo(jelo[1]).subscribe(function (jelo) {
-            _this.refreshJela();
+        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(function (jelo) {
         });
     };
     ZaposleniDetailComponent.prototype.prihvacenoJelo = function (jelo) {
-        var _this = this;
         console.log(jelo);
-        this.zaposleniDetailService.prihvacenoJelo(jelo[1]).subscribe(function (jelo) {
-            _this.refreshJela();
+        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(function (jelo) {
         });
     };
-    ZaposleniDetailComponent.prototype.porudzbina = function () {
+    ZaposleniDetailComponent.prototype.porudzbina = function (sto) {
+        // = "'/rezervacije/' + getBase(sto[4])"
+        console.log(sto);
     };
     ZaposleniDetailComponent.prototype.connectToWebSocket = function () {
         // var socket = new SockJS('http://localhost:8080/stomp');
@@ -220,6 +217,9 @@ var ZaposleniDetailComponent = (function () {
         this.zaposleniDetailService.napravljenoPice(pice[1]).subscribe(function (pice) {
             _this.refreshPica();
         });
+    };
+    ZaposleniDetailComponent.prototype.getBase = function (url) {
+        return btoa(url);
     };
     ZaposleniDetailComponent.prototype.mapNumberZanimanje = function (zan) {
         if (zan == 0) {
@@ -298,7 +298,7 @@ ZaposleniDetailComponent = __decorate([
         templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
         providers: [zaposleniDetail_service_1.ZaposleniDetailService]
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, typeof (_a = typeof angular2_notifications_1.PushNotificationsService !== "undefined" && angular2_notifications_1.PushNotificationsService) === "function" && _a || Object])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, typeof (_a = typeof angular2_notifications_1.PushNotificationsService !== "undefined" && angular2_notifications_1.PushNotificationsService) === "function" && _a || Object, router_1.Router])
 ], ZaposleniDetailComponent);
 exports.ZaposleniDetailComponent = ZaposleniDetailComponent;
 var _a;
