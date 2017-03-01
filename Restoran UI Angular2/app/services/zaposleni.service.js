@@ -14,6 +14,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var app_config_1 = require("../app.config");
 var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
@@ -23,7 +24,7 @@ var ZaposleniService = (function () {
     function ZaposleniService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this._zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
+        this._zaposleniUrl = app_config_1.Config.BackendUrl + '/resursi/zaposleni';
     }
     ZaposleniService.prototype.getZaposleni = function () {
         return this._http.get(this._zaposleniUrl)
@@ -40,10 +41,25 @@ var ZaposleniService = (function () {
             .map(function (zaposleni) { return zaposleni.find(function (z) { return z.radnikEmail === radnikEmail; }); })
             .catch(this.handleError);
     };
-    ZaposleniService.prototype.addZaposleni = function (zaposleni) {
-        return this._http.get("api/successResponse.json")
-            .map(function (response) { return response.json(); })
+    ZaposleniService.prototype.getZaposlenAllSpecs = function (email) {
+        var zaposlen = app_config_1.Config.BackendUrl + '/resursi/get_zaposlen?radnikEmail=' + email;
+        return this._http.get(zaposlen)
+            .map(function (response) {
+            return response.json();
+        })
             .catch(this.handleError);
+    };
+    ZaposleniService.prototype.addZaposlen = function (zaposlen) {
+        var _registerUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/addZaposlenog';
+        return this._http.post(_registerUrl, zaposlen).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    ZaposleniService.prototype.updateZaposlen = function (zaposlen) {
+        var _registerUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/updateZaposlenog';
+        return this._http.post(_registerUrl, zaposlen).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
     };
     ZaposleniService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

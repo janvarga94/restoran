@@ -18,12 +18,11 @@ var angular2_notifications_1 = require("angular2-notifications");
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
 var ZaposleniDetailComponent = (function () {
-    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route, _pushNotifications, router) {
+    function ZaposleniDetailComponent(_notificator, _zaposleniDetailService, route, _pushNotifications) {
         this._notificator = _notificator;
         this._zaposleniDetailService = _zaposleniDetailService;
         this.route = route;
         this._pushNotifications = _pushNotifications;
-        this.router = router;
         this.pageTitle = "Zaposleni";
         this._days = [];
         this._neds = [];
@@ -299,7 +298,7 @@ ZaposleniDetailComponent = __decorate([
         templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
         providers: [zaposleniDetail_service_1.ZaposleniDetailService]
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, angular2_notifications_1.PushNotificationsService, router_1.Router])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, angular2_notifications_1.PushNotificationsService])
 ], ZaposleniDetailComponent);
 exports.ZaposleniDetailComponent = ZaposleniDetailComponent;
 //# sourceMappingURL=zaposleniDetail.component.js.map

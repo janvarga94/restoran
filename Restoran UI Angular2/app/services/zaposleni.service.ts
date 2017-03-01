@@ -4,6 +4,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import {Config} from "../app.config";
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
@@ -16,7 +18,7 @@ import { Notificator } from './notification.service';
 
 @Injectable()
 export class ZaposleniService {
-    private _zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
+    private _zaposleniUrl = Config.BackendUrl+'/resursi/zaposleni';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -37,11 +39,28 @@ export class ZaposleniService {
             .catch(this.handleError);
     }
 
-
-    addZaposleni(zaposleni : IZaposleni): Observable<ISuccess>{
-        return this._http.get("api/successResponse.json")
-            .map((response: Response) => {   return <ISuccess> response.json(); })
+    getZaposlenAllSpecs(email : string) : Observable<any> {
+        let zaposlen = Config.BackendUrl+'/resursi/get_zaposlen?radnikEmail='+email;
+        return this._http.get(zaposlen)
+            .map((response: Response) => {
+                return <any> response.json();
+            })
             .catch(this.handleError);
+    }
+
+
+    addZaposlen(zaposlen : any )  {
+        let _registerUrl = Config.BackendUrl + '/menadzerRestorana/addZaposlenog';
+        return this._http.post(_registerUrl,zaposlen).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+    updateZaposlen(zaposlen : any )  {
+        let _registerUrl = Config.BackendUrl + '/menadzerRestorana/updateZaposlenog';
+        return this._http.post(_registerUrl,zaposlen).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
     }
 
     private handleError(error: Response) {

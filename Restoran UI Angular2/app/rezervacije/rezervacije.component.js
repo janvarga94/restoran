@@ -45,6 +45,7 @@ var RezervacijeComponent = (function () {
         this.route.params.subscribe(function (params) {
             var gost = params['gost'];
             if (gost != undefined && gost != null) {
+                console.log("Gost : " + atob(gost));
                 _this.gostSaKojimRadimoSubject.next({ email: atob(gost) });
             }
             else {

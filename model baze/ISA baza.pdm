@@ -2736,7 +2736,7 @@ CARD 0 Arial,8,N</a:FontList>
 <a:CreationDate>1481749270</a:CreationDate>
 <a:ModificationDate>1482274633</a:ModificationDate>
 <a:Rect>((-2467,-3826), (331,14492))</a:Rect>
-<a:ListOfPoints>((-2467,-3826),(263,-3826),(331,14492))</a:ListOfPoints>
+<a:ListOfPoints>((-2467,-3826),(331,-3826),(331,14492))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -2777,8 +2777,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o16">
 <a:CreationDate>1481750493</a:CreationDate>
 <a:ModificationDate>1482275285</a:ModificationDate>
-<a:Rect>((2205,-12949), (2656,14347))</a:Rect>
-<a:ListOfPoints>((2416,-12949),(2444,14347))</a:ListOfPoints>
+<a:Rect>((2212,-12949), (2662,14347))</a:Rect>
+<a:ListOfPoints>((2437,-12949),(2437,14347))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -2946,7 +2946,7 @@ CARD 0 Arial,8,N</a:FontList>
 <a:CreationDate>1481754549</a:CreationDate>
 <a:ModificationDate>1482274633</a:ModificationDate>
 <a:Rect>((8130,11617), (26474,12784))</a:Rect>
-<a:ListOfPoints>((26474,11617),(8211,11617),(8130,12784))</a:ListOfPoints>
+<a:ListOfPoints>((26474,11617),(8130,11617),(8130,12784))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -2966,8 +2966,8 @@ CARD 0 Arial,8,N</a:FontList>
 <o:ReferenceSymbol Id="o42">
 <a:CreationDate>1481754739</a:CreationDate>
 <a:ModificationDate>1482274633</a:ModificationDate>
-<a:Rect>((6052,4705), (6507,14141))</a:Rect>
-<a:ListOfPoints>((6302,4705),(6257,14141))</a:ListOfPoints>
+<a:Rect>((6043,4705), (6493,14141))</a:Rect>
+<a:ListOfPoints>((6268,4705),(6268,14141))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
@@ -3051,7 +3051,7 @@ CARD 0 Arial,8,N</a:FontList>
 <a:CreationDate>1481834830</a:CreationDate>
 <a:ModificationDate>1482274633</a:ModificationDate>
 <a:Rect>((-14682,2726), (-1259,14287))</a:Rect>
-<a:ListOfPoints>((-14682,2726),(-1357,2726),(-1259,14287))</a:ListOfPoints>
+<a:ListOfPoints>((-14682,2726),(-1259,2726),(-1259,14287))</a:ListOfPoints>
 <a:CornerStyle>1</a:CornerStyle>
 <a:ArrowStyle>1</a:ArrowStyle>
 <a:LineColor>12615680</a:LineColor>
