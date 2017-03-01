@@ -5,6 +5,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var statsRestorana_component_1 = require("./statsRestorana/statsRestorana.component");
+var stat_service_1 = require("./services/stat.service");
 var welcome_component_1 = require("./welcome/welcome.component");
 var rezervacija_service_1 = require("./services/rezervacija.service");
 var GostPozvanPipe_1 = require("./pipes/GostPozvanPipe");
@@ -75,6 +77,7 @@ AppModule = __decorate([
                 { path: 'rezervacija/:idRestorana/:gost', component: rezervacija_component_1.RezervacijaComponent },
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
+                { path: 'stats', component: statsRestorana_component_1.StatsRestoranaComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
             ]),
         ],
@@ -94,6 +97,7 @@ AppModule = __decorate([
             activation_component_1.ActivationComponent,
             rezervacija_component_1.RezervacijaComponent,
             rezervacije_component_1.RezervacijeComponent,
+            statsRestorana_component_1.StatsRestoranaComponent,
             GostPozvanPipe_1.GostPozvanPipe,
             GostPozvanPipe_1.GostNeozvanPipe,
             LimitDuzineStringa_1.LimitDuzineStringa,
@@ -111,7 +115,8 @@ AppModule = __decorate([
             rezervacija_service_1.RezervacijaService,
             angular2_notifications_1.PushNotificationsService,
             zaposleni_service_1.ZaposleniService,
-            zaposleniDetail_service_1.ZaposleniDetailService
+            zaposleniDetail_service_1.ZaposleniDetailService,
+            stat_service_1.StatService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

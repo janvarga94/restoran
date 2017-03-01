@@ -1,3 +1,5 @@
+import { StatsRestoranaComponent } from './statsRestorana/statsRestorana.component';
+import { StatService } from './services/stat.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { RezervacijaService } from './services/rezervacija.service';
 import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
@@ -67,6 +69,7 @@ import {ZaposleniService} from "./services/zaposleni.service";
          { path: 'rezervacija/:idRestorana/:gost', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
+         { path: 'stats', component : StatsRestoranaComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -88,6 +91,7 @@ import {ZaposleniService} from "./services/zaposleni.service";
     ActivationComponent,
     RezervacijaComponent,
     RezervacijeComponent,
+    StatsRestoranaComponent,
     GostPozvanPipe,
     GostNeozvanPipe,
     LimitDuzineStringa,
@@ -106,7 +110,8 @@ import {ZaposleniService} from "./services/zaposleni.service";
      RezervacijaService,
        PushNotificationsService,
        ZaposleniService,
-       ZaposleniDetailService
+       ZaposleniDetailService,
+       StatService
    ],
     bootstrap: [ AppComponent ]
 })

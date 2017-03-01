@@ -5,7 +5,9 @@ import init.dtos.RestoranDTO;
 import init.model.RestoranOcenaDTO;
 import init.modelFromDB.*;
 import init.repositories.models.PocetakKrajPair;
+import init.repositories.models.StatistikaOdRestorana;
 import init.repositories.models.StoRepo;
+import init.repositories.models.ZbirVremeCount;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,6 +15,7 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.math.BigInteger;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -327,6 +330,26 @@ public class RestoranRepository {
 
         return true;
 
+    }
+
+    public StatistikaOdRestorana getStatistikaRestorana(int restoran) {
+        org.hibernate.Session session = Main.sessionFactory.openSession();
+        session.beginTransaction();
+
+        String query = "select count(restoran.NAZIV), date(rezervacija.POCETAK)  from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on sto.ID_REONA = reon.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA\n" +
+                "\twhere restoran.ID_RESTORANA = " + restoran + "\n" +
+                "group by date(rezervacija.POCETAK) ";
+        List<Object[]> results = session.createNativeQuery(query).getResultList();
+        StatistikaOdRestorana stat = new StatistikaOdRestorana();
+        stat.poDanu = new ArrayList<>();
+        for(Object[] obj : results){
+            ZbirVremeCount zvc = new ZbirVremeCount();
+            zvc.zbir = (BigInteger) obj[0];
+            zvc.vreme = ((Date) obj[1]).getTime();
+            stat.poDanu.add(zvc);
+        }
+
+        return stat;
     }
 
 
