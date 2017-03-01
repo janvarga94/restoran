@@ -337,7 +337,8 @@ public class RestoranRepository {
         session.beginTransaction();
 
         String query = "select count(restoran.NAZIV), date(rezervacija.POCETAK)  from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on sto.ID_REONA = reon.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA\n" +
-                "\twhere restoran.ID_RESTORANA = " + restoran + "\n" +
+                "\twhere restoran.ID_RESTORANA = "+restoran+" and\n" +
+                "      rezervacija.POCETAK BETWEEN NOW() - INTERVAL 30 DAY AND NOW() + interval 30 day\n" +
                 "group by date(rezervacija.POCETAK) ";
         List<Object[]> results = session.createNativeQuery(query).getResultList();
         StatistikaOdRestorana stat = new StatistikaOdRestorana();
@@ -349,6 +350,8 @@ public class RestoranRepository {
             stat.poDanu.add(zvc);
         }
 
+
+        session.close();
         return stat;
     }
 
