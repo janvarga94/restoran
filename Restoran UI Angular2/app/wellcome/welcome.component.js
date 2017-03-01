@@ -8,12 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+var restorani_service_1 = require("./../services/restorani.service");
+var rezervacija_service_1 = require("./../services/rezervacija.service");
 var core_1 = require("@angular/core");
 var welcome_service_1 = require("../services/welcome.service");
 var login_service_1 = require("../services/login.service");
 var WelcomeComponent = (function () {
-    function WelcomeComponent(_welcomeService, _loginService) {
+    function WelcomeComponent(_restoranService, _rezervacijeService, _welcomeService, _loginService) {
+        this._restoranService = _restoranService;
+        this._rezervacijeService = _rezervacijeService;
         this._welcomeService = _welcomeService;
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
@@ -21,25 +24,32 @@ var WelcomeComponent = (function () {
     }
     WelcomeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._welcomeService.getRestoraniForUser(this._loginService.emailUlogovanog).subscribe(function (restorani) {
-            //   this.restorani = restorani;
-            _this.restorani = restorani;
+        this._restoranService.getSviRestorani().subscribe(function (restorani) {
+            _this.sviRestorani = restorani;
         });
         this._loginService.ulogovan.subscribe(function (ulogovan) {
             _this.ulogovan = ulogovan;
+            if (ulogovan) {
+                _this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(function (rezervacijeIRezervacije) {
+                    _this.poseceniRestorani = rezervacijeIRezervacije;
+                });
+            }
         });
     };
-    WelcomeComponent.prototype.rate = function (idRestorana, gostEmail, ocena) {
-        console.log(idRestorana + " , " + gostEmail + " , " + ocena);
-        this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: idRestorana, gostEmail: gostEmail });
-        for (var _i = 0, _a = this.restorani; _i < _a.length; _i++) {
+    WelcomeComponent.prototype.rate = function (restoranId, gostEmail, ocena) {
+        console.log(restoranId + " , " + gostEmail + " , " + ocena);
+        this._welcomeService.postOcenaForRestoran({ ocena: ocena, restoranId: restoranId, gostEmail: gostEmail });
+        for (var _i = 0, _a = this.poseceniRestorani; _i < _a.length; _i++) {
             var restoran = _a[_i];
-            if (restoran.idRestorana == idRestorana) {
-                var ocena_1 = this._welcomeService.getOcenaForRestoran(idRestorana);
+            if (restoran.restoranId == restoranId) {
+                var ocena_1 = this._welcomeService.getOcenaForRestoran(restoranId);
                 console.log(ocena_1);
                 restoran.ocena = ocena_1;
             }
         }
+    };
+    WelcomeComponent.prototype.getDatum = function (milli) {
+        return new Date(milli).toLocaleString();
     };
     return WelcomeComponent;
 }());
@@ -47,7 +57,7 @@ WelcomeComponent = __decorate([
     core_1.Component({
         templateUrl: 'app/home/welcome.component.html'
     }),
-    __metadata("design:paramtypes", [welcome_service_1.WelcomeService, login_service_1.LoginService])
+    __metadata("design:paramtypes", [restorani_service_1.RestoranService, rezervacija_service_1.RezervacijaService, welcome_service_1.WelcomeService, login_service_1.LoginService])
 ], WelcomeComponent);
 exports.WelcomeComponent = WelcomeComponent;
 //# sourceMappingURL=welcome.component.js.map

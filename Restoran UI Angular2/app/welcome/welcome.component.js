@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var restorani_service_1 = require("./../services/restorani.service");
 var rezervacija_service_1 = require("./../services/rezervacija.service");
 var core_1 = require("@angular/core");
@@ -38,7 +39,7 @@ var WelcomeComponent = (function () {
     };
     WelcomeComponent.prototype.rate = function (restoranId, gostEmail, ocena) {
         console.log(restoranId + " , " + gostEmail + " , " + ocena);
-        this._welcomeService.postOcenaForRestoran({ ocena: ocena, idRestorana: restoranId, gostEmail: gostEmail });
+        this._welcomeService.postOcenaForRestoran({ ocena: ocena, restoranId: restoranId, gostEmail: gostEmail });
         for (var _i = 0, _a = this.poseceniRestorani; _i < _a.length; _i++) {
             var restoran = _a[_i];
             if (restoran.restoranId == restoranId) {

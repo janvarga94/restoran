@@ -35,15 +35,19 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
             kRepo.ime = k .getIme();
             kRepo.prezime = k.getPrezime();
             kRepo.password = k.getLozinka();
+            kRepo.aktiviran = false;
 
-            if(session.get(KonobarEntity.class, primaryKey) != null){
+            GostEntity gostEntity = session.get(GostEntity.class, primaryKey);
+
+            if(gostEntity != null){
+                kRepo.setUloga(Uloga.GOST);
+                kRepo.aktiviran = gostEntity.getAktiviran() == Byte.MAX_VALUE;
+            }else if(session.get(KonobarEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.KONOBAR);
             }else   if(session.get(KonobarEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.KONOBAR);
             }else   if(session.get(SankerEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.SANKER);
-            }else    if((session.get(GostEntity.class, primaryKey)) != null){
-                kRepo.setUloga(Uloga.GOST);
             }else    if(session.get(KuvarEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.KUVAR);
             }else   if(session.get(MenazerRestoranaEntity.class, primaryKey) != null){

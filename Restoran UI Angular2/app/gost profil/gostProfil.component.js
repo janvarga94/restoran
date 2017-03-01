@@ -136,7 +136,7 @@ var GostProfilComponent = (function () {
                 _this.IzmenaListe();
             }
             else {
-                _this._notificator.notifyInfo("Problem: " + response.Message);
+                _this._notificator.notifyInfo("Problem: " + response.Message + " Verovatno ste prijatelja pozvali u restoran pa prvo obrisite poziv.");
             }
         });
     };

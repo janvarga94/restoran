@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
@@ -20,7 +21,7 @@ var Notificator = (function () {
         var toasterconfig = new angular2_toaster_1.ToasterConfig({
             showCloseButton: true,
             tapToDismiss: false,
-            timeout: 0
+            timeout: 7000
         });
     }
     Notificator.prototype.notifySuccess = function (message) {

@@ -1,3 +1,4 @@
+import { WelcomeComponent } from './welcome/welcome.component';
 import { RezervacijaService } from './services/rezervacija.service';
 import { GostPozvanPipe, GostNeozvanPipe } from './pipes/GostPozvanPipe';
 import { RezervacijeComponent } from './rezervacije/rezervacije.component';
@@ -17,7 +18,6 @@ import { ToasterModule, ToasterService, ToasterConfig } from 'angular2-toaster';
 
 import { AppComponent }  from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { WelcomeComponent } from './home/welcome.component';
 import { RestoraniComponent} from './restorani/restorani.component';
 import { RestoranDetailComponent} from './restoran detail/restoranDetail.component';
 //import { PageNotFoundComponent} from './page not found/pageNotFound.component';
@@ -33,21 +33,15 @@ import {ZaposleniComponent} from "./zaposleni/zaposleni.component";
 import {ZaposleniDetailComponent} from "./zaposleniDetail/zaposleniDetail.component";
 import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
-import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
-import {JelovnikComponent} from "./jelovnik/jelovnik.component";
-
-import {PushNotificationsModule} from "angular2-notifications";
 import {AgmCoreModule} from "angular2-google-maps/core";
-import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
-import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
-import {NoviPonudjacComponent} from "./noviPonudjac/noviPonudjac.component";
-import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadzerRestorana.component";
+import {ZaposleniDetailService} from "./services/zaposleniDetail.service";
+import {PushNotificationsService} from "angular2-notifications";
+
 
 
 @NgModule({
   imports: [
      BrowserModule,
-      PushNotificationsModule,
       AgmCoreModule.forRoot({
           apiKey: 'AIzaSyAB6DgNAa-m2IHEzyFRUdV2bPTeIy0mjuc'
       }),
@@ -66,17 +60,10 @@ import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadz
         { path: 'sistemMenadzer', component : MenazerSistemaViewComponent},
         { path: 'activateAccount/:token', component : ActivationComponent},
         { path: 'rezervacija/:idRestorana', component: RezervacijaComponent},
+         { path: 'rezervacija/:idRestorana/:gost', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
-         {path: 'dodavanjereona', component: DodatiReonComponent},
-         {path: 'novirestoran', component: NoviRestoranComponent},
-         {path: 'novizaposleni', component: NoviZaposleniComponent},
-         {path: 'noviponudjac', component: NoviPonudjacComponent},
-         {path: 'novimenadzerrestorana', component: NoviMenadzerRestoranaComponent},
-         {path: 'jelovnik', component: JelovnikComponent},
-        { path: '', redirectTo: 'welcome', pathMatch: 'full'},
-        { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
      ]), 
@@ -100,13 +87,8 @@ import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadz
     GostNeozvanPipe,
     LimitDuzineStringa,
     LimitDuzineListe,
-    ContainsString,
-      DodatiReonComponent,
-      JelovnikComponent,
-      NoviRestoranComponent,
-      NoviZaposleniComponent,
-      NoviMenadzerRestoranaComponent,
-      NoviPonudjacComponent
+    ContainsString
+
    ],
    providers: [
      RestoranService,
@@ -116,7 +98,8 @@ import {NoviMenadzerRestoranaComponent} from "./noviMenadzerRestorana/noviMenadz
      GostiService,
      PrijateljstvoService,
      ToasterService,
-     RezervacijaService
+     RezervacijaService,
+       PushNotificationsService
    ],
     bootstrap: [ AppComponent ]
 })

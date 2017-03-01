@@ -40,7 +40,7 @@ export class WelcomeComponent implements OnInit{
     rate(restoranId : number, gostEmail : string, ocena : number){
         console.log(restoranId + " , " + gostEmail + " , "+ocena);
 
-        this._welcomeService.postOcenaForRestoran({ocena : ocena, idRestorana : restoranId, gostEmail : gostEmail});
+        this._welcomeService.postOcenaForRestoran({ocena : ocena, restoranId : restoranId, gostEmail : gostEmail});
         for (let restoran of this.poseceniRestorani) {
             if (restoran.restoranId == restoranId) {
                 let ocena = this._welcomeService.getOcenaForRestoran(restoranId);

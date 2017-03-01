@@ -40,7 +40,7 @@ export class RezervacijaService {
     getStolovi(restoran: string): Observable<any[]> {
         return this._http.get(this._stoloviUrl+"?restoran="+restoran)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -48,7 +48,7 @@ export class RezervacijaService {
     rezervisi(rezervisiReq : any): Observable<any[]> {
         return this._http.post(this._rezervisiUrl,rezervisiReq)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -56,7 +56,7 @@ export class RezervacijaService {
     poruciJela(req : any): Observable<any[]> {
         return this._http.post(this._poruciJelaUrl,req)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -64,7 +64,7 @@ export class RezervacijaService {
     poruciPica(req : any): Observable<any[]> {
         return this._http.post(this._poruciPicaUrl,req)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -72,7 +72,7 @@ export class RezervacijaService {
     porucenaJela(idRez:any, email : any): Observable<any[]> {
         return this._http.get(this._porucenaJelaUrl + "?idRezervacije=" + idRez + "&email=" + email)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -80,7 +80,7 @@ export class RezervacijaService {
     porucenaPica(idRez:any, email : any): Observable<any[]> {
         return this._http.get(this._porucenaPicaUrl + "?idRezervacije=" + idRez + "&email=" + email)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -88,15 +88,15 @@ export class RezervacijaService {
     getJela(restoran: any): Observable<any[]> {
         return this._http.get(this._jelaUrl+"?restoran="+restoran)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
 
-    getPica(restoran: any): Observable<any[]> {
+     getPica(restoran: any): Observable<any[]> {
         return this._http.get(this._picaUrl+"?restoran="+restoran)
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }
@@ -104,7 +104,7 @@ export class RezervacijaService {
     getRezervacije(email: any): Observable<any[]> {
         return this._http.get(this._rezervaicjeUrl+"?email="+encodeURIComponent(email))
             .map((response: Response) => {
-                return response.json();
+                return response.json();   
             })
             .catch(this.handleError);
     }

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("../services/notification.service");
 var restorani_service_1 = require("../services/restorani.service");
@@ -29,7 +30,8 @@ var MenazerSistemaViewComponent = (function () {
                 naziv: this.noviNaziv,
                 vrsta: this.novaVrsta,
                 idRestorana: 10,
-                opis: ""
+                opis: "",
+                adresa: ""
             };
             this._restoraniService
                 .addRestoran(noviRestoran)

@@ -10,7 +10,6 @@ import init.repositories.KorisnikRepository;
 import init.repositories.models.KorisnikRepo;
 import org.hibernate.*;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +43,8 @@ public class AuthorizationController {
         if(acc == null || acc.email == null || acc.password == null)
             return null;
         KorisnikRepo korisnik = repository.findOne(acc.email);
-        if( korisnik == null || korisnik.email == null || korisnik.password == null)
+
+        if( korisnik == null || korisnik.email == null || korisnik.password == null || !korisnik.aktiviran)
             return  null;
 
         if( korisnik.password.equals(acc.password)){
@@ -133,7 +133,7 @@ public class AuthorizationController {
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        org.hibernate.Query query = session.createQuery("select g from TokenEntity as g where g.tokenString=:tokenString")
+        Query query = session.createQuery("select g from TokenEntity as g where g.tokenString=:tokenString")
                 .setParameter("tokenString",tokenString);
 
         TokenEntity t = (TokenEntity) query.uniqueResult();

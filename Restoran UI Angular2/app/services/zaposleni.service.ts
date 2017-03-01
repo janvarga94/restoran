@@ -13,13 +13,10 @@ import { IZaposleni } from '../models/zaposleni';
 import { ISuccess} from '../models/ISuccess';
 
 import { Notificator } from './notification.service';
-import {Config} from "../app.config";
 
 @Injectable()
 export class ZaposleniService {
     private _zaposleniUrl = 'http://localhost:8080/resursi/zaposleni';
-    private _registerUrl = Config.BackendUrl + '/menadzerRestorana/addZaposlenog';
-    private _managerRestoranaURL = Config.BackendUrl + '/menadzerRestorana/addmenadzeraRestorana';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -46,19 +43,6 @@ export class ZaposleniService {
             .map((response: Response) => {   return <ISuccess> response.json(); })
             .catch(this.handleError);
     }
-
-    addZaposlen(zaposlen : any )  {
-        return this._http.post(this._registerUrl,zaposlen).map((response: Response) => {
-            return <any> response.json();
-        }).catch(this.handleError);
-    }
-
-    addMenadzera(menadzer : any){
-        return this._http.post(this._managerRestoranaURL,menadzer).map((response: Response) => {
-            return <any> response.json();
-        }).catch(this.handleError);
-    }
-
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

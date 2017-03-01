@@ -4,11 +4,9 @@ import {ZaposleniDetailService} from "../services/zaposleniDetail.service";
 import {ZaposleniService} from "../services/zaposleni.service";
 import {Notificator} from "../services/notification.service";
 import {IZaposleni} from "../models/zaposleni";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {PushNotificationsService} from "angular2-notifications";
-
-
 /**
  * Created by Svetozar Stojkovic on 12/19/2016.
  */
@@ -18,7 +16,6 @@ import {PushNotificationsService} from "angular2-notifications";
     templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
     providers: [ZaposleniDetailService]
 })
-
 
 export class ZaposleniDetailComponent implements OnInit{
 
@@ -57,7 +54,7 @@ export class ZaposleniDetailComponent implements OnInit{
 
     pica : any[] = [];
 
-    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute, private _pushNotifications: PushNotificationsService) {
+    constructor(private _notificator: Notificator, private _zaposleniDetailService : ZaposleniDetailService, private route: ActivatedRoute, private _pushNotifications: PushNotificationsService, private router: Router) {
         this.zaposleniDetailService = _zaposleniDetailService;
         console.log("constructor")
     }
@@ -69,7 +66,7 @@ export class ZaposleniDetailComponent implements OnInit{
             console.log(this.email);
         });
 
-        this._pushNotifications.requestPermission();
+        // this._pushNotifications.requestPermission();
 
         let date = new Date();
         this.currentYear = date.getFullYear();
@@ -91,7 +88,6 @@ export class ZaposleniDetailComponent implements OnInit{
 
         });
     }
-
 
     changeDate(day: number, month : number, year : number) {
         let newDate = new Date();
@@ -190,22 +186,19 @@ export class ZaposleniDetailComponent implements OnInit{
 
     refreshJela() {
         this.jela = [];
-        this.prihvacena = [];
-        this.neprihvacena = [];
         this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(jela => {
             for (let jelo of jela) {
                 jelo[8] = this.getDatum(jelo[8]);
-                console.log(jelo[0]);
-                if (jelo[10]==null || jelo[10]<jelo[7]){
+                if (jelo[11]==null || jelo[11]<jelo[8]){
                     this.neprihvacena.push(jelo);
-                } else if (jelo[10]>jelo[9] || jelo[9] == null){
+                } else if (jelo[0] == this.email){
                     this.prihvacena.push(jelo);
                 }
             }
             this.jela = jela;
+            console.log(this.jela);
         });
     }
-
 
     refreshPica() {
         this.pica = [];
@@ -234,22 +227,21 @@ export class ZaposleniDetailComponent implements OnInit{
 
     napravljenoJelo(jelo : any){
         console.log(jelo);
-        this.zaposleniDetailService.skuvanoJelo(jelo[1]).subscribe(jelo => {
-            this.refreshJela();
+        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(jelo => {
+
         });
     }
-
 
     prihvacenoJelo(jelo : any){
         console.log(jelo);
-        this.zaposleniDetailService.prihvacenoJelo(jelo[1]).subscribe(jelo => {
-            this.refreshJela();
+        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(jelo => {
 
         });
     }
 
-    porudzbina() {
-
+    porudzbina(sto : any) {
+        // = "'/rezervacije/' + getBase(sto[4])"
+        console.log(sto)
     }
 
     connectToWebSocket(){
@@ -271,6 +263,10 @@ export class ZaposleniDetailComponent implements OnInit{
             this.refreshPica();
 
         });
+    }
+
+    getBase(url : string) {
+        return btoa(url);
     }
 
     mapNumberZanimanje(zan : number){
