@@ -36,8 +36,10 @@ export class RezervacijeComponent implements OnInit{
     randomClasses : any[] = [];
 
     ulogovan : any;
+
+    ukupnaCena : number = 0;
    
-    private gostSaKojimRadimoSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);;
+    private gostSaKojimRadimoSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     gostSaKojimRadimo : Observable<any> = this.gostSaKojimRadimoSubject.asObservable();
 
     constructor(private route: ActivatedRoute,private _notificator : Notificator,private _loginService : LoginService,private _restoranService : RestoranService, private _rezervacijaService : RezervacijaService) {
@@ -105,14 +107,51 @@ export class RezervacijeComponent implements OnInit{
 
          this.gostSaKojimRadimo.subscribe(ulogovan => {
             if(ulogovan){
+                this.ukupnaCena = 0;
                 this._rezervacijaService.porucenaJela(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email)).subscribe(porucena => {
                     this.porucenaJela = porucena;
+                    console.log(porucena)
+                    this.izracunajJela();
+
                 });         
                   this._rezervacijaService.porucenaPica(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email)).subscribe(porucena => {
                     this.porucenaPica = porucena;
-                });    
+                    this.izracunajPica();
+                });
+
+
             }
         });
+    }
+
+    izracunajCenu() {
+        this.ukupnaCena = 0;
+        this.izracunajJela();
+        this.izracunajPica();
+    }
+
+    izracunajJela(){
+        for (let por of this.porucenaJela) {
+            this.ukupnaCena += por.cena;
+        }
+    }
+
+    izracunajPica(){
+        for (let por of this.porucenaPica) {
+            this.ukupnaCena += por.cena;
+        }
+    }
+
+    plati() {
+        this.gostSaKojimRadimo.subscribe(ulogovan => {
+            if(ulogovan != null){
+                this._rezervacijaService.plati(this.odabranaRezervacija['idRezervacije'],encodeURIComponent(ulogovan.email), this.ukupnaCena).subscribe(porucena => {
+
+
+                });
+            }
+        });
+
     }
 
     randomClassButton(index : any){
@@ -191,7 +230,7 @@ export class RezervacijeComponent implements OnInit{
                     }
                 });
 
-
+                this.izracunajCenu();
             }
         });
     }

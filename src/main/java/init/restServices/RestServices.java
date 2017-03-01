@@ -72,10 +72,17 @@ public class RestServices {
        return op.getRestoraniForGost(email);
     }
 
-    @RequestMapping(path = "/add_ocena_restoran", method=RequestMethod.POST)
-    public void addOcenaRestorana(OcenaRestoranaEntity ocenaRestoranaEntity){
+    @RequestMapping(path = "/add_ocena_restoran", method=RequestMethod.GET)
+    public boolean addOcenaRestorana(int idRestorana, int ocena, String gostEmail){
 
-        op.addOcenaRestorana(ocenaRestoranaEntity);
+        System.out.println(gostEmail);
+
+        OcenaRestoranaEntity ocenaRestoranaEntity = new OcenaRestoranaEntity();
+        ocenaRestoranaEntity.setIdRestorana(idRestorana);
+        ocenaRestoranaEntity.setOcena(ocena);
+        ocenaRestoranaEntity.setGostEmail(gostEmail);
+
+        return op.addOcenaRestorana(ocenaRestoranaEntity);
 
     }
 
@@ -146,6 +153,28 @@ public class RestServices {
     public boolean spremljenoPice(int idPorudzbine) {
 
         return rp.spremljenoPice(idPorudzbine);
+
+    }
+
+    @RequestMapping(path = "/get_jela_for_restoran", method = RequestMethod.GET)
+    public List<Object> getJelaForRestoran(int idRestorana, String email) {
+
+        return rp.getJelaForRestoran(idRestorana, email);
+
+    }
+
+    @RequestMapping(path = "/oceni_jelo", method=RequestMethod.GET)
+    public boolean oceniJelo(String nazivJela, int idRestorana, String email, int ocena){
+
+        System.out.println(email);
+
+        OcenaJelaEntity ocenaJelaEntity = new OcenaJelaEntity();
+        ocenaJelaEntity.setNazivJela(nazivJela);
+        ocenaJelaEntity.setIdRestorana(idRestorana);
+        ocenaJelaEntity.setOcena(ocena);
+        ocenaJelaEntity.setGostEmail(email);
+
+        return op.addOcenaJela(ocenaJelaEntity);
 
     }
 

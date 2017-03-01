@@ -39,7 +39,7 @@
 
 
 <h2 style="margin-top:20px;">Svi restorani</h2>
-<div class="row  pre-scrollable" style="margin-top: 10px;">
+<div class="row  pre-scrollable" style="margin-top: 10px;" *ngIf="gostEmail != null">
     <div class="col-md-4" *ngFor="let restoran of sviRestorani" style="margin-top: 20px;">
         <div class="card">
             <div class="card-block">
@@ -67,17 +67,50 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let restoran of poseceniRestorani">
+            <tr *ngFor="let restoran of poseceniRestorani" (click)="getJela(restoran)">
                 <td>{{restoran.restoranNaziv}}</td>
                 <td>{{restoran.vrstaRestorana}}</td>
                 <td>{{getDatum(restoran.pocetak)}}</td>
                 <td>{{restoran.ocenaRestorana}}</td>
                 <td >
                     <div class="rating">
-                        <span *ngFor="let i of [5,4,3,2,1]" (click)="rate(restoran.restoranId, ulogovan.email, i)">☆</span>
+                        <span *ngFor="let i of [5,4,3,2,1]" (click)="rate(restoran.restoranId, gostEmail, i)">☆</span>
                     </div>
                 </td>
             </tr>
+        </tbody>
+    </table>
+</div>
+<style>
+    tr:hover {
+    background: #AAAAAA !important;
+    }
+
+    tr:hover td {
+    background: #c7d4dd !important;
+    }
+</style>
+
+<h2 style="margin-top:20px;">Jela u restoranu</h2>
+<div class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Ocena</th>
+            <th style="float : right">Oceni</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let jelo of jela">
+            <td>{{jelo[0]}}</td>
+            <td>{{jelo[3]}}</td>
+            <td >
+                <div class="rating">
+                    <span *ngFor="let i of [5,4,3,2,1]" (click)="rateJelo(jelo, i)">☆</span>
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>

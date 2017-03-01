@@ -118,4 +118,18 @@
    </div>
 
 
+
+
+</div>
+
+<div *ngIf="odabranaRezervacija != null" class="card-header row ">
+    <p><b>Ukupna cena: {{ukupnaCena.toFixed(2)}}</b></p>
+</div>
+
+<br>
+
+<div *ngIf="odabranaRezervacija != null"  class="row">
+    <div class="col-md-12 text-center">
+        <button class="btn btn-lg btn-primary" (click)="plati()">Plati</button>
+    </div>
 </div>

@@ -20,6 +20,7 @@ export class NoviRestoranComponent implements OnInit {
     vrsta : string;
     naziv : string;
     opis : string;
+    adresa : string;
 
     ngOnInit(): void {
 
@@ -30,7 +31,7 @@ export class NoviRestoranComponent implements OnInit {
     }
 
     addRestoran(){
-        this._restoranService.addRestoran({idRestorana: this.id, vrsta : this.vrsta, naziv : this.naziv, opis : this.opis}).subscribe(response =>{
+        this._restoranService.addRestoran({idRestorana: this.id, vrsta : this.vrsta, naziv : this.naziv, opis : this.opis, adresa : this.adresa}).subscribe(response =>{
             if(response.Success == true)  this._notificator.notifySuccess("Usposno dodat restoran");
             else this._notificator.notifyError("Greska");});
 

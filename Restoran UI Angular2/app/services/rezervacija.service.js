@@ -115,6 +115,14 @@ var RezervacijaService = (function () {
         })
             .catch(this.handleError);
     };
+    RezervacijaService.prototype.plati = function (idRezervacije, email, ukupnaCena) {
+        var platiurl = app_config_1.Config.BackendUrl + '/rezervacija/plati';
+        return this._http.get(platiurl + "?idRezervacije=" + idRezervacije + "&gostEmail=" + email + "&ukupnaCena=" + ukupnaCena)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
     RezervacijaService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

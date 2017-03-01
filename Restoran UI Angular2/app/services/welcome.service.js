@@ -18,6 +18,7 @@ var Rx_1 = require("rxjs/Rx");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/map");
+var app_config_1 = require("../app.config");
 var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
         this._http = _http;
@@ -32,19 +33,15 @@ var WelcomeService = (function () {
         })
             .catch(this.handleError);
     };
-    WelcomeService.prototype.postOcenaForRestoran = function (ocena) {
-        var _this = this;
-        console.log(ocena.ocena);
-        var ocenaUrl = 'http://localhost:8080/resursi/add_ocena_restoran';
-        var creds = JSON.stringify(ocena);
-        console.log(creds);
-        var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
-        this._http.post(ocenaUrl, creds, {
-            headers: headers
+    WelcomeService.prototype.postOcenaForRestoran = function (idRestorana, ocena, gostEmail) {
+        console.log("Mail: " + gostEmail);
+        var ocenaUrl = app_config_1.Config.BackendUrl + '/resursi/add_ocena_restoran';
+        return this._http.get(ocenaUrl + "?idRestorana=" + idRestorana + "&ocena=" + ocena + "&gostEmail=" + encodeURIComponent(gostEmail))
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
         })
-            .subscribe(function (data) {
-        }, function (err) { return _this.handleError(err.json().message); }, function () { return console.log('Authentication Complete'); });
+            .catch(this.handleError);
     };
     WelcomeService.prototype.getOcenaForRestoran = function (id) {
         var ocenaUrl = 'http://localhost:8080/resursi/ocena_for_restoran';
@@ -52,6 +49,22 @@ var WelcomeService = (function () {
             .map(function (response) {
             var restoraniOcena = response.json();
             return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
+    WelcomeService.prototype.getJelaForRestoran = function (id, email) {
+        var ocenaUrl = app_config_1.Config.BackendUrl + '/resursi/get_jela_for_restoran';
+        return this._http.get(ocenaUrl + "?idRestorana=" + id + "&email=" + encodeURIComponent(email))
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    WelcomeService.prototype.oceniJelo = function (nazivJela, idRestorana, email, ocena) {
+        var ocenaUrl = app_config_1.Config.BackendUrl + '/resursi/oceni_jelo';
+        return this._http.get(ocenaUrl + "?nazivJela=" + nazivJela + "&idRestorana=" + idRestorana + "&email=" + encodeURIComponent(email) + "&ocena=" + ocena)
+            .map(function (response) {
+            return response.json();
         })
             .catch(this.handleError);
     };

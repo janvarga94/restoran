@@ -127,6 +127,15 @@ export class RezervacijaService {
             .catch(this.handleError);
     }
 
+    plati(idRezervacije : number, email : string, ukupnaCena : number): Observable<any[]> {
+        let platiurl = Config.BackendUrl+'/rezervacija/plati';
+        return this._http.get(platiurl + "?idRezervacije=" + idRezervacije + "&gostEmail="+email+"&ukupnaCena="+ukupnaCena)
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch(this.handleError);
+    }
+
 
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure

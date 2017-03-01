@@ -355,5 +355,18 @@ public class RestoranRepository {
         return stat;
     }
 
+    public List<Object> getJelaForRestoran(int idRestorana, String email){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.NAZIV_JELA, ocena_jela.ID_RESTORANA, ocena_jela.GOST_EMAIL, ocena_jela.OCENA\n" +
+                "from jelo_u_porudzbini inner join porudzbina on jelo_u_porudzbini.ID_PORUDZBINE=porudzbina.ID_PORUDZBINE inner join ocena_jela on ocena_jela.GOST_EMAIL=porudzbina.GOST_EMAIL\n" +
+                "where jelo_u_porudzbini.ID_RESTORANA = "+idRestorana+" and porudzbina.GOST_EMAIL='"+email+"'").getResultList();
+
+
+        return (List<Object>) lista;
+    }
+
 
 }
