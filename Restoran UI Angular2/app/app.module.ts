@@ -41,8 +41,8 @@ import {PushNotificationsService} from "angular2-notifications";
 import {NoviZaposleniComponent} from "./noviZaposleni/noviZaposleni.component";
 import {ZaposleniService} from "./services/zaposleni.service";
 import {NoviRestoranComponent} from "./noviRestoran/noviRestoran.component";
-//import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
-//import {JelovnikComponent} from "./jelovnik/jelovnik.component";
+import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
+import {JelovnikComponent} from "./jelovnik/jelovnik.component";
 import {StatistikaComponent} from "./statistika/statistika.component";
 import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
@@ -79,9 +79,9 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
          { path: 'stats/:idRestorana', component : StatsRestoranaComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
-       //  {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path: 'dodavanjereona', component: DodatiReonComponent},
          {path:'statistika', component: StatistikaComponent},
-      //   {path: 'jelovnik', component: JelovnikComponent},
+         {path: 'jelovnik', component: JelovnikComponent},
          {path: 'dodavanjestola', component: DodavanjeStolaComponent },
          {path: 'potraznajnamirnica', component: PotraznjaNamirnicaComponent},
          {path: 'novojelo', component: NovoJeloComponent},
@@ -113,8 +113,8 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
     LimitDuzineStringa,
     LimitDuzineListe,
     ContainsString,
-     // DodatiReonComponent,
-     // JelovnikComponent,
+      DodatiReonComponent,
+      JelovnikComponent,
       StatistikaComponent,
       DodavanjeStolaComponent,
       PotraznjaNamirnicaComponent,

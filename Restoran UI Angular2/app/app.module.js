@@ -47,8 +47,8 @@ var angular2_notifications_1 = require("angular2-notifications");
 var noviZaposleni_component_1 = require("./noviZaposleni/noviZaposleni.component");
 var zaposleni_service_1 = require("./services/zaposleni.service");
 var noviRestoran_component_1 = require("./noviRestoran/noviRestoran.component");
-//import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
-//import {JelovnikComponent} from "./jelovnik/jelovnik.component";
+var dodavanjeReona_component_1 = require("./dodavanjeReona/dodavanjeReona.component");
+var jelovnik_component_1 = require("./jelovnik/jelovnik.component");
 var statistika_component_1 = require("./statistika/statistika.component");
 var dodavanjeStola_component_1 = require("./dodavanjeStola/dodavanjeStola.component");
 var potraznjaNamirnica_component_1 = require("./potraznjaNamirnica/potraznjaNamirnica.component");
@@ -88,9 +88,9 @@ AppModule = __decorate([
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: 'stats/:idRestorana', component: statsRestorana_component_1.StatsRestoranaComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
-                //  {path: 'dodavanjereona', component: DodatiReonComponent},
+                { path: 'dodavanjereona', component: dodavanjeReona_component_1.DodatiReonComponent },
                 { path: 'statistika', component: statistika_component_1.StatistikaComponent },
-                //   {path: 'jelovnik', component: JelovnikComponent},
+                { path: 'jelovnik', component: jelovnik_component_1.JelovnikComponent },
                 { path: 'dodavanjestola', component: dodavanjeStola_component_1.DodavanjeStolaComponent },
                 { path: 'potraznajnamirnica', component: potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent },
                 { path: 'novojelo', component: novoJelo_component_1.NovoJeloComponent },
@@ -120,8 +120,8 @@ AppModule = __decorate([
             LimitDuzineStringa_1.LimitDuzineStringa,
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString,
-            // DodatiReonComponent,
-            // JelovnikComponent,
+            dodavanjeReona_component_1.DodatiReonComponent,
+            jelovnik_component_1.JelovnikComponent,
             statistika_component_1.StatistikaComponent,
             dodavanjeStola_component_1.DodavanjeStolaComponent,
             potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent,

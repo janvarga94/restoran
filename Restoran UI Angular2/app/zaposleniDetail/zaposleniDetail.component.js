@@ -298,8 +298,7 @@ ZaposleniDetailComponent = __decorate([
         templateUrl: 'app/zaposleniDetail/zaposleniDetail.component.html',
         providers: [zaposleniDetail_service_1.ZaposleniDetailService]
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, typeof (_a = typeof angular2_notifications_1.PushNotificationsService !== "undefined" && angular2_notifications_1.PushNotificationsService) === "function" && _a || Object])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, angular2_notifications_1.PushNotificationsService])
 ], ZaposleniDetailComponent);
 exports.ZaposleniDetailComponent = ZaposleniDetailComponent;
-var _a;
 //# sourceMappingURL=zaposleniDetail.component.js.map
