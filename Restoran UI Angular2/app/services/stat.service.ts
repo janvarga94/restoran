@@ -14,6 +14,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {IOcenaRestorana} from "../models/ocenaRestorana";
 
+declare var c3 : any;
 
 @Injectable()
 export class StatService {
@@ -38,5 +39,7 @@ export class StatService {
         console.error(error);
         return Observable.throw(error.json().error || 'Server error');
     }
+
+    
 
 }

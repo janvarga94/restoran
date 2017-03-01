@@ -69,7 +69,7 @@ import {ZaposleniService} from "./services/zaposleni.service";
          { path: 'rezervacija/:idRestorana/:gost', component: RezervacijaComponent},
          { path: 'rezervacije', component: RezervacijeComponent},
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
-         { path: 'stats', component : StatsRestoranaComponent},
+         { path: 'stats/:idRestorana', component : StatsRestoranaComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 

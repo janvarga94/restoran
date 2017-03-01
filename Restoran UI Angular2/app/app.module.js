@@ -77,7 +77,7 @@ AppModule = __decorate([
                 { path: 'rezervacija/:idRestorana/:gost', component: rezervacija_component_1.RezervacijaComponent },
                 { path: 'rezervacije', component: rezervacije_component_1.RezervacijeComponent },
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
-                { path: 'stats', component: statsRestorana_component_1.StatsRestoranaComponent },
+                { path: 'stats/:idRestorana', component: statsRestorana_component_1.StatsRestoranaComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
             ]),
         ],
