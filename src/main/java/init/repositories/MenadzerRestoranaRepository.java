@@ -128,6 +128,99 @@ public class MenadzerRestoranaRepository {
         return uspeh;
     }
 
+    public boolean dodajSto(stolDTO stolDTO,Integer id){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        StoEntity sto = new StoEntity();
+        sto.setIdRestorana(id);
+        sto.setIdReona(stolDTO.idReona);
+        sto.setBrojStola(stolDTO.brojStola);
+
+        boolean uspeh = true;
+
+        session.save(sto);
+
+        try{
+            session.flush();
+        }
+        catch(Exception e){
+
+            uspeh = false;
+        }finally {
+            session.close();
+        }
+
+        return uspeh;
+    }
+
+    public boolean dodajNamirnicu(ArtikalDTO artikalDTO, Integer id){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Integer> lista = new ArrayList<Integer>();
+        lista = artikalDTO.lista;
+
+        boolean uspeh = true;
+
+        for(int i = 0; i < lista.size();i++){
+            PotraznjaNamirnacaEntity potraznja = new PotraznjaNamirnacaEntity();
+            potraznja.setIdNamirnice(lista.get(i));
+            potraznja.setIdPotraznje(id);
+            potraznja.setDokad(artikalDTO.datum);
+
+            session.save(potraznja);
+        }
+
+        try{
+            session.flush();
+        }
+        catch(Exception e){
+
+            uspeh = false;
+        }finally {
+            session.close();
+        }
+
+        return uspeh;
+
+    }
+
+    public boolean dodajJelo(Jdto jdto,Integer id){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        StoEntity sto = new StoEntity();
+        JeloEntity jelo = new JeloEntity();
+        jelo.setIdRestorana(id);
+        jelo.setIdTipaJela(id);
+        jelo.setOpis(jdto.opis);
+        jelo.setNazivJela(jdto.naziv);
+        double d = (double) jdto.cena;
+        jelo.setCena(d);
+
+        boolean uspeh = true;
+
+        session.save(jelo);
+
+        try{
+            session.flush();
+        }
+        catch(Exception e){
+
+            uspeh = false;
+        }finally {
+            session.close();
+        }
+
+        return uspeh;
+
+
+    }
+
     public List<JeloDTO> getJelovnik(Integer idRestorana){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
@@ -148,6 +241,101 @@ public class MenadzerRestoranaRepository {
 
         session.close();
        return povratanaLista;
+
+    }
+
+    public int getOcenaRestorana(Integer z){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<OcenaRestoranaEntity> ocene = session.createNativeQuery("SELECT * FROM restorani.ocena_restorana where ID_RESTORANA="+ z + ";" ,OcenaRestoranaEntity.class).getResultList();
+        ArrayList<Integer> listaOcena = new ArrayList<Integer>();
+        int zbir = 0;
+        ocene.forEach(ocena->{
+            listaOcena.add(ocena.getOcena());
+        });
+
+        for(int i = 0; i< listaOcena.size();i++){
+            zbir = zbir + listaOcena.get(i);
+        }
+
+        return zbir/listaOcena.size();
+    }
+
+    public int getOcenaJela(int broj, String naziv){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<OcenaJelaEntity> ocene = session.createNativeQuery("SELECT * FROM restorani.ocena_jela where ID_RESTORANA=" +broj+ "and NAZIV_JELA = "+naziv+ ";" ,OcenaJelaEntity.class).getResultList();
+        ArrayList<Integer> listaOcena = new ArrayList<Integer>();
+        int zbir = 0;
+        ocene.forEach(ocena->{
+            listaOcena.add(ocena.getOcena());
+        });
+        for(int i = 0; i< listaOcena.size();i++){
+            zbir = zbir + listaOcena.get(i);
+        }
+
+        return zbir/listaOcena.size();
+
+    }
+
+    public List<ReonR> getReone(Integer idRestorana){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<ReonEntity> list = session.createNativeQuery("SELECT * FROM restorani.reon where ID_RESTORANA="+ idRestorana + ";" ,ReonEntity.class).getResultList();
+        List<ReonR> povratanaLista = new ArrayList<ReonR>();
+
+        list.forEach(reon -> {
+            ReonR reonR = new ReonR();
+            reonR.idRestorana = reon.getIdRestorana();
+            reonR.idReona = reon.getIdReona();
+            reonR.opis = reon.getOpis();
+
+            povratanaLista.add(reonR);
+
+        });
+
+        session.close();
+        return povratanaLista;
+
+    }
+
+    public List<NamirnicaDTO> getNamirnice(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<NamirnicaEntity> list = session.createNativeQuery("SELECT * FROM restorani.namirnica;" ,NamirnicaEntity.class).getResultList();
+        List<NamirnicaDTO> povratanaLista = new ArrayList<NamirnicaDTO>();
+
+        list.forEach(namirnica -> {
+            NamirnicaDTO nam = new NamirnicaDTO();
+            nam.id= namirnica.getIdNamirnice();
+            nam.naziv = namirnica.getNaziv();
+            nam.opis = namirnica.getOpis();
+
+            povratanaLista.add(nam);
+
+        });
+
+        return povratanaLista;
+
+    }
+
+    public void getNamirniceUPotraznji(){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        PotraznjaNamirnacaEntity pne = new PotraznjaNamirnacaEntity();
+        List<PotraznjaNamirnacaEntity> list = session.createNativeQuery("SELECT * FROM restorani.potraznja_namirnaca;",PotraznjaNamirnacaEntity.class).getResultList();
+
 
     }
 

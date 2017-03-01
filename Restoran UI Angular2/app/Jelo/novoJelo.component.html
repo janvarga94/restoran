@@ -1,0 +1,38 @@
+<div class ="col-md-7">
+    <div class="card">
+
+        <div class="header">
+            Dodavanje jela
+        </div>
+
+        <div class="card-block">
+            <div class="card-block">
+
+                <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="add-naziv" type="text" class="form-control" name="naziv" value="" [(ngModel)] = "naziv" placeholder="* naziv">
+                </div>
+
+                <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="add-opis" type="text" rows="3" class="form-control" name="opis" value="" [(ngModel)] = "opis" placeholder="* opis">
+                </div>
+
+
+                <div style="margin-bottom: 25px" class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    <input id="add-cena" type="number" class="form-control" name="opis" value="" [(ngModel)] = "cena" placeholder="*cena">
+                </div>
+
+
+                <div class="col-sm-12 controls">
+                    <button id="btn-add" href="#" (click)="addJelo()" class="btn btn-success" style ="margin-left: 450px"  [disabled]="naziv=='' || opis==''" >ADD! </button>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

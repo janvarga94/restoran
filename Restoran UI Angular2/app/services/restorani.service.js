@@ -27,7 +27,14 @@ var RestoranService = (function () {
         this._managerRestoranaUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
         this._addPonudjac = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonudjac';
         this._addReon = app_config_1.Config.BackendUrl + '/menadzerRestorana/addReon';
+        this._addStol = app_config_1.Config.BackendUrl + '/menadzerRestorana/addStol';
+        this._addNamirnica = app_config_1.Config.BackendUrl + '/menadzerRestorana/addNamirnica';
+        this._addJelo = app_config_1.Config.BackendUrl + '/menadzerRestorana/addJelo';
         this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
+        this._getOcenaRestorana = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
+        this._getOcenaJela = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
+        this._getReoni = app_config_1.Config.BackendUrl + '/menadzerRestorana/getReoni';
+        this._getNamirnice = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirnice';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -78,6 +85,21 @@ var RestoranService = (function () {
             return response.json();
         }).catch(this.handleError);
     };
+    RestoranService.prototype.addSto = function (sto) {
+        return this._http.post(this._addStol, sto).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addNamirnica = function (namirnica) {
+        return this._http.post(this._addNamirnica, namirnica).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addJelo = function (jelo) {
+        return this._http.post(this._addJelo, jelo).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
     RestoranService.prototype.getJelovnik = function (email) {
         return this._http.get(this._getJelovnik + "?email=" + encodeURIComponent(email))
             .map(function (response) {
@@ -89,12 +111,54 @@ var RestoranService = (function () {
         })
             .catch(this.handleError);
     };
+    RestoranService.prototype.getReoni = function (email) {
+        return this._http.get(this._getReoni + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var reoni = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            //console.log(jelovnik.length);
+            return reoni;
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getNamirnice = function () {
+        return this._http.get(this._getNamirnice)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getOcenaRestorana = function (email) {
+        return this._http.get(this._getOcenaRestorana + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var ocena = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            //     console.log(jelovnik.length);
+            return ocena;
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getOcenaJela = function (email, jelo) {
+        return this._http.get(this._getOcenaJela + "?email=" + encodeURIComponent(email) + "&jelo=" + encodeURIComponent(jelo))
+            .map(function (response) {
+            var ocena = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            //     console.log(jelovnik.length);
+            return ocena;
+        })
+            .catch(this.handleError);
+    };
     RestoranService.prototype.getSviRestorani = function () {
         return this._http.get(this._restoraniSviUrl)
             .map(function (response) {
             return response.json();
         })
             .catch(this.handleError);
+    };
+    RestoranService.prototype.getNamirniceUPotraznji = function () {
     };
     RestoranService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

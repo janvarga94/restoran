@@ -72,6 +72,34 @@ public class MenadzerRestoranaController {
     }
 
 
+    @RequestMapping(path="/addStol", method = RequestMethod.POST)
+    public boolean dodajSto(@RequestBody stolDTO stolDTO){
+        Integer id = mrr.getRestoranID(stolDTO.email);
+
+        boolean uspeh = mrr.dodajSto(stolDTO,id);
+
+        return uspeh;
+    }
+
+    @RequestMapping(path="/addNamirnica", method = RequestMethod.POST)
+    public boolean dodajNamirnicu(@RequestBody ArtikalDTO artikalDTO){
+        Integer id = mrr.getRestoranID(artikalDTO.email);
+
+        boolean uspeh = mrr.dodajNamirnicu(artikalDTO,id);
+
+        return uspeh;
+    }
+
+    @RequestMapping(path="/addJelo", method = RequestMethod.POST)
+    public boolean dodajJelo(@RequestBody Jdto jelodto){
+        Integer id = mrr.getRestoranID(jelodto.email);
+
+
+        boolean uspeh = mrr.dodajJelo(jelodto,id);
+
+        return uspeh;
+    }
+
     @RequestMapping(path="/getJelovnik", method = RequestMethod.GET)
     public List<JeloDTO> getJelovnik(String email){
         System.out.println("A JEL OVDE STIGAO PRVO: "+ email);
@@ -82,5 +110,53 @@ public class MenadzerRestoranaController {
         return povratnaLista;
     }
 
+
+
+
+    @RequestMapping(path="/getOcenaRestorana", method = RequestMethod.GET)
+    public int getOcenaRestorana(String email){
+        System.out.println("A JEL OVDE STIGAO PRVO: "+ email);
+        Integer z = mrr.getRestoranID(email);
+
+        int m = mrr.getOcenaRestorana(z);
+
+        return m;
+    }
+
+    @RequestMapping(path="/getOcenaJela", method = RequestMethod.GET)
+    public int getOcenaJela(String email,String jelo){
+        System.out.println("A JEL OVDE STIGAO PRVO: "+ email+" jelo"+ jelo);
+        Integer z = mrr.getRestoranID(email);
+
+
+        int m = mrr.getOcenaJela(z,jelo);
+
+        return m;
+    }
+
+
+    @RequestMapping(path="/getReoni", method = RequestMethod.GET)
+    public List<ReonR> getReoni(String email){
+        System.out.println("REONI:  : "+ email);
+        Integer z = mrr.getRestoranID(email);
+
+        List<ReonR> povratnaLista=  mrr.getReone(z);
+
+        return povratnaLista;
+    }
+
+    @RequestMapping(path="/getNamirnice", method = RequestMethod.GET)
+    public List<NamirnicaDTO> getNamirnice(){
+
+        List<NamirnicaDTO> povratanaLista  = mrr.getNamirnice();
+
+        return povratanaLista;
+
+    }
+
+    @RequestMapping(path="/getNamirnice", method = RequestMethod.GET)
+    public void getNamirniceUPotraznji(){
+        mrr.getNamirniceUPotraznji();
+    }
 
 }

@@ -13,6 +13,8 @@ import { ISuccess} from '../models/ISuccess';
 import { Notificator } from './notification.service';
 
 import {IJelo} from "../models/jelo";
+import {INamirnica} from "../models/namirnica";
+import {IReon} from "../models/reon";
 
 @Injectable()
 export class RestoranService {
@@ -22,7 +24,14 @@ export class RestoranService {
     private _managerRestoranaUrl = Config.BackendUrl + '/menadzerRestorana/getRestoranID';
     private _addPonudjac = Config.BackendUrl + '/menadzerRestorana/addPonudjac';
     private _addReon = Config.BackendUrl + '/menadzerRestorana/addReon';
+    private _addStol = Config.BackendUrl + '/menadzerRestorana/addStol';
+    private _addNamirnica = Config.BackendUrl + '/menadzerRestorana/addNamirnica';
+    private _addJelo = Config.BackendUrl  + '/menadzerRestorana/addJelo';
     private _getJelovnik = Config.BackendUrl + '/menadzerRestorana/getJelovnik';
+    private _getOcenaRestorana = Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
+    private _getOcenaJela = Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
+    private _getReoni = Config.BackendUrl + '/menadzerRestorana/getReoni';
+    private _getNamirnice = Config.BackendUrl + '/menadzerRestorana/getNamirnice';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -54,6 +63,8 @@ export class RestoranService {
             .catch(this.handleError);
 
     }
+
+
 
     getRestoran() : any{
 
@@ -88,6 +99,24 @@ export class RestoranService {
         }).catch(this.handleError);
     }
 
+    public addSto(sto : any){
+        return this._http.post(this._addStol,sto).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+    public addNamirnica(namirnica : any){
+        return this._http.post(this._addNamirnica,namirnica).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+    public addJelo(jelo : any) {
+        return this._http.post(this._addJelo,jelo).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
     public getJelovnik(email: string) : Observable<IJelo[]> {
         return this._http.get(this._getJelovnik + "?email="+ encodeURIComponent(email))
             .map((response: Response) => {
@@ -100,6 +129,51 @@ export class RestoranService {
             .catch(this.handleError);
     }
 
+    public getReoni(email: string) : Observable<IReon[]> {
+        return this._http.get(this._getReoni + "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                var reoni = <IReon[]> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                //console.log(jelovnik.length);
+                return reoni;
+            })
+            .catch(this.handleError);
+    }
+
+    getNamirnice(): Observable<INamirnica[]>{
+        return this._http.get(this._getNamirnice)
+            .map((response: Response) => {
+                return <INamirnica[]> response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    public getOcenaRestorana(email: string)  {
+        return this._http.get(this._getOcenaRestorana + "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                var ocena = <any> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+           //     console.log(jelovnik.length);
+                return ocena;
+            })
+            .catch(this.handleError);
+    }
+
+    public getOcenaJela(email: string,jelo : string) {
+        return this._http.get(this._getOcenaJela + "?email="+ encodeURIComponent(email)+"&jelo="+encodeURIComponent(jelo))
+            .map((response: Response) => {
+                var ocena = <number> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                //     console.log(jelovnik.length);
+                return ocena;
+            })
+            .catch(this.handleError);
+    }
+
+
     getSviRestorani(): Observable<IRestoran[]> {
         return this._http.get(this._restoraniSviUrl)
             .map((response: Response) => {
@@ -107,6 +181,14 @@ export class RestoranService {
             })
             .catch(this.handleError);
     }
+
+    getNamirniceUPotraznji() : any {
+
+    }
+
+
+
+
 
 
     private handleError(error: Response) {

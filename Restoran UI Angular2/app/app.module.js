@@ -41,6 +41,10 @@ var welcome_service_1 = require("./services/welcome.service");
 var LimitDuzineStringa_1 = require("./pipes/LimitDuzineStringa");
 var dodavanjeReona_component_1 = require("./dodavanjeReona/dodavanjeReona.component");
 var jelovnik_component_1 = require("./jelovnik/jelovnik.component");
+var statistika_component_1 = require("./statistika/statistika.component");
+var dodavanjeStola_component_1 = require("./dodavanjeStola/dodavanjeStola.component");
+var potraznjaNamirnica_component_1 = require("./potraznjaNamirnica/potraznjaNamirnica.component");
+var novoJelo_component_1 = require("./Jelo/novoJelo.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -70,7 +74,11 @@ AppModule = __decorate([
                 { path: 'rezervacije/:gost', component: rezervacije_component_1.RezervacijeComponent },
                 { path: '', redirectTo: 'login', pathMatch: 'full' },
                 { path: 'dodavanjereona', component: dodavanjeReona_component_1.DodatiReonComponent },
+                { path: 'statistika', component: statistika_component_1.StatistikaComponent },
                 { path: 'jelovnik', component: jelovnik_component_1.JelovnikComponent },
+                { path: 'dodavanjestola', component: dodavanjeStola_component_1.DodavanjeStolaComponent },
+                { path: 'potraznajnamirnica', component: potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent },
+                { path: 'novojelo', component: novoJelo_component_1.NovoJeloComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -95,7 +103,11 @@ AppModule = __decorate([
             LimitDuzineListe_1.LimitDuzineListe,
             ContainsString_1.ContainsString,
             dodavanjeReona_component_1.DodatiReonComponent,
-            jelovnik_component_1.JelovnikComponent
+            jelovnik_component_1.JelovnikComponent,
+            statistika_component_1.StatistikaComponent,
+            dodavanjeStola_component_1.DodavanjeStolaComponent,
+            potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent,
+            novoJelo_component_1.NovoJeloComponent
         ],
         providers: [
             restorani_service_1.RestoranService,

@@ -1,0 +1,24 @@
+<h2>
+    Statitika
+</h2>
+
+<div>
+<p> Ocena restorana: {{ocenaRestorana}}</p>
+</div>
+
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <input class="form-control" [(ngModel)]="searchJela" type="search" placeholder="Trazi jela">
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" (click)="pretraziJelo()" [disabled]="searchJela == ''">Search</button>
+        </div>
+    </div>
+
+    <div>
+        <p>  {{ocenaJela}}</p>
+    </div>
+
+</div>

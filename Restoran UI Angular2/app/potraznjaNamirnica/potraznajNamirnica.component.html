@@ -11,23 +11,46 @@
     }
 </style>
 
-<table class="table">
+<div>
 
-    <thead>
-    <tr>
-        <th> Naziv namirnice </th>
-        <th> Tip jela </th>
-        <th> Opis </th>
-        <th> Cena </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="dimOnHover" *ngFor="let jelo of jelovnik">
-        <td>{{jelo.naziv}} </td>
-        <td> {{jelo.naziv}}</td>
-        <td> {{jelo.naziv}}</td>
-        <td> {{jelo.naziv}}</td>
-    </tr>
-    </tbody>
+    <div>
+        <table class="table">
 
-</table>
+            <thead>
+            <tr>
+                <th> Naziv namirnice </th>
+                <th> Opis </th>
+                <th> Dodaj </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="dimOnHover" *ngFor="let n of namirnice">
+                <td>{{n.naziv}} </td>
+                <td> {{n.opis}}</td>
+                <td> <input type="checkbox"(change)="add($event,n.id)"   ></td>
+
+
+            </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+
+    <div>
+        <div style="margin-bottom: 25px" class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <div class="form-control">
+                <input id="datum" type="date"  name="datum" value="" [(ngModel)] = "datum" >
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="col-sm-12 controls">
+            <button id="btn-add" href="#" (click)="addNamirnicu()" class="btn btn-success" style ="margin-left: 450px"  [disabled]=" datum==''">ADD! </button>
+
+        </div>
+    </div>
+
+</div>

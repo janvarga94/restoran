@@ -35,6 +35,10 @@ import {WelcomeService} from "./services/welcome.service";
 import {LimitDuzineStringa} from "./pipes/LimitDuzineStringa";
 import {DodatiReonComponent} from "./dodavanjeReona/dodavanjeReona.component";
 import {JelovnikComponent} from "./jelovnik/jelovnik.component";
+import {StatistikaComponent} from "./statistika/statistika.component";
+import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
+import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
+import {NovoJeloComponent} from "./Jelo/novoJelo.component";
 
 
 
@@ -61,7 +65,11 @@ import {JelovnikComponent} from "./jelovnik/jelovnik.component";
          { path: 'rezervacije/:gost', component: RezervacijeComponent},
         { path: '', redirectTo: 'login', pathMatch: 'full'},
          {path: 'dodavanjereona', component: DodatiReonComponent},
+         {path:'statistika', component: StatistikaComponent},
          {path: 'jelovnik', component: JelovnikComponent},
+         {path: 'dodavanjestola', component: DodavanjeStolaComponent },
+         {path: 'potraznajnamirnica', component: PotraznjaNamirnicaComponent},
+         {path: 'novojelo', component: NovoJeloComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -88,7 +96,12 @@ import {JelovnikComponent} from "./jelovnik/jelovnik.component";
     LimitDuzineListe,
     ContainsString,
       DodatiReonComponent,
-      JelovnikComponent
+      JelovnikComponent,
+      StatistikaComponent,
+      DodavanjeStolaComponent,
+      PotraznjaNamirnicaComponent,
+      NovoJeloComponent
+
 
    ],
    providers: [

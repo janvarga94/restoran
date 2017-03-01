@@ -1,6 +1,7 @@
 package init.modelFromDB;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * Created by Svetozar Stojkovic on 2/27/2017.
@@ -11,7 +12,7 @@ import javax.persistence.*;
 public class PotraznjaNamirnacaEntity {
     private int idNamirnice;
     private int idPotraznje;
-
+    private Date dokad;
     @Id
     @Column(name = "ID_NAMIRNICE")
     public int getIdNamirnice() {
@@ -31,6 +32,13 @@ public class PotraznjaNamirnacaEntity {
     public void setIdPotraznje(int idPotraznje) {
         this.idPotraznje = idPotraznje;
     }
+
+    @Id
+    @Column(name = "DOKAD")
+    public Date getDokad() {return this.dokad; }
+
+    public void setDokad(Date dokad) {this.dokad = dokad; }
+
 
     @Override
     public boolean equals(Object o) {

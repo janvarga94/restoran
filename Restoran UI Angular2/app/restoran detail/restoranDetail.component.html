@@ -1,3 +1,40 @@
 <h1>Restoran Detail</h1>
 
 
+<style>
+    .dimOnHover:hover {
+        background: #000 !important;
+        cursor: pointer;
+    }
+
+    .dimOnHover:hover td {
+        background: #c7d4dd !important;
+    }
+</style>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Email</th>
+        <th>Id Restorana</th>
+        <th>Konf. Broj</th>
+        <th>Velicina Obuce</th>
+        <th>#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="dimOnHover" *ngFor="let zaposlen of zaposleni">
+        <td>{{zaposlen.radnikEmail}}</td>
+        <td>{{zaposlen.idRestorana}}</td>
+        <td>{{zaposlen.konferencijskiBroj}}</td>
+        <td>{{zaposlen.velicinaObuce}}</td>
+        <td><button (click)="detaljiZaposlenog(zaposlen)" [routerLink] = "'/zaposleni/' + getBase(zaposlen.radnikEmail)" class="btn btn-primary btn-sm">Detalji</button></td>
+        <td><button (click)="obrisiZaposlenog(zaposlen)" class="btn btn-primary btn-sm">✕</button></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<a class="btn btn-primary btn-lg" [routerLink]="['/novizaposleni']">Dodaj</a>
+
+

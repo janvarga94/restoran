@@ -19,15 +19,19 @@
         <th> Tip jela </th>
         <th> Opis </th>
         <th> Cena </th>
+        <th> Izmena </th>
+        <th> Obrisi </th>
     </tr>
     </thead>
     <tbody>
         <tr class="dimOnHover" *ngFor="let jelo of jelovnik">
             <td>{{jelo.naziv}} </td>
-            <td> {{jelo.naziv}}</td>
-            <td> {{jelo.naziv}}</td>
-            <td> {{jelo.naziv}}</td>
+            <td> {{jelo.idTipJela}}</td>
+            <td> {{jelo.opis}}</td>
+            <td> {{jelo.cena}}</td>
         </tr>
     </tbody>
 
 </table>
+
+<a class="btn btn-primary btn-lg" [routerLink]="['/novojelo']">Dodaj</a>
