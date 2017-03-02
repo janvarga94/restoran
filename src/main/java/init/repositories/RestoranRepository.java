@@ -391,7 +391,12 @@ public class RestoranRepository {
         session = sessionFactory.openSession();
         session.beginTransaction();
         List<Object[]> lista = session.createNativeQuery(query).getResultList();
-        return ((double) lista.get(0)[0]) + ((double) lista.get(0)[1]);
+        try{
+            return ((double) lista.get(0)[0]) + ((double) lista.get(0)[1]);
+        }catch(Exception e){
+            return 0;
+        }
+
     }
 
 }
