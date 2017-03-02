@@ -28,7 +28,7 @@ public class Main {
 
     public static SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
     public static Session session;
-    public static final String backendUrl = "http://localhost:8080";
+    public static final String backendUrl = "https://isazafakultet.herokuapp.com";
     public static final String frontendUrl = "http://localhost:3000";
 
     public static int pocetak = 0;

@@ -5,11 +5,11 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
-        <property name="connection.url">jdbc:mysql://localhost:3306/restorani</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">root123</property>
+        <property name="connection.url">jdbc:mysql://sql8.freemysqlhosting.net</property>
+        <property name="connection.username">sql8161779</property>
+        <property name="connection.password">NsdJX6iKRN</property>
 
         <mapping class="init.modelFromDB.GostEntity"/>
         <mapping class="init.modelFromDB.JeloEntity"/>
