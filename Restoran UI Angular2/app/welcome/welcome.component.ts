@@ -14,7 +14,7 @@ export class WelcomeComponent implements OnInit{
     public pageTitle: string = 'Welcome people';
 
     poseceniRestorani : any[];
-    sviRestorani : any[];
+    sviRestorani : any[] = [];
     ulogovan : any = null;
 
     gostEmail : string;

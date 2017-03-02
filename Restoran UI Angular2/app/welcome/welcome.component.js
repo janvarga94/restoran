@@ -20,6 +20,7 @@ var WelcomeComponent = (function () {
         this._welcomeService = _welcomeService;
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
+        this.sviRestorani = [];
         this.ulogovan = null;
         this.jela = [];
     }
