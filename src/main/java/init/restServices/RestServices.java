@@ -1,10 +1,7 @@
 package init.restServices;
 
 import init.Main;
-import init.dtos.RestoranDTO;
-import init.dtos.SmenaDTO;
-import init.dtos.StoDTO;
-import init.dtos.ZaposleniDTO;
+import init.dtos.*;
 import init.model.RestoranOcenaDTO;
 import init.modelFromDB.*;
 import init.repositories.OcenaRepository;
@@ -24,6 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.sql.Date;
 import java.util.*;
 
 import static init.Main.session;
@@ -175,6 +173,48 @@ public class RestServices {
         ocenaJelaEntity.setGostEmail(email);
 
         return op.addOcenaJela(ocenaJelaEntity);
+
+    }
+
+
+    @RequestMapping(path = "/zakazi_dane", method=RequestMethod.POST)
+    public boolean zakaziDane(@RequestBody ZakazivanjeDanaDTO zd){
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        for (int i=0; i<zd.brojDana; i++) {
+            SmenaEntity smenaEntity = new SmenaEntity();
+            int idSmene = new Random().nextInt();
+            smenaEntity.setIdSmene(idSmene);
+            smenaEntity.setBrojSmene(zd.smena);
+            smenaEntity.setIdRestorana(zd.idRestorana);
+            Date datumPocetka = new Date(System.currentTimeMillis());
+            datumPocetka.setDate(zd.datumPocetka.getDate() + i);
+            smenaEntity.setPecetak(datumPocetka);
+
+            session.save(smenaEntity);
+
+            if (zd.reon != null) {
+                ReonUSmeniEntity reonUSmeniEntity = new ReonUSmeniEntity();
+                reonUSmeniEntity.setIdReona(zd.reon);
+                reonUSmeniEntity.setIdSmene(idSmene);
+                reonUSmeniEntity.setKonobarEmail(zd.email);
+                reonUSmeniEntity.setIdRestorana(zd.idRestorana);
+
+                session.save(reonUSmeniEntity);
+
+            }
+        }
+        try {
+            session.getTransaction().commit();
+            session.close();
+            return true;
+        } catch (Exception e) {
+            session.close();
+            return false;
+        }
 
     }
 

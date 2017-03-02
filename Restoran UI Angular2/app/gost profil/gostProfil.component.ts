@@ -46,17 +46,19 @@ export class GostProfilComponent {
 
             if(ulogovan == null) return;
 
+            console.log(ulogovan.uloga);
+
             this._prijateljstvoService.GetPrijateljeOf(ulogovan.email).subscribe(prijatelji => {
-                this._prijatelji = prijatelji;       
+                this._prijatelji = prijatelji;
                 this.IzmenaListe();
             });
 
-            
+
             this._prijateljstvoService.GetNepozvaneUPrijateljstvo(ulogovan.email).subscribe(nePrijatelji => {
                 this._nepozvaniUPrijateljstvo = nePrijatelji;
                 this.IzmenaListe();
             });
-            
+
              this._prijateljstvoService.GetPozvaneUPrijateljstvo(ulogovan.email).subscribe(oniKojimaJePoslatZahtev => {
                 this._pozvaniUPrijateljstvo = oniKojimaJePoslatZahtev;
                 this.IzmenaListe();
@@ -68,9 +70,9 @@ export class GostProfilComponent {
             });
 
             this._rezervacijaService.getPoziveURestorane(ulogovan.email).subscribe(pozivi => {
-                this.poziviURestorane = pozivi;              
+                this.poziviURestorane = pozivi;
             });
-            
+
 
         });
 

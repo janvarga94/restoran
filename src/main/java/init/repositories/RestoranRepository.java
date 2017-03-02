@@ -125,6 +125,7 @@ public class RestoranRepository {
         restoran.setNaziv(r.naziv);
         restoran.setOpis(r.opis);
         restoran.setVrsta(r.vrsta);
+        restoran.setAdresa(r.adresa);
 
         session.save(restoran);
 
@@ -150,6 +151,7 @@ public class RestoranRepository {
 
         List<RadnikEntity> lista = (List<RadnikEntity>) session.createQuery("from RadnikEntity").list();
 
+        session.close();
         return lista;
     }
 
@@ -166,7 +168,7 @@ public class RestoranRepository {
                 "where RADNIK_EMAIL='"+radnikEmail+"'");
 
         Object obj = query.uniqueResult();
-
+        session.close();
         return obj;
     }
 
@@ -180,6 +182,7 @@ public class RestoranRepository {
         List<Object> lista = (List<Object>) session.createQuery("select se.idRestorana, se.idSmene, se.pecetak, rre.radnikEmail, se.brojSmene, ke.ime, ke.prezime, se.brojSmene" +
                 " from SmenaEntity as se, RasporedRadaEntity rre, KorisnikEntity ke where se.idRestorana="+idRestorana+" and rre.radnikEmail = ke.email and se.idSmene = rre.idSmene and se.pecetak = '"+year+"-"+month+"-"+day+"'").list();
 
+        session.close();
         if (lista == null) return new ArrayList<>();
 
         return (List<Object>) lista;
@@ -200,6 +203,7 @@ public class RestoranRepository {
                 "from Reon re inner join sto ON re.ID_REONA = sto.ID_REONA left outer join Rezervacija rez on sto.BROJ_STOLA = rez.BROJ_STOLA\n" +
                 "where ((rez.pocetak < '"+timestamp.toString()+"' and rez.kraj > '"+timestamp.toString()+"') or (rez.GOST_EMAIL is null))  and re.ID_RESTORANA="+idRestorana).getResultList();
 
+        session.close();
         return (List<Object>) lista;
 
 
@@ -213,11 +217,11 @@ public class RestoranRepository {
         Query query = session.createQuery("select rus.idReona from ReonUSmeniEntity as rus where rus.konobarEmail='"+konobarMail+"' and rus.idRestorana="+idRestorana+" and rus.idSmene="+idSmene);
         Object value = query.uniqueResult();
 
-
+        session.close();
         if (value == null)
             return -1;
         else
-            return (int) query.uniqueResult();
+            return (int) value;
 
     }
 
@@ -229,9 +233,9 @@ public class RestoranRepository {
 
         List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.KUVAR_EMAIL, porudzbina.ID_PORUDZBINE, jelo_u_porudzbini.ID_RESTORANA, jelo.NAZIV_JELA, jelo.OPIS, jelo.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, porudzbina.PRIVACENA_OD_KUVARA_U\n" +
                 "from porudzbina inner join jelo_u_porudzbini on porudzbina.ID_PORUDZBINE=jelo_u_porudzbini.ID_PORUDZBINE natural join jelo\n" +
-                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo.ID_RESTORANA="+idRestorana).getResultList();
+                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo_u_porudzbini.ID_RESTORANA="+idRestorana).getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
 
     }
@@ -301,7 +305,7 @@ public class RestoranRepository {
                 "from porudzbina inner join pice_u_porudzbini on porudzbina.ID_PORUDZBINE=pice_u_porudzbini.ID_PORUDZBINE natural join pice\n" +
                 "where pice_u_porudzbini.SANKER_EMAIL='"+sankerEmail+"' and pice.ID_RESTORANA="+idRestorana+" and ((porudzbina.SPREMNO_U < porudzbina.KREIRANA) or porudzbina.SPREMNO_U is null)").getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
 
     }
@@ -364,7 +368,7 @@ public class RestoranRepository {
                 "from jelo_u_porudzbini inner join porudzbina on jelo_u_porudzbini.ID_PORUDZBINE=porudzbina.ID_PORUDZBINE inner join ocena_jela on ocena_jela.GOST_EMAIL=porudzbina.GOST_EMAIL\n" +
                 "where jelo_u_porudzbini.ID_RESTORANA = "+idRestorana+" and porudzbina.GOST_EMAIL='"+email+"'").getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
     }
 

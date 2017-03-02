@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {LoginService} from '../services/login.service';
 import { IKorisnik } from '../models/korisnik';
+import {Uloga} from "../models/uloga";
 
 @Component({
     selector: 'app-header',
@@ -14,6 +15,10 @@ export class HeaderComponent implements OnInit {
     ulogovan : any = null;
     public asdf : string = "asfd";
 
+    konobar : Uloga.KONOBAR;
+    sanker : Uloga.SANKER;
+    kuvar : Uloga.KUVAR;
+
     constructor(private _loginService : LoginService, private _router: Router,){
 
     }
@@ -21,7 +26,10 @@ export class HeaderComponent implements OnInit {
     ngOnInit() : void{
          this._loginService.ulogovan.subscribe(ulogovan =>{
              this.ulogovan = ulogovan;
+
          });
+
+
 
          //proverimo dali je neko prethodno ulogovan na "rememberMe"
          this._loginService.loginAkoJeRememberMeBio();
@@ -35,6 +43,10 @@ export class HeaderComponent implements OnInit {
     doLogout() : void{
         this._loginService.logoutKorisnika();
          this._router.navigate(['/']);
+    }
+
+    getBase(url : string) {
+        return btoa(url);
     }
 
 

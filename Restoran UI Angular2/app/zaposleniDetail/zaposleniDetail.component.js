@@ -149,12 +149,18 @@ var ZaposleniDetailComponent = (function () {
     ZaposleniDetailComponent.prototype.refreshJela = function () {
         var _this = this;
         this.jela = [];
+        this.prihvacena = [];
+        this.neprihvacena = [];
         this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(function (jela) {
             for (var _a = 0, jela_1 = jela; _a < jela_1.length; _a++) {
                 var jelo = jela_1[_a];
+                console.log("Kreirana: " + new Date(jelo[7]).toLocaleDateString());
+                console.log("Prihvaceno: " + new Date(jelo[10]).toLocaleDateString());
                 jelo[8] = _this.getDatum(jelo[8]);
-                if (jelo[11] == null || jelo[11] < jelo[8]) {
+                if (jelo[10] == null || jelo[10] < jelo[7]) {
                     _this.neprihvacena.push(jelo);
+                }
+                else if (jelo[10] < jelo[9]) {
                 }
                 else if (jelo[0] == _this.email) {
                     _this.prihvacena.push(jelo);
@@ -188,13 +194,17 @@ var ZaposleniDetailComponent = (function () {
         return dan + '.' + mesec + '.' + godina + '. ' + sat + ':' + minut;
     };
     ZaposleniDetailComponent.prototype.napravljenoJelo = function (jelo) {
+        var _this = this;
         console.log(jelo);
-        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(function (jelo) {
+        this.zaposleniDetailService.skuvanoJelo(jelo[1]).subscribe(function (jelo) {
+            _this.refreshJela();
         });
     };
     ZaposleniDetailComponent.prototype.prihvacenoJelo = function (jelo) {
+        var _this = this;
         console.log(jelo);
-        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(function (jelo) {
+        this.zaposleniDetailService.prihvacenoJelo(jelo[1]).subscribe(function (jelo) {
+            _this.refreshJela();
         });
     };
     ZaposleniDetailComponent.prototype.porudzbina = function (sto) {

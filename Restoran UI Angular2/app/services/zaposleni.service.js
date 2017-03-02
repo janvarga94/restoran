@@ -61,6 +61,14 @@ var ZaposleniService = (function () {
             return response.json();
         }).catch(this.handleError);
     };
+    ZaposleniService.prototype.getRestoran = function (menadzerRestoran) {
+        var _registerUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID?email=' + encodeURIComponent(menadzerRestoran);
+        return this._http.get(_registerUrl)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
     ZaposleniService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

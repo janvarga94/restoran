@@ -157,6 +157,14 @@ public class MenadzerRestoranaController {
         return povratnaLista;
     }
 
+    @RequestMapping(path="/get_reoni", method = RequestMethod.GET)
+    public List<ReonR> getReoniForRestoran(int idRestorana){
+
+        List<ReonR> povratnaLista=  mrr.getReone(idRestorana);
+
+        return povratnaLista;
+    }
+
     @RequestMapping(path="/getNamirnice", method = RequestMethod.GET)
     public List<NamirnicaDTO> getNamirnice(){
 
