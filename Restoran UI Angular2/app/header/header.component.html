@@ -3,7 +3,7 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-     <a  class="navbar-brand" [routerLink] = "['/welcome']" style="margin-top: -4px;">@Home</a>
+     <a *ngIf="ulogovan" class="navbar-brand" [routerLink] = "['/welcome']" style="margin-top: -4px;">@Home</a>
     <div class="collapse navbar-collapse" id="navbarNav">
       
       <ul class="navbar-nav mr-auto">     
@@ -14,7 +14,8 @@
       </ul>
 
       <form *ngIf="ulogovan != null" class="form-inline my-2 my-md-0">
-         <a style="color:rgba(255,255,255,0.7)" class="nav-link" (click)="idiNaProfilUlogovanog()">{{ulogovan.ime}}</a>
+          <a style="color:rgba(255,255,255,0.7)" class="nav-link" *ngIf="ulogovan.uloga=='SANKER' || ulogovan.uloga=='KONOBAR' || ulogovan.uloga=='KUVAR'" [routerLink] = "'/zaposleni/' + getBase(ulogovan.email)">{{ulogovan.ime}}</a>
+         <a style="color:rgba(255,255,255,0.7)" class="nav-link" *ngIf="ulogovan.uloga!='SANKER' && ulogovan.uloga!='KONOBAR' && ulogovan.uloga!='KUVAR'" [routerLink] = "['/gostProfil']">{{ulogovan.ime}}</a>
         <button class="btn btn-success my-2 my-sm-0" type="button" (click)="doLogout()">Logout</button>
       </form>
 

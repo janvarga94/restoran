@@ -35,11 +35,8 @@ var HeaderComponent = (function () {
         this._loginService.logoutKorisnika();
         this._router.navigate(['/']);
     };
-    HeaderComponent.prototype.idiNaProfilUlogovanog = function () {
-        if (this.ulogovan) {
-            if (this.ulogovan.uloga == "GOST")
-                this._router.navigate(['/gostProfil']);
-        }
+    HeaderComponent.prototype.getBase = function (url) {
+        return btoa(url);
     };
     return HeaderComponent;
 }());

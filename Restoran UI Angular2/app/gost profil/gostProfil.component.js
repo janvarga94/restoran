@@ -43,6 +43,7 @@ var GostProfilComponent = (function () {
             _this.gost = ulogovan;
             if (ulogovan == null)
                 return;
+            console.log(ulogovan.uloga);
             _this._prijateljstvoService.GetPrijateljeOf(ulogovan.email).subscribe(function (prijatelji) {
                 _this._prijatelji = prijatelji;
                 _this.IzmenaListe();

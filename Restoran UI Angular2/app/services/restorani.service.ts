@@ -149,6 +149,19 @@ export class RestoranService {
             .catch(this.handleError);
     }
 
+    public getReoniForRestoran(idRestorana : number) : Observable<IReon[]> {
+        let url = Config.BackendUrl + "/menadzerRestorana/get_reoni?idRestorana="+ idRestorana;
+        return this._http.get(url)
+            .map((response: Response) => {
+                var reoni = <IReon[]> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                //console.log(jelovnik.length);
+                return reoni;
+            })
+            .catch(this.handleError);
+    }
+
     getNamirnice(): Observable<INamirnica[]>{
         return this._http.get(this._getNamirnice)
             .map((response: Response) => {

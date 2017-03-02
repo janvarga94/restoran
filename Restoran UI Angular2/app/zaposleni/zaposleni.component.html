@@ -21,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr class="dimOnHover" *ngFor="let zaposlen of zaposleni">
+    <tr class="dimOnHover" *ngFor="let zaposlen of zaposleni" [routerLink] = "'/zakazi_rad/' + getBase(zaposlen.radnikEmail)">
         <td>{{zaposlen.radnikEmail}}</td>
         <td>{{zaposlen.idRestorana}}</td>
         <td>{{zaposlen.konferencijskiBroj}}</td>

@@ -186,11 +186,16 @@ export class ZaposleniDetailComponent implements OnInit{
 
     refreshJela() {
         this.jela = [];
+        this.prihvacena = [];
+        this.neprihvacena = [];
         this.zaposleniDetailService.getJela(this.idRestoran, this.email).subscribe(jela => {
             for (let jelo of jela) {
+                console.log("Kreirana: "+new Date(jelo[7]).toLocaleDateString());
+                console.log("Prihvaceno: "+new Date(jelo[10]).toLocaleDateString());
                 jelo[8] = this.getDatum(jelo[8]);
-                if (jelo[11]==null || jelo[11]<jelo[8]){
+                if (jelo[10]==null || jelo[10]<jelo[7]) {
                     this.neprihvacena.push(jelo);
+                } else if (jelo[10]<jelo[9]) {
                 } else if (jelo[0] == this.email){
                     this.prihvacena.push(jelo);
                 }
@@ -227,15 +232,15 @@ export class ZaposleniDetailComponent implements OnInit{
 
     napravljenoJelo(jelo : any){
         console.log(jelo);
-        this.zaposleniDetailService.skuvanoJelo(this.idRestoran).subscribe(jelo => {
-
+        this.zaposleniDetailService.skuvanoJelo(jelo[1]).subscribe(jelo => {
+            this.refreshJela();
         });
     }
 
     prihvacenoJelo(jelo : any){
         console.log(jelo);
-        this.zaposleniDetailService.prihvacenoJelo(this.idRestoran).subscribe(jelo => {
-
+        this.zaposleniDetailService.prihvacenoJelo(jelo[1]).subscribe(jelo => {
+            this.refreshJela();
         });
     }
 

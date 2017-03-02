@@ -11,20 +11,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var zaposleni_service_1 = require("../services/zaposleni.service");
 var notification_service_1 = require("../services/notification.service");
+var login_service_1 = require("../services/login.service");
 /**
  * Created by Svetozar Stojkovic on 12/18/2016.
  */
 var ZaposleniComponent = (function () {
-    function ZaposleniComponent(_notificator, _zaposleniService) {
+    function ZaposleniComponent(_notificator, _zaposleniService, _loginService) {
         this._notificator = _notificator;
         this._zaposleniService = _zaposleniService;
+        this._loginService = _loginService;
         this.pageTitle = "Zaposleni";
+        this.zaposleni = [];
     }
     ZaposleniComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._zaposleniService.getZaposleni().subscribe(function (zaposleni) {
-            //   this.restorani = restorani;
-            _this.zaposleni = zaposleni;
+        this._loginService.ulogovan.subscribe(function (ulogovan) {
+            if (ulogovan) {
+                _this.ulogovan = ulogovan;
+                _this._zaposleniService.getRestoran(ulogovan.email).subscribe(function (restoran) {
+                    _this.restoran = restoran;
+                    if (restoran != -1) {
+                        _this._zaposleniService.getZaposleni().subscribe(function (zaposleni) {
+                            //   this.restorani = restorani;
+                            _this.zaposleni = [];
+                            for (var _i = 0, zaposleni_1 = zaposleni; _i < zaposleni_1.length; _i++) {
+                                var zaposlen = zaposleni_1[_i];
+                                if (zaposlen.idRestorana == restoran) {
+                                    _this.zaposleni.push(zaposlen);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         });
     };
     ZaposleniComponent.prototype.obrisiZaposlenog = function (zaposleni) {
@@ -48,7 +67,7 @@ ZaposleniComponent = __decorate([
         templateUrl: 'app/zaposleni/zaposleni.component.html',
         providers: [zaposleni_service_1.ZaposleniService]
     }),
-    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService])
+    __metadata("design:paramtypes", [notification_service_1.Notificator, zaposleni_service_1.ZaposleniService, login_service_1.LoginService])
 ], ZaposleniComponent);
 exports.ZaposleniComponent = ZaposleniComponent;
 //# sourceMappingURL=zaposleni.component.js.map

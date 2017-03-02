@@ -63,6 +63,15 @@ export class ZaposleniService {
         }).catch(this.handleError);
     }
 
+    getRestoran(menadzerRestoran : string) : Observable<number> {
+        let _registerUrl = Config.BackendUrl + '/menadzerRestorana/getRestoranID?email='+encodeURIComponent(menadzerRestoran);
+        return this._http.get(_registerUrl)
+            .map((response: Response) => {
+                return <any> response.json();
+            })
+            .catch(this.handleError);
+    }
+
     private handleError(error: Response) {
         // in a real world app, we may send the server to some remote logging infrastructure
         // instead of just logging it to the console

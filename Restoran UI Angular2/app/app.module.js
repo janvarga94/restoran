@@ -52,6 +52,8 @@ var statistika_component_1 = require("./statistika/statistika.component");
 var dodavanjeStola_component_1 = require("./dodavanjeStola/dodavanjeStola.component");
 var potraznjaNamirnica_component_1 = require("./potraznjaNamirnica/potraznjaNamirnica.component");
 var novoJelo_component_1 = require("./Jelo/novoJelo.component");
+var zakaziRad_component_1 = require("./zakazi_rad/zakaziRad.component");
+var zakaziRad_service_1 = require("./services/zakaziRad.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -75,6 +77,7 @@ AppModule = __decorate([
                 { path: 'novirestoran', component: noviRestoran_component_1.NoviRestoranComponent },
                 { path: 'novizaposleni', component: noviZaposleni_component_1.NoviZaposleniComponent },
                 { path: 'novizaposleni/:email', component: noviZaposleni_component_1.NoviZaposleniComponent },
+                { path: 'zakazi_rad/:email', component: zakaziRad_component_1.ZakaziRadComponent },
                 { path: 'welcome', component: welcome_component_1.WelcomeComponent },
                 { path: 'login', component: login_component_1.LoginComponent },
                 { path: 'register', component: register_component_1.RegisterComponent },
@@ -102,6 +105,7 @@ AppModule = __decorate([
             restorani_component_1.RestoraniComponent,
             noviZaposleni_component_1.NoviZaposleniComponent,
             noviRestoran_component_1.NoviRestoranComponent,
+            zakaziRad_component_1.ZakaziRadComponent,
             zaposleni_component_1.ZaposleniComponent,
             zaposleniDetail_component_1.ZaposleniDetailComponent,
             restoranDetail_component_1.RestoranDetailComponent,
@@ -135,6 +139,7 @@ AppModule = __decorate([
             prijateljstvo_service_1.PrijateljstvoService,
             angular2_toaster_1.ToasterService,
             rezervacija_service_1.RezervacijaService,
+            zakaziRad_service_1.ZakaziRadService,
             angular2_notifications_1.PushNotificationsService,
             zaposleni_service_1.ZaposleniService,
             zaposleniDetail_service_1.ZaposleniDetailService,

@@ -47,6 +47,8 @@ import {StatistikaComponent} from "./statistika/statistika.component";
 import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
 import {NovoJeloComponent} from "./Jelo/novoJelo.component";
+import {ZakaziRadComponent} from "./zakazi_rad/zakaziRad.component";
+import {ZakaziRadService} from "./services/zakaziRad.service";
 
 
 
@@ -67,6 +69,7 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
          {path: 'novirestoran', component : NoviRestoranComponent},
          {path: 'novizaposleni', component : NoviZaposleniComponent},
          {path: 'novizaposleni/:email', component : NoviZaposleniComponent},
+         {path: 'zakazi_rad/:email', component : ZakaziRadComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -96,6 +99,7 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
     RestoraniComponent,
       NoviZaposleniComponent,
       NoviRestoranComponent,
+      ZakaziRadComponent,
     ZaposleniComponent,
     ZaposleniDetailComponent,
     RestoranDetailComponent,
@@ -131,6 +135,7 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
      PrijateljstvoService,
      ToasterService,
      RezervacijaService,
+       ZakaziRadService,
        PushNotificationsService,
        ZaposleniService,
        ZaposleniDetailService,
