@@ -13,7 +13,7 @@ import {LoginService} from "../services/login.service";
 export class WelcomeComponent implements OnInit{
     public pageTitle: string = 'Welcome people';
 
-    poseceniRestorani : any[];
+    poseceniRestorani : any[] = [];
     sviRestorani : any[] = [];
     ulogovan : any = null;
 
@@ -35,9 +35,13 @@ export class WelcomeComponent implements OnInit{
             this.ulogovan = ulogovan;
             if(ulogovan){
                 this.gostEmail = ulogovan.email;
-                this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(rezervacijeIRezervacije => {                 
-                    this.poseceniRestorani = rezervacijeIRezervacije;
-                    console.log(rezervacijeIRezervacije);
+                this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(rezervacijeIRezervacije => {      
+                    for(var i = 0; i < rezervacijeIRezervacije.length; i++){
+                        var curr = rezervacijeIRezervacije[i];
+                        if(this.poseceniRestorani.filter(t => t.restoranId == curr.restoranId).length == 0){
+                            this.poseceniRestorani.push(curr);
+                        }
+                    }           
                 });
             }
         });

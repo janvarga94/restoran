@@ -20,6 +20,7 @@ var WelcomeComponent = (function () {
         this._welcomeService = _welcomeService;
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
+        this.poseceniRestorani = [];
         this.sviRestorani = [];
         this.ulogovan = null;
         this.jela = [];
@@ -34,8 +35,12 @@ var WelcomeComponent = (function () {
             if (ulogovan) {
                 _this.gostEmail = ulogovan.email;
                 _this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(function (rezervacijeIRezervacije) {
-                    _this.poseceniRestorani = rezervacijeIRezervacije;
-                    console.log(rezervacijeIRezervacije);
+                    for (var i = 0; i < rezervacijeIRezervacije.length; i++) {
+                        var curr = rezervacijeIRezervacije[i];
+                        if (_this.poseceniRestorani.filter(function (t) { return t.restoranId == curr.restoranId; }).length == 0) {
+                            _this.poseceniRestorani.push(curr);
+                        }
+                    }
                 });
             }
         });

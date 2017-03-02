@@ -57,7 +57,7 @@
                     <td>{{restoran.opis | limitDuzineStringa: 30}}</td>
                      <td>{{restoran.vrsta | limitDuzineStringa: 20}}</td>
                       <td>{{restoran.adresa | limitDuzineStringa: 20}}</td>
-                      <td><button class="btn btn-primary btn-sm">Rezervisi</button></td>
+                      <td><button class="btn btn-primary btn-sm" [routerLink]="['/rezervacija',restoran.idRestorana]" >Rezervisi</button></td>
                 </tr>
             </tbody>
         </table>
