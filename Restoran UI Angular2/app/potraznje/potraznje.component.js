@@ -26,10 +26,21 @@ var PotraznjeComponent = (function () {
     }
     PotraznjeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._restoranService.getSviRestorani().subscribe(function (restorani) {
-            //   this.restorani = restorani;
-            _this.restorani = restorani;
-            _this._restoranService.getNamirniceUPotraznji().subscribe();
+        this._restoranService.getNamirniceUPotraznji().subscribe(function (potraznje) {
+            _this.potraznje = potraznje;
+        });
+        this._loginService.ulogovan.subscribe(function (ulogovan) {
+            if (ulogovan)
+                _this.emailPonudjaca = ulogovan.email;
+        });
+    };
+    PotraznjeComponent.prototype.addPonuda = function (idR, dokad, cena) {
+        var _this = this;
+        this._restoranService.addPonuda({ email: this.emailPonudjaca, id: idR, datum: dokad, iznos: cena }).subscribe(function (response) {
+            if (response.Success == true)
+                _this._notificator.notifySuccess("Prosledjena ponuda");
+            else
+                _this._notificator.notifyError("Greska");
         });
     };
     return PotraznjeComponent;

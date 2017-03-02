@@ -15,6 +15,7 @@ import { Notificator } from './notification.service';
 import {IJelo} from "../models/jelo";
 import {INamirnica} from "../models/namirnica";
 import {IReon} from "../models/reon";
+import {INamirnicaP} from "../models/namirnicaP";
 
 @Injectable()
 export class RestoranService {
@@ -27,11 +28,13 @@ export class RestoranService {
     private _addStol = Config.BackendUrl + '/menadzerRestorana/addStol';
     private _addNamirnica = Config.BackendUrl + '/menadzerRestorana/addNamirnica';
     private _addJelo = Config.BackendUrl  + '/menadzerRestorana/addJelo';
+    private _addPonuda = Config.BackendUrl + '/menadzerRestorana/addPonuda';
     private _getJelovnik = Config.BackendUrl + '/menadzerRestorana/getJelovnik';
     private _getOcenaRestorana = Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
     private _getOcenaJela = Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
     private _getReoni = Config.BackendUrl + '/menadzerRestorana/getReoni';
     private _getNamirnice = Config.BackendUrl + '/menadzerRestorana/getNamirnice';
+    private _getNamirniceUPotraznji = Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -117,6 +120,12 @@ export class RestoranService {
         }).catch(this.handleError);
     }
 
+    public addPonuda(ponuda : any) {
+        return this._http.post(this._addPonuda,ponuda).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
     public getJelovnik(email: string) : Observable<IJelo[]> {
         return this._http.get(this._getJelovnik + "?email="+ encodeURIComponent(email))
             .map((response: Response) => {
@@ -190,8 +199,12 @@ export class RestoranService {
             .catch(this.handleError);
     }
 
-    getNamirniceUPotraznji() : any {
-
+    getNamirniceUPotraznji() : Observable<INamirnicaP[]> {
+        return this._http.get(this._getNamirniceUPotraznji)
+            .map((response: Response) => {
+                return <INamirnicaP[]> response.json();
+            })
+            .catch(this.handleError);
     }
 
 

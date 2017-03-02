@@ -3,6 +3,6 @@
  */
 export interface INamirnica {
     naziv : string;
-    opis : string,
-    id : number
+    opis : string;
+    id : number;
 }

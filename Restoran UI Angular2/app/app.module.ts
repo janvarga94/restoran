@@ -47,6 +47,7 @@ import {StatistikaComponent} from "./statistika/statistika.component";
 import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
 import {NovoJeloComponent} from "./Jelo/novoJelo.component";
+import {PotraznjeComponent} from "./potraznje/potraznje.component";
 
 
 
@@ -85,6 +86,7 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
          {path: 'dodavanjestola', component: DodavanjeStolaComponent },
          {path: 'potraznajnamirnica', component: PotraznjaNamirnicaComponent},
          {path: 'novojelo', component: NovoJeloComponent},
+         {path: 'potraznje', component: PotraznjeComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -118,7 +120,8 @@ import {NovoJeloComponent} from "./Jelo/novoJelo.component";
       StatistikaComponent,
       DodavanjeStolaComponent,
       PotraznjaNamirnicaComponent,
-      NovoJeloComponent
+      NovoJeloComponent,
+      PotraznjeComponent
 
 
    ],

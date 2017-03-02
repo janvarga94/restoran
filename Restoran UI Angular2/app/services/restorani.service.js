@@ -30,11 +30,13 @@ var RestoranService = (function () {
         this._addStol = app_config_1.Config.BackendUrl + '/menadzerRestorana/addStol';
         this._addNamirnica = app_config_1.Config.BackendUrl + '/menadzerRestorana/addNamirnica';
         this._addJelo = app_config_1.Config.BackendUrl + '/menadzerRestorana/addJelo';
+        this._addPonuda = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonuda';
         this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
         this._getOcenaRestorana = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
         this._getOcenaJela = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
         this._getReoni = app_config_1.Config.BackendUrl + '/menadzerRestorana/getReoni';
         this._getNamirnice = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirnice';
+        this._getNamirniceUPotraznji = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -97,6 +99,11 @@ var RestoranService = (function () {
     };
     RestoranService.prototype.addJelo = function (jelo) {
         return this._http.post(this._addJelo, jelo).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.addPonuda = function (ponuda) {
+        return this._http.post(this._addPonuda, ponuda).map(function (response) {
             return response.json();
         }).catch(this.handleError);
     };
@@ -164,6 +171,11 @@ var RestoranService = (function () {
             .catch(this.handleError);
     };
     RestoranService.prototype.getNamirniceUPotraznji = function () {
+        return this._http.get(this._getNamirniceUPotraznji)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
     };
     RestoranService.prototype.handleError = function (error) {
         // in a real world app, we may send the server to some remote logging infrastructure

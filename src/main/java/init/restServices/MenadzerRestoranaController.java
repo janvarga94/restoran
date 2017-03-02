@@ -5,13 +5,17 @@ import init.dtos.*;
 
 import init.model.Jelo;
 import init.modelFromDB.JeloEntity;
+import init.modelFromDB.PotraznjaNamirnacaEntity;
 import init.repositories.*;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -122,6 +126,16 @@ public class MenadzerRestoranaController {
         return uspeh;
     }
 
+    @RequestMapping(path="/addPonuda", method = RequestMethod.POST)
+    public boolean dodajPonudu(PonudaDTO ponudaDTO){
+
+        boolean uspeh = mrr.dodajPonudu(ponudaDTO);
+
+        return true;
+    }
+
+
+
     @RequestMapping(path="/getJelovnik", method = RequestMethod.GET)
     public List<JeloDTO> getJelovnik(String email){
         System.out.println("A JEL OVDE STIGAO PRVO: "+ email);
@@ -186,9 +200,30 @@ public class MenadzerRestoranaController {
 
 
 
-    @RequestMapping(path="/getNamirnicep", method = RequestMethod.GET)
-    public void getNamirniceUPotraznji(){
-        mrr.getNamirniceUPotraznji();
+    @RequestMapping(path="/getNamirniceUPotraznji", method = RequestMethod.GET)
+    public List<NamirnicaP> getNamirniceUPotraznji(){
+        //List<NamirnicaP> lista = mrr.getNamirniceUPotraznji();
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        PotraznjaNamirnacaEntity pne = new PotraznjaNamirnacaEntity();
+        List<PotraznjaNamirnacaEntity> list = session.createNativeQuery("SELECT * FROM restorani.potraznja_namirnaca;",PotraznjaNamirnacaEntity.class).getResultList();
+        session.close();
+        List<NamirnicaP> lista = new ArrayList<NamirnicaP>();
+        list.forEach(pn->{
+                    NamirnicaP np = new NamirnicaP();
+                    np.idRestorana = pn.getIdPotraznje();
+                    np.doKad = pn.getDokad();
+                    List<Namirnica> l=mrr.getLista(pn.getIdPotraznje());
+                    np.lista = l;
+                    lista.add(np);
+                }
+        );
+
+        return lista;
+
     }
 
 }

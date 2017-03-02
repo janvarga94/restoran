@@ -125,6 +125,7 @@ public class RestoranRepository {
         restoran.setNaziv(r.naziv);
         restoran.setOpis(r.opis);
         restoran.setVrsta(r.vrsta);
+        restoran.setAdresa(r.adresa);
 
         session.save(restoran);
 

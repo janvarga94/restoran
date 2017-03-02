@@ -14,4 +14,6 @@ public class RestoranDTO {
     public String naziv;
     @NotNull
     public String opis;
+    @NotNull
+    public String adresa;
 }
