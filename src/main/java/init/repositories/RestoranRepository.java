@@ -351,6 +351,20 @@ public class RestoranRepository {
         }
 
 
+        query = "select count(restoran.NAZIV), week(rezervacija.POCETAK)  from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on sto.ID_REONA = reon.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA\n" +
+                "\twhere restoran.ID_RESTORANA = "+restoran+" and\n" +
+                "      rezervacija.POCETAK BETWEEN NOW() - INTERVAL 30 DAY AND NOW() + interval 30 day\n" +
+                "group by week(rezervacija.POCETAK) ";
+        results = session.createNativeQuery(query).getResultList();
+        stat.poNedelji = new ArrayList();
+        for(Object[] obj : results){
+            ZbirVremeCount zvc = new ZbirVremeCount();
+            zvc.zbir = (BigInteger) obj[0];
+            zvc.vreme = (int) obj[1];
+            stat.poNedelji.add(zvc);
+        }
+
+
         session.close();
         return stat;
     }
@@ -368,5 +382,16 @@ public class RestoranRepository {
         return (List<Object>) lista;
     }
 
+    public double getZaradeRestorana(int restoranId, long pocetak, long kraj){
+        String query = "select sum(jelo.cena), sum(pice.cena) from pice_u_porudzbini natural join pice,jelo_u_porudzbini natural join jelo,\n" +
+                "\t(select porudzbina.ID_PORUDZBINE from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on reon.ID_REONA = sto.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA inner join porudzbina on porudzbina.ID_REZERVACIJE = rezervacija.ID_REZERVACIJE\n" +
+                "\twhere restoran.ID_RESTORANA = "+restoranId+")tab1 where pice_u_porudzbini.ID_PORUDZBINE = tab1.id_porudzbine or jelo_u_porudzbini.ID_PORUDZBINE = tab1.id_porudzbine \n" +
+                "    \n" +
+                "    ";
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Object[]> lista = session.createNativeQuery(query).getResultList();
+        return ((double) lista.get(0)[0]) + ((double) lista.get(0)[1]);
+    }
 
 }

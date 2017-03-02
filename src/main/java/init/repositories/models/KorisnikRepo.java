@@ -15,7 +15,7 @@ public class KorisnikRepo {
     public boolean aktiviran;
 
     public enum Uloga{
-        MENAZER_SISTEMA, MENAZER_RESTORANA, SANKER, KONOBAR, KUVAR, GOST
+        MENAZER_SISTEMA, MENAZER_RESTORANA, SANKER, KONOBAR, KUVAR, GOST, PONUDJAC
     }
 
     public void setUloga(Uloga uuloga){
@@ -27,6 +27,7 @@ public class KorisnikRepo {
             case KONOBAR: uloga = "KONOBAR"; break;
             case KUVAR: uloga = "KUVAR"; break;
             case GOST: uloga = "GOST"; break;
+            case PONUDJAC: uloga = "PONUDJAC"; break;
         }
     }
 

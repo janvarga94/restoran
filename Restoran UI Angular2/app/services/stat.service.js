@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var app_config_1 = require("./../app.config");
 var core_1 = require("@angular/core");
 var notification_service_1 = require("./notification.service");
@@ -25,9 +24,18 @@ var StatService = (function () {
         this._http = _http;
         this._notificator = _notificator;
         this.statsUrl = app_config_1.Config.BackendUrl + '/stat/allStats';
+        this.restoranZaradaUrl = app_config_1.Config.BackendUrl + '/restorani/getZarada';
     }
     StatService.prototype.getAllStats = function (idRestorana) {
         return this._http.get(this.statsUrl + "?id=" + idRestorana)
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
+    StatService.prototype.getZarada = function (idRestorana, pocetak, kraj) {
+        return this._http.post(this.restoranZaradaUrl + "?id=", { restoranId: idRestorana, pocetak: pocetak, kraj: kraj })
             .map(function (response) {
             var restoraniOcena = response.json();
             return restoraniOcena;

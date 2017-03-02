@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var rezervacija_service_1 = require("./../services/rezervacija.service");
 var prijateljstvo_service_1 = require("./../services/prijateljstvo.service");
 var notification_service_1 = require("./../services/notification.service");

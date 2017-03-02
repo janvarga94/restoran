@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     }
 
     ngOnInit() : void{
-         this._loginService.ulogovan.subscribe(ulogovan =>{
+         this._loginService.ulogovan.subscribe(ulogovan =>{             
              this.ulogovan = ulogovan;
          });
 
@@ -37,5 +37,12 @@ export class HeaderComponent implements OnInit {
          this._router.navigate(['/']);
     }
 
+    idiNaProfilUlogovanog() : void{
+        if(this.ulogovan){
+            if(this.ulogovan.uloga == "GOST")
+                this._router.navigate(['/gostProfil']);
+        }
+        
+    }
 
  }
