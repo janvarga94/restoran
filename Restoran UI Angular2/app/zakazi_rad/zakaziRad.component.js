@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var zakaziRad_service_1 = require("../services/zakaziRad.service");
 var notification_service_1 = require("../services/notification.service");
@@ -67,15 +66,15 @@ var ZakaziRadComponent = (function () {
             }
         });
     };
+    ZakaziRadComponent = __decorate([
+        core_1.Component({
+            selector: 'zakazi_rad',
+            templateUrl: 'app/zakazi_rad/zakaziRad.component.html',
+            providers: [zakaziRad_service_1.ZakaziRadService]
+        }), 
+        __metadata('design:paramtypes', [zakaziRad_service_1.ZakaziRadService, restorani_service_1.RestoranService, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, notification_service_1.Notificator])
+    ], ZakaziRadComponent);
     return ZakaziRadComponent;
 }());
-ZakaziRadComponent = __decorate([
-    core_1.Component({
-        selector: 'zakazi_rad',
-        templateUrl: 'app/zakazi_rad/zakaziRad.component.html',
-        providers: [zakaziRad_service_1.ZakaziRadService]
-    }),
-    __metadata("design:paramtypes", [zakaziRad_service_1.ZakaziRadService, restorani_service_1.RestoranService, zaposleniDetail_service_1.ZaposleniDetailService, router_1.ActivatedRoute, notification_service_1.Notificator])
-], ZakaziRadComponent);
 exports.ZakaziRadComponent = ZakaziRadComponent;
 //# sourceMappingURL=zakaziRad.component.js.map

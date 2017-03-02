@@ -8,17 +8,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var notification_service_1 = require("./notification.service");
 var http_1 = require("@angular/http");
 /**
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
-var Rx_1 = require("rxjs/Rx");
-require("rxjs/add/operator/do");
-require("rxjs/add/operator/catch");
-require("rxjs/add/operator/map");
+var Rx_1 = require('rxjs/Rx');
+require('rxjs/add/operator/do');
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/map');
 var app_config_1 = require("../app.config");
 var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
@@ -75,11 +74,11 @@ var WelcomeService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
+    WelcomeService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
+    ], WelcomeService);
     return WelcomeService;
 }());
-WelcomeService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
-], WelcomeService);
 exports.WelcomeService = WelcomeService;
 //# sourceMappingURL=welcome.service.js.map
