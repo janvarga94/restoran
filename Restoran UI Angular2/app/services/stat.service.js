@@ -8,25 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var app_config_1 = require('./../app.config');
+Object.defineProperty(exports, "__esModule", { value: true });
+var app_config_1 = require("./../app.config");
 var core_1 = require("@angular/core");
 var notification_service_1 = require("./notification.service");
 var http_1 = require("@angular/http");
 /**
  * Created by Svetozar Stojkovic on 12/20/2016.
  */
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
+var Rx_1 = require("rxjs/Rx");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
 var StatService = (function () {
     function StatService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
         this.statsUrl = app_config_1.Config.BackendUrl + '/stat/allStats';
+        this.restoranZaradaUrl = app_config_1.Config.BackendUrl + '/restorani/getZarada';
     }
     StatService.prototype.getAllStats = function (idRestorana) {
         return this._http.get(this.statsUrl + "?id=" + idRestorana)
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
+    StatService.prototype.getZarada = function (idRestorana, pocetak, kraj) {
+        return this._http.post(this.restoranZaradaUrl + "?id=", { restoranId: idRestorana, pocetak: pocetak, kraj: kraj })
             .map(function (response) {
             var restoraniOcena = response.json();
             return restoraniOcena;
@@ -39,11 +49,11 @@ var StatService = (function () {
         console.error(error);
         return Rx_1.Observable.throw(error.json().error || 'Server error');
     };
-    StatService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
-    ], StatService);
     return StatService;
 }());
+StatService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
+], StatService);
 exports.StatService = StatService;
 //# sourceMappingURL=stat.service.js.map

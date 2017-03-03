@@ -7,6 +7,7 @@ import init.modelFromDB.*;
 import init.repositories.OcenaRepository;
 import init.repositories.RestoranRepository;
 import init.repositories.ZaposleniRepository;
+import init.repositories.models.RezervacijaRepo;
 import org.hibernate.*;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -65,7 +66,7 @@ public class RestServices {
     }
 
     @RequestMapping(path = "/restorani_for_user", method=RequestMethod.GET)
-    public Collection<RestoranOcenaDTO> getRestoraniForGost(String email){
+    public List<RezervacijaRepo> getRestoraniForGost(String email){
 
        return op.getRestoraniForGost(email);
     }

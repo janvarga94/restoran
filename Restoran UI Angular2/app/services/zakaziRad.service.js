@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var Observable_1 = require("rxjs/Observable");
 var notification_service_1 = require("./notification.service");
@@ -33,11 +34,11 @@ var ZakaziRadService = (function () {
         console.error(error);
         return Observable_1.Observable.throw(error.json().error || 'Server error');
     };
-    ZakaziRadService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http, notification_service_1.Notificator])
-    ], ZakaziRadService);
     return ZakaziRadService;
 }());
+ZakaziRadService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, notification_service_1.Notificator])
+], ZakaziRadService);
 exports.ZakaziRadService = ZakaziRadService;
 //# sourceMappingURL=zakaziRad.service.js.map

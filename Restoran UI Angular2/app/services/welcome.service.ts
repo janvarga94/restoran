@@ -18,12 +18,12 @@ import {Config} from "../app.config";
 @Injectable()
 export class WelcomeService {
 
-    private _restorani_for_user_url = 'http://localhost:8080/resursi/restorani_for_user';
+    private _restorani_for_user_url = Config.BackendUrl+'/resursi/restorani_for_user';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
     getRestoraniForUser(email : string): Observable<any[]> {
-        return this._http.get(this._restorani_for_user_url+"?email="+email)
+        return this._http.get(this._restorani_for_user_url+"?email="+encodeURIComponent(email))
             .map((response: Response) => {
                 var restoraniOcena = <any[]> response.json();
 

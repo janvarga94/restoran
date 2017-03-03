@@ -8,11 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-require('rxjs/add/operator/do');
-require('rxjs/add/operator/catch');
-require('rxjs/add/operator/map');
-var angular2_toaster_1 = require('angular2-toaster');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/catch");
+require("rxjs/add/operator/map");
+var angular2_toaster_1 = require("angular2-toaster");
 var Notificator = (function () {
     function Notificator(_toastr) {
         this._toastr = _toastr;
@@ -32,11 +33,11 @@ var Notificator = (function () {
     Notificator.prototype.notifyError = function (message) {
         this._toastr.pop('error', message);
     };
-    Notificator = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [angular2_toaster_1.ToasterService])
-    ], Notificator);
     return Notificator;
 }());
+Notificator = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [angular2_toaster_1.ToasterService])
+], Notificator);
 exports.Notificator = Notificator;
 //# sourceMappingURL=notification.service.js.map

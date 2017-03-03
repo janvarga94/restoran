@@ -14,17 +14,28 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import {IOcenaRestorana} from "../models/ocenaRestorana";
 
-declare var c3 : any;
+
 
 @Injectable()
 export class StatService {
 
     private statsUrl = Config.BackendUrl + '/stat/allStats';
+    private restoranZaradaUrl = Config.BackendUrl + '/restorani/getZarada';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
     getAllStats(idRestorana : any): Observable<any> {
         return this._http.get(this.statsUrl+"?id="+idRestorana)
+            .map((response: Response) => {
+                var restoraniOcena = <any> response.json();
+
+                return restoraniOcena;
+            })
+            .catch(this.handleError);
+    }
+
+    getZarada(idRestorana : any, pocetak : any, kraj : any): Observable<any> {
+        return this._http.post(this.restoranZaradaUrl+"?id=", {restoranId: idRestorana, pocetak: pocetak, kraj: kraj})
             .map((response: Response) => {
                 var restoraniOcena = <any> response.json();
 

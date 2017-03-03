@@ -39,15 +39,28 @@
 
 
 <h2 style="margin-top:20px;">Svi restorani</h2>
-<div class="row  pre-scrollable" style="margin-top: 10px;" *ngIf="gostEmail != null">
-    <div class="col-md-4" *ngFor="let restoran of sviRestorani" style="margin-top: 20px;">
-        <div class="card">
-            <div class="card-block">
-                <h4 class="card-title">{{restoran.naziv | limitDuzineStringa : 20 }}</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <button class="btn btn-primary" [routerLink]="['/rezervacija',restoran.idRestorana]">Rezervisi</button>
-            </div>
-        </div>
+<div class="row" style="margin-top: 10px;">
+    <div class="col-md-12 pre-scrollable" style="margin-top: 20px;">
+        <table class="table" style="margin-top: 20px;" >
+            <thead>
+                <tr>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                     <th>Vrsta</th>
+                      <th>Adresa</th>
+                       <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let restoran of sviRestorani;">
+                    <td>{{restoran.naziv | limitDuzineStringa: 20}}</td>
+                    <td>{{restoran.opis | limitDuzineStringa: 30}}</td>
+                     <td>{{restoran.vrsta | limitDuzineStringa: 20}}</td>
+                      <td>{{restoran.adresa | limitDuzineStringa: 20}}</td>
+                      <td><button class="btn btn-primary btn-sm" [routerLink]="['/rezervacija',restoran.idRestorana]" >Rezervisi</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 

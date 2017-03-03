@@ -18,7 +18,8 @@ declare var d3 : any;
 export class StatsRestoranaComponent implements OnInit{
     @ViewChild('chart') userProfile: any;
 
-    restoran = 'TODO';
+    zaradaUkupno : any = 0;
+    
 
     constructor(private _statsService : StatService, private _router : Router, private _activeRoute : ActivatedRoute) {
         
@@ -28,13 +29,18 @@ export class StatsRestoranaComponent implements OnInit{
 
         this._activeRoute.params.subscribe(params =>{
             var idRestorana = params['idRestorana'];
-        
+       
+
+
+
             this._statsService.getAllStats(idRestorana).subscribe(stats => {
                 console.log(stats);
 
                 var poDanuY = stats.poDanu.map(x => x.zbir);
                 var poDanuX = stats.poDanu.map(x => new Date(x.vreme).toISOString());
 
+                var poNedeljiY = stats.poNedelji.map(x => x.zbir);
+                var poNedeljiX = stats.poNedelji.map(x => x.vreme);
                     c3.generate({
                         bindto: '#chart',
                     
@@ -57,10 +63,34 @@ export class StatsRestoranaComponent implements OnInit{
                         }
                     });
 
+
+                    c3.generate({
+                        bindto: '#chart2',
+                    
+                        data: {    
+                             x: 'x',              
+                            columns: [
+                                ['x'].concat(poNedeljiX),
+                                ['posete po nedelji'].concat(poNedeljiY)
+                            ],
+                            type: 'line'
+                        },
+                    });
+
+
                 })
        
         });
         
+    }
+
+    zarada(){
+        this._activeRoute.params.subscribe(params =>{
+            var idRestorana = params['idRestorana'];
+            this._statsService.getZarada(idRestorana, new Date().getTime(), new Date().getTime()).subscribe(suma => {
+                this.zaradaUkupno = suma.toFixed(2);
+            });
+        });
     }
 
 }

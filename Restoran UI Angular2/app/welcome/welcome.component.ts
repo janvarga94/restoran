@@ -13,8 +13,8 @@ import {LoginService} from "../services/login.service";
 export class WelcomeComponent implements OnInit{
     public pageTitle: string = 'Welcome people';
 
-    poseceniRestorani : any[];
-    sviRestorani : any[];
+    poseceniRestorani : any[] = [];
+    sviRestorani : any[] = [];
     ulogovan : any = null;
 
     gostEmail : string;
@@ -35,9 +35,17 @@ export class WelcomeComponent implements OnInit{
             this.ulogovan = ulogovan;
             if(ulogovan){
                 this.gostEmail = ulogovan.email;
-                this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(rezervacijeIRezervacije => {                 
-                    this.poseceniRestorani = rezervacijeIRezervacije;
-                    console.log(rezervacijeIRezervacije);
+                // this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(rezervacijeIRezervacije => {
+                //     for(var i = 0; i < rezervacijeIRezervacije.length; i++){
+                //         var curr = rezervacijeIRezervacije[i];
+                //         if(this.poseceniRestorani.filter(t => t.restoranId == curr.restoranId).length == 0){
+                //             this.poseceniRestorani.push(curr);
+                //         }
+                //     }
+                // });
+                this._welcomeService.getRestoraniForUser(this.gostEmail).subscribe(restorani => {
+                    this.poseceniRestorani = restorani;
+                    console.log(restorani);
                 });
             }
         });
@@ -47,13 +55,18 @@ export class WelcomeComponent implements OnInit{
         console.log(restoranId + " , " + gostEmail + " , "+ocena);
 
         this._welcomeService.postOcenaForRestoran(restoranId, ocena, gostEmail).subscribe(response => {
-            for (let restoran of this.poseceniRestorani) {
-                if (restoran.restoranId == restoranId) {
-                    let ocena = this._welcomeService.getOcenaForRestoran(restoranId);
-                    console.log(ocena);
-                    restoran.ocena = ocena;
-                }
-            }
+            // for (let restoran of this.poseceniRestorani) {
+            //     if (restoran.restoranId == restoranId) {
+            //         let ocena = this._welcomeService.getOcenaForRestoran(restoranId);
+            //         console.log(ocena);
+            //         restoran.ocena = ocena;
+            //     }
+            // }
+
+            this._welcomeService.getRestoraniForUser(this.gostEmail).subscribe(restorani => {
+                this.poseceniRestorani = restorani;
+                console.log(restorani);
+            });
         });
 
 
@@ -61,6 +74,7 @@ export class WelcomeComponent implements OnInit{
 
     getJela(restoran : any) {
         console.log(restoran);
+        this.jela=[];
         this._welcomeService.getJelaForRestoran(restoran.restoranId, this.gostEmail).subscribe(response => {
             this.jela = response;
         });
@@ -68,7 +82,9 @@ export class WelcomeComponent implements OnInit{
 
     rateJelo(jelo : any, ocena : number){
         this._welcomeService.oceniJelo(jelo[0], jelo[1], this.gostEmail, ocena).subscribe(response => {
-
+            this._welcomeService.getJelaForRestoran(jelo[1], this.gostEmail).subscribe(response => {
+                this.jela = response;
+            });
         });
     }
     

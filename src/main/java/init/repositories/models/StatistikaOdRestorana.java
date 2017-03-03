@@ -7,4 +7,5 @@ import java.util.List;
  */
 public class StatistikaOdRestorana {
     public List<ZbirVremeCount> poDanu;
+    public List<ZbirVremeCount> poNedelji;
 }

@@ -128,8 +128,12 @@ public class RezervacijaRepository {
         session.beginTransaction();
 
         String query = "SELECT rezervacija.ID_REZERVACIJE, rezervacija.GOST_EMAIL, restoran.NAZIV, restoran.ID_RESTORANA, rezervacija.POCETAK, rezervacija.KRAJ, sto.BROJ_STOLA, ocena_restorana.OCENA , restoran.VRSTA\n" +
-                "FROM rezervacija natural join sto natural join reon inner join restoran on restoran.ID_RESTORANA = reon.ID_REONA inner join ocena_restorana on ocena_restorana.ID_RESTORANA = restoran.ID_RESTORANA\n" +
-                "where rezervacija.GOST_EMAIL = '" + email + "'";
+                "\tFROM rezervacija natural join sto natural join reon inner join restoran on restoran.ID_RESTORANA = reon.ID_REONA inner join ocena_restorana on ocena_restorana.ID_RESTORANA = restoran.ID_RESTORANA inner join poziv_prijatelja on poziv_prijatelja.ID_REZERVACIJE = rezervacija.ID_REZERVACIJE\n" +
+                "\twhere rezervacija.GOST_EMAIL = '"+email+"'  \n" +
+                "    or\n" +
+                "    (poziv_prijatelja.PRVI_EMAIL = '"+email+"' and poziv_prijatelja.DRUGI_EMAIL = rezervacija.GOST_EMAIL and poziv_prijatelja.PRIHVACEN_POZIV = 127)\n" +
+                "     or\n" +
+                "    (poziv_prijatelja.DRUGI_EMAIL = '"+email+"' and poziv_prijatelja.PRVI_EMAIL = rezervacija.GOST_EMAIL and poziv_prijatelja.PRIHVACEN_POZIV = 127)";
         List<Object[]> results= new ArrayList<>();
         try {
            results = session.createNativeQuery(query).getResultList();

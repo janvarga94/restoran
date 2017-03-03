@@ -78,7 +78,7 @@ public class RezervacijaController {
 
     @RequestMapping(path="/prihvatiIliOdbijPoziv", method = RequestMethod.GET)
     public ResponseWithMessageSuccess GetPrihvatiOdbijPoziv(String  idPoziva, String prihvati){
-        if(Integer.parseInt(idPoziva) == 0){
+        if(Integer.parseInt(prihvati) != 0){
             return rezervacijaRepo.updatePozivURestoran(Integer.parseInt(idPoziva),true);
         }else{
             return rezervacijaRepo.updatePozivURestoran(Integer.parseInt(idPoziva),false);
