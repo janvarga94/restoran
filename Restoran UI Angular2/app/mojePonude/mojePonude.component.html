@@ -1,0 +1,35 @@
+<style>
+    .dimOnHover:hover {
+        background: #000 !important;
+        cursor: pointer;
+    }
+
+    .dimOnHover:hover td {
+        background: #c7d4dd !important;
+    }
+</style>
+
+<table class="table">
+
+    <thead>
+    <tr>
+        <th> Naziv restorana </th>
+        <th> Do kad </th>
+        <th> Iznos </th>
+        <th> # </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="dimOnHover" *ngFor="let ponuda of mojePonude">
+        <td>{{ponuda.naziv}} </td>
+        <td> {{ponuda.dokad}}</td>
+        <td *ngIf="ponuda.prihvacena==1"> {{ponuda.cena}}</td>
+        <td *ngIf="ponuda.prihvacena==0">  <input id="add-cenna" type="number" min="10" max="55" class="form-control" name="cenna" value="ponuda.cena" [(ngModel)] = "cenna" placeholder="{{ponuda.cena}}"> </td>
+
+        <td *ngIf="ponuda.prihvacena==0"> <a class="btn btn-primary btn-lg" (click)="izmeni(ponuda.id)">Izmeni</a></td>
+        <td *ngIf="ponuda.prihvacena==1"> Prihvacena </td>
+
+    </tr>
+    </tbody>
+
+</table>

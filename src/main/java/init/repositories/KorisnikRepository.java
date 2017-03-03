@@ -53,8 +53,10 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
                 kRepo.setUloga(Uloga.KUVAR);
             }else   if(session.get(MenazerRestoranaEntity.class, primaryKey) != null){
                 kRepo.setUloga(Uloga.MENAZER_RESTORANA);
-            }else    if(session.get(MenadzerSistemaEntity.class, primaryKey) != null){
+            }else    if(session.get(MenadzerSistemaEntity.class, primaryKey) != null) {
                 kRepo.setUloga(Uloga.MENAZER_SISTEMA);
+            }else if (session.get(PonudjacEntity.class, primaryKey) != null){
+                kRepo.setUloga(Uloga.PONUDJAC);
             }else{
                 return null; //jer nismo nasli ulogu
             }

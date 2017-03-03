@@ -10,11 +10,15 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import static init.Main.session;
+
 /**
  * Created by Stefan on 2/26/2017.
  */
 @Repository
 public class MenadzerRestoranaRepository {
+
+    int i = 0;
 
     public int getRestoranID(String email){
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
@@ -69,7 +73,11 @@ public class MenadzerRestoranaRepository {
 
     }
 
+
+
     public ResponseWithMessageSuccess dodajPonudjaca(PonudjacDTO ponudjacDTO){
+
+
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
@@ -224,28 +232,63 @@ public class MenadzerRestoranaRepository {
         return uspeh;
     }
 
+    public void dodajPonuduRestorana(PonudaDTO ponudaDTO){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Date datum = new Date(System.currentTimeMillis());
+
+        PotraznjaRestoranaEntity restoran = new PotraznjaRestoranaEntity();
+        restoran.setIdPotraznje(ponudaDTO.id*14+i);
+        restoran.setIdRestorana(ponudaDTO.id);
+        restoran.setPocetakPonude(datum);
+        restoran.setKrajPonude(ponudaDTO.datum);
+
+        session.save(restoran);
+
+
+
+        try{
+            session.getTransaction().commit();
+        }
+        catch(Exception e){
+
+            System.out.println("ovde");
+        }finally {
+            session.close();
+        }
+
+
+    }
+
     public boolean dodajPonudu(PonudaDTO ponudaDTO){
+
+        dodajPonuduRestorana(ponudaDTO);
 
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
+
         PonudaEntity ponuda = new PonudaEntity();
-        ponuda.setCena((double)ponudaDTO.iznos);
+        Double d = (double) ponudaDTO.iznos;
+        ponuda.setCena(d);
         ponuda.setGarancija("Ima");
-        Byte b = '0';
+        Byte b = 0;
+
         ponuda.setPonudjacVideoDalJePonudaPrihvacenaIliOdbijena(b);
         ponuda.setPrihvacenoOdMenadzera(b);
         ponuda.setRokIsporuke(ponudaDTO.datum);
         ponuda.setEmailPonudjaca(ponudaDTO.email);
-        ponuda.setIdPotraznje(ponudaDTO.id);
+        ponuda.setIdPotraznje(ponudaDTO.id*14+i); //ponudaDTO.id+35
 
         boolean uspeh = true;
 
         session.save(ponuda);
 
         try{
-            session.flush();
+            session.getTransaction().commit();
         }
         catch(Exception e){
 
@@ -253,6 +296,8 @@ public class MenadzerRestoranaRepository {
         }finally {
             session.close();
         }
+
+        i++;
 
         return uspeh;
 
@@ -311,6 +356,9 @@ public class MenadzerRestoranaRepository {
 
         });
 
+        session.flush();
+        session.close();
+
         return povratanaLista;
 
     }
@@ -332,6 +380,9 @@ public class MenadzerRestoranaRepository {
             zbir = zbir + listaOcena.get(i);
         }
 
+        session.flush();
+        session.close();
+
         return zbir/listaOcena.size();
     }
 
@@ -349,6 +400,8 @@ public class MenadzerRestoranaRepository {
         for(int i = 0; i< listaOcena.size();i++){
             zbir = zbir + listaOcena.get(i);
         }
+
+
 
         return zbir/listaOcena.size();
 
@@ -392,7 +445,10 @@ public class MenadzerRestoranaRepository {
             lista.add(namirnica);
         });
 
+
+        session.flush();
         session.close();
+
 
         return lista;
 
@@ -418,9 +474,72 @@ public class MenadzerRestoranaRepository {
                 }
         );
 
+
+
         return lista;
 
 
     }
+
+    public List<Object[]> getDobivenePonude(Integer z){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        List<Object[]> lista =  session.createNativeQuery("select ponuda.ID_POTRAZNJE, ponuda.CENA, ponuda.ROK_ISPORUKE, ponuda.EMAIL_PONUDJACA\n" +
+                "from potraznja_restorana inner join ponuda on potraznja_restorana.ID_POTRAZNJE = ponuda.ID_POTRAZNJE \n" +
+                "where potraznja_restorana.ID_RESTORANA = "+ z + " and ponuda.PRIHVACENO_OD_MENADZERA= 0;").getResultList();
+
+        session.flush();
+        session.close();
+
+        return lista;
+    }
+
+    public List<Object[]> MojePonude(String ponudjac){
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+     //   String query = "select ponuda.CENA,ponuda.ROK_ISPORUKE,ponuda.PRIHVACENO_OD_MENADZERA,restoran.naziv\n" +
+       //                + "from potraznja_restorana inner join ponuda on ponuda.ID_POTRAZNJE = potraznja_restorana.ID_POTRAZNJE"
+
+        List<Object[]> lista =  session.createNativeQuery("select ponuda.CENA,ponuda.ROK_ISPORUKE,ponuda.PRIHVACENO_OD_MENADZERA,restoran.naziv,ponuda.ID_POTRAZNJE\n" +
+                "\tfrom potraznja_restorana inner join ponuda on ponuda.ID_POTRAZNJE = potraznja_restorana.ID_POTRAZNJE\n" +
+                "\tinner join restoran on potraznja_restorana.ID_RESTORANA = restoran.ID_RESTORANA\n" +
+                "\twhere ponuda.EMAIL_PONUDJACA ='" + ponudjac +"';").getResultList();
+
+        session.flush();
+        session.close();
+
+        return lista;
+    }
+
+        public PDTO getPonuda(Integer id) {
+            SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+            org.hibernate.Session session = sessionFactory.openSession();
+            session.beginTransaction();
+
+            List<PonudaEntity> list = session.createNativeQuery("SELECT * FROM restorani.ponuda where id_potraznje =" + id + ";", PonudaEntity.class).getResultList();
+
+            List<PDTO> povratnalista = new ArrayList<PDTO>();
+            list.forEach(l -> {
+                PDTO p = new PDTO();
+                p.cena = l.getCena();
+                p.emailPonudjaca = l.getEmailPonudjaca();
+                p.garancija = l.getGarancija();
+                p.idPotraznje = l.getIdPotraznje();
+                p.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena = l.getPonudjacVideoDalJePonudaPrihvacenaIliOdbijena();
+                p.prihvacenoOdMenadzera = l.getPrihvacenoOdMenadzera();
+                p.rokIsporuke = l.getRokIsporuke();
+                povratnalista.add(p);
+            });
+
+            session.flush();
+            session.close();
+
+            return povratnalista.get(0);
+        }
+
 
 }

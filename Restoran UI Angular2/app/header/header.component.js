@@ -36,6 +36,9 @@ var HeaderComponent = (function () {
         this._loginService.logoutKorisnika();
         this._router.navigate(['/']);
     };
+    HeaderComponent.prototype.getBase = function (url) {
+        return btoa(url);
+    };
     return HeaderComponent;
 }());
 HeaderComponent = __decorate([

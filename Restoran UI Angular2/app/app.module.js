@@ -54,6 +54,9 @@ var dodavanjeStola_component_1 = require("./dodavanjeStola/dodavanjeStola.compon
 var potraznjaNamirnica_component_1 = require("./potraznjaNamirnica/potraznjaNamirnica.component");
 var novoJelo_component_1 = require("./Jelo/novoJelo.component");
 var potraznje_component_1 = require("./potraznje/potraznje.component");
+var primljenePonude_component_1 = require("./primljenePonude/primljenePonude.component");
+var mojePonude_component_1 = require("./mojePonude/mojePonude.component");
+var mmrp_component_1 = require("./mmrp/mmrp.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -96,6 +99,9 @@ AppModule = __decorate([
                 { path: 'potraznajnamirnica', component: potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent },
                 { path: 'novojelo', component: novoJelo_component_1.NovoJeloComponent },
                 { path: 'potraznje', component: potraznje_component_1.PotraznjeComponent },
+                { path: 'primljeneponude', component: primljenePonude_component_1.PrimljenePonudeComponent },
+                { path: 'mojeponude', component: mojePonude_component_1.mojePonudeComponent },
+                { path: 'mmrp', component: mmrp_component_1.MMRPComponent },
                 { path: '', redirectTo: 'welcome', pathMatch: 'full' },
             ]),
         ],
@@ -128,7 +134,10 @@ AppModule = __decorate([
             dodavanjeStola_component_1.DodavanjeStolaComponent,
             potraznjaNamirnica_component_1.PotraznjaNamirnicaComponent,
             novoJelo_component_1.NovoJeloComponent,
-            potraznje_component_1.PotraznjeComponent
+            potraznje_component_1.PotraznjeComponent,
+            primljenePonude_component_1.PrimljenePonudeComponent,
+            mojePonude_component_1.mojePonudeComponent,
+            mmrp_component_1.MMRPComponent
         ],
         providers: [
             restorani_service_1.RestoranService,

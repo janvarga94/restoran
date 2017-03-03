@@ -37,5 +37,9 @@ export class HeaderComponent implements OnInit {
          this._router.navigate(['/']);
     }
 
+    getBase(url : string) {
+        return btoa(url);
+    }
+
 
  }

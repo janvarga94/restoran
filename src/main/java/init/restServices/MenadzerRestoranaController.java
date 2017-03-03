@@ -5,6 +5,7 @@ import init.dtos.*;
 
 import init.model.Jelo;
 import init.modelFromDB.JeloEntity;
+import init.modelFromDB.PonudaEntity;
 import init.modelFromDB.PotraznjaNamirnacaEntity;
 import init.repositories.*;
 import org.hibernate.SessionFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -127,11 +129,38 @@ public class MenadzerRestoranaController {
     }
 
     @RequestMapping(path="/addPonuda", method = RequestMethod.POST)
-    public boolean dodajPonudu(PonudaDTO ponudaDTO){
+    public boolean dodajPonudu(@RequestBody PonudaDTO ponudaDTO){
 
         boolean uspeh = mrr.dodajPonudu(ponudaDTO);
 
-        return true;
+        return uspeh;
+    }
+
+    @RequestMapping(path="/prihvacena", method = RequestMethod.GET)
+    public void prihavcena( Integer id){
+        PDTO p = mrr.getPonuda(id);
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        PonudaEntity ponuda = new PonudaEntity();
+        ponuda.setCena(p.cena);
+        ponuda.setIdPotraznje(p.idPotraznje);
+        ponuda.setEmailPonudjaca(p.emailPonudjaca);
+        ponuda.setRokIsporuke(p.rokIsporuke);
+        Byte b = 1;
+        ponuda.setPrihvacenoOdMenadzera(b);
+        ponuda.setPonudjacVideoDalJePonudaPrihvacenaIliOdbijena(p.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena);
+        ponuda.setGarancija(p.garancija);
+
+
+        session.update(ponuda);
+
+        session.flush();
+        session.close();
+
+
     }
 
 
@@ -223,6 +252,94 @@ public class MenadzerRestoranaController {
         );
 
         return lista;
+
+    }
+
+    @RequestMapping(path="/getDobivenePonude", method = RequestMethod.GET)
+    public List<DobivenaPonuda>  getDobivenePonude(String email){
+        Integer z = mrr.getRestoranID(email);
+
+        Date datum = new Date(System.currentTimeMillis());
+
+        List<Object[]> lista = mrr.getDobivenePonude(z);
+
+        List<DobivenaPonuda> povratanaList =new ArrayList<DobivenaPonuda>();
+
+        lista.forEach(element ->
+        {
+            DobivenaPonuda dp = new DobivenaPonuda();
+            dp.idPotraznje = (Integer)element[0];
+            double d = (double)element[1];
+            int cena = (int)d;
+            dp.cena = (Integer)cena;
+            dp.dokad = (Date)element[2];
+            dp.email = (String) element[3];
+         //   if(datum.getTime() < dp.dokad.getTime()) {
+                povratanaList.add(dp);
+          //  }
+
+        });
+
+        return povratanaList;
+
+    }
+
+
+    @RequestMapping(path="/getMojePonude", method = RequestMethod.GET)
+    public List<MojePonude> getMojePonude(String email){
+        List<Object[]> lista = mrr.MojePonude(email);
+
+        List<MojePonude> povratnaLista = new ArrayList<MojePonude>();
+        lista.forEach(el->
+        {
+            MojePonude mp = new MojePonude();
+            double d = (double)el[0];
+            int k = (int)d;
+            mp.cena = (Integer)k;
+            mp.dokad = (Date) el[1];
+            boolean b = (boolean) el[2];
+            if(b==false)
+                mp.prihvacena = 0;
+            else
+                mp.prihvacena = 1;
+            mp.naziv = (String)el[3];
+            mp.id = (Integer) el[4];
+
+            povratnaLista.add(mp);
+
+        });
+
+        return povratnaLista;
+
+    }
+
+
+    @RequestMapping(path="/izmeniPonudu", method = RequestMethod.GET)
+    public void izmeniPonudu(Integer id,Integer cena){
+        PDTO p = mrr.getPonuda(id);
+
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        PonudaEntity ponuda = new PonudaEntity();
+        double d = (double)cena;
+        Double dd = (Double) d;
+        ponuda.setCena(dd);
+        ponuda.setIdPotraznje(p.idPotraznje);
+        ponuda.setEmailPonudjaca(p.emailPonudjaca);
+        ponuda.setRokIsporuke(p.rokIsporuke);
+        ponuda.setPrihvacenoOdMenadzera(p.prihvacenoOdMenadzera);
+        ponuda.setPonudjacVideoDalJePonudaPrihvacenaIliOdbijena(p.ponudjacVideoDalJePonudaPrihvacenaIliOdbijena);
+        ponuda.setGarancija(p.garancija);
+
+
+        session.update(ponuda);
+
+        session.flush();
+        session.close();
+
+
 
     }
 

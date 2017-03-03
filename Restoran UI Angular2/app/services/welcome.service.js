@@ -24,7 +24,7 @@ var WelcomeService = (function () {
     function WelcomeService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this._restorani_for_user_url = 'http://localhost:8080/resursi/restorani_for_user';
+        this._restorani_for_user_url = app_config_1.Config.BackendUrl + '/resursi/restorani_for_user';
     }
     WelcomeService.prototype.getRestoraniForUser = function (email) {
         return this._http.get(this._restorani_for_user_url + "?email=" + email)

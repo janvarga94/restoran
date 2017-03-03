@@ -1,0 +1,31 @@
+<style>
+    .dimOnHover:hover {
+        background: #000 !important;
+        cursor: pointer;
+    }
+
+    .dimOnHover:hover td {
+        background: #c7d4dd !important;
+    }
+</style>
+
+<table class="table">
+
+    <thead>
+    <tr>
+        <th> Id ponude </th>
+        <th> Do kad </th>
+        <th> Trazeni iznos </th>
+        <th> # </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="dimOnHover" *ngFor="let ponuda of ponude">
+        <td>{{ponuda.idPotraznje}} </td>
+        <td> {{ponuda.dokad}}</td>
+        <td> {{ponuda.cena}}</td>
+        <td> <a class="btn btn-primary btn-lg" (click)="privatiPonudu(ponuda.idPotraznje)">Prihvati</a></td>
+    </tr>
+    </tbody>
+
+</table>

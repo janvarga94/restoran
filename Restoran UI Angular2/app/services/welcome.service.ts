@@ -18,7 +18,7 @@ import {Config} from "../app.config";
 @Injectable()
 export class WelcomeService {
 
-    private _restorani_for_user_url = 'http://localhost:8080/resursi/restorani_for_user';
+    private _restorani_for_user_url = Config.BackendUrl + '/resursi/restorani_for_user';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 

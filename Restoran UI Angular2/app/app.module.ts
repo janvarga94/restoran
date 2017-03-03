@@ -48,6 +48,9 @@ import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
 import {NovoJeloComponent} from "./Jelo/novoJelo.component";
 import {PotraznjeComponent} from "./potraznje/potraznje.component";
+import {PrimljenePonudeComponent} from "./primljenePonude/primljenePonude.component";
+import {mojePonudeComponent} from "./mojePonude/mojePonude.component";
+import {MMRPComponent} from "./mmrp/mmrp.component";
 
 
 
@@ -87,6 +90,9 @@ import {PotraznjeComponent} from "./potraznje/potraznje.component";
          {path: 'potraznajnamirnica', component: PotraznjaNamirnicaComponent},
          {path: 'novojelo', component: NovoJeloComponent},
          {path: 'potraznje', component: PotraznjeComponent},
+         {path: 'primljeneponude', component: PrimljenePonudeComponent},
+         {path: 'mojeponude', component : mojePonudeComponent},
+         {path: 'mmrp', component : MMRPComponent},
         { path: '', redirectTo: 'welcome', pathMatch: 'full'},
   //      { path: '**', component : PageNotFoundComponent},
 
@@ -121,7 +127,10 @@ import {PotraznjeComponent} from "./potraznje/potraznje.component";
       DodavanjeStolaComponent,
       PotraznjaNamirnicaComponent,
       NovoJeloComponent,
-      PotraznjeComponent
+      PotraznjeComponent,
+      PrimljenePonudeComponent,
+      mojePonudeComponent,
+      MMRPComponent
 
 
    ],

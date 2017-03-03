@@ -46,8 +46,8 @@ export class PotraznjeComponent implements OnInit {
 
     addPonuda(idR: number ,dokad : Date,cena : number){
         this._restoranService.addPonuda({email : this.emailPonudjaca, id : idR, datum : dokad, iznos : cena}).subscribe(response =>{
-            if(response.Success == true)  this._notificator.notifySuccess("Prosledjena ponuda");
-            else this._notificator.notifyError("Greska");
+            if(response.Success == true)  this._notificator.notifySuccess("Greska");
+            else this._notificator.notifyError("Uspesno");
         });
     }
 

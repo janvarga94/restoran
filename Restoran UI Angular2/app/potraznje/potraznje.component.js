@@ -38,9 +38,9 @@ var PotraznjeComponent = (function () {
         var _this = this;
         this._restoranService.addPonuda({ email: this.emailPonudjaca, id: idR, datum: dokad, iznos: cena }).subscribe(function (response) {
             if (response.Success == true)
-                _this._notificator.notifySuccess("Prosledjena ponuda");
+                _this._notificator.notifySuccess("Greska");
             else
-                _this._notificator.notifyError("Greska");
+                _this._notificator.notifyError("Uspesno");
         });
     };
     return PotraznjeComponent;

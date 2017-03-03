@@ -16,10 +16,12 @@ import {IJelo} from "../models/jelo";
 import {INamirnica} from "../models/namirnica";
 import {IReon} from "../models/reon";
 import {INamirnicaP} from "../models/namirnicaP";
+import {Idponude} from "../models/dponude";
+import {IMojaPonuda} from "../models/mojaPonuda";
 
 @Injectable()
 export class RestoranService {
-    private _restoraniUrl = 'http://localhost:8080/resursi/restorani';
+    private _restoraniUrl = Config.BackendUrl +'/resursi/restorani';
     private _restoraniSviUrl = Config.BackendUrl + '/restorani/getAll';
     private dodaj = Config.BackendUrl + '/resursi/add';
     private _managerRestoranaUrl = Config.BackendUrl + '/menadzerRestorana/getRestoranID';
@@ -29,12 +31,16 @@ export class RestoranService {
     private _addNamirnica = Config.BackendUrl + '/menadzerRestorana/addNamirnica';
     private _addJelo = Config.BackendUrl  + '/menadzerRestorana/addJelo';
     private _addPonuda = Config.BackendUrl + '/menadzerRestorana/addPonuda';
+    private _izmeniPonudu = Config.BackendUrl + '/menadzerRestorana/izmeniPonudu';
+    private _prihvacena = Config.BackendUrl + '/menadzerRestorana/prihvacena';
     private _getJelovnik = Config.BackendUrl + '/menadzerRestorana/getJelovnik';
     private _getOcenaRestorana = Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
     private _getOcenaJela = Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
     private _getReoni = Config.BackendUrl + '/menadzerRestorana/getReoni';
     private _getNamirnice = Config.BackendUrl + '/menadzerRestorana/getNamirnice';
     private _getNamirniceUPotraznji = Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
+    private _getDobivenePonude = Config.BackendUrl + '/menadzerRestorana/getDobivenePonude';
+    private _getMojePonude = Config.BackendUrl + '/menadzerRestorana/getMojePonude';
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -114,6 +120,13 @@ export class RestoranService {
         }).catch(this.handleError);
     }
 
+    public prihvacena(id : number){
+        return this._http.get(this._prihvacena+"?id="+id).map((response: Response) => {
+           // return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+
     public addJelo(jelo : any) {
         return this._http.post(this._addJelo,jelo).map((response: Response) => {
             return <any> response.json();
@@ -122,6 +135,12 @@ export class RestoranService {
 
     public addPonuda(ponuda : any) {
         return this._http.post(this._addPonuda,ponuda).map((response: Response) => {
+            return <any> response.json();
+        }).catch(this.handleError);
+    }
+
+    public izmeniPonudu(id : number, cena : number) : Observable<any>{
+        return this._http.get(this._izmeniPonudu+"?id="+id+"&cena="+cena).map((response: Response) => {
             return <any> response.json();
         }).catch(this.handleError);
     }
@@ -157,6 +176,19 @@ export class RestoranService {
             })
             .catch(this.handleError);
     }
+
+    public getMojePonude(email : string) : Observable<IMojaPonuda[]>{
+        return this._http.get(this._getMojePonude + "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                var mojeponude = <IMojaPonuda[]> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                //console.log(jelovnik.length);
+                return mojeponude;
+            })
+            .catch(this.handleError);
+    }
+
 
     getNamirnice(): Observable<INamirnica[]>{
         return this._http.get(this._getNamirnice)
@@ -203,6 +235,14 @@ export class RestoranService {
         return this._http.get(this._getNamirniceUPotraznji)
             .map((response: Response) => {
                 return <INamirnicaP[]> response.json();
+            })
+            .catch(this.handleError);
+    }
+
+    getDobivenePonude(email : string) : Observable<Idponude[]> {
+        return this._http.get(this._getDobivenePonude+ "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                return <Idponude[]> response.json();
             })
             .catch(this.handleError);
     }

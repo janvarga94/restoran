@@ -11,8 +11,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="dimOnHover" >
-            <td>{{potraznja.idRestorana}} </td>
+        <tr class="dimOnHover" *ngFor ="let p of potraznja.lista"  >
+            <td>{{p.naziv}} </td>
 
         </tr>
         </tbody>

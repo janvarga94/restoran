@@ -21,7 +21,7 @@ var RestoranService = (function () {
     function RestoranService(_http, _notificator) {
         this._http = _http;
         this._notificator = _notificator;
-        this._restoraniUrl = 'http://localhost:8080/resursi/restorani';
+        this._restoraniUrl = app_config_1.Config.BackendUrl + '/resursi/restorani';
         this._restoraniSviUrl = app_config_1.Config.BackendUrl + '/restorani/getAll';
         this.dodaj = app_config_1.Config.BackendUrl + '/resursi/add';
         this._managerRestoranaUrl = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
@@ -31,12 +31,16 @@ var RestoranService = (function () {
         this._addNamirnica = app_config_1.Config.BackendUrl + '/menadzerRestorana/addNamirnica';
         this._addJelo = app_config_1.Config.BackendUrl + '/menadzerRestorana/addJelo';
         this._addPonuda = app_config_1.Config.BackendUrl + '/menadzerRestorana/addPonuda';
+        this._izmeniPonudu = app_config_1.Config.BackendUrl + '/menadzerRestorana/izmeniPonudu';
+        this._prihvacena = app_config_1.Config.BackendUrl + '/menadzerRestorana/prihvacena';
         this._getJelovnik = app_config_1.Config.BackendUrl + '/menadzerRestorana/getJelovnik';
         this._getOcenaRestorana = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaRestorana';
         this._getOcenaJela = app_config_1.Config.BackendUrl + '/menadzerRestorana/getOcenaJela';
         this._getReoni = app_config_1.Config.BackendUrl + '/menadzerRestorana/getReoni';
         this._getNamirnice = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirnice';
         this._getNamirniceUPotraznji = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
+        this._getDobivenePonude = app_config_1.Config.BackendUrl + '/menadzerRestorana/getDobivenePonude';
+        this._getMojePonude = app_config_1.Config.BackendUrl + '/menadzerRestorana/getMojePonude';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -97,6 +101,11 @@ var RestoranService = (function () {
             return response.json();
         }).catch(this.handleError);
     };
+    RestoranService.prototype.prihvacena = function (id) {
+        return this._http.get(this._prihvacena + "?id=" + id).map(function (response) {
+            // return <any> response.json();
+        }).catch(this.handleError);
+    };
     RestoranService.prototype.addJelo = function (jelo) {
         return this._http.post(this._addJelo, jelo).map(function (response) {
             return response.json();
@@ -104,6 +113,11 @@ var RestoranService = (function () {
     };
     RestoranService.prototype.addPonuda = function (ponuda) {
         return this._http.post(this._addPonuda, ponuda).map(function (response) {
+            return response.json();
+        }).catch(this.handleError);
+    };
+    RestoranService.prototype.izmeniPonudu = function (id, cena) {
+        return this._http.get(this._izmeniPonudu + "?id=" + id + "&cena=" + cena).map(function (response) {
             return response.json();
         }).catch(this.handleError);
     };
@@ -131,6 +145,17 @@ var RestoranService = (function () {
             //     restorani.push(restorani[0]);
             //console.log(jelovnik.length);
             return reoni;
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getMojePonude = function (email) {
+        return this._http.get(this._getMojePonude + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var mojeponude = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            //console.log(jelovnik.length);
+            return mojeponude;
         })
             .catch(this.handleError);
     };
@@ -172,6 +197,13 @@ var RestoranService = (function () {
     };
     RestoranService.prototype.getNamirniceUPotraznji = function () {
         return this._http.get(this._getNamirniceUPotraznji)
+            .map(function (response) {
+            return response.json();
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getDobivenePonude = function (email) {
+        return this._http.get(this._getDobivenePonude + "?email=" + encodeURIComponent(email))
             .map(function (response) {
             return response.json();
         })

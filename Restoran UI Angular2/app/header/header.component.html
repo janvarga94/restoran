@@ -10,11 +10,13 @@
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/restorani']" [routerLinkActive]="['active']">Restorani page</a></li> 
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/sistemMenadzer']" [routerLinkActive]="['active']">Sistem menazer</a></li>
         <li class="nav-item"><a class="nav-link" [routerLink] = "['/zaposleni']" [routerLinkActive]="['active']">Zaposleni</a></li>
+          <li class="nav-item"><a class="nav-link" [routerLink] = "['/mmrp']" [routerLinkActive]="['active']">MMRP</a></li>
         <li *ngIf="ulogovan != null" class="nav-item"><a class="nav-link" [routerLink] = "['/rezervacije']" [routerLinkActive]="['active']">Moje rezervacije</a></li>
       </ul>
 
       <form *ngIf="ulogovan != null" class="form-inline my-2 my-md-0">
-         <a style="color:rgba(255,255,255,0.7)" class="nav-link" [routerLink] = "['/gostProfil']">{{ulogovan.ime}}</a>
+          <a style="color:rgba(255,255,255,0.7)" class="nav-link" *ngIf="ulogovan.uloga=='SANKER' || ulogovan.uloga=='KONOBAR' || ulogovan.uloga=='KUVAR'" [routerLink] = "'/zaposleni/' + getBase(ulogovan.email)">{{ulogovan.ime}}</a>
+          <a style="color:rgba(255,255,255,0.7)" class="nav-link" *ngIf="ulogovan.uloga!='SANKER' && ulogovan.uloga!='KONOBAR' && ulogovan.uloga!='KUVAR'" [routerLink] = "['/gostProfil']">{{ulogovan.ime}}</a>
         <button class="btn btn-success my-2 my-sm-0" type="button" (click)="doLogout()">Logout</button>
       </form>
 
