@@ -27,12 +27,13 @@ var StatistikaComponent = (function () {
     StatistikaComponent.prototype.ngOnInit = function () {
         var _this = this;
         this._loginService.ulogovan.subscribe(function (ulogovan) {
-            if (ulogovan != null)
+            if (ulogovan != null) {
                 _this.emailMenazderaRestorana = ulogovan.email;
-        });
-        this._restoranService.getOcenaRestorana('Wilkinson1@nowhere.com').subscribe(function (ocena) {
-            if (ocena != null)
-                _this.ocenaRestorana = ocena;
+                _this._restoranService.getOcenaRestorana(_this.emailMenazderaRestorana).subscribe(function (ocena) {
+                    if (ocena != null)
+                        _this.ocenaRestorana = ocena;
+                });
+            }
         });
         console.log(this.ocenaRestorana);
     };

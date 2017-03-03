@@ -47,6 +47,8 @@ import {StatistikaComponent} from "./statistika/statistika.component";
 import {DodavanjeStolaComponent} from "./dodavanjeStola/dodavanjeStola.component";
 import {PotraznjaNamirnicaComponent} from "./potraznjaNamirnica/potraznjaNamirnica.component";
 import {NovoJeloComponent} from "./Jelo/novoJelo.component";
+import {ZakaziRadComponent} from "./zakazi_rad/zakaziRad.component";
+import {ZakaziRadService} from "./services/zakaziRad.service";
 import {PotraznjeComponent} from "./potraznje/potraznje.component";
 import {PrimljenePonudeComponent} from "./primljenePonude/primljenePonude.component";
 import {mojePonudeComponent} from "./mojePonude/mojePonude.component";
@@ -71,6 +73,7 @@ import {MMRPComponent} from "./mmrp/mmrp.component";
          {path: 'novirestoran', component : NoviRestoranComponent},
          {path: 'novizaposleni', component : NoviZaposleniComponent},
          {path: 'novizaposleni/:email', component : NoviZaposleniComponent},
+         {path: 'zakazi_rad/:email', component : ZakaziRadComponent},
          { path: 'welcome', component : WelcomeComponent},
          { path: 'login', component : LoginComponent},
          { path: 'register', component : RegisterComponent},
@@ -104,6 +107,7 @@ import {MMRPComponent} from "./mmrp/mmrp.component";
     RestoraniComponent,
       NoviZaposleniComponent,
       NoviRestoranComponent,
+      ZakaziRadComponent,
     ZaposleniComponent,
     ZaposleniDetailComponent,
     RestoranDetailComponent,
@@ -143,6 +147,7 @@ import {MMRPComponent} from "./mmrp/mmrp.component";
      PrijateljstvoService,
      ToasterService,
      RezervacijaService,
+       ZakaziRadService,
        PushNotificationsService,
        ZaposleniService,
        ZaposleniDetailService,

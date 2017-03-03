@@ -29,8 +29,10 @@ public class MenadzerRestoranaRepository {
 
         sessionFactory.close();
 
-        int rezultat = mrr.getIdRestorana();
-        return rezultat;
+        if(mrr != null)
+            return  mrr.getIdRestorana();
+        else
+            return -1;
     }
 
     public ResponseWithMessageSuccess dodajMenadzer(MenadzerRestoranaDto menadzerRestoranaDto){

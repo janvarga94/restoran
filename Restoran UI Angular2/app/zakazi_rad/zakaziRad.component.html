@@ -1,0 +1,53 @@
+<div class="card-block" *ngIf="reoni != null">
+
+
+    <div class="form-group row" class="input-group">
+        <label for="ime" class="col-2 col-form-label">Ime:</label>
+        <input readonly id="ime" type="text" class="form-control" value="" [(ngModel)] = "zaposlen[2]" placeholder="* ime">
+    </div>
+    <br>
+    <div class="form-group row" class="input-group">
+        <label for="prezime" class="col-2 col-form-label">Prezime:</label>
+        <input readonly id="prezime" type="text" class="form-control" value="" [(ngModel)] = "zaposlen[3]" placeholder="* prezime">
+    </div>
+    <br>
+    <div class="form-group row" class="input-group">
+        <label for="email" class="col-2 col-form-label">Email:</label>
+        <input readonly id="email" type="email" class="form-control"  value="" [(ngModel)] = "zaposlen[0]" placeholder="* email">
+    </div>
+    <br>
+    <div class="row" class="input-group">
+        <label for="datumPocetka" class="col-2 col-form-label">Datum pocetka:</label>
+        <input id="datumPocetka" type="date" class="form-control" [(ngModel)] = "datumPocetka" placeholder="* datum pocetka">
+    </div>
+    <br>
+    <div class="form-group row" class="input-group">
+        <label for="brojDana" class="col-2 col-form-label">Broj dana:</label>
+        <input id="brojDana" type="number" class="form-control"  value="" [(ngModel)] = "brojDana" placeholder="* brojDana">
+    </div>
+    <br>
+    <div class="form-group row" class="input-group">
+        <label for="smena" class="col-2 col-form-label">Smena:</label>
+        <select id="smena" [(ngModel)]="smena">
+            <option value="0">Prva smena</option>
+            <option value="1">Druga smena</option>
+            <option value="2">Treca smena</option>
+        </select>
+    </div>
+    <br>
+    <div class="form-group row" class="input-group" *ngIf="zanimanjeInt==0">
+        <label for="reon" class="col-2 col-form-label">Reon:</label>
+        <select id="reon" [(ngModel)]="reon">
+            <option *ngFor="let re of reoni" [ngValue]="re.idReona">Id : {{re.idReona}} Opis: {{re.opis | limitDuzineStringa:80}}</option>
+        </select>
+    </div>
+    <br>
+    <div class="col-sm-12 controls">
+        <button id="btn-add" href="#" (click)="zakaziDane()" class="btn btn-success" style ="margin-left: 450px"  [disabled]="brojDana == '' || smena == ''" >Zakazi dane</button>
+    </div>
+
+
+
+
+
+</div>

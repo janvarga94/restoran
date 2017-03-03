@@ -41,6 +41,7 @@ var RestoranService = (function () {
         this._getNamirniceUPotraznji = app_config_1.Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
         this._getDobivenePonude = app_config_1.Config.BackendUrl + '/menadzerRestorana/getDobivenePonude';
         this._getMojePonude = app_config_1.Config.BackendUrl + '/menadzerRestorana/getMojePonude';
+        this._getRestoranID = app_config_1.Config.BackendUrl + '/menadzerRestorana/getRestoranID';
     }
     RestoranService.prototype.getRestorani = function () {
         return this._http.get(this._restoraniUrl)
@@ -65,8 +66,6 @@ var RestoranService = (function () {
             return id;
         })
             .catch(this.handleError);
-    };
-    RestoranService.prototype.getRestoran = function () {
     };
     /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
      return this._http.get("api/successResponse.json")
@@ -139,6 +138,18 @@ var RestoranService = (function () {
     };
     RestoranService.prototype.getReoni = function (email) {
         return this._http.get(this._getReoni + "?email=" + encodeURIComponent(email))
+            .map(function (response) {
+            var reoni = response.json();
+            // for(var i = 0; i < 10; i++)
+            //     restorani.push(restorani[0]);
+            //console.log(jelovnik.length);
+            return reoni;
+        })
+            .catch(this.handleError);
+    };
+    RestoranService.prototype.getReoniForRestoran = function (idRestorana) {
+        var url = app_config_1.Config.BackendUrl + "/menadzerRestorana/get_reoni?idRestorana=" + idRestorana;
+        return this._http.get(url)
             .map(function (response) {
             var reoni = response.json();
             // for(var i = 0; i < 10; i++)

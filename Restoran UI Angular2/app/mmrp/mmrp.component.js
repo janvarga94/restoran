@@ -30,6 +30,15 @@ var MMRPComponent = (function () {
         this._zaposleniDetailService = _zaposleniDetailService;
     }
     MMRPComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._loginService.ulogovan.subscribe(function (ulogovan) {
+            if (ulogovan) {
+                _this.email = ulogovan.email;
+                _this._zaposleniService.getRestoran(ulogovan.email).subscribe(function (restoran) {
+                    _this.idRestorana = restoran;
+                });
+            }
+        });
     };
     return MMRPComponent;
 }());

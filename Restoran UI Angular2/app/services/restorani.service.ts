@@ -41,6 +41,8 @@ export class RestoranService {
     private _getNamirniceUPotraznji = Config.BackendUrl + '/menadzerRestorana/getNamirniceUPotraznji';
     private _getDobivenePonude = Config.BackendUrl + '/menadzerRestorana/getDobivenePonude';
     private _getMojePonude = Config.BackendUrl + '/menadzerRestorana/getMojePonude';
+    private _getRestoranID =  Config.BackendUrl + '/menadzerRestorana/getRestoranID';
+
 
     constructor(private _http: Http, private _notificator: Notificator) { }
 
@@ -75,9 +77,9 @@ export class RestoranService {
 
 
 
-    getRestoran() : any{
 
-    }
+
+
 
 
     /* addRestoran(restoran : IRestoran): Observable<ISuccess>{
@@ -167,6 +169,19 @@ export class RestoranService {
 
     public getReoni(email: string) : Observable<IReon[]> {
         return this._http.get(this._getReoni + "?email="+ encodeURIComponent(email))
+            .map((response: Response) => {
+                var reoni = <IReon[]> response.json();
+                // for(var i = 0; i < 10; i++)
+                //     restorani.push(restorani[0]);
+                //console.log(jelovnik.length);
+                return reoni;
+            })
+            .catch(this.handleError);
+    }
+
+    public getReoniForRestoran(idRestorana : number) : Observable<IReon[]> {
+        let url = Config.BackendUrl + "/menadzerRestorana/get_reoni?idRestorana="+ idRestorana;
+        return this._http.get(url)
             .map((response: Response) => {
                 var reoni = <IReon[]> response.json();
                 // for(var i = 0; i < 10; i++)

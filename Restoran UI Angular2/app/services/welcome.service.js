@@ -27,7 +27,7 @@ var WelcomeService = (function () {
         this._restorani_for_user_url = app_config_1.Config.BackendUrl + '/resursi/restorani_for_user';
     }
     WelcomeService.prototype.getRestoraniForUser = function (email) {
-        return this._http.get(this._restorani_for_user_url + "?email=" + email)
+        return this._http.get(this._restorani_for_user_url + "?email=" + encodeURIComponent(email))
             .map(function (response) {
             var restoraniOcena = response.json();
             return restoraniOcena;

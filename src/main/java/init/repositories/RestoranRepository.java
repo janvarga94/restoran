@@ -32,7 +32,6 @@ import static init.Main.sessionFactory;
 @Repository
 public class RestoranRepository {
     public List<StoRepo> GetStoloviRestorana(int restoran){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         org.hibernate.Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -103,8 +102,7 @@ public class RestoranRepository {
 
 
     public Collection<RestoranEntity> getRestorani(){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<RestoranEntity> lista = (List<RestoranEntity>) session.createQuery("from RestoranEntity").list();
@@ -113,8 +111,7 @@ public class RestoranRepository {
     }
 
     public boolean addRestoran(RestoranDTO r){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         System.out.println(r.idRestorana);
@@ -145,12 +142,12 @@ public class RestoranRepository {
     }
 
     public Collection<RadnikEntity> getRadnici(){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<RadnikEntity> lista = (List<RadnikEntity>) session.createQuery("from RadnikEntity").list();
 
+        session.close();
         return lista;
     }
 
@@ -158,7 +155,7 @@ public class RestoranRepository {
 
         System.out.println(radnikEmail);
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
@@ -167,20 +164,20 @@ public class RestoranRepository {
                 "where RADNIK_EMAIL='"+radnikEmail+"'");
 
         Object obj = query.uniqueResult();
-
+        session.close();
         return obj;
     }
 
 
     public List<Object> getSmenaForRadnik(int idRestorana, int year, int month, int day) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<Object> lista = (List<Object>) session.createQuery("select se.idRestorana, se.idSmene, se.pecetak, rre.radnikEmail, se.brojSmene, ke.ime, ke.prezime, se.brojSmene" +
                 " from SmenaEntity as se, RasporedRadaEntity rre, KorisnikEntity ke where se.idRestorana="+idRestorana+" and rre.radnikEmail = ke.email and se.idSmene = rre.idSmene and se.pecetak = '"+year+"-"+month+"-"+day+"'").list();
 
+        session.close();
         if (lista == null) return new ArrayList<>();
 
         return (List<Object>) lista;
@@ -189,7 +186,7 @@ public class RestoranRepository {
     public List<Object> getStolovi(int idRestorana) {
 
 //        sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -201,46 +198,44 @@ public class RestoranRepository {
                 "from Reon re inner join sto ON re.ID_REONA = sto.ID_REONA left outer join Rezervacija rez on sto.BROJ_STOLA = rez.BROJ_STOLA\n" +
                 "where ((rez.pocetak < '"+timestamp.toString()+"' and rez.kraj > '"+timestamp.toString()+"') or (rez.GOST_EMAIL is null))  and re.ID_RESTORANA="+idRestorana).getResultList();
 
+        session.close();
         return (List<Object>) lista;
 
 
     }
 
     public int getReon(int idSmene, int idRestorana, String konobarMail) {
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Query query = session.createQuery("select rus.idReona from ReonUSmeniEntity as rus where rus.konobarEmail='"+konobarMail+"' and rus.idRestorana="+idRestorana+" and rus.idSmene="+idSmene);
         Object value = query.uniqueResult();
 
-
+        session.close();
         if (value == null)
             return -1;
         else
-            return (int) query.uniqueResult();
+            return (int) value;
 
     }
 
     public List<Object> getJela(String kuvarMail, int idRestorana) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.KUVAR_EMAIL, porudzbina.ID_PORUDZBINE, jelo_u_porudzbini.ID_RESTORANA, jelo.NAZIV_JELA, jelo.OPIS, jelo.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, porudzbina.PRIVACENA_OD_KUVARA_U\n" +
                 "from porudzbina inner join jelo_u_porudzbini on porudzbina.ID_PORUDZBINE=jelo_u_porudzbini.ID_PORUDZBINE natural join jelo\n" +
-                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo.ID_RESTORANA="+idRestorana).getResultList();
+                "where jelo_u_porudzbini.KUVAR_EMAIL='"+kuvarMail+"' and jelo_u_porudzbini.ID_RESTORANA="+idRestorana).getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
 
     }
 
     public boolean prihvacenoJelo(int idPorudzbine) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -267,8 +262,7 @@ public class RestoranRepository {
 
     public boolean skuvanoJelo(int idPorudzbine) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -294,23 +288,21 @@ public class RestoranRepository {
 
     public List<Object> getPica(String sankerEmail, int idRestorana) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         List<Object> lista = session.createNativeQuery("select pice_u_porudzbini.SANKER_EMAIL, porudzbina.ID_PORUDZBINE, pice_u_porudzbini.ID_RESTORANA, pice.NAZIV_PICA, pice.OPIS, pice.CENA,porudzbina.PLACENO, porudzbina.KREIRANA, porudzbina.GOST_ZELI_SPREMNO_U, porudzbina.SPREMNO_U, porudzbina.PRIVACENA_OD_KUVARA_U\n" +
                 "from porudzbina inner join pice_u_porudzbini on porudzbina.ID_PORUDZBINE=pice_u_porudzbini.ID_PORUDZBINE natural join pice\n" +
                 "where pice_u_porudzbini.SANKER_EMAIL='"+sankerEmail+"' and pice.ID_RESTORANA="+idRestorana+" and ((porudzbina.SPREMNO_U < porudzbina.KREIRANA) or porudzbina.SPREMNO_U is null)").getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
 
     }
 
     public boolean spremljenoPice(int idPorudzbine) {
 
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -352,22 +344,53 @@ public class RestoranRepository {
         }
 
 
+        query = "select count(restoran.NAZIV), week(rezervacija.POCETAK)  from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on sto.ID_REONA = reon.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA\n" +
+                "\twhere restoran.ID_RESTORANA = "+restoran+" and\n" +
+                "      rezervacija.POCETAK BETWEEN NOW() - INTERVAL 30 DAY AND NOW() + interval 30 day\n" +
+                "group by week(rezervacija.POCETAK) ";
+        results = session.createNativeQuery(query).getResultList();
+        stat.poNedelji = new ArrayList();
+        for(Object[] obj : results){
+            ZbirVremeCount zvc = new ZbirVremeCount();
+            zvc.zbir = (BigInteger) obj[0];
+            zvc.vreme = (int) obj[1];
+            stat.poNedelji.add(zvc);
+        }
+
+
         session.close();
         return stat;
     }
 
     public List<Object> getJelaForRestoran(int idRestorana, String email){
-        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.NAZIV_JELA, ocena_jela.ID_RESTORANA, ocena_jela.GOST_EMAIL, ocena_jela.OCENA\n" +
-                "from jelo_u_porudzbini inner join porudzbina on jelo_u_porudzbini.ID_PORUDZBINE=porudzbina.ID_PORUDZBINE inner join ocena_jela on ocena_jela.GOST_EMAIL=porudzbina.GOST_EMAIL\n" +
-                "where jelo_u_porudzbini.ID_RESTORANA = "+idRestorana+" and porudzbina.GOST_EMAIL='"+email+"'").getResultList();
+        List<Object> lista = session.createNativeQuery("select jelo_u_porudzbini.NAZIV_JELA, jelo_u_porudzbini.ID_RESTORANA, porudzbina.GOST_EMAIL, ocena_jela.OCENA from jelo_u_porudzbini natural join porudzbina inner join ocena_jela on ocena_jela.GOST_EMAIL=porudzbina.GOST_EMAIL and jelo_u_porudzbini.NAZIV_JELA=ocena_jela.NAZIV_JELA\n" +
+                "where porudzbina.GOST_EMAIL='"+email+"' and ocena_jela.ID_RESTORANA="+idRestorana+"\n" +
+                "group by jelo_u_porudzbini.NAZIV_JELA, jelo_u_porudzbini.ID_RESTORANA, porudzbina.GOST_EMAIL").getResultList();
 
-
+        session.close();
         return (List<Object>) lista;
     }
 
+    public double getZaradeRestorana(int restoranId, long pocetak, long kraj){
+        String query = "select sum(jelo.cena), sum(pice.cena) from pice_u_porudzbini natural join pice,jelo_u_porudzbini natural join jelo,\n" +
+                "\t(select porudzbina.ID_PORUDZBINE from restoran inner join reon on restoran.ID_RESTORANA = reon.ID_RESTORANA inner join sto on reon.ID_REONA = sto.ID_REONA inner join rezervacija on rezervacija.BROJ_STOLA = sto.BROJ_STOLA inner join porudzbina on porudzbina.ID_REZERVACIJE = rezervacija.ID_REZERVACIJE\n" +
+                "\twhere restoran.ID_RESTORANA = "+restoranId+")tab1 where pice_u_porudzbini.ID_PORUDZBINE = tab1.id_porudzbine or jelo_u_porudzbini.ID_PORUDZBINE = tab1.id_porudzbine \n" +
+                "    \n" +
+                "    ";
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<Object[]> lista = session.createNativeQuery(query).getResultList();
+        try{
+            session.close();
+            return ((double) lista.get(0)[0]) + ((double) lista.get(0)[1]);
+        }catch(Exception e){
+            session.close();
+            return 0;
+        }
+
+    }
 
 }

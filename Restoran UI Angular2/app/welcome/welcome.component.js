@@ -21,6 +21,8 @@ var WelcomeComponent = (function () {
         this._welcomeService = _welcomeService;
         this._loginService = _loginService;
         this.pageTitle = 'Welcome people';
+        this.poseceniRestorani = [];
+        this.sviRestorani = [];
         this.ulogovan = null;
         this.jela = [];
     }
@@ -33,9 +35,17 @@ var WelcomeComponent = (function () {
             _this.ulogovan = ulogovan;
             if (ulogovan) {
                 _this.gostEmail = ulogovan.email;
-                _this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(function (rezervacijeIRezervacije) {
-                    _this.poseceniRestorani = rezervacijeIRezervacije;
-                    console.log(rezervacijeIRezervacije);
+                // this._rezervacijeService.getRezervacije(ulogovan.email).subscribe(rezervacijeIRezervacije => {
+                //     for(var i = 0; i < rezervacijeIRezervacije.length; i++){
+                //         var curr = rezervacijeIRezervacije[i];
+                //         if(this.poseceniRestorani.filter(t => t.restoranId == curr.restoranId).length == 0){
+                //             this.poseceniRestorani.push(curr);
+                //         }
+                //     }
+                // });
+                _this._welcomeService.getRestoraniForUser(_this.gostEmail).subscribe(function (restorani) {
+                    _this.poseceniRestorani = restorani;
+                    console.log(restorani);
                 });
             }
         });
@@ -44,25 +54,33 @@ var WelcomeComponent = (function () {
         var _this = this;
         console.log(restoranId + " , " + gostEmail + " , " + ocena);
         this._welcomeService.postOcenaForRestoran(restoranId, ocena, gostEmail).subscribe(function (response) {
-            for (var _i = 0, _a = _this.poseceniRestorani; _i < _a.length; _i++) {
-                var restoran = _a[_i];
-                if (restoran.restoranId == restoranId) {
-                    var ocena_1 = _this._welcomeService.getOcenaForRestoran(restoranId);
-                    console.log(ocena_1);
-                    restoran.ocena = ocena_1;
-                }
-            }
+            // for (let restoran of this.poseceniRestorani) {
+            //     if (restoran.restoranId == restoranId) {
+            //         let ocena = this._welcomeService.getOcenaForRestoran(restoranId);
+            //         console.log(ocena);
+            //         restoran.ocena = ocena;
+            //     }
+            // }
+            _this._welcomeService.getRestoraniForUser(_this.gostEmail).subscribe(function (restorani) {
+                _this.poseceniRestorani = restorani;
+                console.log(restorani);
+            });
         });
     };
     WelcomeComponent.prototype.getJela = function (restoran) {
         var _this = this;
         console.log(restoran);
+        this.jela = [];
         this._welcomeService.getJelaForRestoran(restoran.restoranId, this.gostEmail).subscribe(function (response) {
             _this.jela = response;
         });
     };
     WelcomeComponent.prototype.rateJelo = function (jelo, ocena) {
+        var _this = this;
         this._welcomeService.oceniJelo(jelo[0], jelo[1], this.gostEmail, ocena).subscribe(function (response) {
+            _this._welcomeService.getJelaForRestoran(jelo[1], _this.gostEmail).subscribe(function (response) {
+                _this.jela = response;
+            });
         });
     };
     WelcomeComponent.prototype.getDatum = function (milli) {

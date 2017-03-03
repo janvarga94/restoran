@@ -25,9 +25,18 @@ var StatService = (function () {
         this._http = _http;
         this._notificator = _notificator;
         this.statsUrl = app_config_1.Config.BackendUrl + '/stat/allStats';
+        this.restoranZaradaUrl = app_config_1.Config.BackendUrl + '/restorani/getZarada';
     }
     StatService.prototype.getAllStats = function (idRestorana) {
         return this._http.get(this.statsUrl + "?id=" + idRestorana)
+            .map(function (response) {
+            var restoraniOcena = response.json();
+            return restoraniOcena;
+        })
+            .catch(this.handleError);
+    };
+    StatService.prototype.getZarada = function (idRestorana, pocetak, kraj) {
+        return this._http.post(this.restoranZaradaUrl + "?id=", { restoranId: idRestorana, pocetak: pocetak, kraj: kraj })
             .map(function (response) {
             var restoraniOcena = response.json();
             return restoraniOcena;

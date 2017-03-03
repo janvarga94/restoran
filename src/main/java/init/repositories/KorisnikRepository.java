@@ -111,4 +111,26 @@ public class KorisnikRepository implements  CrudRepository<KorisnikRepo, String>
     public boolean exists(String primaryKey) {
         return false;
     }
+
+    public KorisnikRepo findPonudjac(String email){
+        org.hibernate.Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        PonudjacEntity ponudjac = session.get(PonudjacEntity.class,email);
+
+        session.close();
+
+        if(ponudjac == null)
+            return null;
+
+        KorisnikRepo k = new KorisnikRepo();
+        k.email = email;
+        k.aktiviran = true;
+        k.ime = ponudjac.getNaziv();
+        k.prezime = "";
+        k.password = ponudjac.getLozinka();
+        k.setUloga(Uloga.PONUDJAC);
+
+        return k;
+    }
 }

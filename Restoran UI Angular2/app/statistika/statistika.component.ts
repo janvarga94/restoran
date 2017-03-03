@@ -28,12 +28,15 @@ export class StatistikaComponent implements OnInit{
 
     ngOnInit(): void {
         this._loginService.ulogovan.subscribe(ulogovan => {
-            if(ulogovan!= null)  this.emailMenazderaRestorana = ulogovan.email;
+            if(ulogovan!= null) {
+                this.emailMenazderaRestorana = ulogovan.email;
+                this._restoranService.getOcenaRestorana(this.emailMenazderaRestorana).subscribe(ocena => {
+                    if (ocena != null) this.ocenaRestorana = ocena;
+                });
+            }
         });
 
-        this._restoranService.getOcenaRestorana('Wilkinson1@nowhere.com').subscribe(ocena => {
-            if (ocena != null) this.ocenaRestorana = ocena;
-        });
+
 
         console.log(this.ocenaRestorana);
     }

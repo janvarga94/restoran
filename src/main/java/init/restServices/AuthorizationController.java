@@ -44,16 +44,32 @@ public class AuthorizationController {
             return null;
         KorisnikRepo korisnik = repository.findOne(acc.email);
 
-        if( korisnik == null || korisnik.email == null || korisnik.password == null || !korisnik.aktiviran)
-            return  null;
+        if( korisnik != null)
+        {
+            if(korisnik.getUloga() == KorisnikRepo.Uloga.GOST && !korisnik.aktiviran)
+                return null;
+            if (korisnik.password.equals(acc.password)) {
+                LoginKorisnikResponseDto loginKorisnikResponseDto = new LoginKorisnikResponseDto();
+                loginKorisnikResponseDto.email = korisnik.email;
+                loginKorisnikResponseDto.ime = korisnik.ime;
+                loginKorisnikResponseDto.prezime = korisnik.prezime;
+                loginKorisnikResponseDto.uloga = korisnik.uloga;
+                loginKorisnikResponseDto.Euloga = korisnik.Euloga;
 
-        if( korisnik.password.equals(acc.password)){
+                httpSession.setAttribute("korisnik", loginKorisnikResponseDto);
+
+                return loginKorisnikResponseDto;
+            }
+        }
+        //proverimo ako je ponudjac
+        KorisnikRepo kor = repository.findPonudjac(acc.email);
+        if(kor != null){
             LoginKorisnikResponseDto loginKorisnikResponseDto = new LoginKorisnikResponseDto();
-            loginKorisnikResponseDto.email = korisnik.email;
-            loginKorisnikResponseDto.ime = korisnik.ime;
-            loginKorisnikResponseDto.prezime = korisnik.prezime;
-            loginKorisnikResponseDto.uloga = korisnik.uloga;
-            loginKorisnikResponseDto.Euloga = korisnik.Euloga;
+            loginKorisnikResponseDto.email = kor.email;
+            loginKorisnikResponseDto.ime = kor.ime;
+            loginKorisnikResponseDto.prezime = kor.prezime;
+            loginKorisnikResponseDto.uloga = kor.uloga;
+            loginKorisnikResponseDto.Euloga = kor.Euloga;
 
             httpSession.setAttribute("korisnik", loginKorisnikResponseDto);
 

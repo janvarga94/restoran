@@ -17,7 +17,7 @@ var StatsRestoranaComponent = (function () {
         this._statsService = _statsService;
         this._router = _router;
         this._activeRoute = _activeRoute;
-        this.restoran = 'TODO';
+        this.zaradaUkupno = 0;
     }
     StatsRestoranaComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -27,6 +27,8 @@ var StatsRestoranaComponent = (function () {
                 console.log(stats);
                 var poDanuY = stats.poDanu.map(function (x) { return x.zbir; });
                 var poDanuX = stats.poDanu.map(function (x) { return new Date(x.vreme).toISOString(); });
+                var poNedeljiY = stats.poNedelji.map(function (x) { return x.zbir; });
+                var poNedeljiX = stats.poNedelji.map(function (x) { return x.vreme; });
                 c3.generate({
                     bindto: '#chart',
                     data: {
@@ -47,6 +49,26 @@ var StatsRestoranaComponent = (function () {
                         }
                     }
                 });
+                c3.generate({
+                    bindto: '#chart2',
+                    data: {
+                        x: 'x',
+                        columns: [
+                            ['x'].concat(poNedeljiX),
+                            ['posete po nedelji'].concat(poNedeljiY)
+                        ],
+                        type: 'line'
+                    },
+                });
+            });
+        });
+    };
+    StatsRestoranaComponent.prototype.zarada = function () {
+        var _this = this;
+        this._activeRoute.params.subscribe(function (params) {
+            var idRestorana = params['idRestorana'];
+            _this._statsService.getZarada(idRestorana, new Date().getTime(), new Date().getTime()).subscribe(function (suma) {
+                _this.zaradaUkupno = suma.toFixed(2);
             });
         });
     };

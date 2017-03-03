@@ -18,8 +18,19 @@ import {ZaposleniDetailService} from "../services/zaposleniDetail.service";
 
 export class MMRPComponent implements OnInit {
 
-    ngOnInit(): void {
+    email : string;
+    idRestorana : any;
 
+    ngOnInit(): void {
+        this._loginService.ulogovan.subscribe(ulogovan => {
+           if(ulogovan) {
+               this.email = ulogovan.email;
+               this._zaposleniService.getRestoran(ulogovan.email).subscribe(restoran => {
+                   this.idRestorana = restoran;
+               });
+           }
+
+        });
     }
 
     constructor(private _notificator : Notificator, private route: ActivatedRoute, private _loginService : LoginService, private _router: Router,private _restoranService : RestoranService, private _zaposleniService : ZaposleniService, private _zaposleniDetailService : ZaposleniDetailService ){
